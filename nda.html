@@ -16,25 +16,6 @@
   .v-logo{text-align:center;margin-bottom:16px}
   .v-logo img{max-height:66px;max-width:230px;object-fit:contain}
   input[type=file]{font-size:12.5px;color:var(--ink-soft);background:var(--card);border:1px solid var(--line);border-radius:7px;padding:8px;width:100%}
-  .lead-modal{position:fixed;inset:0;background:rgba(26,26,23,.55);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;z-index:200;padding:20px}
-  .lead-modal.open{display:flex}
-  .lead-card{background:var(--card);border:1px solid var(--line);border-radius:16px;max-width:560px;width:100%;max-height:92vh;overflow-y:auto;padding:30px 30px 24px;position:relative;box-shadow:0 30px 70px -20px rgba(0,0,0,.5)}
-  .lead-card h3{font-family:'Fraunces',serif;font-weight:600;font-size:22px;color:var(--green);margin-bottom:5px}
-  .lead-sub{font-size:13px;color:var(--ink-soft);margin-bottom:18px;line-height:1.5}
-  .lead-x{position:absolute;top:12px;right:15px;background:none;border:none;font-size:26px;line-height:1;color:var(--ink-soft);cursor:pointer}
-  .lead-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-  .lead-grid>div label{display:block;font-size:12px;font-weight:600;color:var(--ink-soft);margin-bottom:5px}
-  .lead-grid input{width:100%;font-family:'Hanken Grotesk',sans-serif;font-size:14px;background:#fff;border:1px solid var(--line);border-radius:7px;padding:9px 11px}
-  .lead-grid input:disabled{background:var(--paper-2);color:#999}
-  .lead-check{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink);margin-bottom:14px;cursor:pointer}
-  .lead-check input{width:16px;height:16px;accent-color:var(--green)}
-  .lead-consent{background:rgba(31,61,48,.06);border:1px solid var(--line);border-radius:10px;padding:13px 15px;margin-bottom:14px}
-  .lead-consent p{font-size:13px;font-weight:500;color:var(--ink);line-height:1.5;margin-bottom:9px}
-  .lead-consent label{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:500;color:var(--ink-soft);margin-bottom:5px;cursor:pointer}
-  .lead-consent input{accent-color:var(--green)}
-  .lead-err{display:none;color:var(--oxblood);font-size:12.5px;font-weight:600;margin-bottom:10px}
-  .lead-actions{display:flex;gap:10px;justify-content:flex-end}
-  .lead-priv{font-size:11px;color:var(--ink-soft);margin-top:12px;line-height:1.4}
   html,body{height:100%}
   body{font-family:'Hanken Grotesk',sans-serif;background:var(--paper);color:var(--ink);
     background-image:radial-gradient(circle at 12% 8%,rgba(31,61,48,.05),transparent 40%),radial-gradient(circle at 88% 92%,rgba(122,46,38,.04),transparent 42%);
@@ -129,10 +110,17 @@
 .doc-logo img{max-height:54px;max-width:200px;object-fit:contain}
 @media print{.doc-logo img{max-height:60px}}
 
+
+/* Back-to-home link */
+.back-home{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--ink-soft);text-decoration:none;margin-bottom:12px;letter-spacing:.02em;transition:color .15s}
+.back-home::before{content:"\2190";font-size:14px;line-height:1}
+.back-home:hover{color:var(--green)}
+
 </style>
 </head>
 <body>
 <header>
+  <a href="/" class="back-home">Back to Verbatra</a>
   <div class="brand">
     <div class="mark">Agreement&nbsp;<span>Forge</span></div>
     <div class="tag">NDA Builder · 8 Jurisdictions</div>
@@ -207,33 +195,6 @@
   </section>
 </div>
 
-<div class="lead-modal" id="leadModal">
-  <div class="lead-card">
-    <button class="lead-x" id="leadClose">&times;</button>
-    <h3>One step before your download</h3>
-    <p class="lead-sub">Tell us where to send it and a little about you — your document downloads right after.</p>
-    <div class="lead-grid">
-      <div><label>Full name *</label><input type="text" id="ldName"></div>
-      <div><label>Email *</label><input type="email" id="ldEmail"></div>
-      <div><label>Phone *</label><input type="text" id="ldPhone"></div>
-      <div><label>Designation *</label><input type="text" id="ldDesig"></div>
-      <div><label>Business / organisation name *</label><input type="text" id="ldOrg"></div>
-      <div><label>Industry type *</label><input type="text" id="ldInd"></div>
-    </div>
-    <label class="lead-check"><input type="checkbox" id="ldPersonal"> This is for personal use (no organisation)</label>
-    <div class="lead-consent">
-      <p>May our team contact you by email, phone or WhatsApp to help protect your business and run your in-house legal operations — tailored to you, at a fraction of the cost of an in-house legal team?</p>
-      <label><input type="radio" name="ldConsent" value="Yes" checked> Yes, please reach out</label>
-      <label><input type="radio" name="ldConsent" value="No"> No, thanks</label>
-    </div>
-    <div class="lead-err" id="leadErr">Please complete all required (*) fields.</div>
-    <div class="lead-actions">
-      <button class="btn ghost" id="leadCancel">Cancel</button>
-      <button class="btn" id="leadSubmit">Get my document →</button>
-    </div>
-    <p class="lead-priv">By continuing you agree we may store these details to contact you about Verbatra. See our privacy policy.</p>
-  </div>
-</div>
 <script>
 /* ---------------- Jurisdictions ---------------- */
 const JUR = {
@@ -401,13 +362,6 @@ jurSel.addEventListener("change",e=>{S.jur=e.target.value;render();});
 ["p1Name","p1Type","p1Country","p1Addr","p2Name","p2Type","p2Country","p2Addr","effDate","purpose","confYears"].forEach(id=>$(id).addEventListener("input",render));
 
 /* ---------------- Actions ---------------- */
-function plainText(){
-  const tmp=document.createElement("div");tmp.innerHTML=$("doc").innerHTML;
-  tmp.querySelectorAll("h1,h3,p,.sub,.stamp-note,.block").forEach(el=>el.append("\n"));
-  return tmp.textContent.replace(/\n{3,}/g,"\n\n").trim();
-}
-.addEventListener("click",()=>navigator.clipboard.writeText(plainText()).then(()=>{const m=$("copiedMsg");m.classList.add("show");setTimeout(()=>m.classList.remove("show"),1600);}));
-.addEventListener("click",()=>{const blob=new Blob([plainText()],{type:"text/plain"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="NDA_"+JUR[S.jur].label.replace(/[^a-z]/gi,"")+".txt";a.click();URL.revokeObjectURL(a.href);});
 function exportWord(){
   var styles="@page{size:A4;margin:2.2cm}"
    +"body{font-family:'Cambria',Georgia,serif;font-size:11.5pt;line-height:1.5;color:#000}"
@@ -485,32 +439,6 @@ function exportWord(){
   a.download="NDA_"+JUR[S.jur].label.replace(/[^a-z]/gi,"")+".doc";
   a.click();URL.revokeObjectURL(a.href);
 }
-.addEventListener("click",exportWord);
-/* ---- Phase 1: logo + lead-capture export gate ---- */
-var VLOGO=null;
-var LEAD_ENDPOINT=""; /* <-- paste your Google Apps Script Web App URL here to collect leads */
-var pendingExport=null;
-function applyLogo(){ if(!VLOGO)return; var d=$("doc"); if(!d)return; var w=document.createElement("div"); w.className="v-logo"; var im=document.createElement("img"); im.src=VLOGO; w.appendChild(im); d.insertBefore(w,d.firstChild); }
-(function(){ var lu=$("logoUp"); if(lu){ lu.addEventListener("change",function(e){ var f=e.target.files[0]; if(!f){VLOGO=null;render();return;} if(f.size>2*1024*1024){alert("Please use an image under 2 MB.");lu.value="";return;} var r=new FileReader(); r.onload=function(){VLOGO=r.result;render();}; r.readAsDataURL(f); }); } })();
-function doExport(kind){ if(kind==="word")exportWord(); else window.print(); }
-function requestExport(kind){ pendingExport=kind; $("leadErr").style.display="none"; $("leadModal").classList.add("open"); }
-function closeLead(){ $("leadModal").classList.remove("open"); }
-$("wordBtn").addEventListener("click",function(){requestExport("word");});
-$("printBtn").addEventListener("click",function(){requestExport("pdf");});
-$("leadClose").addEventListener("click",closeLead);
-$("leadCancel").addEventListener("click",closeLead);
-$("ldPersonal").addEventListener("change",function(e){ $("ldOrg").disabled=e.target.checked; if(e.target.checked)$("ldOrg").value=""; });
-$("leadSubmit").addEventListener("click",function(){
-  var name=$("ldName").value.trim(),email=$("ldEmail").value.trim(),phone=$("ldPhone").value.trim(),
-      org=$("ldOrg").value.trim(),desig=$("ldDesig").value.trim(),ind=$("ldInd").value.trim(),
-      personal=$("ldPersonal").checked,
-      consent=(document.querySelector('input[name=ldConsent]:checked')||{}).value||"";
-  if(!name||!email||!phone||!desig||!ind||(!org&&!personal)){ $("leadErr").style.display="block"; return; }
-  var lead={name:name,email:email,phone:phone,organisation:personal?"Personal use":org,designation:desig,industry:ind,consent:consent,tool:document.title,ts:new Date().toISOString()};
-  if(LEAD_ENDPOINT){ try{ fetch(LEAD_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(lead)}); }catch(e){} }
-  closeLead();
-  setTimeout(function(){ doExport(pendingExport); },150);
-});
 
 /* ---------------- Init ---------------- */
 (function init(){$("effDate").value=new Date().toISOString().slice(0,10);onChange();})();
