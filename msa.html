@@ -13,6 +13,28 @@
     --green:#1f3d30;--green-2:#2c5443;--oxblood:#7a2e26;--line:#d8cfbc;--line-soft:#e4ddcc;--gold:#a8843f;
   }
   *{box-sizing:border-box;margin:0;padding:0}
+  .v-logo{text-align:center;margin-bottom:16px}
+  .v-logo img{max-height:66px;max-width:230px;object-fit:contain}
+  input[type=file]{font-size:12.5px;color:var(--ink-soft);background:var(--card);border:1px solid var(--line);border-radius:7px;padding:8px;width:100%}
+  .lead-modal{position:fixed;inset:0;background:rgba(26,26,23,.55);backdrop-filter:blur(3px);display:none;align-items:center;justify-content:center;z-index:200;padding:20px}
+  .lead-modal.open{display:flex}
+  .lead-card{background:var(--card);border:1px solid var(--line);border-radius:16px;max-width:560px;width:100%;max-height:92vh;overflow-y:auto;padding:30px 30px 24px;position:relative;box-shadow:0 30px 70px -20px rgba(0,0,0,.5)}
+  .lead-card h3{font-family:'Fraunces',serif;font-weight:600;font-size:22px;color:var(--green);margin-bottom:5px}
+  .lead-sub{font-size:13px;color:var(--ink-soft);margin-bottom:18px;line-height:1.5}
+  .lead-x{position:absolute;top:12px;right:15px;background:none;border:none;font-size:26px;line-height:1;color:var(--ink-soft);cursor:pointer}
+  .lead-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+  .lead-grid>div label{display:block;font-size:12px;font-weight:600;color:var(--ink-soft);margin-bottom:5px}
+  .lead-grid input{width:100%;font-family:'Hanken Grotesk',sans-serif;font-size:14px;background:#fff;border:1px solid var(--line);border-radius:7px;padding:9px 11px}
+  .lead-grid input:disabled{background:var(--paper-2);color:#999}
+  .lead-check{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink);margin-bottom:14px;cursor:pointer}
+  .lead-check input{width:16px;height:16px;accent-color:var(--green)}
+  .lead-consent{background:rgba(31,61,48,.06);border:1px solid var(--line);border-radius:10px;padding:13px 15px;margin-bottom:14px}
+  .lead-consent p{font-size:13px;font-weight:500;color:var(--ink);line-height:1.5;margin-bottom:9px}
+  .lead-consent label{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:500;color:var(--ink-soft);margin-bottom:5px;cursor:pointer}
+  .lead-consent input{accent-color:var(--green)}
+  .lead-err{display:none;color:var(--oxblood);font-size:12.5px;font-weight:600;margin-bottom:10px}
+  .lead-actions{display:flex;gap:10px;justify-content:flex-end}
+  .lead-priv{font-size:11px;color:var(--ink-soft);margin-top:12px;line-height:1.4}
   html,body{height:100%}
   body{
     font-family:'Hanken Grotesk',sans-serif;background:var(--paper);color:var(--ink);
@@ -90,6 +112,39 @@
     body{background:#fff}.wrap{display:block}.preview-panel{background:#fff;padding:0}
     .doc{box-shadow:none;border:none;max-width:100%;padding:0;font-size:11.5pt}
   }
+
+/* ---------- Lead modal & logo upload ---------- */
+.modal{position:fixed;inset:0;display:none;z-index:200;align-items:center;justify-content:center;padding:20px}
+.modal.show{display:flex}
+.modal-bg{position:absolute;inset:0;background:rgba(26,26,23,.55);backdrop-filter:blur(6px)}
+.modal-card{position:relative;width:100%;max-width:560px;max-height:92vh;overflow-y:auto;background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:0 30px 80px -20px rgba(26,26,23,.55);padding:34px 36px 28px}
+.modal-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;color:var(--ink-soft);cursor:pointer;line-height:1;width:28px;height:28px;border-radius:8px}
+.modal-close:hover{background:var(--card);color:var(--ink)}
+.modal-eyebrow{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--oxblood);margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.modal-eyebrow::before{content:"";width:24px;height:1px;background:var(--gold)}
+.modal-h{font-family:'Fraunces',serif;font-weight:500;font-size:24px;color:var(--ink);letter-spacing:-.01em;margin-bottom:8px}
+.modal-lede{font-size:13.5px;color:var(--ink-soft);line-height:1.55;margin-bottom:18px;max-width:46ch}
+.modal-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:11px}
+.modal-field label{display:block;font-size:11.5px;font-weight:600;color:var(--ink-soft);margin-bottom:4px;letter-spacing:.02em}
+.modal-field input,.modal-field select{width:100%;font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:7px;padding:9px 11px}
+.modal-field input:focus,.modal-field select:focus{outline:none;border-color:var(--green-2);box-shadow:0 0 0 3px rgba(31,61,48,.1)}
+.modal-consent{margin:14px 0 4px;padding:14px 16px;background:rgba(31,61,48,.05);border:1px solid rgba(31,61,48,.13);border-radius:10px}
+.modal-consent label{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;color:var(--ink);line-height:1.5;margin-bottom:10px;cursor:pointer}
+.modal-consent label:last-child{margin-bottom:0}
+.modal-consent input{margin-top:3px;width:15px;height:15px;accent-color:var(--green);flex:none}
+.modal-consent b{color:var(--green)}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+.modal-fine{font-size:11px;color:var(--ink-soft);text-align:center;margin-top:14px;line-height:1.5}
+.modal-fine a{color:var(--green)}
+.modal-err{background:rgba(122,46,38,.08);border:1px solid rgba(122,46,38,.2);color:var(--oxblood);font-size:12.5px;padding:9px 13px;border-radius:7px;margin-bottom:10px;display:none}
+.modal-err.show{display:block}
+@media (max-width:560px){.modal-card{padding:26px 22px 22px}.modal-row{grid-template-columns:1fr}}
+
+/* logo inside the document */
+.doc-logo{display:flex;justify-content:flex-end;margin-bottom:14px}
+.doc-logo img{max-height:54px;max-width:200px;object-fit:contain}
+@media print{.doc-logo img{max-height:60px}}
+
 </style>
 </head>
 <body>
@@ -107,6 +162,8 @@
 <div class="wrap">
   <!-- ===== FORM ===== -->
   <section class="panel form-panel">
+    <h2 class="sec">Branding</h2>
+    <div class="field"><label>Your company logo (optional)</label><input type="file" id="logoUp" accept="image/*"><div class="hint">Appears at the top of the agreement. Stays on your device — it is never uploaded.</div></div>
     <h2 class="sec">Industry &amp; Jurisdiction</h2>
     <div class="field">
       <label>Industry / sector</label>
@@ -186,17 +243,44 @@
 
   <!-- ===== PREVIEW ===== -->
   <section class="panel preview-panel">
-    <div class="preview-tools">
-      <button class="btn" id="copyBtn">Copy text</button>
-      <button class="btn ghost" id="dlBtn">Download .txt</button>
-      <button class="btn ghost" id="wordBtn">Download Word</button>
-      <button class="btn ghost" id="printBtn">Print / Save PDF</button>
-      <span class="copied" id="copiedMsg">Copied ✓</span>
+        <div class="preview-tools">
+      <button class="btn" id="wordBtn">Download Word</button>
+      <button class="btn ghost" id="printBtn">Save as PDF</button>
+      <label class="btn ghost" for="logoFile" style="display:inline-flex;align-items:center;cursor:pointer">Upload company logo</label>
+      <input type="file" id="logoFile" accept="image/png,image/jpeg,image/svg+xml" hidden />
+      <button class="btn ghost" id="logoClearBtn" style="display:none">Remove logo</button>
     </div>
     <div class="doc" id="doc"></div>
   </section>
 </div>
 
+<div class="lead-modal" id="leadModal">
+  <div class="lead-card">
+    <button class="lead-x" id="leadClose">&times;</button>
+    <h3>One step before your download</h3>
+    <p class="lead-sub">Tell us where to send it and a little about you — your document downloads right after.</p>
+    <div class="lead-grid">
+      <div><label>Full name *</label><input type="text" id="ldName"></div>
+      <div><label>Email *</label><input type="email" id="ldEmail"></div>
+      <div><label>Phone *</label><input type="text" id="ldPhone"></div>
+      <div><label>Designation *</label><input type="text" id="ldDesig"></div>
+      <div><label>Business / organisation name *</label><input type="text" id="ldOrg"></div>
+      <div><label>Industry type *</label><input type="text" id="ldInd"></div>
+    </div>
+    <label class="lead-check"><input type="checkbox" id="ldPersonal"> This is for personal use (no organisation)</label>
+    <div class="lead-consent">
+      <p>May our team contact you by email, phone or WhatsApp to help protect your business and run your in-house legal operations — tailored to you, at a fraction of the cost of an in-house legal team?</p>
+      <label><input type="radio" name="ldConsent" value="Yes" checked> Yes, please reach out</label>
+      <label><input type="radio" name="ldConsent" value="No"> No, thanks</label>
+    </div>
+    <div class="lead-err" id="leadErr">Please complete all required (*) fields.</div>
+    <div class="lead-actions">
+      <button class="btn ghost" id="leadCancel">Cancel</button>
+      <button class="btn" id="leadSubmit">Get my document →</button>
+    </div>
+    <p class="lead-priv">By continuing you agree we may store these details to contact you about Verbatra. See our privacy policy.</p>
+  </div>
+</div>
 <script>
 /* ===================== JURISDICTIONS ===================== */
 const JUR = {
@@ -530,7 +614,7 @@ function render(){
   $("drHint").textContent = S.dr==="courts"
     ? "Exclusive jurisdiction of the chosen courts."
     : j.arb.split(",").slice(0,2).join(", ")+"…";
-  $("doc").innerHTML=build();
+  $("doc").innerHTML=build();applyLogo();
 }
 
 /* ===================== WIRING ===================== */
@@ -556,9 +640,9 @@ function plainText(){
   tmp.querySelectorAll("h1,h2,h3,p,.sub,.stamp-note,.block").forEach(el=>el.append("\n"));
   return tmp.textContent.replace(/\n{3,}/g,"\n\n").trim();
 }
-$("copyBtn").addEventListener("click",()=>navigator.clipboard.writeText(plainText()).then(()=>{
+.addEventListener("click",()=>navigator.clipboard.writeText(plainText()).then(()=>{
   const m=$("copiedMsg");m.classList.add("show");setTimeout(()=>m.classList.remove("show"),1600);}));
-$("dlBtn").addEventListener("click",()=>{
+.addEventListener("click",()=>{
   const blob=new Blob([plainText()],{type:"text/plain"});const a=document.createElement("a");
   a.href=URL.createObjectURL(blob);a.download="MSA_"+IND[S.ind].label.split(" ")[0]+"_"+JUR[S.jur].code+".txt";
   a.click();URL.revokeObjectURL(a.href);});
@@ -576,17 +660,173 @@ function exportWord(){
   var html="<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>"
    +"<head><meta charset='utf-8'><title>MSA</title>"
    +"<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml><![endif]-->"
-   +"<style>"+styles+"</style></head><body>"+$("doc").innerHTML+"</body></html>";
+   +"<style>"+styles+"</style></head><body>"+$("doc").innerHTML+"
+<!-- Lead-capture modal -->
+<div class="modal" id="leadModal" role="dialog" aria-modal="true" aria-labelledby="leadH">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-card">
+    <button class="modal-close" id="leadClose" aria-label="Close">&times;</button>
+    <div class="modal-eyebrow">One last step</div>
+    <h2 class="modal-h" id="leadH">Before you download</h2>
+    <p class="modal-lede">Tell us a little about you. We use this to keep improving Verbatra &mdash; and, if you allow it below, to reach out about helping you run your in-house legal operations.</p>
+    <div class="modal-err" id="leadErr">Please complete the required fields.</div>
+    <form id="leadForm" novalidate>
+      <div class="modal-row">
+        <div class="modal-field"><label>Full name *</label><input type="text" name="name" required></div>
+        <div class="modal-field"><label>Email *</label><input type="email" name="email" required></div>
+      </div>
+      <div class="modal-row">
+        <div class="modal-field"><label>Phone (with code) *</label><input type="tel" name="phone" required placeholder="+91 ..."></div>
+        <div class="modal-field"><label>Designation *</label><input type="text" name="designation" required placeholder="e.g. Founder, GC, Procurement"></div>
+      </div>
+      <div class="modal-row">
+        <div class="modal-field"><label>Organisation (or &lsquo;Personal&rsquo;) *</label><input type="text" name="org" required></div>
+        <div class="modal-field"><label>Industry *</label>
+          <select name="industry" required>
+            <option value="">Choose&hellip;</option>
+            <option>Information Technology &amp; Software</option>
+            <option>SaaS / Cloud</option>
+            <option>Professional Services / Consulting</option>
+            <option>Marketing / Advertising / Creative</option>
+            <option>Construction &amp; Engineering</option>
+            <option>Manufacturing &amp; Supply</option>
+            <option>Healthcare &amp; Life Sciences</option>
+            <option>Financial Services / Fintech</option>
+            <option>Logistics &amp; Transportation</option>
+            <option>Telecommunications</option>
+            <option>Media &amp; Entertainment</option>
+            <option>Education / EdTech</option>
+            <option>Real Estate &amp; Facilities</option>
+            <option>Energy &amp; Utilities</option>
+            <option>Retail / E-commerce</option>
+            <option>Hospitality &amp; Travel</option>
+            <option>Legal / Compliance</option>
+            <option>Staffing / HR</option>
+            <option>Personal / Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-consent">
+        <label><input type="checkbox" name="contactOk" value="yes"> May we reach out by email, phone or WhatsApp about <b>Verbatra for your business</b>? We help small &amp; mid-sized companies run their legal operations on a subscription &mdash; a tailored, affordable alternative to a full in-house legal team.</label>
+        <label><input type="checkbox" name="dpConsent" required> I consent to Verbatra processing my details for this purpose. *</label>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn ghost" id="leadCancel">Cancel</button>
+        <button type="submit" class="btn" id="leadSubmit">Continue &amp; download</button>
+      </div>
+      <div class="modal-fine">Your details are not shared with anyone outside Verbatra.</div>
+    </form>
+  </div>
+</div>
+
+</body></html>";
   var blob=new Blob(['\ufeff'+html],{type:'application/msword'});
   var a=document.createElement("a");a.href=URL.createObjectURL(blob);
   a.download="MSA_"+IND[S.ind].label.split(" ")[0]+"_"+JUR[S.jur].code+".doc";
   a.click();URL.revokeObjectURL(a.href);
 }
-$("wordBtn").addEventListener("click",exportWord);
-$("printBtn").addEventListener("click",()=>window.print());
+.addEventListener("click",exportWord);
+/* ---- Phase 1: logo + lead-capture export gate ---- */
+var VLOGO=null;
+var LEAD_ENDPOINT=""; /* <-- paste your Google Apps Script Web App URL here to collect leads */
+var pendingExport=null;
+function applyLogo(){ if(!VLOGO)return; var d=$("doc"); if(!d)return; var w=document.createElement("div"); w.className="v-logo"; var im=document.createElement("img"); im.src=VLOGO; w.appendChild(im); d.insertBefore(w,d.firstChild); }
+(function(){ var lu=$("logoUp"); if(lu){ lu.addEventListener("change",function(e){ var f=e.target.files[0]; if(!f){VLOGO=null;render();return;} if(f.size>2*1024*1024){alert("Please use an image under 2 MB.");lu.value="";return;} var r=new FileReader(); r.onload=function(){VLOGO=r.result;render();}; r.readAsDataURL(f); }); } })();
+function doExport(kind){ if(kind==="word")exportWord(); else window.print(); }
+function requestExport(kind){ pendingExport=kind; $("leadErr").style.display="none"; $("leadModal").classList.add("open"); }
+function closeLead(){ $("leadModal").classList.remove("open"); }
+$("wordBtn").addEventListener("click",function(){requestExport("word");});
+$("printBtn").addEventListener("click",function(){requestExport("pdf");});
+$("leadClose").addEventListener("click",closeLead);
+$("leadCancel").addEventListener("click",closeLead);
+$("ldPersonal").addEventListener("change",function(e){ $("ldOrg").disabled=e.target.checked; if(e.target.checked)$("ldOrg").value=""; });
+$("leadSubmit").addEventListener("click",function(){
+  var name=$("ldName").value.trim(),email=$("ldEmail").value.trim(),phone=$("ldPhone").value.trim(),
+      org=$("ldOrg").value.trim(),desig=$("ldDesig").value.trim(),ind=$("ldInd").value.trim(),
+      personal=$("ldPersonal").checked,
+      consent=(document.querySelector('input[name=ldConsent]:checked')||{}).value||"";
+  if(!name||!email||!phone||!desig||!ind||(!org&&!personal)){ $("leadErr").style.display="block"; return; }
+  var lead={name:name,email:email,phone:phone,organisation:personal?"Personal use":org,designation:desig,industry:ind,consent:consent,tool:document.title,ts:new Date().toISOString()};
+  if(LEAD_ENDPOINT){ try{ fetch(LEAD_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(lead)}); }catch(e){} }
+  closeLead();
+  setTimeout(function(){ doExport(pendingExport); },150);
+});
 
 /* ===================== INIT ===================== */
 (function init(){$("effDate").value=new Date().toISOString().slice(0,10);render();})();
+
+
+/* =================== PHASE 1: Logo + Lead Modal =================== */
+const LEAD_ENDPOINT = "YOUR_GOOGLE_SHEET_URL_HERE"; // <-- paste Google Apps Script web-app URL here
+let pendingExport = null;
+
+/* logo upload + injection */
+S.logoDataUrl = null;
+$("logoFile").addEventListener("change", e=>{
+  const f = e.target.files && e.target.files[0]; if(!f) return;
+  if(f.size > 2*1024*1024){ alert("Logo must be under 2 MB"); return; }
+  const r = new FileReader();
+  r.onload = ev => { S.logoDataUrl = ev.target.result; $("logoClearBtn").style.display="inline-flex"; render(); };
+  r.readAsDataURL(f);
+});
+$("logoClearBtn").addEventListener("click", ()=>{
+  S.logoDataUrl=null; $("logoFile").value=""; $("logoClearBtn").style.display="none"; render();
+});
+/* hook the document with logo after each render */
+const __origRender = render;
+render = function(){
+  __origRender();
+  if(S.logoDataUrl){
+    const d = document.getElementById("doc");
+    d.innerHTML = '<div class="doc-logo"><img src="'+S.logoDataUrl+'" alt="logo"></div>' + d.innerHTML;
+  }
+};
+render();
+
+/* lead modal logic */
+const leadModal=$("leadModal"), leadForm=$("leadForm"), leadErr=$("leadErr");
+function openLead(which){
+  pendingExport = which;
+  leadErr.classList.remove("show");
+  leadModal.classList.add("show");
+  document.body.style.overflow="hidden";
+}
+function closeLead(){ leadModal.classList.remove("show"); document.body.style.overflow=""; pendingExport=null; }
+$("leadClose").addEventListener("click",closeLead);
+$("leadCancel").addEventListener("click",closeLead);
+leadModal.querySelector(".modal-bg").addEventListener("click",closeLead);
+document.addEventListener("keydown",e=>{ if(e.key==="Escape" && leadModal.classList.contains("show")) closeLead(); });
+
+leadForm.addEventListener("submit", async e=>{
+  e.preventDefault();
+  const fd = new FormData(leadForm);
+  /* basic validation */
+  const required = ["name","email","phone","designation","org","industry","dpConsent"];
+  for(const k of required){ if(!fd.get(k)){ leadErr.textContent="Please complete the required fields."; leadErr.classList.add("show"); return; } }
+  const email = fd.get("email"); if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ leadErr.textContent="Please enter a valid email."; leadErr.classList.add("show"); return; }
+  leadErr.classList.remove("show");
+  /* attach context */
+  fd.append("tool", document.title);
+  fd.append("ts", new Date().toISOString());
+  /* send (fire and forget; we don't gate on response so a broken endpoint won't block users) */
+  if(LEAD_ENDPOINT && LEAD_ENDPOINT.indexOf("YOUR_")!==0){
+    try{ await fetch(LEAD_ENDPOINT,{method:"POST",mode:"no-cors",body:fd}); }catch(err){ /* swallow */ }
+  } else { try{ console.log("[Verbatra] lead captured (no endpoint set):", Object.fromEntries(fd)); }catch(e){} }
+  /* proceed with export */
+  const which = pendingExport;
+  closeLead();
+  if(which==="word") exportWord();
+  else if(which==="pdf") window.print();
+});
+
+/* Intercept the export buttons */
+const wordBtn = document.getElementById("wordBtn");
+const printBtn = document.getElementById("printBtn");
+const newWord = wordBtn.cloneNode(true); wordBtn.parentNode.replaceChild(newWord, wordBtn);
+const newPrint = printBtn.cloneNode(true); printBtn.parentNode.replaceChild(newPrint, printBtn);
+newWord.addEventListener("click", ()=>openLead("word"));
+newPrint.addEventListener("click", ()=>openLead("pdf"));
+
 </script>
 </body>
 </html>

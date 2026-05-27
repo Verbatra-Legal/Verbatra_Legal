@@ -127,9 +127,32 @@
     .how-grid{grid-template-columns:1fr;gap:28px}
     .hero{padding:60px 7vw 50px}
   }
+
+/* launch countdown banner */
+.launch-banner{background:linear-gradient(90deg,var(--green) 0%,var(--green-2) 100%);color:var(--paper);padding:11px 7vw;display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;font-size:13.5px;font-weight:500;letter-spacing:.01em;border-bottom:1px solid rgba(255,255,255,.08);position:relative;z-index:21}
+.launch-banner b{font-weight:700;color:#fff}
+.launch-banner .pill{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.launch-banner .countdown{display:inline-flex;gap:5px;font-family:'Fraunces',serif;font-weight:600;font-size:14.5px}
+.launch-banner .countdown b{background:rgba(0,0,0,.18);padding:2px 8px;border-radius:6px;min-width:30px;text-align:center;display:inline-block}
+.launch-banner .countdown small{opacity:.7;font-family:'Hanken Grotesk',sans-serif;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-right:4px}
+@media (max-width:640px){.launch-banner{font-size:12.5px;padding:9px 5vw}.launch-banner .countdown{font-size:13px}}
+
 </style>
 </head>
 <body>
+
+<div class="launch-banner">
+  <span class="pill">Launch offer</span>
+  <span>Complimentary access ends in</span>
+  <span class="countdown" id="cd">
+    <span><b id="cdD">--</b><small>d</small></span>
+    <span><b id="cdH">--</b><small>h</small></span>
+    <span><b id="cdM">--</b><small>m</small></span>
+    <span><b id="cdS">--</b><small>s</small></span>
+  </span>
+  <span>&mdash; Verbatra moves to a subscription thereafter.</span>
+</div>
+
 <nav>
   <a href="#top" class="logo">Verbatra<span class="dot">.</span></a>
   <div class="nav-links">
@@ -230,6 +253,23 @@
     <div class="copy">&copy; <span id="yr"></span> Verbatra. Legal-document tools. Not a substitute for legal advice.</div>
   </div>
 </footer>
-<script>document.getElementById("yr").textContent=new Date().getFullYear();</script>
+<script>document.getElementById("yr").textContent=new Date().getFullYear();
+/* launch countdown */
+const VERBATRA_LAUNCH_END = new Date("2026-06-27T23:59:59").getTime();
+function vbTick(){
+  const now = Date.now();
+  let s = Math.max(0, Math.floor((VERBATRA_LAUNCH_END - now)/1000));
+  const d = Math.floor(s/86400); s -= d*86400;
+  const h = Math.floor(s/3600);  s -= h*3600;
+  const m = Math.floor(s/60);    s -= m*60;
+  const pad = n => String(n).padStart(2,"0");
+  const dEl=document.getElementById("cdD"); if(dEl) dEl.textContent=pad(d);
+  const hEl=document.getElementById("cdH"); if(hEl) hEl.textContent=pad(h);
+  const mEl=document.getElementById("cdM"); if(mEl) mEl.textContent=pad(m);
+  const sEl=document.getElementById("cdS"); if(sEl) sEl.textContent=pad(s);
+}
+vbTick(); setInterval(vbTick, 1000);
+
+</script>
 </body>
 </html>
