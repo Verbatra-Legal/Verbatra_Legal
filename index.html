@@ -74,6 +74,18 @@
   .note-box{background:rgba(122,46,38,.05);border:1px solid rgba(122,46,38,.18);border-radius:13px;padding:24px 28px}
   .note-box b{color:var(--oxblood)}
   .note-box p{font-size:13.5px;line-height:1.6;color:var(--ink-soft)}
+  .contact{padding:20px 7vw 80px;max-width:1180px;margin:0 auto}
+  .contact-inner{background:var(--green);border-radius:20px;padding:54px 56px;color:var(--paper)}
+  .contact-inner .eyebrow{color:var(--gold)}
+  .contact-inner .eyebrow::before{background:var(--gold)}
+  .contact-inner h2{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(26px,3.5vw,38px);letter-spacing:-.01em;color:var(--paper);margin:6px 0 14px}
+  .contact-lede{font-size:16px;line-height:1.6;color:rgba(244,239,228,.82);max-width:60ch;margin-bottom:30px}
+  .contact-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .contact-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:13px;padding:20px 22px;text-decoration:none;transition:.16s;display:block}
+  .contact-card:hover{background:rgba(255,255,255,.12);transform:translateY(-2px)}
+  .cc-label{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+  .cc-value{font-size:15px;font-weight:600;color:var(--paper);word-break:break-word}
+  @media (max-width:720px){.contact-inner{padding:36px 26px}.contact-cards{grid-template-columns:1fr}}
   footer{border-top:1px solid var(--line);padding:46px 7vw;background:var(--paper-2)}
   .foot-inner{max-width:1180px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px}
   .foot-brand{font-family:'Fraunces',serif;font-size:30px;font-weight:600;color:var(--green)}
@@ -103,7 +115,8 @@
   <div class="nav-links">
     <a href="#tools">Tools</a>
     <a href="#how">How it works</a>
-    <a href="#meaning">The name</a>
+    <a href="founder.html">Founder</a>
+    <a href="#contact">Contact</a>
     <a href="#tools" class="nav-cta">Draft an agreement</a>
   </div>
 </nav>
@@ -171,14 +184,35 @@
     <p><b>Important.</b> Verbatra generates first drafts to save time, not legal advice. Every document should be reviewed by a qualified lawyer admitted in the relevant jurisdiction before it is signed. Using these tools does not create a lawyer&ndash;client relationship.</p>
   </div>
 </div>
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="eyebrow">Get in touch</div>
+    <h2>Let&rsquo;s talk about your legal operations.</h2>
+    <p class="contact-lede">Building something and need legal documentation handled without the cost of a full in-house team? Reach out &mdash; we partner with growing businesses to run their legal operations end to end.</p>
+    <div class="contact-cards">
+      <a class="contact-card" href="https://www.linkedin.com/company/verbatra/" target="_blank" rel="noopener">
+        <div class="cc-label">LinkedIn</div>
+        <div class="cc-value">/company/verbatra</div>
+      </a>
+      <a class="contact-card" href="mailto:verbatra.legal@gmail.com">
+        <div class="cc-label">Email</div>
+        <div class="cc-value">verbatra.legal@gmail.com</div>
+      </a>
+      <a class="contact-card" href="tel:+919368730710">
+        <div class="cc-label">Phone</div>
+        <div class="cc-value">+91&nbsp;93687&nbsp;30710</div>
+      </a>
+    </div>
+  </div>
+</section>
 <footer>
   <div class="foot-inner">
     <div class="foot-brand">Verbatra<span class="dot">.</span><small>Every word, made to hold.</small></div>
     <div class="foot-links">
       <a href="nda.html">NDA</a><a href="msa.html">MSA</a><a href="dpa.html">DPA</a>
-      <a href="#how">How it works</a><a href="#meaning">The name</a>
+      <a href="founder.html">Founder</a><a href="#contact">Contact</a>
     </div>
-    <div class="copy">&copy; <span id="yr"></span> Verbatra. Legal-document tools. Not a substitute for legal advice.</div>
+    <div class="copy">&copy; <span id="yr"></span> Verbatra. Not a substitute for legal advice.</div>
   </div>
 </footer>
 <script>

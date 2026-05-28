@@ -67,8 +67,9 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 .doc .sig .block{font-size:12.5px;line-height:1.9}
 .doc .sig .line{border-bottom:1px solid #999;height:30px;margin-bottom:4px}
 .doc .stamp-note{font-size:11.5px;font-style:italic;color:#6a655a;border-top:1px dashed #cbc3b0;margin-top:18px;padding-top:10px}
-.doc-logo{display:flex;justify-content:flex-end;margin-bottom:14px}
-.doc-logo img{max-height:54px;max-width:200px;object-fit:contain}
+.doc-header{display:flex;justify-content:flex-end;align-items:center;padding:0 0 12px 0;margin:0 0 22px 0;border-bottom:1.5px solid #cbc3b0;min-height:40px}
+.doc-header img{height:46px;max-width:170px;width:auto;object-fit:contain;display:block}
+@media print{.doc-header{border-bottom:1pt solid #999;margin-bottom:16pt;padding-bottom:8pt}.doc-header img{height:46pt}}
 
 /* Lead modal */
 .modal{position:fixed;inset:0;display:none;z-index:200;align-items:center;justify-content:center;padding:20px}
@@ -97,7 +98,10 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 
 @media (max-width:920px){.wrap{grid-template-columns:1fr}.form-panel{border-right:none;border-bottom:1px solid var(--line);max-height:none;overflow:visible}.doc{padding:30px 24px}}
 @media (max-width:560px){.modal-card{padding:24px 20px}.modal-row{grid-template-columns:1fr}}
-@media print{header,.form-panel,.preview-tools,.modal{display:none!important}body{background:#fff}.wrap{display:block}.preview-panel{background:#fff;padding:0}.doc{box-shadow:none;border:none;max-width:100%;padding:0;font-size:11.5pt}}
+/* copy protection on the live preview only (export still works) */
+.doc, .doc *{ -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; }
+.doc{ -webkit-touch-callout:none; }
+@media print{header,.form-panel,.preview-tools,.modal{display:none!important}body{background:#fff}.wrap{display:block}.preview-panel{background:#fff;padding:0}.doc{box-shadow:none;border:none;max-width:100%;padding:0;font-size:11.5pt}.doc,.doc *{user-select:auto!important}}
 
 </style>
 </head>
@@ -215,8 +219,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
         </div>
       </div>
       <div class="modal-consent">
-        <label><input type="checkbox" name="contactOk" value="yes"> May we reach out by email, phone or WhatsApp about <b>Verbatra for your business</b>? We help small &amp; mid-sized companies run their legal operations on a subscription &mdash; a tailored, affordable alternative to a full in-house legal team.</label>
-        <label><input type="checkbox" name="dpConsent" required> I consent to Verbatra processing my details for this purpose. *</label>
+        <label><input type="checkbox" name="contactOk" value="yes"> <span>I'd like Verbatra to reach out (email, phone or WhatsApp) about running my legal operations on a subscription &mdash; a tailored, affordable alternative to a full in-house legal team.</span></label>
+        <label><input type="checkbox" name="dpConsent" required> <span>I consent to Verbatra processing the details above for this purpose. <b style="color:var(--oxblood)">*</b></span></label>
       </div>
       <div class="modal-actions">
         <button type="button" class="btn ghost" id="leadCancel">Cancel</button>
@@ -251,7 +255,7 @@ function money(code, amt){return code+" "+Number(amt||0).toLocaleString("en-US")
 /* doc render wrapper — call render() to refresh */
 function _renderAll(){
   const html = doc();
-  const logoBit = _logoDataUrl ? '<div class="doc-logo"><img src="'+_logoDataUrl+'" alt="logo"></div>' : '';
+  const logoBit = _logoDataUrl ? '<div class="doc-header"><img src="'+_logoDataUrl+'" alt="company logo"></div>' : '';
   $("doc").innerHTML = logoBit + html;
 }
 function render(){ _renderAll(); }
@@ -294,7 +298,10 @@ function _wireModal(){
       if(!fd.get(k)){ $("leadErr").textContent="Please complete all required fields."; $("leadErr").classList.add("show"); return; }
     }
     const email = fd.get("email");
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ $("leadErr").textContent="Please enter a valid email."; $("leadErr").classList.add("show"); return; }
+    if(!/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(email)){ $("leadErr").textContent="Please enter a valid email address (e.g. name@company.com)."; $("leadErr").classList.add("show"); return; }
+    const phoneRaw = fd.get("phone");
+    const phoneDigits = (phoneRaw.match(/\d/g)||[]).length;
+    if(!/^[+]?[\d\s\-()]+$/.test(phoneRaw) || phoneDigits < 8 || phoneDigits > 15){ $("leadErr").textContent="Please enter a valid phone number with country code (8\u201315 digits)."; $("leadErr").classList.add("show"); return; }
     $("leadErr").classList.remove("show");
     fd.append("tool", document.title);
     fd.append("ts", new Date().toISOString());
@@ -320,7 +327,7 @@ function _exportWord(){
     +".sched{margin-top:18pt;border-top:1pt solid #999;padding-top:10pt}"
     +".stamp-note{font-style:italic;font-size:9.5pt;color:#555;border-top:1pt dashed #999;margin-top:12pt;padding-top:8pt}"
     +".sig{margin-top:26pt}.sig .block{margin-bottom:20pt}.sig .line{border-bottom:1pt solid #000;height:22pt;margin-bottom:3pt;width:55%}"
-    +".doc-logo{text-align:right;margin-bottom:10pt}.doc-logo img{max-height:60pt}";
+    +".doc-header{text-align:right;border-bottom:1pt solid #999;padding-bottom:8pt;margin-bottom:16pt}.doc-header img{max-height:46pt}";
   const html = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>"
     +"<head><meta charset='utf-8'><title>"+document.title+"</title>"
     +"<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml><![endif]-->"
@@ -336,6 +343,16 @@ function _exportWord(){
 function _wireExport(){
   $("wordBtn").addEventListener("click", ()=>_openLead("word"));
   $("printBtn").addEventListener("click", ()=>_openLead("pdf"));
+}
+
+/* copy protection on the preview (export still works) */
+function _wireProtect(){
+  const d = $("doc");
+  if(!d) return;
+  ["copy","cut","contextmenu","dragstart"].forEach(ev=>{
+    d.addEventListener(ev, e=>{ e.preventDefault(); return false; });
+  });
+  d.addEventListener("selectstart", e=>{ e.preventDefault(); return false; });
 }
 
 const S = { dir:"mutual", jur:"india", dr:"courts" };
@@ -374,9 +391,18 @@ function doc(){
   C.push(['Return of Materials', 'Upon termination or written request, '+recv+' shall promptly return or destroy all Confidential Information and certify such destruction in writing, subject to retention required by law.']);
   C.push(['No Licence; No Warranty', 'No licence or right is granted under any intellectual property by virtue of this Agreement. Confidential Information is provided "as is" without warranty of any kind.']);
   C.push(['Remedies', 'The parties acknowledge that breach may cause irreparable harm for which damages are inadequate, and that the non-breaching party is entitled to seek injunctive relief in addition to all other remedies available at law.']);
-  if(dp) C.push(['Data Protection', 'Each party shall comply with '+j.dp+' in respect of any personal data processed under this Agreement, and shall implement appropriate technical and organisational measures to safeguard such data.']);
+  C.push(['Compelled Disclosure', 'If '+recv+' is required by law, regulation or a court or regulatory order to disclose any Confidential Information, it shall, to the extent legally permitted, give the disclosing party prompt prior written notice and reasonable cooperation so that the disclosing party may seek a protective order, and shall disclose only that portion of the Confidential Information that it is legally required to disclose.']);
+  C.push(['No Obligation to Proceed', 'Nothing in this Agreement obliges either party to proceed with any transaction, relationship or further disclosure. Each party may terminate discussions at any time, and no binding agreement relating to the Purpose arises unless and until recorded in a separate written contract signed by both parties.']);
+  C.push(['Ownership of Information', 'All Confidential Information, and all intellectual property rights in it, remain the exclusive property of the disclosing party. Nothing in this Agreement transfers or assigns, or grants any option or licence over, any such rights to '+recv+', except the limited right to use the Confidential Information for the Purpose.']);
+  C.push(['Non-Circumvention', recv.charAt(0).toUpperCase()+recv.slice(1)+' shall not use the Confidential Information to circumvent the disclosing party or to deal directly with any customer, supplier, investor, lender or other business contact first identified or introduced to it through the Confidential Information, without the disclosing party\'s prior written consent.']);
+  C.push(['Non-Solicitation', 'During the term and for twelve (12) months after termination, neither party shall knowingly solicit for employment any employee or contractor of the other party with whom it had material contact in connection with the Purpose, save that general advertising not specifically targeted at such persons shall not breach this clause.']);
+  C.push(['No Publicity', 'Neither party shall make any public announcement concerning, or use the name, marks or logo of the other party in connection with, this Agreement or the Purpose, without the other party\'s prior written consent, except as required by law or any regulatory or listing authority.']);
+  C.push(['Notices', 'Any notice under this Agreement shall be in writing and sent to the relevant party at its address stated above (or as later notified in writing), and shall be deemed received on delivery if delivered by hand, on the second business day after posting if sent by pre-paid post, or on transmission if sent by email with confirmation of transmission.']);
+  C.push(['Assignment', 'Neither party may assign, transfer or otherwise dispose of any of its rights or obligations under this Agreement without the prior written consent of the other party, save to an affiliate or in connection with a bona fide reorganisation or sale of substantially all of its business.']);
+  if(dp) C.push(['Data Protection', 'Each party shall comply with '+j.dp+' in respect of any personal data processed under this Agreement, and shall implement appropriate technical and organisational measures to safeguard such data against accidental or unlawful destruction, loss, alteration, or unauthorised disclosure or access.']);
   C.push(['Governing Law &amp; Dispute Resolution', 'This Agreement is governed by '+j.law+'. '+dr]);
-  C.push(['General', 'This Agreement constitutes the entire agreement between the parties on its subject matter and supersedes all prior discussions. No variation is effective unless in writing and signed by both parties. If any provision is held invalid, the remainder continues in full force. This Agreement may be executed in counterparts, including by electronic signature.']);
+  C.push(['Severability &amp; Waiver', 'If any provision of this Agreement is held to be invalid or unenforceable, it shall be severed and the remaining provisions shall continue in full force. No failure or delay in exercising any right operates as a waiver of it, and no single or partial exercise prevents any further exercise of that or any other right.']);
+  C.push(['Entire Agreement', 'This Agreement constitutes the entire agreement between the parties on its subject matter and supersedes all prior discussions, representations and understandings. No variation is effective unless in writing and signed by both parties. This Agreement may be executed in counterparts, including by electronic signature, each of which is an original and all of which together constitute one agreement.']);
 
   C.forEach((c,i)=>{ html += '<h3>'+(i+1)+'. '+c[0]+'</h3><p>'+c[1]+'</p>'; });
 
@@ -439,6 +465,7 @@ $("effDate").value = new Date().toISOString().slice(0,10);
 _wireLogo();
 _wireModal();
 _wireExport();
+_wireProtect();
 onUiChange();
 
 </script>
