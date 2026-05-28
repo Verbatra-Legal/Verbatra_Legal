@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Verbatra &mdash; Employment / Offer Letter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+<style>
+
+:root{--ink:#1a1a17;--ink-soft:#4a4a42;--paper:#f4efe4;--paper-2:#ece5d6;--card:#fbf8f0;--green:#1f3d30;--green-2:#2c5443;--oxblood:#7a2e26;--line:#d8cfbc;--line-soft:#e4ddcc;--gold:#a8843f}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:'Hanken Grotesk',sans-serif;background:var(--paper);color:var(--ink);
+  background-image:radial-gradient(circle at 12% 8%,rgba(31,61,48,.05),transparent 40%),radial-gradient(circle at 88% 92%,rgba(122,46,38,.04),transparent 42%);
+  -webkit-font-smoothing:antialiased}
+header{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#fbf8f0,#f4efe4);padding:18px 30px 16px}
+.back-home{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--ink-soft);text-decoration:none;margin-bottom:10px;letter-spacing:.02em;transition:color .15s}
+.back-home::before{content:"\2190";font-size:14px}
+.back-home:hover{color:var(--green)}
+.brand{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.mark{font-family:'Fraunces',serif;font-weight:600;font-size:28px;letter-spacing:-.01em;color:var(--green)}
+.mark span{color:var(--oxblood)}
+.tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);border-left:1px solid var(--line);padding-left:14px}
+.disclaimer{margin-top:10px;font-size:12.5px;color:var(--ink-soft);line-height:1.5;max-width:820px}
+.disclaimer strong{color:var(--oxblood);font-weight:600}
+.wrap{display:grid;grid-template-columns:minmax(360px,1fr) 1.3fr;min-height:calc(100vh - 130px)}
+.panel{padding:24px 28px}
+.form-panel{border-right:1px solid var(--line);background:rgba(251,248,240,.5);max-height:calc(100vh - 130px);overflow-y:auto}
+.preview-panel{background:var(--paper-2)}
+h2.sec{font-family:'Fraunces',serif;font-weight:500;font-size:14.5px;color:var(--green);margin:24px 0 12px;display:flex;align-items:center;gap:10px}
+h2.sec:first-of-type{margin-top:0}
+h2.sec::before{content:"";width:18px;height:1px;background:var(--gold)}
+.field{margin-bottom:13px}
+label{display:block;font-size:11.5px;font-weight:600;color:var(--ink-soft);margin-bottom:5px;letter-spacing:.02em}
+input[type=text],input[type=date],input[type=number],input[type=email],input[type=tel],select,textarea{width:100%;font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:7px;padding:9px 11px;transition:border-color .15s,box-shadow .15s}
+textarea{resize:vertical;min-height:60px;line-height:1.45}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2);box-shadow:0 0 0 3px rgba(31,61,48,.1)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px}
+.seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--card)}
+.seg button{flex:1;border:none;background:transparent;font-family:inherit;font-size:13px;font-weight:600;color:var(--ink-soft);padding:9px 8px;cursor:pointer;transition:.15s}
+.seg button.on{background:var(--green);color:#f4efe4}
+.seg button+button{border-left:1px solid var(--line)}
+.hint{font-size:11.5px;color:var(--ink-soft);margin-top:5px;line-height:1.45}
+.modlist{font-size:11.5px;color:var(--green-2);margin-top:7px;line-height:1.5;background:rgba(31,61,48,.06);border-radius:6px;padding:8px 10px}
+.toggle{display:flex;align-items:center;gap:9px;cursor:pointer;font-size:13px;color:var(--ink);font-weight:500;margin-bottom:10px}
+.toggle input{width:16px;height:16px;accent-color:var(--green)}
+
+.preview-tools{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px;align-items:center}
+.btn{font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;border:1px solid var(--green);background:var(--green);color:#f4efe4;border-radius:7px;padding:9px 16px;cursor:pointer;transition:.15s}
+.btn:hover{background:var(--green-2);transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--green);border-color:var(--line)}
+.btn.ghost:hover{background:var(--card)}
+
+.doc{background:#fffdf7;border:1px solid var(--line);border-radius:4px;box-shadow:0 18px 40px -24px rgba(26,26,23,.4),0 2px 0 var(--line-soft);padding:50px 52px;font-family:'Source Serif 4',Georgia,serif;color:#23211c;font-size:13.5px;line-height:1.62;max-width:760px}
+.doc h1{font-family:'Source Serif 4',serif;font-weight:600;font-size:18px;text-align:center;letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px}
+.doc .sub{text-align:center;font-size:12px;color:#6a655a;margin-bottom:24px;font-style:italic}
+.doc h3{font-weight:600;font-size:13px;margin:17px 0 6px;text-transform:uppercase;letter-spacing:.03em}
+.doc p{margin-bottom:11px;text-align:justify}
+.doc .recital{margin-bottom:9px}
+.doc .sched{margin-top:30px;border-top:2px solid #cbc3b0;padding-top:18px}
+.doc .sched h2{font-family:'Source Serif 4',serif;font-size:15px;text-align:center;letter-spacing:.03em;text-transform:uppercase;margin-bottom:14px}
+.doc .anx{margin-bottom:7px}
+.doc .sig{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:42px}
+.doc .sig .block{font-size:12.5px;line-height:1.9}
+.doc .sig .line{border-bottom:1px solid #999;height:30px;margin-bottom:4px}
+.doc .stamp-note{font-size:11.5px;font-style:italic;color:#6a655a;border-top:1px dashed #cbc3b0;margin-top:18px;padding-top:10px}
+.doc-header{display:flex;justify-content:flex-end;align-items:center;padding:0 0 12px 0;margin:0 0 22px 0;border-bottom:1.5px solid #cbc3b0;min-height:40px}
+.doc-header img{height:46px;max-width:170px;width:auto;object-fit:contain;display:block}
+@media print{.doc-header{border-bottom:1pt solid #999;margin-bottom:16pt;padding-bottom:8pt}.doc-header img{height:46pt}}
+
+/* Lead modal */
+.modal{position:fixed;inset:0;display:none;z-index:200;align-items:center;justify-content:center;padding:20px}
+.modal.show{display:flex}
+.modal-bg{position:absolute;inset:0;background:rgba(26,26,23,.55);backdrop-filter:blur(6px)}
+.modal-card{position:relative;width:100%;max-width:560px;max-height:92vh;overflow-y:auto;background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:0 30px 80px -20px rgba(26,26,23,.55);padding:30px 32px 26px}
+.modal-close{position:absolute;top:12px;right:14px;background:none;border:none;font-size:22px;color:var(--ink-soft);cursor:pointer;line-height:1;width:28px;height:28px;border-radius:8px}
+.modal-close:hover{background:var(--card);color:var(--ink)}
+.modal-eyebrow{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--oxblood);margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.modal-eyebrow::before{content:"";width:24px;height:1px;background:var(--gold)}
+.modal-h{font-family:'Fraunces',serif;font-weight:500;font-size:23px;color:var(--ink);margin-bottom:8px}
+.modal-lede{font-size:13.5px;color:var(--ink-soft);line-height:1.55;margin-bottom:16px}
+.modal-row{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:10px}
+.modal-field label{display:block;font-size:11.5px;font-weight:600;color:var(--ink-soft);margin-bottom:4px}
+.modal-field input,.modal-field select{width:100%;font-size:14px;font-family:inherit;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:7px;padding:9px 11px}
+.modal-field input:focus,.modal-field select:focus{outline:none;border-color:var(--green-2);box-shadow:0 0 0 3px rgba(31,61,48,.1)}
+.modal-consent{margin:14px 0 4px;padding:13px 15px;background:rgba(31,61,48,.05);border:1px solid rgba(31,61,48,.13);border-radius:10px}
+.modal-consent label{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;color:var(--ink);line-height:1.5;margin-bottom:10px;cursor:pointer}
+.modal-consent label:last-child{margin-bottom:0}
+.modal-consent input{margin-top:3px;width:15px;height:15px;accent-color:var(--green);flex:none}
+.modal-consent b{color:var(--green)}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
+.modal-err{background:rgba(122,46,38,.08);border:1px solid rgba(122,46,38,.2);color:var(--oxblood);font-size:12.5px;padding:9px 13px;border-radius:7px;margin-bottom:10px;display:none}
+.modal-err.show{display:block}
+.modal-fine{font-size:11px;color:var(--ink-soft);text-align:center;margin-top:12px}
+
+@media (max-width:920px){.wrap{grid-template-columns:1fr}.form-panel{border-right:none;border-bottom:1px solid var(--line);max-height:none;overflow:visible}.doc{padding:30px 24px}}
+@media (max-width:560px){.modal-card{padding:24px 20px}.modal-row{grid-template-columns:1fr}}
+/* copy protection on the live preview only (export still works) */
+.doc, .doc *{ -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; }
+.doc{ -webkit-touch-callout:none; }
+@media print{header,.form-panel,.preview-tools,.modal{display:none!important}body{background:#fff}.wrap{display:block}.preview-panel{background:#fff;padding:0}.doc{box-shadow:none;border:none;max-width:100%;padding:0;font-size:11.5pt}.doc,.doc *{user-select:auto!important}}
+
+</style>
+</head>
+<body><header>
+  <a href="/" class="back-home">Back to Verbatra</a>
+  <div class="brand">
+    <div class="mark">Agreement&nbsp;<span>Forge</span></div>
+    <div class="tag">Employment &amp; Offer &middot; 45 jurisdictions</div>
+  </div>
+  <p class="disclaimer">Build an employment agreement or offer letter with role, salary, probation, confidentiality, IP and termination terms, set to your jurisdiction. <strong>This is not legal advice.</strong> Every draft must be reviewed by a qualified lawyer admitted in the relevant jurisdiction before execution.</p>
+</header>
+<div class="wrap">
+  <section class="panel form-panel">
+    <h2 class="sec">Document &amp; Jurisdiction</h2>
+    <div class="field"><label>Document type</label>
+      <select id="dtype"><option value="contract">Employment Agreement</option><option value="offer">Offer Letter</option></select></div>
+    <div class="field"><label>Governing jurisdiction</label><select id="jur"></select><div class="hint" id="jurHint"></div></div>
+
+    <h2 class="sec">Employer</h2>
+    <div class="field"><label>Company name</label><input type="text" id="coName"></div>
+    <div class="field"><label>Company address</label><textarea id="coAddr"></textarea></div>
+
+    <h2 class="sec">Employee</h2>
+    <div class="field"><label>Employee name</label><input type="text" id="empName"></div>
+    <div class="field"><label>Employee address</label><textarea id="empAddr"></textarea></div>
+
+    <h2 class="sec">Role &amp; Terms</h2>
+    <div class="field"><label>Job title</label><input type="text" id="title" placeholder="e.g. Senior Software Engineer"></div>
+    <div class="field"><label>Reporting to</label><input type="text" id="reports" placeholder="e.g. the Engineering Manager"></div>
+    <div class="field"><label>Start date</label><input type="date" id="startDate"></div>
+    <div class="row">
+      <div class="field"><label>Annual salary</label><input type="number" id="salary" placeholder="e.g. 1200000"></div>
+      <div class="field"><label>Probation (months)</label><input type="number" id="probation" value="3" min="0"></div>
+    </div>
+    <div class="row">
+      <div class="field"><label>Notice period (days)</label><input type="number" id="notice" value="30" min="0"></div>
+      <div class="field"><label>Work location</label><input type="text" id="location" placeholder="e.g. Noida / Remote"></div>
+    </div>
+    <label class="toggle"><input type="checkbox" id="confTog" checked> Confidentiality clause</label>
+    <label class="toggle"><input type="checkbox" id="ipTog" checked> IP assignment clause</label>
+    <label class="toggle"><input type="checkbox" id="nonComp"> Non-compete &amp; non-solicit clause</label>
+    <label class="toggle"><input type="checkbox" id="benefits" checked> Leave &amp; benefits clause</label>
+  </section>
+  <section class="panel preview-panel">
+    <div class="preview-tools">
+      <button class="btn" id="wordBtn">Download Word</button>
+      <button class="btn ghost" id="printBtn">Save as PDF</button>
+      <label class="btn ghost" for="logoFile" style="cursor:pointer;display:inline-flex;align-items:center">Upload company logo</label>
+      <input type="file" id="logoFile" accept="image/png,image/jpeg,image/svg+xml" hidden />
+      <button class="btn ghost" id="logoClearBtn" style="display:none">Remove logo</button>
+    </div>
+    <div class="doc" id="doc"></div>
+  </section>
+</div>
+
+<div class="modal" id="leadModal" role="dialog" aria-modal="true">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-card">
+    <button class="modal-close" id="leadClose" aria-label="Close">&times;</button>
+    <div class="modal-eyebrow">One last step</div>
+    <h2 class="modal-h">Before you download</h2>
+    <p class="modal-lede">Tell us a little about you. We use this to keep improving Verbatra &mdash; and, if you allow it below, to reach out about helping you run your in-house legal operations.</p>
+    <div class="modal-err" id="leadErr">Please complete the required fields.</div>
+    <form id="leadForm" novalidate>
+      <div class="modal-row">
+        <div class="modal-field"><label>Full name *</label><input type="text" name="name" required></div>
+        <div class="modal-field"><label>Email *</label><input type="email" name="email" required></div>
+      </div>
+      <div class="modal-row">
+        <div class="modal-field"><label>Phone (with code) *</label><input type="tel" name="phone" required placeholder="+91 ..."></div>
+        <div class="modal-field"><label>Designation *</label><input type="text" name="designation" required></div>
+      </div>
+      <div class="modal-row">
+        <div class="modal-field"><label>Organisation (or 'Personal') *</label><input type="text" name="org" required></div>
+        <div class="modal-field"><label>Industry *</label>
+          <select name="industry" required>
+            <option value="">Choose&hellip;</option>
+            <option>Information Technology / Software</option>
+            <option>SaaS / Cloud</option>
+            <option>Professional Services / Consulting</option>
+            <option>Marketing / Advertising / Creative</option>
+            <option>Construction &amp; Engineering</option>
+            <option>Manufacturing &amp; Supply</option>
+            <option>Healthcare &amp; Life Sciences</option>
+            <option>Financial Services / Fintech</option>
+            <option>Logistics &amp; Transportation</option>
+            <option>Telecommunications</option>
+            <option>Media &amp; Entertainment</option>
+            <option>Education / EdTech</option>
+            <option>Real Estate / Facilities</option>
+            <option>Energy &amp; Utilities</option>
+            <option>Retail / E-commerce</option>
+            <option>Hospitality &amp; Travel</option>
+            <option>Legal / Compliance</option>
+            <option>Staffing / HR</option>
+            <option>Personal / Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-consent">
+        <label><input type="checkbox" name="contactOk" value="yes"> <span>I'd like Verbatra to reach out (email, phone or WhatsApp) about running my legal operations on a subscription &mdash; a tailored, affordable alternative to a full in-house legal team.</span></label>
+        <label><input type="checkbox" name="dpConsent" required> <span>I consent to Verbatra processing the details above for this purpose. <b style="color:var(--oxblood)">*</b></span></label>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn ghost" id="leadCancel">Cancel</button>
+        <button type="submit" class="btn" id="leadSubmit">Continue &amp; download</button>
+      </div>
+      <div class="modal-fine">Your details are not shared outside Verbatra.</div>
+    </form>
+  </div>
+</div>
+<script>
+const JUR = {"india": {"label": "India", "law": "the laws of India", "courts": "the competent courts at New Delhi, India", "arb": "arbitration under the Arbitration and Conciliation Act, 1996, before a sole arbitrator, with the seat and venue of arbitration at New Delhi, India, conducted in English", "dp": "the Digital Personal Data Protection Act, 2023 and the rules made thereunder", "stamp": "This Agreement is liable to stamp duty under the Indian Stamp Act, 1899 and the applicable State Stamp Act; the parties shall ensure it is duly stamped before or at execution.", "hint": "DPDP Act 2023 · A&C Act 1996 · state stamp duty", "sym": "₹", "code": "INR", "tax": "GST"}, "usa_de": {"label": "United States — Delaware", "law": "the laws of the State of Delaware, United States, without regard to conflict-of-laws principles", "courts": "the state and federal courts located in the State of Delaware", "arb": "binding arbitration administered by the American Arbitration Association (AAA) under its Commercial Arbitration Rules, with the seat of arbitration in New York, NY, conducted in English", "dp": "applicable U.S. federal and state data-protection laws, including the CCPA/CPRA where applicable", "stamp": "", "hint": "Delaware · CCPA/CPRA · AAA", "sym": "$", "code": "USD", "tax": "applicable U.S. sales and use taxes"}, "usa_ny": {"label": "United States — New York", "law": "the laws of the State of New York, United States", "courts": "the state and federal courts located in New York County, New York", "arb": "arbitration administered by the AAA under its Commercial Arbitration Rules, with the seat of arbitration in New York, NY, conducted in English", "dp": "the New York SHIELD Act and other applicable U.S. privacy laws", "stamp": "", "hint": "New York · SHIELD Act · AAA", "sym": "$", "code": "USD", "tax": "New York State sales tax"}, "usa_ca": {"label": "United States — California", "law": "the laws of the State of California, United States", "courts": "the state and federal courts located in San Francisco County, California", "arb": "arbitration administered by JAMS under its Comprehensive Arbitration Rules, with the seat of arbitration in San Francisco, CA, conducted in English", "dp": "the California Consumer Privacy Act, as amended by the CPRA (CCPA/CPRA)", "stamp": "", "hint": "California · CCPA/CPRA · JAMS", "sym": "$", "code": "USD", "tax": "California sales and use tax"}, "uk": {"label": "United Kingdom", "law": "the laws of England and Wales", "courts": "the courts of England and Wales", "arb": "arbitration under the LCIA Rules, with the seat of arbitration in London, United Kingdom, conducted in English", "dp": "the UK GDPR and the Data Protection Act 2018", "stamp": "", "hint": "UK · UK GDPR · LCIA", "sym": "£", "code": "GBP", "tax": "VAT"}, "ireland": {"label": "Ireland", "law": "the laws of Ireland", "courts": "the courts of Ireland", "arb": "arbitration under the Arbitration Act 2010 (Ireland), with the seat of arbitration in Dublin, conducted in English", "dp": "the EU GDPR and the Data Protection Act 2018 (Ireland)", "stamp": "", "hint": "Ireland · GDPR + DPA 2018", "sym": "€", "code": "EUR", "tax": "VAT"}, "germany": {"label": "Germany (EU)", "law": "the laws of the Federal Republic of Germany, excluding the UN CISG", "courts": "the competent courts of Frankfurt am Main, Germany", "arb": "arbitration under the Rules of the German Arbitration Institute (DIS), with the seat of arbitration in Frankfurt am Main, conducted in English", "dp": "the EU GDPR and the German Federal Data Protection Act (BDSG)", "stamp": "", "hint": "Germany · GDPR + BDSG · DIS", "sym": "€", "code": "EUR", "tax": "VAT (USt)"}, "france": {"label": "France (EU)", "law": "the laws of France", "courts": "the competent courts of Paris, France", "arb": "arbitration under the ICC Rules, with the seat of arbitration in Paris, conducted in English", "dp": "the EU GDPR and the French Data Protection Act (Loi Informatique et Libertés)", "stamp": "", "hint": "France · GDPR · ICC Paris", "sym": "€", "code": "EUR", "tax": "VAT (TVA)"}, "netherlands": {"label": "Netherlands (EU)", "law": "the laws of the Netherlands", "courts": "the competent courts of Amsterdam, the Netherlands", "arb": "arbitration under the Rules of the Netherlands Arbitration Institute (NAI), with the seat of arbitration in Amsterdam, conducted in English", "dp": "the EU GDPR and the Dutch GDPR Implementation Act (UAVG)", "stamp": "", "hint": "Netherlands · GDPR + UAVG · NAI", "sym": "€", "code": "EUR", "tax": "VAT (BTW)"}, "spain": {"label": "Spain (EU)", "law": "the laws of Spain", "courts": "the courts of Madrid, Spain", "arb": "arbitration administered by the Madrid International Arbitration Center (CIAM), with the seat of arbitration in Madrid, conducted in English", "dp": "the EU GDPR and the Spanish Organic Law on Data Protection (LOPDGDD)", "stamp": "", "hint": "Spain · GDPR + LOPDGDD · CIAM", "sym": "€", "code": "EUR", "tax": "VAT (IVA)"}, "italy": {"label": "Italy (EU)", "law": "the laws of Italy", "courts": "the courts of Milan, Italy", "arb": "arbitration administered by the Milan Chamber of Arbitration (CAM), with the seat of arbitration in Milan, conducted in English", "dp": "the EU GDPR and the Italian Data Protection Code (D.Lgs. 196/2003)", "stamp": "", "hint": "Italy · GDPR · Milan CAM", "sym": "€", "code": "EUR", "tax": "VAT (IVA)"}, "sweden": {"label": "Sweden (EU)", "law": "the laws of Sweden", "courts": "the courts of Stockholm, Sweden", "arb": "arbitration under the Rules of the SCC Arbitration Institute, with the seat of arbitration in Stockholm, conducted in English", "dp": "the EU GDPR and the Swedish Data Protection Act", "stamp": "", "hint": "Sweden · GDPR · SCC", "sym": "kr", "code": "SEK", "tax": "VAT (moms)"}, "poland": {"label": "Poland (EU)", "law": "the laws of Poland", "courts": "the courts of Warsaw, Poland", "arb": "arbitration under the Rules of the Court of Arbitration at the Polish Chamber of Commerce, with the seat in Warsaw, conducted in English", "dp": "the EU GDPR and the Polish Personal Data Protection Act", "stamp": "", "hint": "Poland · GDPR · SAKIG", "sym": "zł", "code": "PLN", "tax": "VAT"}, "portugal": {"label": "Portugal (EU)", "law": "the laws of Portugal", "courts": "the courts of Lisbon, Portugal", "arb": "arbitration administered by the Arbitration Centre of the Portuguese Chamber of Commerce, with the seat in Lisbon, conducted in English", "dp": "the EU GDPR and Portuguese Law 58/2019", "stamp": "", "hint": "Portugal · GDPR · CAC", "sym": "€", "code": "EUR", "tax": "VAT (IVA)"}, "switzerland": {"label": "Switzerland", "law": "the substantive laws of Switzerland, excluding conflict-of-laws rules and the UN CISG", "courts": "the courts of Zurich, Switzerland", "arb": "arbitration under the Swiss Rules of International Arbitration, with the seat of arbitration in Zurich, conducted in English", "dp": "the Swiss Federal Act on Data Protection (FADP)", "stamp": "", "hint": "Switzerland · FADP · Swiss Rules", "sym": "CHF", "code": "CHF", "tax": "VAT"}, "singapore": {"label": "Singapore", "law": "the laws of Singapore", "courts": "the courts of Singapore", "arb": "arbitration administered by the Singapore International Arbitration Centre (SIAC) under the SIAC Rules, with the seat of arbitration in Singapore, conducted in English", "dp": "the Personal Data Protection Act 2012 of Singapore", "stamp": "", "hint": "Singapore · PDPA 2012 · SIAC", "sym": "S$", "code": "SGD", "tax": "GST"}, "hongkong": {"label": "Hong Kong SAR", "law": "the laws of the Hong Kong Special Administrative Region", "courts": "the courts of Hong Kong", "arb": "arbitration administered by the Hong Kong International Arbitration Centre (HKIAC), with the seat of arbitration in Hong Kong, conducted in English", "dp": "the Personal Data (Privacy) Ordinance (PDPO)", "stamp": "", "hint": "Hong Kong · PDPO · HKIAC", "sym": "HK$", "code": "HKD", "tax": "none"}, "japan": {"label": "Japan", "law": "the laws of Japan", "courts": "the Tokyo District Court, Japan", "arb": "arbitration administered by the Japan Commercial Arbitration Association (JCAA), with the seat of arbitration in Tokyo, conducted in English", "dp": "the Act on the Protection of Personal Information (APPI)", "stamp": "", "hint": "Japan · APPI · JCAA", "sym": "¥", "code": "JPY", "tax": "consumption tax"}, "korea": {"label": "South Korea", "law": "the laws of the Republic of Korea", "courts": "the Seoul Central District Court", "arb": "arbitration administered by the Korean Commercial Arbitration Board (KCAB), with the seat of arbitration in Seoul, conducted in English", "dp": "the Personal Information Protection Act (PIPA)", "stamp": "", "hint": "Korea · PIPA · KCAB", "sym": "₩", "code": "KRW", "tax": "VAT"}, "china": {"label": "China (Mainland)", "law": "the laws of the People's Republic of China", "courts": "the competent courts of Shanghai, China", "arb": "arbitration administered by CIETAC under its rules, with the seat of arbitration in Shanghai, conducted in English", "dp": "the Personal Information Protection Law (PIPL) and the Data Security Law", "stamp": "", "hint": "China · PIPL + DSL · CIETAC", "sym": "¥", "code": "CNY", "tax": "VAT"}, "taiwan": {"label": "Taiwan", "law": "the laws of Taiwan", "courts": "the Taiwan Taipei District Court", "arb": "arbitration under the Arbitration Rules of the Chinese Arbitration Association (CAA), with the seat in Taipei, conducted in English", "dp": "the Personal Data Protection Act of Taiwan", "stamp": "", "hint": "Taiwan · PDPA · CAA", "sym": "NT$", "code": "TWD", "tax": "VAT"}, "malaysia": {"label": "Malaysia", "law": "the laws of Malaysia", "courts": "the courts of Kuala Lumpur, Malaysia", "arb": "arbitration administered by the Asian International Arbitration Centre (AIAC), with the seat of arbitration in Kuala Lumpur, conducted in English", "dp": "the Personal Data Protection Act 2010 of Malaysia", "stamp": "", "hint": "Malaysia · PDPA 2010 · AIAC", "sym": "RM", "code": "MYR", "tax": "SST"}, "indonesia": {"label": "Indonesia", "law": "the laws of the Republic of Indonesia", "courts": "the District Court of Central Jakarta", "arb": "arbitration administered by the Indonesian National Board of Arbitration (BANI), with the seat of arbitration in Jakarta, conducted in English", "dp": "the Personal Data Protection Law (UU PDP, Law No. 27 of 2022)", "stamp": "", "hint": "Indonesia · UU PDP · BANI", "sym": "Rp", "code": "IDR", "tax": "VAT (PPN)"}, "thailand": {"label": "Thailand", "law": "the laws of Thailand", "courts": "the courts of Bangkok, Thailand", "arb": "arbitration administered by the Thai Arbitration Institute (TAI), with the seat of arbitration in Bangkok, conducted in English", "dp": "the Personal Data Protection Act B.E. 2562 (2019)", "stamp": "", "hint": "Thailand · PDPA 2019 · TAI", "sym": "฿", "code": "THB", "tax": "VAT"}, "vietnam": {"label": "Vietnam", "law": "the laws of Vietnam", "courts": "the People's Court of Ho Chi Minh City", "arb": "arbitration administered by the Vietnam International Arbitration Centre (VIAC), with the seat in Hanoi, conducted in English", "dp": "the Personal Data Protection Decree (Decree 13/2023/ND-CP)", "stamp": "", "hint": "Vietnam · PDPD · VIAC", "sym": "₫", "code": "VND", "tax": "VAT"}, "philippines": {"label": "Philippines", "law": "the laws of the Republic of the Philippines", "courts": "the courts of Makati City, Metro Manila", "arb": "arbitration administered by the Philippine Dispute Resolution Center (PDRCI), with the seat in Manila, conducted in English", "dp": "the Data Privacy Act of 2012 (Republic Act 10173)", "stamp": "", "hint": "Philippines · DPA 2012 · PDRCI", "sym": "₱", "code": "PHP", "tax": "VAT"}, "australia": {"label": "Australia (NSW)", "law": "the laws of New South Wales, Australia", "courts": "the courts of New South Wales, Australia", "arb": "arbitration administered by the Australian Centre for International Commercial Arbitration (ACICA), with the seat in Sydney, conducted in English", "dp": "the Privacy Act 1988 (Cth) and the Australian Privacy Principles", "stamp": "", "hint": "Australia (NSW) · Privacy Act · ACICA", "sym": "A$", "code": "AUD", "tax": "GST"}, "newzealand": {"label": "New Zealand", "law": "the laws of New Zealand", "courts": "the courts of New Zealand", "arb": "arbitration under the Arbitration Act 1996 (NZ), with the seat of arbitration in Auckland, conducted in English", "dp": "the Privacy Act 2020", "stamp": "", "hint": "New Zealand · Privacy Act 2020", "sym": "NZ$", "code": "NZD", "tax": "GST"}, "canada": {"label": "Canada (Ontario)", "law": "the laws of the Province of Ontario and the federal laws of Canada applicable therein", "courts": "the courts of the Province of Ontario, Canada", "arb": "arbitration under the Rules of the ADR Institute of Canada (ADRIC), with the seat in Toronto, conducted in English", "dp": "the Personal Information Protection and Electronic Documents Act (PIPEDA) and applicable provincial privacy laws", "stamp": "", "hint": "Ontario · PIPEDA · ADRIC", "sym": "C$", "code": "CAD", "tax": "GST/HST"}, "canada_qc": {"label": "Canada (Quebec)", "law": "the laws of the Province of Quebec and the federal laws of Canada applicable therein", "courts": "the courts of the District of Montreal, Quebec", "arb": "arbitration administered by the Canadian Commercial Arbitration Centre (CCAC), with the seat in Montreal, conducted in French and English", "dp": "Quebec's Act respecting the protection of personal information in the private sector (Law 25)", "stamp": "", "hint": "Quebec · Law 25 · CCAC", "sym": "C$", "code": "CAD", "tax": "GST + QST"}, "mexico": {"label": "Mexico", "law": "the laws of the United Mexican States", "courts": "the federal courts of Mexico City", "arb": "arbitration administered by the Mexico City National Chamber of Commerce (CANACO), with the seat in Mexico City, conducted in English or Spanish", "dp": "the Federal Law on the Protection of Personal Data Held by Private Parties (LFPDPPP)", "stamp": "", "hint": "Mexico · LFPDPPP · CANACO", "sym": "$", "code": "MXN", "tax": "VAT (IVA)"}, "brazil": {"label": "Brazil", "law": "the laws of the Federative Republic of Brazil", "courts": "the courts of the City of São Paulo, Brazil", "arb": "arbitration under Brazilian Arbitration Law (Law No. 9,307/96), administered by CAM-CCBC, with the seat in São Paulo, conducted in English or Portuguese", "dp": "the General Data Protection Law (LGPD, Law No. 13,709/2018)", "stamp": "", "hint": "Brazil · LGPD · CAM-CCBC", "sym": "R$", "code": "BRL", "tax": "ICMS / ISS"}, "argentina": {"label": "Argentina", "law": "the laws of the Argentine Republic", "courts": "the National Commercial Courts of the City of Buenos Aires", "arb": "arbitration administered by the Buenos Aires Arbitration & Mediation Centre (CEMARC), with the seat in Buenos Aires, conducted in English or Spanish", "dp": "the Personal Data Protection Act (Law No. 25,326)", "stamp": "", "hint": "Argentina · PDPA · CEMARC", "sym": "$", "code": "ARS", "tax": "VAT (IVA)"}, "chile": {"label": "Chile", "law": "the laws of the Republic of Chile", "courts": "the courts of Santiago, Chile", "arb": "arbitration administered by the Santiago Chamber of Commerce Arbitration Centre (CAM Santiago), with the seat in Santiago, conducted in English or Spanish", "dp": "Law No. 19,628 on the Protection of Privacy (and forthcoming updates)", "stamp": "", "hint": "Chile · Law 19,628 · CAM Santiago", "sym": "$", "code": "CLP", "tax": "VAT (IVA)"}, "colombia": {"label": "Colombia", "law": "the laws of the Republic of Colombia", "courts": "the courts of Bogotá, Colombia", "arb": "arbitration administered by the Bogotá Chamber of Commerce Arbitration Centre, with the seat in Bogotá, conducted in English or Spanish", "dp": "Statutory Law 1581 of 2012 on Personal Data Protection", "stamp": "", "hint": "Colombia · Law 1581/2012", "sym": "$", "code": "COP", "tax": "VAT (IVA)"}, "southafrica": {"label": "South Africa", "law": "the laws of the Republic of South Africa", "courts": "the High Court of South Africa, Gauteng Division, Johannesburg", "arb": "arbitration under the rules of the Arbitration Foundation of Southern Africa (AFSA), with the seat in Johannesburg, conducted in English", "dp": "the Protection of Personal Information Act (POPIA)", "stamp": "", "hint": "South Africa · POPIA · AFSA", "sym": "R", "code": "ZAR", "tax": "VAT"}, "nigeria": {"label": "Nigeria", "law": "the laws of the Federal Republic of Nigeria", "courts": "the courts of Lagos, Nigeria", "arb": "arbitration administered by the Lagos Court of Arbitration (LCA), with the seat in Lagos, conducted in English", "dp": "the Nigeria Data Protection Act 2023", "stamp": "", "hint": "Nigeria · NDPA 2023 · LCA", "sym": "₦", "code": "NGN", "tax": "VAT"}, "kenya": {"label": "Kenya", "law": "the laws of the Republic of Kenya", "courts": "the High Court of Kenya at Nairobi", "arb": "arbitration administered by the Nairobi Centre for International Arbitration (NCIA), with the seat in Nairobi, conducted in English", "dp": "the Data Protection Act, 2019", "stamp": "", "hint": "Kenya · DPA 2019 · NCIA", "sym": "KSh", "code": "KES", "tax": "VAT"}, "egypt": {"label": "Egypt", "law": "the laws of the Arab Republic of Egypt", "courts": "the courts of Cairo, Egypt", "arb": "arbitration administered by the Cairo Regional Centre for International Commercial Arbitration (CRCICA), with the seat in Cairo, conducted in English", "dp": "the Personal Data Protection Law (Law No. 151 of 2020)", "stamp": "", "hint": "Egypt · PDPL 2020 · CRCICA", "sym": "E£", "code": "EGP", "tax": "VAT"}, "turkey": {"label": "Türkiye", "law": "the laws of the Republic of Türkiye", "courts": "the Istanbul Courts", "arb": "arbitration administered by the Istanbul Arbitration Centre (ISTAC), with the seat in Istanbul, conducted in English", "dp": "the Personal Data Protection Law No. 6698 (KVKK)", "stamp": "", "hint": "Türkiye · KVKK · ISTAC", "sym": "₺", "code": "TRY", "tax": "VAT (KDV)"}, "uae": {"label": "United Arab Emirates", "law": "the laws of the United Arab Emirates as applied in Dubai", "courts": "the courts of Dubai, UAE", "arb": "arbitration administered by the Dubai International Arbitration Centre (DIAC), with the seat in Dubai, conducted in English", "dp": "Federal Decree-Law No. 45 of 2021 on the Protection of Personal Data", "stamp": "", "hint": "UAE / Dubai · PDPL 2021 · DIAC", "sym": "AED", "code": "AED", "tax": "VAT"}, "saudi": {"label": "Saudi Arabia", "law": "the laws of the Kingdom of Saudi Arabia", "courts": "the competent courts of Riyadh, Saudi Arabia", "arb": "arbitration administered by the Saudi Center for Commercial Arbitration (SCCA), with the seat in Riyadh, conducted in English", "dp": "the Personal Data Protection Law (PDPL) and its implementing regulations", "stamp": "", "hint": "Saudi Arabia · PDPL · SCCA", "sym": "SAR", "code": "SAR", "tax": "VAT"}, "qatar": {"label": "Qatar", "law": "the laws of the State of Qatar", "courts": "the Qatar International Court (QICDRC)", "arb": "arbitration administered by the Qatar International Center for Conciliation and Arbitration (QICCA), with the seat in Doha, conducted in English", "dp": "Law No. 13 of 2016 concerning Personal Data Privacy Protection", "stamp": "", "hint": "Qatar · PDPPL 2016 · QICCA", "sym": "QR", "code": "QAR", "tax": "none"}, "israel": {"label": "Israel", "law": "the laws of the State of Israel", "courts": "the courts of Tel Aviv, Israel", "arb": "arbitration administered by the Israeli Institute of Commercial Arbitration, with the seat in Tel Aviv, conducted in English", "dp": "the Protection of Privacy Law, 5741-1981", "stamp": "", "hint": "Israel · PPL 1981", "sym": "₪", "code": "ILS", "tax": "VAT"}, "hybrid": {"label": "Cross-border (neutral / ICC)", "law": "the laws of England and Wales (selected as a neutral governing law)", "courts": "the courts of England and Wales", "arb": "arbitration under the ICC Rules, with the seat of arbitration in London (or such other neutral seat as the parties agree), conducted in English", "dp": "all data-protection laws applicable to the parties, including the EU/UK GDPR where relevant", "stamp": "", "hint": "Neutral · ICC · for cross-border deals", "sym": "$", "code": "USD", "tax": "any applicable taxes"}};
+
+/* =================== Shared engine =================== */
+const LEAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbz4pRHX1hVl-VmQOw5Tob9pjJL5eY3Q-ZV7OMK-A22mR9bChjAN8WODq7IGTdOGIbY/exec";
+let _pendingExport = null;
+let _logoDataUrl = null;
+
+const $ = id => document.getElementById(id);
+
+function ordn(n){const s=["th","st","nd","rd"],x=n%100;return n+(s[(x-20)%10]||s[x]||s[0]);}
+function fmtDate(iso){
+  if(!iso) return "[\u2022], 20[\u2022]";
+  const d=new Date(iso+"T00:00:00");
+  const m=["January","February","March","April","May","June","July","August","September","October","November","December"];
+  return ordn(d.getDate())+" day of "+m[d.getMonth()]+" "+d.getFullYear();
+}
+function v(id){const el=$(id);return el?el.value.trim():"";}
+function chk(id){const el=$(id);return el?el.checked:false;}
+function or(val, ph){return val ? val : '<span style="color:#b89;font-style:italic">'+ph+'</span>';}
+function money(code, amt){return code+" "+Number(amt||0).toLocaleString("en-US");}
+
+/* doc render wrapper — call render() to refresh */
+function _renderAll(){
+  const html = doc();
+  const logoBit = _logoDataUrl ? '<div class="doc-header"><img src="'+_logoDataUrl+'" alt="company logo"></div>' : '';
+  $("doc").innerHTML = logoBit + html;
+}
+function render(){ _renderAll(); }
+
+/* logo upload */
+function _wireLogo(){
+  const fi = $("logoFile"), btn = $("logoClearBtn");
+  fi.addEventListener("change", e=>{
+    const f = e.target.files && e.target.files[0]; if(!f) return;
+    if(f.size > 2*1024*1024){ alert("Logo must be under 2 MB"); fi.value=""; return; }
+    const r = new FileReader();
+    r.onload = ev => { _logoDataUrl = ev.target.result; btn.style.display="inline-flex"; render(); };
+    r.readAsDataURL(f);
+  });
+  btn.addEventListener("click", ()=>{ _logoDataUrl=null; fi.value=""; btn.style.display="none"; render(); });
+}
+
+/* lead modal */
+function _openLead(which){
+  _pendingExport = which;
+  $("leadErr").classList.remove("show");
+  $("leadModal").classList.add("show");
+  document.body.style.overflow="hidden";
+}
+function _closeLead(){
+  $("leadModal").classList.remove("show");
+  document.body.style.overflow="";
+  _pendingExport = null;
+}
+function _wireModal(){
+  $("leadClose").addEventListener("click", _closeLead);
+  $("leadCancel").addEventListener("click", _closeLead);
+  $("leadModal").querySelector(".modal-bg").addEventListener("click", _closeLead);
+  document.addEventListener("keydown", e=>{ if(e.key==="Escape" && $("leadModal").classList.contains("show")) _closeLead(); });
+  $("leadForm").addEventListener("submit", async e=>{
+    e.preventDefault();
+    const fd = new FormData($("leadForm"));
+    const need = ["name","email","phone","designation","org","industry","dpConsent"];
+    for(const k of need){
+      if(!fd.get(k)){ $("leadErr").textContent="Please complete all required fields."; $("leadErr").classList.add("show"); return; }
+    }
+    const email = fd.get("email");
+    if(!/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(email)){ $("leadErr").textContent="Please enter a valid email address (e.g. name@company.com)."; $("leadErr").classList.add("show"); return; }
+    const phoneRaw = fd.get("phone");
+    const phoneDigits = (phoneRaw.match(/\d/g)||[]).length;
+    if(!/^[+]?[\d\s\-()]+$/.test(phoneRaw) || phoneDigits < 8 || phoneDigits > 15){ $("leadErr").textContent="Please enter a valid phone number with country code (8\u201315 digits)."; $("leadErr").classList.add("show"); return; }
+    $("leadErr").classList.remove("show");
+    fd.append("tool", document.title);
+    fd.append("ts", new Date().toISOString());
+    if(LEAD_ENDPOINT && LEAD_ENDPOINT.indexOf("http")===0){
+      try{ await fetch(LEAD_ENDPOINT, {method:"POST", mode:"no-cors", body:fd}); }catch(err){}
+    }
+    const which = _pendingExport;
+    _closeLead();
+    if(which==="word") _exportWord();
+    else if(which==="pdf") window.print();
+  });
+}
+
+/* word export */
+function _exportWord(){
+  const styles = "@page{size:A4;margin:2.2cm}"
+    +"body{font-family:'Cambria',Georgia,serif;font-size:11.5pt;line-height:1.5;color:#000}"
+    +"h1{font-size:16pt;text-align:center;text-transform:uppercase;letter-spacing:1px;margin:0 0 4pt}"
+    +".sub{text-align:center;font-style:italic;font-size:10pt;color:#444;margin-bottom:16pt}"
+    +"h2{font-size:13pt;text-align:center;text-transform:uppercase;margin:18pt 0 8pt}"
+    +"h3{font-size:11.5pt;text-transform:uppercase;letter-spacing:.5px;margin:12pt 0 4pt}"
+    +"p{text-align:justify;margin:0 0 8pt}.recital{margin-bottom:6pt}"
+    +".sched{margin-top:18pt;border-top:1pt solid #999;padding-top:10pt}"
+    +".stamp-note{font-style:italic;font-size:9.5pt;color:#555;border-top:1pt dashed #999;margin-top:12pt;padding-top:8pt}"
+    +".sig{margin-top:26pt}.sig .block{margin-bottom:20pt}.sig .line{border-bottom:1pt solid #000;height:22pt;margin-bottom:3pt;width:55%}"
+    +".doc-header{text-align:right;border-bottom:1pt solid #999;padding-bottom:8pt;margin-bottom:16pt}.doc-header img{max-height:46pt}";
+  const html = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>"
+    +"<head><meta charset='utf-8'><title>"+document.title+"</title>"
+    +"<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml><![endif]-->"
+    +"<style>"+styles+"</style></head><body>"+$("doc").innerHTML+"</body></html>";
+  const blob = new Blob(["\ufeff"+html], {type:"application/msword"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = (v("dtype")==="offer"?"Offer_Letter_":"Employment_Agreement_")+JUR[S.jur].code+".doc";
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function _wireExport(){
+  $("wordBtn").addEventListener("click", ()=>_openLead("word"));
+  $("printBtn").addEventListener("click", ()=>_openLead("pdf"));
+}
+
+/* copy protection on the preview (export still works) */
+function _wireProtect(){
+  const d = $("doc");
+  if(!d) return;
+  ["copy","cut","contextmenu","dragstart"].forEach(ev=>{
+    d.addEventListener(ev, e=>{ e.preventDefault(); return false; });
+  });
+  d.addEventListener("selectstart", e=>{ e.preventDefault(); return false; });
+}
+
+
+const S = { jur:"india" };
+function doc(){
+  const j = JUR[S.jur], sym = j.sym;
+  const offer = v("dtype")==="offer";
+  const C = [];
+  C.push(['Position', 'The Company appoints the Employee as <b>'+or(v("title"),"[job title]")+'</b>, reporting to '+or(v("reports"),"[manager]")+'. The Employee shall perform the duties reasonably associated with the role and such other duties as may be assigned.']);
+  C.push(['Commencement', 'Employment commences on '+fmtDate(v("startDate"))+'. The first '+or(v("probation"),"[\u2022]")+' month(s) shall be a probationary period, during which either party may terminate on shorter notice as permitted by law.']);
+  C.push(['Place of Work', 'The Employee\'s primary place of work is '+or(v("location"),"[location]")+'. The Company may reasonably vary the place of work on notice.']);
+  C.push(['Remuneration', 'The Company shall pay the Employee a gross annual salary of '+sym+' '+or(v("salary"),"[amount]")+', payable monthly in arrears, subject to lawful deductions including applicable taxes and statutory contributions.']);
+  if(chk("benefits")) C.push(['Leave &amp; Benefits', 'The Employee is entitled to paid leave and statutory benefits in accordance with the Company\'s policies and applicable law, including any provident fund, gratuity or insurance benefits as applicable.']);
+  C.push(['Hours &amp; Conduct', 'The Employee shall devote their full working time and attention to the Company during working hours, comply with Company policies, and act in the Company\'s best interests at all times.']);
+  if(chk("confTog")) C.push(['Confidentiality', 'The Employee shall keep confidential all non-public information of the Company and its clients, both during and after employment, and shall not use or disclose it except in the proper performance of their duties.']);
+  if(chk("ipTog")) C.push(['Intellectual Property', 'All intellectual property created by the Employee in the course of employment, or relating to the Company\'s business, shall vest in the Company. The Employee assigns all such rights to the Company and shall execute any documents needed to give effect to this.']);
+  if(chk("nonComp")) C.push(['Non-Compete &amp; Non-Solicitation', 'During employment and for a reasonable period after it ends, the Employee shall not solicit the Company\'s clients or employees, nor engage in a business that directly competes with the Company, to the extent such restrictions are enforceable under applicable law.']);
+  C.push(['Termination', 'After probation, either party may terminate this employment by giving '+or(v("notice"),"[\u2022]")+' days\' written notice or salary in lieu. The Company may terminate without notice for gross misconduct or material breach. On termination, the Employee shall return all Company property and confidential information.']);
+  C.push(['Governing Law', 'This '+(offer?'offer':'Agreement')+' is governed by '+j.law+', and the parties submit to the jurisdiction of '+j.courts+'.']);
+  C.push(['General', 'This document constitutes the entire agreement on the Employee\'s engagement and supersedes prior discussions. Any variation must be in writing and signed by both parties.']);
+
+  let html;
+  if(offer){
+    html = '<h1>Letter of Offer of Employment</h1>';
+    html += '<div class="sub">'+or(v("coName"),"[Company]")+' &middot; Governed by '+j.law+'</div>';
+    html += '<p class="recital">Date: '+fmtDate(v("startDate"))+'</p>';
+    html += '<p class="recital">Dear '+or(v("empName"),"[Employee name]")+',</p>';
+    html += '<p class="recital">We are pleased to offer you employment with '+or(v("coName"),"[Company]")+' on the following terms:</p>';
+  } else {
+    html = '<h1>Employment Agreement</h1>';
+    html += '<div class="sub">Governed by '+j.law+'</div>';
+    html += '<p class="recital">This Employment Agreement is made on '+fmtDate(v("startDate"))+' between '+or(v("coName"),"[Company]")+', of '+or(v("coAddr"),"[address]")+' (the <b>"Company"</b>), and '+or(v("empName"),"[Employee]")+', of '+or(v("empAddr"),"[address]")+' (the <b>"Employee"</b>).</p>';
+  }
+  C.forEach((c,i)=>{ html += '<h3>'+(i+1)+'. '+c[0]+'</h3><p>'+c[1]+'</p>'; });
+  if(offer) html += '<p class="recital">Please confirm your acceptance by signing below.</p>';
+  if(j.stamp) html += '<p class="stamp-note">'+j.stamp+'</p>';
+  html += sig2(or(v("coName"),"[Company]"), offer?"For the Company":"Company", or(v("empName"),"[Employee]"), "Employee");
+  return html;
+}
+
+function sig2(n1,r1,n2,r2){
+  return '<div class="sig"><div class="block"><div style="font-weight:600;margin-bottom:10px">'+r1+': '+n1+'</div><div class="line"></div>Signature<br><br><div class="line"></div>Date</div>'
+    +'<div class="block"><div style="font-weight:600;margin-bottom:10px">'+r2+': '+n2+'</div><div class="line"></div>Signature<br><br><div class="line"></div>Date</div></div>';
+}
+
+const jurSel=$("jur");
+Object.keys(JUR).forEach(k=>{const o=document.createElement("option");o.value=k;o.textContent=JUR[k].label;jurSel.appendChild(o);});
+jurSel.value="india";
+jurSel.addEventListener("change",e=>{S.jur=e.target.value;$("jurHint").textContent=JUR[S.jur].hint;render();});
+["dtype","coName","coAddr","empName","empAddr","title","reports","startDate","salary","probation","notice","location"].forEach(id=>$(id).addEventListener("input",render));
+["confTog","ipTog","nonComp","benefits"].forEach(id=>$(id).addEventListener("change",render));
+$("startDate").value=new Date().toISOString().slice(0,10);
+$("jurHint").textContent=JUR[S.jur].hint;
+
+_wireLogo();
+_wireModal();
+_wireExport();
+_wireProtect();
+render();
+
+</script>
+</body>
+</html>
