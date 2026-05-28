@@ -176,9 +176,6 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
     <div class="preview-tools">
       <button class="btn" id="wordBtn">Download Word</button>
       <button class="btn ghost" id="printBtn">Save as PDF</button>
-      <label class="btn ghost" for="logoFile" style="cursor:pointer;display:inline-flex;align-items:center">Upload company logo</label>
-      <input type="file" id="logoFile" accept="image/png,image/jpeg,image/svg+xml" hidden />
-      <button class="btn ghost" id="logoClearBtn" style="display:none">Remove logo</button>
     </div>
     <div class="doc" id="doc"></div>
   </section>
@@ -246,7 +243,6 @@ const REG = {"india": {"label": "India (DPDP Act 2023)", "law": "the Digital Per
 /* =================== Shared engine =================== */
 const LEAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbz4pRHX1hVl-VmQOw5Tob9pjJL5eY3Q-ZV7OMK-A22mR9bChjAN8WODq7IGTdOGIbY/exec";
 let _pendingExport = null;
-let _logoDataUrl = null;
 
 const $ = id => document.getElementById(id);
 
@@ -264,24 +260,12 @@ function money(code, amt){return code+" "+Number(amt||0).toLocaleString("en-US")
 
 /* doc render wrapper — call render() to refresh */
 function _renderAll(){
-  const html = doc();
-  const logoBit = _logoDataUrl ? '<div class="doc-header"><img src="'+_logoDataUrl+'" alt="company logo"></div>' : '';
-  $("doc").innerHTML = logoBit + html;
+  $("doc").innerHTML = doc();
 }
 function render(){ _renderAll(); }
 
-/* logo upload */
-function _wireLogo(){
-  const fi = $("logoFile"), btn = $("logoClearBtn");
-  fi.addEventListener("change", e=>{
-    const f = e.target.files && e.target.files[0]; if(!f) return;
-    if(f.size > 2*1024*1024){ alert("Logo must be under 2 MB"); fi.value=""; return; }
-    const r = new FileReader();
-    r.onload = ev => { _logoDataUrl = ev.target.result; btn.style.display="inline-flex"; render(); };
-    r.readAsDataURL(f);
-  });
-  btn.addEventListener("click", ()=>{ _logoDataUrl=null; fi.value=""; btn.style.display="none"; render(); });
-}
+/* logo upload removed — no-op kept so init calls stay safe */
+function _wireLogo(){}
 
 /* lead modal */
 function _openLead(which){
