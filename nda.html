@@ -3,146 +3,122 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Agreement Forge — Multi-Jurisdiction NDA Generator</title>
+<title>Verbatra &mdash; NDA Generator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --ink:#1a1a17;--ink-soft:#4a4a42;--paper:#f4efe4;--paper-2:#ece5d6;--card:#fbf8f0;
-    --green:#1f3d30;--green-2:#2c5443;--oxblood:#7a2e26;--line:#d8cfbc;--line-soft:#e4ddcc;--gold:#a8843f;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  .v-logo{text-align:center;margin-bottom:16px}
-  .v-logo img{max-height:66px;max-width:230px;object-fit:contain}
-  input[type=file]{font-size:12.5px;color:var(--ink-soft);background:var(--card);border:1px solid var(--line);border-radius:7px;padding:8px;width:100%}
-  html,body{height:100%}
-  body{font-family:'Hanken Grotesk',sans-serif;background:var(--paper);color:var(--ink);
-    background-image:radial-gradient(circle at 12% 8%,rgba(31,61,48,.05),transparent 40%),radial-gradient(circle at 88% 92%,rgba(122,46,38,.04),transparent 42%);
-    -webkit-font-smoothing:antialiased}
-  header{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#fbf8f0,#f4efe4);padding:22px 30px 18px}
-  .brand{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
-  .mark{font-family:'Fraunces',serif;font-weight:600;font-size:30px;letter-spacing:-.01em;color:var(--green)}
-  .mark span{color:var(--oxblood)}
-  .tag{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);border-left:1px solid var(--line);padding-left:14px}
-  .disclaimer{margin-top:12px;font-size:12.5px;color:var(--ink-soft);line-height:1.5;max-width:760px}
-  .disclaimer strong{color:var(--oxblood);font-weight:600}
-  .wrap{display:grid;grid-template-columns:minmax(360px,1fr) 1.25fr;gap:0;min-height:calc(100vh - 118px)}
-  .panel{padding:26px 30px}
-  .form-panel{border-right:1px solid var(--line);background:rgba(251,248,240,.5);max-height:calc(100vh - 118px);overflow-y:auto}
-  .preview-panel{background:var(--paper-2);position:relative}
-  h2.sec{font-family:'Fraunces',serif;font-weight:500;font-size:15px;letter-spacing:.02em;color:var(--green);margin:26px 0 14px;display:flex;align-items:center;gap:10px}
-  h2.sec:first-of-type{margin-top:0}
-  h2.sec::before{content:"";width:18px;height:1px;background:var(--gold)}
-  .count{font-family:'Hanken Grotesk',sans-serif;font-size:11.5px;font-weight:600;color:var(--ink-soft);letter-spacing:.04em;text-transform:uppercase}
-  .field{margin-bottom:14px}
-  label{display:block;font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--ink-soft);margin-bottom:5px}
-  input[type=text],input[type=date],input[type=number],select,textarea{width:100%;font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:7px;padding:9px 11px;transition:border-color .15s,box-shadow .15s}
-  textarea{resize:vertical;min-height:62px;line-height:1.45}
-  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2);box-shadow:0 0 0 3px rgba(31,61,48,.1)}
-  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  .seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--card)}
-  .seg button{flex:1;border:none;background:transparent;font-family:inherit;font-size:13px;font-weight:600;color:var(--ink-soft);padding:9px 8px;cursor:pointer;transition:background .15s,color .15s}
-  .seg button.on{background:var(--green);color:#f4efe4}
-  .seg button+button{border-left:1px solid var(--line)}
-  .hint{font-size:11.5px;color:var(--ink-soft);margin-top:5px;line-height:1.45}
-  /* clause toggles */
-  .clz{display:flex;align-items:center;gap:9px;margin-bottom:10px}
-  .clz label{display:flex;align-items:center;gap:9px;font-size:13.5px;font-weight:500;color:var(--ink);cursor:pointer;margin:0;flex:1}
-  .clz input{width:16px;height:16px;accent-color:var(--green);flex:none}
-  .fav{font-size:9.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:20px;flex:none}
-  .fav.rp{color:var(--oxblood);background:rgba(122,46,38,.1)}
-  .fav.ma{color:var(--gold);background:rgba(168,132,63,.14)}
-  .info{position:relative;width:18px;height:18px;border-radius:50%;border:1px solid var(--line);color:var(--ink-soft);font-size:11px;font-weight:700;font-style:italic;font-family:Georgia,serif;display:flex;align-items:center;justify-content:center;cursor:help;flex:none}
-  .info:hover,.info.on{background:var(--green);color:#fff;border-color:var(--green)}
-  .info .tip{position:absolute;right:-4px;top:25px;width:250px;background:var(--ink);color:#f4efe4;font-size:12px;font-style:normal;font-weight:400;font-family:'Hanken Grotesk',sans-serif;line-height:1.5;padding:11px 13px;border-radius:9px;box-shadow:0 14px 36px -12px rgba(0,0,0,.55);opacity:0;visibility:hidden;transform:translateY(-4px);transition:.15s;z-index:40;text-align:left;letter-spacing:0}
-  .info .tip::after{content:"";position:absolute;right:8px;top:-5px;width:10px;height:10px;background:var(--ink);transform:rotate(45deg)}
-  .info:hover .tip,.info.on .tip{opacity:1;visibility:visible;transform:translateY(0)}
-  .preview-tools{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px;align-items:center}
-  .btn{font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;border:1px solid var(--green);background:var(--green);color:#f4efe4;border-radius:7px;padding:9px 16px;cursor:pointer;transition:transform .12s,background .15s}
-  .btn:hover{background:var(--green-2);transform:translateY(-1px)}
-  .btn.ghost{background:transparent;color:var(--green);border-color:var(--line)}
-  .btn.ghost:hover{background:var(--card)}
-  .copied{font-size:12.5px;color:var(--green);font-weight:600;opacity:0;transition:opacity .2s}
-  .copied.show{opacity:1}
-  .doc{background:#fffdf7;border:1px solid var(--line);border-radius:4px;box-shadow:0 18px 40px -24px rgba(26,26,23,.4),0 2px 0 var(--line-soft);padding:54px 56px;font-family:'Source Serif 4',Georgia,serif;color:#23211c;font-size:13.5px;line-height:1.62;max-width:720px}
-  .doc h1{font-family:'Source Serif 4',serif;font-weight:600;font-size:18px;text-align:center;letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px}
-  .doc .sub{text-align:center;font-size:12px;color:#6a655a;margin-bottom:26px;font-style:italic}
-  .doc h3{font-weight:600;font-size:13.5px;margin:18px 0 6px;text-transform:uppercase;letter-spacing:.03em}
-  .doc p{margin-bottom:11px;text-align:justify}
-  .doc .recital{margin-bottom:9px}
-  .doc .sig{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:42px}
-  .doc .sig .block{font-size:12.5px;line-height:1.9}
-  .doc .sig .line{border-bottom:1px solid #999;height:30px;margin-bottom:4px}
-  .doc .stamp-note{font-size:11.5px;font-style:italic;color:#6a655a;border-top:1px dashed #cbc3b0;margin-top:18px;padding-top:10px}
-  @media (max-width:920px){.wrap{grid-template-columns:1fr}.form-panel{border-right:none;border-bottom:1px solid var(--line);max-height:none;overflow:visible}.doc{padding:34px 26px}}
-  @media print{header,.form-panel,.preview-tools{display:none!important}body{background:#fff}.wrap{display:block}.preview-panel{background:#fff;padding:0}.doc{box-shadow:none;border:none;max-width:100%;padding:0;font-size:11.5pt}}
 
-/* ---------- Lead modal & logo upload ---------- */
+:root{--ink:#1a1a17;--ink-soft:#4a4a42;--paper:#f4efe4;--paper-2:#ece5d6;--card:#fbf8f0;--green:#1f3d30;--green-2:#2c5443;--oxblood:#7a2e26;--line:#d8cfbc;--line-soft:#e4ddcc;--gold:#a8843f}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:'Hanken Grotesk',sans-serif;background:var(--paper);color:var(--ink);
+  background-image:radial-gradient(circle at 12% 8%,rgba(31,61,48,.05),transparent 40%),radial-gradient(circle at 88% 92%,rgba(122,46,38,.04),transparent 42%);
+  -webkit-font-smoothing:antialiased}
+header{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#fbf8f0,#f4efe4);padding:18px 30px 16px}
+.back-home{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--ink-soft);text-decoration:none;margin-bottom:10px;letter-spacing:.02em;transition:color .15s}
+.back-home::before{content:"\2190";font-size:14px}
+.back-home:hover{color:var(--green)}
+.brand{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.mark{font-family:'Fraunces',serif;font-weight:600;font-size:28px;letter-spacing:-.01em;color:var(--green)}
+.mark span{color:var(--oxblood)}
+.tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);border-left:1px solid var(--line);padding-left:14px}
+.disclaimer{margin-top:10px;font-size:12.5px;color:var(--ink-soft);line-height:1.5;max-width:820px}
+.disclaimer strong{color:var(--oxblood);font-weight:600}
+.wrap{display:grid;grid-template-columns:minmax(360px,1fr) 1.3fr;min-height:calc(100vh - 130px)}
+.panel{padding:24px 28px}
+.form-panel{border-right:1px solid var(--line);background:rgba(251,248,240,.5);max-height:calc(100vh - 130px);overflow-y:auto}
+.preview-panel{background:var(--paper-2)}
+h2.sec{font-family:'Fraunces',serif;font-weight:500;font-size:14.5px;color:var(--green);margin:24px 0 12px;display:flex;align-items:center;gap:10px}
+h2.sec:first-of-type{margin-top:0}
+h2.sec::before{content:"";width:18px;height:1px;background:var(--gold)}
+.field{margin-bottom:13px}
+label{display:block;font-size:11.5px;font-weight:600;color:var(--ink-soft);margin-bottom:5px;letter-spacing:.02em}
+input[type=text],input[type=date],input[type=number],input[type=email],input[type=tel],select,textarea{width:100%;font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:7px;padding:9px 11px;transition:border-color .15s,box-shadow .15s}
+textarea{resize:vertical;min-height:60px;line-height:1.45}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2);box-shadow:0 0 0 3px rgba(31,61,48,.1)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px}
+.seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--card)}
+.seg button{flex:1;border:none;background:transparent;font-family:inherit;font-size:13px;font-weight:600;color:var(--ink-soft);padding:9px 8px;cursor:pointer;transition:.15s}
+.seg button.on{background:var(--green);color:#f4efe4}
+.seg button+button{border-left:1px solid var(--line)}
+.hint{font-size:11.5px;color:var(--ink-soft);margin-top:5px;line-height:1.45}
+.modlist{font-size:11.5px;color:var(--green-2);margin-top:7px;line-height:1.5;background:rgba(31,61,48,.06);border-radius:6px;padding:8px 10px}
+.toggle{display:flex;align-items:center;gap:9px;cursor:pointer;font-size:13px;color:var(--ink);font-weight:500;margin-bottom:10px}
+.toggle input{width:16px;height:16px;accent-color:var(--green)}
+
+.preview-tools{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px;align-items:center}
+.btn{font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;border:1px solid var(--green);background:var(--green);color:#f4efe4;border-radius:7px;padding:9px 16px;cursor:pointer;transition:.15s}
+.btn:hover{background:var(--green-2);transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--green);border-color:var(--line)}
+.btn.ghost:hover{background:var(--card)}
+
+.doc{background:#fffdf7;border:1px solid var(--line);border-radius:4px;box-shadow:0 18px 40px -24px rgba(26,26,23,.4),0 2px 0 var(--line-soft);padding:50px 52px;font-family:'Source Serif 4',Georgia,serif;color:#23211c;font-size:13.5px;line-height:1.62;max-width:760px}
+.doc h1{font-family:'Source Serif 4',serif;font-weight:600;font-size:18px;text-align:center;letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px}
+.doc .sub{text-align:center;font-size:12px;color:#6a655a;margin-bottom:24px;font-style:italic}
+.doc h3{font-weight:600;font-size:13px;margin:17px 0 6px;text-transform:uppercase;letter-spacing:.03em}
+.doc p{margin-bottom:11px;text-align:justify}
+.doc .recital{margin-bottom:9px}
+.doc .sched{margin-top:30px;border-top:2px solid #cbc3b0;padding-top:18px}
+.doc .sched h2{font-family:'Source Serif 4',serif;font-size:15px;text-align:center;letter-spacing:.03em;text-transform:uppercase;margin-bottom:14px}
+.doc .anx{margin-bottom:7px}
+.doc .sig{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:42px}
+.doc .sig .block{font-size:12.5px;line-height:1.9}
+.doc .sig .line{border-bottom:1px solid #999;height:30px;margin-bottom:4px}
+.doc .stamp-note{font-size:11.5px;font-style:italic;color:#6a655a;border-top:1px dashed #cbc3b0;margin-top:18px;padding-top:10px}
+.doc-logo{display:flex;justify-content:flex-end;margin-bottom:14px}
+.doc-logo img{max-height:54px;max-width:200px;object-fit:contain}
+
+/* Lead modal */
 .modal{position:fixed;inset:0;display:none;z-index:200;align-items:center;justify-content:center;padding:20px}
 .modal.show{display:flex}
 .modal-bg{position:absolute;inset:0;background:rgba(26,26,23,.55);backdrop-filter:blur(6px)}
-.modal-card{position:relative;width:100%;max-width:560px;max-height:92vh;overflow-y:auto;background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:0 30px 80px -20px rgba(26,26,23,.55);padding:34px 36px 28px}
-.modal-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;color:var(--ink-soft);cursor:pointer;line-height:1;width:28px;height:28px;border-radius:8px}
+.modal-card{position:relative;width:100%;max-width:560px;max-height:92vh;overflow-y:auto;background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:0 30px 80px -20px rgba(26,26,23,.55);padding:30px 32px 26px}
+.modal-close{position:absolute;top:12px;right:14px;background:none;border:none;font-size:22px;color:var(--ink-soft);cursor:pointer;line-height:1;width:28px;height:28px;border-radius:8px}
 .modal-close:hover{background:var(--card);color:var(--ink)}
 .modal-eyebrow{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--oxblood);margin-bottom:10px;display:flex;align-items:center;gap:10px}
 .modal-eyebrow::before{content:"";width:24px;height:1px;background:var(--gold)}
-.modal-h{font-family:'Fraunces',serif;font-weight:500;font-size:24px;color:var(--ink);letter-spacing:-.01em;margin-bottom:8px}
-.modal-lede{font-size:13.5px;color:var(--ink-soft);line-height:1.55;margin-bottom:18px;max-width:46ch}
-.modal-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:11px}
-.modal-field label{display:block;font-size:11.5px;font-weight:600;color:var(--ink-soft);margin-bottom:4px;letter-spacing:.02em}
-.modal-field input,.modal-field select{width:100%;font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:7px;padding:9px 11px}
+.modal-h{font-family:'Fraunces',serif;font-weight:500;font-size:23px;color:var(--ink);margin-bottom:8px}
+.modal-lede{font-size:13.5px;color:var(--ink-soft);line-height:1.55;margin-bottom:16px}
+.modal-row{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:10px}
+.modal-field label{display:block;font-size:11.5px;font-weight:600;color:var(--ink-soft);margin-bottom:4px}
+.modal-field input,.modal-field select{width:100%;font-size:14px;font-family:inherit;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:7px;padding:9px 11px}
 .modal-field input:focus,.modal-field select:focus{outline:none;border-color:var(--green-2);box-shadow:0 0 0 3px rgba(31,61,48,.1)}
-.modal-consent{margin:14px 0 4px;padding:14px 16px;background:rgba(31,61,48,.05);border:1px solid rgba(31,61,48,.13);border-radius:10px}
+.modal-consent{margin:14px 0 4px;padding:13px 15px;background:rgba(31,61,48,.05);border:1px solid rgba(31,61,48,.13);border-radius:10px}
 .modal-consent label{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;color:var(--ink);line-height:1.5;margin-bottom:10px;cursor:pointer}
 .modal-consent label:last-child{margin-bottom:0}
 .modal-consent input{margin-top:3px;width:15px;height:15px;accent-color:var(--green);flex:none}
 .modal-consent b{color:var(--green)}
-.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
-.modal-fine{font-size:11px;color:var(--ink-soft);text-align:center;margin-top:14px;line-height:1.5}
-.modal-fine a{color:var(--green)}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
 .modal-err{background:rgba(122,46,38,.08);border:1px solid rgba(122,46,38,.2);color:var(--oxblood);font-size:12.5px;padding:9px 13px;border-radius:7px;margin-bottom:10px;display:none}
 .modal-err.show{display:block}
-@media (max-width:560px){.modal-card{padding:26px 22px 22px}.modal-row{grid-template-columns:1fr}}
+.modal-fine{font-size:11px;color:var(--ink-soft);text-align:center;margin-top:12px}
 
-/* logo inside the document */
-.doc-logo{display:flex;justify-content:flex-end;margin-bottom:14px}
-.doc-logo img{max-height:54px;max-width:200px;object-fit:contain}
-@media print{.doc-logo img{max-height:60px}}
-
-
-/* Back-to-home link */
-.back-home{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--ink-soft);text-decoration:none;margin-bottom:12px;letter-spacing:.02em;transition:color .15s}
-.back-home::before{content:"\2190";font-size:14px;line-height:1}
-.back-home:hover{color:var(--green)}
+@media (max-width:920px){.wrap{grid-template-columns:1fr}.form-panel{border-right:none;border-bottom:1px solid var(--line);max-height:none;overflow:visible}.doc{padding:30px 24px}}
+@media (max-width:560px){.modal-card{padding:24px 20px}.modal-row{grid-template-columns:1fr}}
+@media print{header,.form-panel,.preview-tools,.modal{display:none!important}body{background:#fff}.wrap{display:block}.preview-panel{background:#fff;padding:0}.doc{box-shadow:none;border:none;max-width:100%;padding:0;font-size:11.5pt}}
 
 </style>
 </head>
-<body>
-<header>
+<body><header>
   <a href="/" class="back-home">Back to Verbatra</a>
   <div class="brand">
     <div class="mark">Agreement&nbsp;<span>Forge</span></div>
-    <div class="tag">NDA Builder · 8 Jurisdictions</div>
+    <div class="tag">NDA &middot; 45 jurisdictions</div>
   </div>
-  <p class="disclaimer">
-    Build a Non-Disclosure Agreement clause by clause. Toggle clauses on or off, hover any clause for a plain-English explanation, and the governing-law and data-protection wording adapts to your jurisdiction.
-    <strong>This is not legal advice.</strong> Have every draft reviewed by a qualified lawyer admitted in the relevant jurisdiction before signing.
-  </p>
+  <p class="disclaimer">Build a Non-Disclosure Agreement with governing-law, dispute-resolution, stamp-duty and data-protection clauses tailored to the chosen jurisdiction. <strong>This is not legal advice.</strong> Every draft must be reviewed by a qualified lawyer admitted in the relevant jurisdiction before execution.</p>
 </header>
-
 <div class="wrap">
   <section class="panel form-panel">
-    <h2 class="sec">Branding</h2>
-    <div class="field"><label>Your company logo (optional)</label><input type="file" id="logoUp" accept="image/*"><div class="hint">Appears at the top of the agreement. Stays on your device — it is never uploaded.</div></div>
     <h2 class="sec">Agreement</h2>
     <div class="field">
       <label>NDA direction</label>
       <div class="seg" id="dirSeg">
-        <button data-dir="mutual" class="on">Mutual</button>
-        <button data-dir="oneway">One-way</button>
+        <button type="button" data-v="mutual" class="on">Mutual</button>
+        <button type="button" data-v="oneway">One-way</button>
       </div>
-      <div class="hint">Mutual: both parties may disclose and receive. One-way: only one party discloses.</div>
+      <div class="hint">Mutual: both sides disclose. One-way: only one side discloses.</div>
     </div>
     <div class="field">
       <label>Governing jurisdiction</label>
@@ -151,43 +127,42 @@
     </div>
 
     <h2 class="sec">Parties</h2>
-    <div class="field"><label id="p1Label">First Party — full legal name</label><input type="text" id="p1Name" placeholder="e.g. Acme Technologies Pvt. Ltd." /></div>
+    <div class="field"><label id="p1Label">First Party &mdash; full legal name</label><input type="text" id="p1Name" placeholder="e.g. Acme Technologies Pvt. Ltd."></div>
     <div class="row">
-      <div class="field"><label>Entity type</label><input type="text" id="p1Type" placeholder="Private Limited Company" /></div>
-      <div class="field"><label>Country</label><input type="text" id="p1Country" placeholder="India" /></div>
+      <div class="field"><label>Entity type</label><input type="text" id="p1Type" placeholder="Private Limited Company"></div>
+      <div class="field"><label>Country</label><input type="text" id="p1Country" placeholder="India"></div>
     </div>
     <div class="field"><label>Registered address</label><textarea id="p1Addr" placeholder="Street, City, State, PIN"></textarea></div>
-    <div class="field"><label id="p2Label">Second Party — full legal name</label><input type="text" id="p2Name" placeholder="e.g. Globex Solutions LLC" /></div>
+    <div class="field"><label id="p2Label">Second Party &mdash; full legal name</label><input type="text" id="p2Name" placeholder="e.g. Globex Solutions LLC"></div>
     <div class="row">
-      <div class="field"><label>Entity type</label><input type="text" id="p2Type" placeholder="Limited Liability Company" /></div>
-      <div class="field"><label>Country</label><input type="text" id="p2Country" placeholder="United States" /></div>
+      <div class="field"><label>Entity type</label><input type="text" id="p2Type" placeholder="Limited Liability Company"></div>
+      <div class="field"><label>Country</label><input type="text" id="p2Country" placeholder="United States"></div>
     </div>
     <div class="field"><label>Registered address</label><textarea id="p2Addr" placeholder="Street, City, State, ZIP"></textarea></div>
 
     <h2 class="sec">Terms</h2>
-    <div class="field"><label>Effective date</label><input type="date" id="effDate" /></div>
-    <div class="field"><label>Purpose of disclosure</label><textarea id="purpose" placeholder="e.g. evaluating a potential commercial partnership relating to cloud infrastructure services"></textarea></div>
-    <div class="field"><label>Confidentiality period (years after termination)</label><input type="number" id="confYears" value="3" min="1" /></div>
-
-    <h2 class="sec">Clauses <span id="clzCount" class="count"></span></h2>
-    <div class="hint" style="margin-bottom:13px">Toggle clauses on or off. Hover the <b>i</b> for a plain-English explanation. Core clauses are always included.</div>
-    <div id="clauseList"></div>
+    <div class="field"><label>Effective date</label><input type="date" id="effDate"></div>
+    <div class="field"><label>Purpose of disclosure</label><textarea id="purpose" placeholder="e.g. evaluating a potential commercial partnership"></textarea></div>
+    <div class="field"><label>Confidentiality period (years after termination)</label><input type="number" id="confYears" value="3" min="1"></div>
 
     <h2 class="sec">Dispute resolution</h2>
     <div class="field">
       <div class="seg" id="drSeg">
-        <button data-dr="courts" class="on">Courts</button>
-        <button data-dr="arb">Arbitration</button>
+        <button type="button" data-v="courts" class="on">Courts</button>
+        <button type="button" data-v="arb">Arbitration</button>
       </div>
       <div class="hint" id="drHint"></div>
     </div>
-  </section>
 
+    <h2 class="sec">Data protection</h2>
+    <label class="toggle"><input type="checkbox" id="dpToggle" checked> Include a data-protection clause</label>
+    <div class="hint" id="dpHint"></div>
+  </section>
   <section class="panel preview-panel">
-        <div class="preview-tools">
+    <div class="preview-tools">
       <button class="btn" id="wordBtn">Download Word</button>
       <button class="btn ghost" id="printBtn">Save as PDF</button>
-      <label class="btn ghost" for="logoFile" style="display:inline-flex;align-items:center;cursor:pointer">Upload company logo</label>
+      <label class="btn ghost" for="logoFile" style="cursor:pointer;display:inline-flex;align-items:center">Upload company logo</label>
       <input type="file" id="logoFile" accept="image/png,image/jpeg,image/svg+xml" hidden />
       <button class="btn ghost" id="logoClearBtn" style="display:none">Remove logo</button>
     </div>
@@ -195,193 +170,12 @@
   </section>
 </div>
 
-<script>
-/* ---------------- Jurisdictions ---------------- */
-const JUR = {
-  india:{label:"India",law:"the laws of India",courts:"the competent courts at New Delhi, India",
-    arb:"arbitration under the Arbitration and Conciliation Act, 1996, before a sole arbitrator, with the seat and venue of arbitration at New Delhi, India, conducted in English",
-    dp:"the Digital Personal Data Protection Act, 2023 and the rules made thereunder, together with any other applicable Indian data-protection laws",
-    stamp:"This Agreement is liable to stamp duty under the Indian Stamp Act, 1899 and the applicable State Stamp Act; the parties shall ensure it is duly stamped at or before execution.",
-    hint:"DPDP Act 2023 · Arbitration & Conciliation Act 1996 · state stamp duty"},
-  usa:{label:"United States (Delaware)",law:"the laws of the State of Delaware, United States, without regard to its conflict-of-laws principles",courts:"the state and federal courts located in the State of Delaware",
-    arb:"binding arbitration administered by the American Arbitration Association (AAA) under its Commercial Arbitration Rules, with the seat of arbitration in New York, NY, conducted in English",
-    dp:"applicable U.S. federal and state data-protection laws, including, where applicable, the California Consumer Privacy Act as amended by the CPRA (CCPA/CPRA)",stamp:"",hint:"Delaware default · CCPA/CPRA · AAA arbitration"},
-  uk:{label:"United Kingdom",law:"the laws of England and Wales",courts:"the courts of England and Wales",
-    arb:"arbitration under the LCIA Rules, with the seat of arbitration in London, United Kingdom, conducted in English",
-    dp:"the UK GDPR and the Data Protection Act 2018",stamp:"",hint:"England & Wales · UK GDPR + DPA 2018 · LCIA"},
-  germany:{label:"Germany (EU)",law:"the laws of the Federal Republic of Germany, excluding the UN Convention on Contracts for the International Sale of Goods",courts:"the competent courts of Frankfurt am Main, Germany",
-    arb:"arbitration under the Rules of the German Arbitration Institute (DIS), with the seat of arbitration in Frankfurt am Main, conducted in English",
-    dp:"the EU General Data Protection Regulation (GDPR) and the German Federal Data Protection Act (BDSG)",stamp:"",hint:"German law · GDPR + BDSG · DIS"},
-  singapore:{label:"Singapore",law:"the laws of Singapore",courts:"the courts of Singapore",
-    arb:"arbitration administered by the Singapore International Arbitration Centre (SIAC) under the SIAC Rules, with the seat of arbitration in Singapore, conducted in English",
-    dp:"the Personal Data Protection Act 2012 of Singapore",stamp:"",hint:"Singapore law · PDPA 2012 · SIAC"},
-  uae:{label:"United Arab Emirates",law:"the laws of the United Arab Emirates as applied in the Emirate of Dubai",courts:"the competent courts of Dubai, United Arab Emirates",
-    arb:"arbitration under the Rules of the Dubai International Arbitration Centre (DIAC), with the seat of arbitration in Dubai, conducted in English",
-    dp:"Federal Decree-Law No. 45 of 2021 on the Protection of Personal Data and its implementing regulations",stamp:"",hint:"UAE/Dubai · Federal PDPL 2021 · DIAC"},
-  australia:{label:"Australia",law:"the laws of New South Wales, Australia",courts:"the courts of New South Wales, Australia",
-    arb:"arbitration administered by the Australian Centre for International Commercial Arbitration (ACICA) under the ACICA Rules, with the seat of arbitration in Sydney, conducted in English",
-    dp:"the Privacy Act 1988 (Cth) and the Australian Privacy Principles",stamp:"",hint:"NSW law · Privacy Act 1988 · ACICA"},
-  canada:{label:"Canada (Ontario)",law:"the laws of the Province of Ontario and the federal laws of Canada applicable therein",courts:"the courts of the Province of Ontario, Canada",
-    arb:"arbitration under the Rules of the ADR Institute of Canada (ADRIC), with the seat of arbitration in Toronto, conducted in English",
-    dp:"the Personal Information Protection and Electronic Documents Act (PIPEDA) and any applicable provincial privacy legislation",stamp:"",hint:"Ontario + federal · PIPEDA · ADRIC"}
-};
-
-/* ---------------- Clause registry ---------------- */
-const ORDER=["confinfo","obligations","exclusions","compelled","noobligation","term","return","nolicence","residuals","noncircum","nonsolicit","nopublicity","standstill","remedies","dataprotection","notices","governing","general"];
-const CORE={confinfo:1,obligations:1,exclusions:1,term:1,governing:1,general:1};
-const TITLES={confinfo:"Confidential Information",obligations:"Obligations of the Receiving Party",exclusions:"Exclusions",compelled:"Compelled Disclosure",noobligation:"No Obligation to Proceed",term:"Term & Survival",return:"Return of Materials",nolicence:"No Licence; No Warranty",residuals:"Residuals",noncircum:"Non-Circumvention",nonsolicit:"Non-Solicitation",nopublicity:"No Publicity",standstill:"Standstill",remedies:"Remedies",dataprotection:"Data Protection",notices:"Notices",governing:"Governing Law & Dispute Resolution",general:"Entire Agreement & General"};
-/* optional clauses shown as toggles, in display order */
-const CLZMETA=[
-  {id:"compelled",def:true,tip:"If a court or regulator forces disclosure, this requires notifying the other side first and disclosing only the minimum necessary. On by default."},
-  {id:"noobligation",def:true,tip:"Makes clear the NDA does not commit either side to actually doing a deal — useful for exploratory talks."},
-  {id:"return",def:true,tip:"Requires confidential materials to be returned or destroyed when the relationship ends."},
-  {id:"nolicence",def:true,tip:"Confirms that sharing information grants no intellectual-property rights and comes with no warranty of accuracy."},
-  {id:"remedies",def:true,tip:"Confirms the innocent party can ask a court for an injunction to stop a breach, not just claim damages."},
-  {id:"dataprotection",def:true,tip:"Adds compliance with the relevant data-protection law where personal data is shared."},
-  {id:"notices",def:true,tip:"Sets how formal notices must be sent and when they count as received."},
-  {id:"noncircum",def:false,tip:"Stops the other side using your information to go around you and deal directly with your contacts. Common in introductions and broker deals."},
-  {id:"nonsolicit",def:false,tip:"Stops either side poaching the employees they meet during discussions (12 months)."},
-  {id:"nopublicity",def:false,tip:"Neither side may publicise the relationship or use the other party's name without consent."},
-  {id:"residuals",def:false,fav:{cls:"rp",txt:"RP-friendly"},tip:"Lets the receiving side freely use general know-how its people remember. Favourable to the receiving party — disclosing parties often resist it."},
-  {id:"standstill",def:false,fav:{cls:"ma",txt:"For M&A"},tip:"Used in M&A talks: the receiving side agrees not to try to acquire the disclosing company for a period (12 months)."}
-];
-
-/* ---------------- State & helpers ---------------- */
-const S={dir:"mutual",jur:"india",dr:"courts",clauses:{}};
-CLZMETA.forEach(c=>S.clauses[c.id]=c.def);
-const $=id=>document.getElementById(id);
-const v=id=>($(id)?$(id).value.trim():"");
-const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
-const ordn=n=>{const s=["th","st","nd","rd"],x=n%100;return n+(s[(x-20)%10]||s[x]||s[0]);};
-function fmtDate(iso){if(!iso)return "[●], 20[●]";const d=new Date(iso+"T00:00:00");
-  const m=["January","February","March","April","May","June","July","August","September","October","November","December"];
-  return ordn(d.getDate())+" day of "+m[d.getMonth()]+" "+d.getFullYear();}
-const or=(val,ph)=>val?val:'<span style="color:#b89;font-style:italic">'+ph+'</span>';
-
-const jurSel=$("jur");
-Object.keys(JUR).forEach(k=>{const o=document.createElement("option");o.value=k;o.textContent=JUR[k].label;jurSel.appendChild(o);});
-
-/* ---------------- Builder ---------------- */
-function partyLine(p){
-  const name=or(v(p+"Name"),p==="p1"?"[Party Name]":"[Counterparty Name]");
-  const type=v(p+"Type")||"a company";
-  const country=v(p+"Country")||"[country]";
-  const addr=v(p+"Addr")||"[registered address]";
-  return name+", "+type+" incorporated under the laws of "+country+", having its registered office at "+addr;
-}
-function build(){
-  const j=JUR[S.jur], mutual=S.dir==="mutual";
-  const recv = mutual ? "the other party (in its capacity as the receiving party)" : "the Receiving Party";
-  const giving = mutual ? "each party (in its capacity as the disclosing party)" : "the Disclosing Party";
-  const dr = S.dr==="courts"
-    ? "Any dispute arising out of or in connection with this Agreement shall be subject to the exclusive jurisdiction of "+j.courts+"."
-    : "Any dispute arising out of or in connection with this Agreement shall be finally resolved by "+j.arb+".";
-  const yrs = or(v("confYears"),"[●]");
-
-  const B={};
-  B.confinfo='"Confidential Information" means all non-public information disclosed by '+giving+' to '+recv+', whether oral, written, electronic or in any other form, that is marked or reasonably understood to be confidential, including business, technical, financial, commercial and personal data.';
-  B.obligations=cap(recv)+" shall: (a) use the Confidential Information solely for the Purpose; (b) keep it strictly confidential and protect it with no less than reasonable care; (c) not disclose it to any third party except to those of its employees, advisers and affiliates who need to know it and are bound by equivalent obligations; and (d) not copy or reverse-engineer it except as necessary for the Purpose.";
-  B.exclusions="The obligations in this Agreement do not apply to information that: (a) is or becomes public through no breach of this Agreement; (b) was lawfully known to the receiving party before disclosure; (c) is independently developed without use of the Confidential Information; or (d) is lawfully received from a third party without restriction.";
-  B.compelled="If "+recv+" is required by law, regulation or court or regulatory order to disclose any Confidential Information, it shall, to the extent lawful, give the disclosing party prompt prior written notice and reasonable cooperation to enable it to seek protective treatment, and shall disclose only that portion legally required.";
-  B.noobligation="Nothing in this Agreement obliges either party to proceed with any transaction, relationship or further disclosure. Each party may terminate discussions at any time, and no agreement relating to the Purpose arises unless and until set out in a separate signed contract.";
-  B.term="This Agreement takes effect on the Effective Date and continues until terminated by either party on written notice. The confidentiality obligations survive for "+yrs+" year(s) following termination, and continue indefinitely in respect of trade secrets and personal data for as long as they are protected by applicable law.";
-  B.return="Upon termination or upon the disclosing party's written request, "+recv+" shall promptly return or destroy all Confidential Information and all copies, and certify such destruction in writing, save for one archival copy retained solely to evidence compliance or as required by law or routine electronic backup.";
-  B.nolicence='No licence or other right under any patent, copyright, trade mark, trade secret or other intellectual property is granted by virtue of this Agreement or any disclosure under it. All Confidential Information is provided "as is", without warranty of any kind as to its accuracy or completeness.';
-  B.residuals="Nothing in this Agreement restricts "+recv+" from using the general knowledge, skills and experience (including ideas, concepts and know-how) retained in the unaided memory of its personnel, provided that this clause grants no licence under either party's patents or copyrights and does not permit disclosure of the Confidential Information itself.";
-  B.noncircum=cap(recv)+" shall not use the Confidential Information to circumvent the disclosing party or to deal directly with any customer, supplier, investor or other contact first introduced or identified to it through the Confidential Information, without the disclosing party's prior written consent.";
-  B.nonsolicit="During the term and for twelve (12) months after termination, neither party shall directly solicit for employment any employee of the other party with whom it had material contact in connection with the Purpose, except through general recruitment advertising not specifically targeted at such employees.";
-  B.nopublicity="Neither party shall make any public announcement concerning, or use the name, marks or logo of the other party in connection with, this Agreement or the Purpose, without the other party's prior written consent.";
-  B.standstill="For twelve (12) months from the Effective Date, "+recv+" shall not, without the disclosing party's prior written invitation, acquire or offer to acquire any securities or material assets of the disclosing party, or propose or announce any merger, business combination or similar transaction involving the disclosing party.";
-  B.remedies="The parties acknowledge that a breach of this Agreement may cause irreparable harm for which monetary damages are an inadequate remedy, and that the non-breaching party shall be entitled to seek injunctive or other equitable relief in addition to all other remedies available at law or in equity.";
-  B.dataprotection="Each party shall comply with "+j.dp+" in respect of any personal data processed in connection with this Agreement, and shall implement appropriate technical and organisational measures to safeguard such data.";
-  B.notices="Any notice under this Agreement shall be in writing and sent to the relevant party at its address stated above (or as later notified in writing), and shall be deemed received on delivery if delivered by hand, or two (2) business days after posting or after sending by email with confirmation of transmission.";
-  B.governing="This Agreement and any non-contractual obligations arising out of it are governed by "+j.law+". "+dr;
-  B.general="This Agreement constitutes the entire agreement between the parties on its subject matter and supersedes all prior discussions and understandings. No variation is effective unless in writing and signed by both parties. No failure to exercise a right operates as a waiver of it. If any provision is held invalid, the remainder continues in full force. Neither party may assign this Agreement without the other's prior written consent. This Agreement may be executed in counterparts, including by electronic signature.";
-
-  let html='<h1>'+(mutual?"Mutual ":"")+'Non-Disclosure Agreement</h1>';
-  html+='<div class="sub">Governed by '+j.law+'</div>';
-  html+='<p class="recital">This Non-Disclosure Agreement (the <b>"Agreement"</b>) is made on the '+fmtDate(v("effDate"))+', by and between:</p>';
-  html+='<p class="recital"><b>(1)</b> '+partyLine("p1")+' (the '+(mutual?'<b>"First Party"</b>':'<b>"Disclosing Party"</b>')+'); and</p>';
-  html+='<p class="recital"><b>(2)</b> '+partyLine("p2")+' (the '+(mutual?'<b>"Second Party"</b>':'<b>"Receiving Party"</b>')+').</p>';
-  html+='<p class="recital">The parties wish to explore '+or(v("purpose"),"[purpose of disclosure]")+' (the <b>"Purpose"</b>), in connection with which Confidential Information may be disclosed. The parties agree as follows:</p>';
-
-  let n=0;
-  ORDER.forEach(id=>{
-    if(CORE[id]||S.clauses[id]){ n++; html+='<h3>'+n+'. '+TITLES[id]+'</h3><p>'+B[id]+'</p>'; }
-  });
-  const cc=$("clzCount"); if(cc) cc.textContent=n+" clauses";
-
-  if(j.stamp) html+='<p class="stamp-note">'+j.stamp+'</p>';
-  html+=signatures(mutual?["First Party","Second Party"]:["Disclosing Party","Receiving Party"]);
-  return html;
-}
-function signatures(roles){
-  const names=[v("p1Name")||"["+roles[0]+"]", v("p2Name")||"["+roles[1]+"]"];
-  let h='<div class="sig">';
-  for(let i=0;i<2;i++){
-    h+='<div class="block"><div style="font-weight:600;margin-bottom:10px">For and on behalf of '+names[i]+'</div><div class="line"></div>Signature<br><br><div class="line"></div>Name &amp; Title<br><br><div class="line"></div>Date</div>';
-  }
-  return h+'</div>';
-}
-
-/* ---------------- Render ---------------- */
-function render(){
-  const j=JUR[S.jur];
-  $("jurHint").textContent=j.hint;
-  $("drHint").textContent = S.dr==="courts" ? "Exclusive jurisdiction of the chosen courts." : j.arb.split(",").slice(0,2).join(", ")+"…";
-  $("doc").innerHTML=build();applyLogo();
-}
-function onChange(){
-  const mutual=S.dir==="mutual";
-  $("p1Label").textContent=mutual?"First Party — full legal name":"Disclosing Party — full legal name";
-  $("p2Label").textContent=mutual?"Second Party — full legal name":"Receiving Party — full legal name";
-  render();
-}
-
-/* ---------------- Clause toggle UI ---------------- */
-const clauseList=$("clauseList");
-clauseList.innerHTML=CLZMETA.map(c=>(
-  '<div class="clz">'+
-    '<label><input type="checkbox" data-cl="'+c.id+'" '+(c.def?"checked":"")+'> '+TITLES[c.id]+'</label>'+
-    (c.fav?'<span class="fav '+c.fav.cls+'">'+c.fav.txt+'</span>':'')+
-    '<span class="info">i<span class="tip">'+c.tip+'</span></span>'+
-  '</div>'
-)).join("");
-clauseList.querySelectorAll("input[data-cl]").forEach(cb=>cb.addEventListener("change",e=>{S.clauses[e.target.dataset.cl]=e.target.checked;render();}));
-clauseList.querySelectorAll(".info").forEach(ic=>ic.addEventListener("click",e=>{
-  e.stopPropagation();const open=ic.classList.contains("on");
-  clauseList.querySelectorAll(".info").forEach(x=>x.classList.remove("on"));
-  if(!open)ic.classList.add("on");
-}));
-document.addEventListener("click",()=>clauseList.querySelectorAll(".info").forEach(x=>x.classList.remove("on")));
-
-/* ---------------- Wiring ---------------- */
-document.querySelectorAll("#dirSeg button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("#dirSeg button").forEach(x=>x.classList.remove("on"));b.classList.add("on");S.dir=b.dataset.dir;onChange();}));
-document.querySelectorAll("#drSeg button").forEach(b=>b.addEventListener("click",()=>{document.querySelectorAll("#drSeg button").forEach(x=>x.classList.remove("on"));b.classList.add("on");S.dr=b.dataset.dr;render();}));
-jurSel.addEventListener("change",e=>{S.jur=e.target.value;render();});
-["p1Name","p1Type","p1Country","p1Addr","p2Name","p2Type","p2Country","p2Addr","effDate","purpose","confYears"].forEach(id=>$(id).addEventListener("input",render));
-
-/* ---------------- Actions ---------------- */
-function exportWord(){
-  var styles="@page{size:A4;margin:2.2cm}"
-   +"body{font-family:'Cambria',Georgia,serif;font-size:11.5pt;line-height:1.5;color:#000}"
-   +"h1{font-size:16pt;text-align:center;text-transform:uppercase;letter-spacing:1px;margin:0 0 4pt}"
-   +".sub{text-align:center;font-style:italic;font-size:10pt;color:#444;margin-bottom:16pt}"
-   +"h3{font-size:11.5pt;text-transform:uppercase;letter-spacing:.5px;margin:12pt 0 4pt}"
-   +"p{text-align:justify;margin:0 0 8pt}.recital{margin-bottom:6pt}"
-   +".stamp-note{font-style:italic;font-size:9.5pt;color:#555;border-top:1pt dashed #999;margin-top:12pt;padding-top:8pt}"
-   +".sig{margin-top:26pt}.sig .block{margin-bottom:20pt}.sig .line{border-bottom:1pt solid #000;height:22pt;margin-bottom:3pt;width:55%}";
-  var html="<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>"
-   +"<head><meta charset='utf-8'><title>NDA</title>"
-   +"<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml><![endif]-->"
-   +"<style>"+styles+"</style></head><body>"+$("doc").innerHTML+"
-<!-- Lead-capture modal -->
-<div class="modal" id="leadModal" role="dialog" aria-modal="true" aria-labelledby="leadH">
+<div class="modal" id="leadModal" role="dialog" aria-modal="true">
   <div class="modal-bg" data-close></div>
   <div class="modal-card">
     <button class="modal-close" id="leadClose" aria-label="Close">&times;</button>
     <div class="modal-eyebrow">One last step</div>
-    <h2 class="modal-h" id="leadH">Before you download</h2>
+    <h2 class="modal-h">Before you download</h2>
     <p class="modal-lede">Tell us a little about you. We use this to keep improving Verbatra &mdash; and, if you allow it below, to reach out about helping you run your in-house legal operations.</p>
     <div class="modal-err" id="leadErr">Please complete the required fields.</div>
     <form id="leadForm" novalidate>
@@ -391,14 +185,14 @@ function exportWord(){
       </div>
       <div class="modal-row">
         <div class="modal-field"><label>Phone (with code) *</label><input type="tel" name="phone" required placeholder="+91 ..."></div>
-        <div class="modal-field"><label>Designation *</label><input type="text" name="designation" required placeholder="e.g. Founder, GC, Procurement"></div>
+        <div class="modal-field"><label>Designation *</label><input type="text" name="designation" required></div>
       </div>
       <div class="modal-row">
-        <div class="modal-field"><label>Organisation (or &lsquo;Personal&rsquo;) *</label><input type="text" name="org" required></div>
+        <div class="modal-field"><label>Organisation (or 'Personal') *</label><input type="text" name="org" required></div>
         <div class="modal-field"><label>Industry *</label>
           <select name="industry" required>
             <option value="">Choose&hellip;</option>
-            <option>Information Technology &amp; Software</option>
+            <option>Information Technology / Software</option>
             <option>SaaS / Cloud</option>
             <option>Professional Services / Consulting</option>
             <option>Marketing / Advertising / Creative</option>
@@ -410,7 +204,7 @@ function exportWord(){
             <option>Telecommunications</option>
             <option>Media &amp; Entertainment</option>
             <option>Education / EdTech</option>
-            <option>Real Estate &amp; Facilities</option>
+            <option>Real Estate / Facilities</option>
             <option>Energy &amp; Utilities</option>
             <option>Retail / E-commerce</option>
             <option>Hospitality &amp; Travel</option>
@@ -428,92 +222,224 @@ function exportWord(){
         <button type="button" class="btn ghost" id="leadCancel">Cancel</button>
         <button type="submit" class="btn" id="leadSubmit">Continue &amp; download</button>
       </div>
-      <div class="modal-fine">Your details are not shared with anyone outside Verbatra.</div>
+      <div class="modal-fine">Your details are not shared outside Verbatra.</div>
     </form>
   </div>
 </div>
+<script>
+const JUR = {"india": {"label": "India", "law": "the laws of India", "courts": "the competent courts at New Delhi, India", "arb": "arbitration under the Arbitration and Conciliation Act, 1996, before a sole arbitrator, with the seat and venue of arbitration at New Delhi, India, conducted in English", "dp": "the Digital Personal Data Protection Act, 2023 and the rules made thereunder", "stamp": "This Agreement is liable to stamp duty under the Indian Stamp Act, 1899 and the applicable State Stamp Act; the parties shall ensure it is duly stamped before or at execution.", "hint": "DPDP Act 2023 · A&C Act 1996 · state stamp duty", "sym": "₹", "code": "INR", "tax": "GST"}, "usa_de": {"label": "United States — Delaware", "law": "the laws of the State of Delaware, United States, without regard to conflict-of-laws principles", "courts": "the state and federal courts located in the State of Delaware", "arb": "binding arbitration administered by the American Arbitration Association (AAA) under its Commercial Arbitration Rules, with the seat of arbitration in New York, NY, conducted in English", "dp": "applicable U.S. federal and state data-protection laws, including the CCPA/CPRA where applicable", "stamp": "", "hint": "Delaware · CCPA/CPRA · AAA", "sym": "$", "code": "USD", "tax": "applicable U.S. sales and use taxes"}, "usa_ny": {"label": "United States — New York", "law": "the laws of the State of New York, United States", "courts": "the state and federal courts located in New York County, New York", "arb": "arbitration administered by the AAA under its Commercial Arbitration Rules, with the seat of arbitration in New York, NY, conducted in English", "dp": "the New York SHIELD Act and other applicable U.S. privacy laws", "stamp": "", "hint": "New York · SHIELD Act · AAA", "sym": "$", "code": "USD", "tax": "New York State sales tax"}, "usa_ca": {"label": "United States — California", "law": "the laws of the State of California, United States", "courts": "the state and federal courts located in San Francisco County, California", "arb": "arbitration administered by JAMS under its Comprehensive Arbitration Rules, with the seat of arbitration in San Francisco, CA, conducted in English", "dp": "the California Consumer Privacy Act, as amended by the CPRA (CCPA/CPRA)", "stamp": "", "hint": "California · CCPA/CPRA · JAMS", "sym": "$", "code": "USD", "tax": "California sales and use tax"}, "uk": {"label": "United Kingdom", "law": "the laws of England and Wales", "courts": "the courts of England and Wales", "arb": "arbitration under the LCIA Rules, with the seat of arbitration in London, United Kingdom, conducted in English", "dp": "the UK GDPR and the Data Protection Act 2018", "stamp": "", "hint": "UK · UK GDPR · LCIA", "sym": "£", "code": "GBP", "tax": "VAT"}, "ireland": {"label": "Ireland", "law": "the laws of Ireland", "courts": "the courts of Ireland", "arb": "arbitration under the Arbitration Act 2010 (Ireland), with the seat of arbitration in Dublin, conducted in English", "dp": "the EU GDPR and the Data Protection Act 2018 (Ireland)", "stamp": "", "hint": "Ireland · GDPR + DPA 2018", "sym": "€", "code": "EUR", "tax": "VAT"}, "germany": {"label": "Germany (EU)", "law": "the laws of the Federal Republic of Germany, excluding the UN CISG", "courts": "the competent courts of Frankfurt am Main, Germany", "arb": "arbitration under the Rules of the German Arbitration Institute (DIS), with the seat of arbitration in Frankfurt am Main, conducted in English", "dp": "the EU GDPR and the German Federal Data Protection Act (BDSG)", "stamp": "", "hint": "Germany · GDPR + BDSG · DIS", "sym": "€", "code": "EUR", "tax": "VAT (USt)"}, "france": {"label": "France (EU)", "law": "the laws of France", "courts": "the competent courts of Paris, France", "arb": "arbitration under the ICC Rules, with the seat of arbitration in Paris, conducted in English", "dp": "the EU GDPR and the French Data Protection Act (Loi Informatique et Libertés)", "stamp": "", "hint": "France · GDPR · ICC Paris", "sym": "€", "code": "EUR", "tax": "VAT (TVA)"}, "netherlands": {"label": "Netherlands (EU)", "law": "the laws of the Netherlands", "courts": "the competent courts of Amsterdam, the Netherlands", "arb": "arbitration under the Rules of the Netherlands Arbitration Institute (NAI), with the seat of arbitration in Amsterdam, conducted in English", "dp": "the EU GDPR and the Dutch GDPR Implementation Act (UAVG)", "stamp": "", "hint": "Netherlands · GDPR + UAVG · NAI", "sym": "€", "code": "EUR", "tax": "VAT (BTW)"}, "spain": {"label": "Spain (EU)", "law": "the laws of Spain", "courts": "the courts of Madrid, Spain", "arb": "arbitration administered by the Madrid International Arbitration Center (CIAM), with the seat of arbitration in Madrid, conducted in English", "dp": "the EU GDPR and the Spanish Organic Law on Data Protection (LOPDGDD)", "stamp": "", "hint": "Spain · GDPR + LOPDGDD · CIAM", "sym": "€", "code": "EUR", "tax": "VAT (IVA)"}, "italy": {"label": "Italy (EU)", "law": "the laws of Italy", "courts": "the courts of Milan, Italy", "arb": "arbitration administered by the Milan Chamber of Arbitration (CAM), with the seat of arbitration in Milan, conducted in English", "dp": "the EU GDPR and the Italian Data Protection Code (D.Lgs. 196/2003)", "stamp": "", "hint": "Italy · GDPR · Milan CAM", "sym": "€", "code": "EUR", "tax": "VAT (IVA)"}, "sweden": {"label": "Sweden (EU)", "law": "the laws of Sweden", "courts": "the courts of Stockholm, Sweden", "arb": "arbitration under the Rules of the SCC Arbitration Institute, with the seat of arbitration in Stockholm, conducted in English", "dp": "the EU GDPR and the Swedish Data Protection Act", "stamp": "", "hint": "Sweden · GDPR · SCC", "sym": "kr", "code": "SEK", "tax": "VAT (moms)"}, "poland": {"label": "Poland (EU)", "law": "the laws of Poland", "courts": "the courts of Warsaw, Poland", "arb": "arbitration under the Rules of the Court of Arbitration at the Polish Chamber of Commerce, with the seat in Warsaw, conducted in English", "dp": "the EU GDPR and the Polish Personal Data Protection Act", "stamp": "", "hint": "Poland · GDPR · SAKIG", "sym": "zł", "code": "PLN", "tax": "VAT"}, "portugal": {"label": "Portugal (EU)", "law": "the laws of Portugal", "courts": "the courts of Lisbon, Portugal", "arb": "arbitration administered by the Arbitration Centre of the Portuguese Chamber of Commerce, with the seat in Lisbon, conducted in English", "dp": "the EU GDPR and Portuguese Law 58/2019", "stamp": "", "hint": "Portugal · GDPR · CAC", "sym": "€", "code": "EUR", "tax": "VAT (IVA)"}, "switzerland": {"label": "Switzerland", "law": "the substantive laws of Switzerland, excluding conflict-of-laws rules and the UN CISG", "courts": "the courts of Zurich, Switzerland", "arb": "arbitration under the Swiss Rules of International Arbitration, with the seat of arbitration in Zurich, conducted in English", "dp": "the Swiss Federal Act on Data Protection (FADP)", "stamp": "", "hint": "Switzerland · FADP · Swiss Rules", "sym": "CHF", "code": "CHF", "tax": "VAT"}, "singapore": {"label": "Singapore", "law": "the laws of Singapore", "courts": "the courts of Singapore", "arb": "arbitration administered by the Singapore International Arbitration Centre (SIAC) under the SIAC Rules, with the seat of arbitration in Singapore, conducted in English", "dp": "the Personal Data Protection Act 2012 of Singapore", "stamp": "", "hint": "Singapore · PDPA 2012 · SIAC", "sym": "S$", "code": "SGD", "tax": "GST"}, "hongkong": {"label": "Hong Kong SAR", "law": "the laws of the Hong Kong Special Administrative Region", "courts": "the courts of Hong Kong", "arb": "arbitration administered by the Hong Kong International Arbitration Centre (HKIAC), with the seat of arbitration in Hong Kong, conducted in English", "dp": "the Personal Data (Privacy) Ordinance (PDPO)", "stamp": "", "hint": "Hong Kong · PDPO · HKIAC", "sym": "HK$", "code": "HKD", "tax": "none"}, "japan": {"label": "Japan", "law": "the laws of Japan", "courts": "the Tokyo District Court, Japan", "arb": "arbitration administered by the Japan Commercial Arbitration Association (JCAA), with the seat of arbitration in Tokyo, conducted in English", "dp": "the Act on the Protection of Personal Information (APPI)", "stamp": "", "hint": "Japan · APPI · JCAA", "sym": "¥", "code": "JPY", "tax": "consumption tax"}, "korea": {"label": "South Korea", "law": "the laws of the Republic of Korea", "courts": "the Seoul Central District Court", "arb": "arbitration administered by the Korean Commercial Arbitration Board (KCAB), with the seat of arbitration in Seoul, conducted in English", "dp": "the Personal Information Protection Act (PIPA)", "stamp": "", "hint": "Korea · PIPA · KCAB", "sym": "₩", "code": "KRW", "tax": "VAT"}, "china": {"label": "China (Mainland)", "law": "the laws of the People's Republic of China", "courts": "the competent courts of Shanghai, China", "arb": "arbitration administered by CIETAC under its rules, with the seat of arbitration in Shanghai, conducted in English", "dp": "the Personal Information Protection Law (PIPL) and the Data Security Law", "stamp": "", "hint": "China · PIPL + DSL · CIETAC", "sym": "¥", "code": "CNY", "tax": "VAT"}, "taiwan": {"label": "Taiwan", "law": "the laws of Taiwan", "courts": "the Taiwan Taipei District Court", "arb": "arbitration under the Arbitration Rules of the Chinese Arbitration Association (CAA), with the seat in Taipei, conducted in English", "dp": "the Personal Data Protection Act of Taiwan", "stamp": "", "hint": "Taiwan · PDPA · CAA", "sym": "NT$", "code": "TWD", "tax": "VAT"}, "malaysia": {"label": "Malaysia", "law": "the laws of Malaysia", "courts": "the courts of Kuala Lumpur, Malaysia", "arb": "arbitration administered by the Asian International Arbitration Centre (AIAC), with the seat of arbitration in Kuala Lumpur, conducted in English", "dp": "the Personal Data Protection Act 2010 of Malaysia", "stamp": "", "hint": "Malaysia · PDPA 2010 · AIAC", "sym": "RM", "code": "MYR", "tax": "SST"}, "indonesia": {"label": "Indonesia", "law": "the laws of the Republic of Indonesia", "courts": "the District Court of Central Jakarta", "arb": "arbitration administered by the Indonesian National Board of Arbitration (BANI), with the seat of arbitration in Jakarta, conducted in English", "dp": "the Personal Data Protection Law (UU PDP, Law No. 27 of 2022)", "stamp": "", "hint": "Indonesia · UU PDP · BANI", "sym": "Rp", "code": "IDR", "tax": "VAT (PPN)"}, "thailand": {"label": "Thailand", "law": "the laws of Thailand", "courts": "the courts of Bangkok, Thailand", "arb": "arbitration administered by the Thai Arbitration Institute (TAI), with the seat of arbitration in Bangkok, conducted in English", "dp": "the Personal Data Protection Act B.E. 2562 (2019)", "stamp": "", "hint": "Thailand · PDPA 2019 · TAI", "sym": "฿", "code": "THB", "tax": "VAT"}, "vietnam": {"label": "Vietnam", "law": "the laws of Vietnam", "courts": "the People's Court of Ho Chi Minh City", "arb": "arbitration administered by the Vietnam International Arbitration Centre (VIAC), with the seat in Hanoi, conducted in English", "dp": "the Personal Data Protection Decree (Decree 13/2023/ND-CP)", "stamp": "", "hint": "Vietnam · PDPD · VIAC", "sym": "₫", "code": "VND", "tax": "VAT"}, "philippines": {"label": "Philippines", "law": "the laws of the Republic of the Philippines", "courts": "the courts of Makati City, Metro Manila", "arb": "arbitration administered by the Philippine Dispute Resolution Center (PDRCI), with the seat in Manila, conducted in English", "dp": "the Data Privacy Act of 2012 (Republic Act 10173)", "stamp": "", "hint": "Philippines · DPA 2012 · PDRCI", "sym": "₱", "code": "PHP", "tax": "VAT"}, "australia": {"label": "Australia (NSW)", "law": "the laws of New South Wales, Australia", "courts": "the courts of New South Wales, Australia", "arb": "arbitration administered by the Australian Centre for International Commercial Arbitration (ACICA), with the seat in Sydney, conducted in English", "dp": "the Privacy Act 1988 (Cth) and the Australian Privacy Principles", "stamp": "", "hint": "Australia (NSW) · Privacy Act · ACICA", "sym": "A$", "code": "AUD", "tax": "GST"}, "newzealand": {"label": "New Zealand", "law": "the laws of New Zealand", "courts": "the courts of New Zealand", "arb": "arbitration under the Arbitration Act 1996 (NZ), with the seat of arbitration in Auckland, conducted in English", "dp": "the Privacy Act 2020", "stamp": "", "hint": "New Zealand · Privacy Act 2020", "sym": "NZ$", "code": "NZD", "tax": "GST"}, "canada": {"label": "Canada (Ontario)", "law": "the laws of the Province of Ontario and the federal laws of Canada applicable therein", "courts": "the courts of the Province of Ontario, Canada", "arb": "arbitration under the Rules of the ADR Institute of Canada (ADRIC), with the seat in Toronto, conducted in English", "dp": "the Personal Information Protection and Electronic Documents Act (PIPEDA) and applicable provincial privacy laws", "stamp": "", "hint": "Ontario · PIPEDA · ADRIC", "sym": "C$", "code": "CAD", "tax": "GST/HST"}, "canada_qc": {"label": "Canada (Quebec)", "law": "the laws of the Province of Quebec and the federal laws of Canada applicable therein", "courts": "the courts of the District of Montreal, Quebec", "arb": "arbitration administered by the Canadian Commercial Arbitration Centre (CCAC), with the seat in Montreal, conducted in French and English", "dp": "Quebec's Act respecting the protection of personal information in the private sector (Law 25)", "stamp": "", "hint": "Quebec · Law 25 · CCAC", "sym": "C$", "code": "CAD", "tax": "GST + QST"}, "mexico": {"label": "Mexico", "law": "the laws of the United Mexican States", "courts": "the federal courts of Mexico City", "arb": "arbitration administered by the Mexico City National Chamber of Commerce (CANACO), with the seat in Mexico City, conducted in English or Spanish", "dp": "the Federal Law on the Protection of Personal Data Held by Private Parties (LFPDPPP)", "stamp": "", "hint": "Mexico · LFPDPPP · CANACO", "sym": "$", "code": "MXN", "tax": "VAT (IVA)"}, "brazil": {"label": "Brazil", "law": "the laws of the Federative Republic of Brazil", "courts": "the courts of the City of São Paulo, Brazil", "arb": "arbitration under Brazilian Arbitration Law (Law No. 9,307/96), administered by CAM-CCBC, with the seat in São Paulo, conducted in English or Portuguese", "dp": "the General Data Protection Law (LGPD, Law No. 13,709/2018)", "stamp": "", "hint": "Brazil · LGPD · CAM-CCBC", "sym": "R$", "code": "BRL", "tax": "ICMS / ISS"}, "argentina": {"label": "Argentina", "law": "the laws of the Argentine Republic", "courts": "the National Commercial Courts of the City of Buenos Aires", "arb": "arbitration administered by the Buenos Aires Arbitration & Mediation Centre (CEMARC), with the seat in Buenos Aires, conducted in English or Spanish", "dp": "the Personal Data Protection Act (Law No. 25,326)", "stamp": "", "hint": "Argentina · PDPA · CEMARC", "sym": "$", "code": "ARS", "tax": "VAT (IVA)"}, "chile": {"label": "Chile", "law": "the laws of the Republic of Chile", "courts": "the courts of Santiago, Chile", "arb": "arbitration administered by the Santiago Chamber of Commerce Arbitration Centre (CAM Santiago), with the seat in Santiago, conducted in English or Spanish", "dp": "Law No. 19,628 on the Protection of Privacy (and forthcoming updates)", "stamp": "", "hint": "Chile · Law 19,628 · CAM Santiago", "sym": "$", "code": "CLP", "tax": "VAT (IVA)"}, "colombia": {"label": "Colombia", "law": "the laws of the Republic of Colombia", "courts": "the courts of Bogotá, Colombia", "arb": "arbitration administered by the Bogotá Chamber of Commerce Arbitration Centre, with the seat in Bogotá, conducted in English or Spanish", "dp": "Statutory Law 1581 of 2012 on Personal Data Protection", "stamp": "", "hint": "Colombia · Law 1581/2012", "sym": "$", "code": "COP", "tax": "VAT (IVA)"}, "southafrica": {"label": "South Africa", "law": "the laws of the Republic of South Africa", "courts": "the High Court of South Africa, Gauteng Division, Johannesburg", "arb": "arbitration under the rules of the Arbitration Foundation of Southern Africa (AFSA), with the seat in Johannesburg, conducted in English", "dp": "the Protection of Personal Information Act (POPIA)", "stamp": "", "hint": "South Africa · POPIA · AFSA", "sym": "R", "code": "ZAR", "tax": "VAT"}, "nigeria": {"label": "Nigeria", "law": "the laws of the Federal Republic of Nigeria", "courts": "the courts of Lagos, Nigeria", "arb": "arbitration administered by the Lagos Court of Arbitration (LCA), with the seat in Lagos, conducted in English", "dp": "the Nigeria Data Protection Act 2023", "stamp": "", "hint": "Nigeria · NDPA 2023 · LCA", "sym": "₦", "code": "NGN", "tax": "VAT"}, "kenya": {"label": "Kenya", "law": "the laws of the Republic of Kenya", "courts": "the High Court of Kenya at Nairobi", "arb": "arbitration administered by the Nairobi Centre for International Arbitration (NCIA), with the seat in Nairobi, conducted in English", "dp": "the Data Protection Act, 2019", "stamp": "", "hint": "Kenya · DPA 2019 · NCIA", "sym": "KSh", "code": "KES", "tax": "VAT"}, "egypt": {"label": "Egypt", "law": "the laws of the Arab Republic of Egypt", "courts": "the courts of Cairo, Egypt", "arb": "arbitration administered by the Cairo Regional Centre for International Commercial Arbitration (CRCICA), with the seat in Cairo, conducted in English", "dp": "the Personal Data Protection Law (Law No. 151 of 2020)", "stamp": "", "hint": "Egypt · PDPL 2020 · CRCICA", "sym": "E£", "code": "EGP", "tax": "VAT"}, "turkey": {"label": "Türkiye", "law": "the laws of the Republic of Türkiye", "courts": "the Istanbul Courts", "arb": "arbitration administered by the Istanbul Arbitration Centre (ISTAC), with the seat in Istanbul, conducted in English", "dp": "the Personal Data Protection Law No. 6698 (KVKK)", "stamp": "", "hint": "Türkiye · KVKK · ISTAC", "sym": "₺", "code": "TRY", "tax": "VAT (KDV)"}, "uae": {"label": "United Arab Emirates", "law": "the laws of the United Arab Emirates as applied in Dubai", "courts": "the courts of Dubai, UAE", "arb": "arbitration administered by the Dubai International Arbitration Centre (DIAC), with the seat in Dubai, conducted in English", "dp": "Federal Decree-Law No. 45 of 2021 on the Protection of Personal Data", "stamp": "", "hint": "UAE / Dubai · PDPL 2021 · DIAC", "sym": "AED", "code": "AED", "tax": "VAT"}, "saudi": {"label": "Saudi Arabia", "law": "the laws of the Kingdom of Saudi Arabia", "courts": "the competent courts of Riyadh, Saudi Arabia", "arb": "arbitration administered by the Saudi Center for Commercial Arbitration (SCCA), with the seat in Riyadh, conducted in English", "dp": "the Personal Data Protection Law (PDPL) and its implementing regulations", "stamp": "", "hint": "Saudi Arabia · PDPL · SCCA", "sym": "SAR", "code": "SAR", "tax": "VAT"}, "qatar": {"label": "Qatar", "law": "the laws of the State of Qatar", "courts": "the Qatar International Court (QICDRC)", "arb": "arbitration administered by the Qatar International Center for Conciliation and Arbitration (QICCA), with the seat in Doha, conducted in English", "dp": "Law No. 13 of 2016 concerning Personal Data Privacy Protection", "stamp": "", "hint": "Qatar · PDPPL 2016 · QICCA", "sym": "QR", "code": "QAR", "tax": "none"}, "israel": {"label": "Israel", "law": "the laws of the State of Israel", "courts": "the courts of Tel Aviv, Israel", "arb": "arbitration administered by the Israeli Institute of Commercial Arbitration, with the seat in Tel Aviv, conducted in English", "dp": "the Protection of Privacy Law, 5741-1981", "stamp": "", "hint": "Israel · PPL 1981", "sym": "₪", "code": "ILS", "tax": "VAT"}, "hybrid": {"label": "Cross-border (neutral / ICC)", "law": "the laws of England and Wales (selected as a neutral governing law)", "courts": "the courts of England and Wales", "arb": "arbitration under the ICC Rules, with the seat of arbitration in London (or such other neutral seat as the parties agree), conducted in English", "dp": "all data-protection laws applicable to the parties, including the EU/UK GDPR where relevant", "stamp": "", "hint": "Neutral · ICC · for cross-border deals", "sym": "$", "code": "USD", "tax": "any applicable taxes"}};
 
-</body></html>";
-  var blob=new Blob(['\ufeff'+html],{type:'application/msword'});
-  var a=document.createElement("a");a.href=URL.createObjectURL(blob);
-  a.download="NDA_"+JUR[S.jur].label.replace(/[^a-z]/gi,"")+".doc";
-  a.click();URL.revokeObjectURL(a.href);
+/* =================== Shared engine =================== */
+const LEAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbz4pRHX1hVl-VmQOw5Tob9pjJL5eY3Q-ZV7OMK-A22mR9bChjAN8WODq7IGTdOGIbY/exec";
+let _pendingExport = null;
+let _logoDataUrl = null;
+
+const $ = id => document.getElementById(id);
+
+function ordn(n){const s=["th","st","nd","rd"],x=n%100;return n+(s[(x-20)%10]||s[x]||s[0]);}
+function fmtDate(iso){
+  if(!iso) return "[\u2022], 20[\u2022]";
+  const d=new Date(iso+"T00:00:00");
+  const m=["January","February","March","April","May","June","July","August","September","October","November","December"];
+  return ordn(d.getDate())+" day of "+m[d.getMonth()]+" "+d.getFullYear();
+}
+function v(id){const el=$(id);return el?el.value.trim():"";}
+function chk(id){const el=$(id);return el?el.checked:false;}
+function or(val, ph){return val ? val : '<span style="color:#b89;font-style:italic">'+ph+'</span>';}
+function money(code, amt){return code+" "+Number(amt||0).toLocaleString("en-US");}
+
+/* doc render wrapper — call render() to refresh */
+function _renderAll(){
+  const html = doc();
+  const logoBit = _logoDataUrl ? '<div class="doc-logo"><img src="'+_logoDataUrl+'" alt="logo"></div>' : '';
+  $("doc").innerHTML = logoBit + html;
+}
+function render(){ _renderAll(); }
+
+/* logo upload */
+function _wireLogo(){
+  const fi = $("logoFile"), btn = $("logoClearBtn");
+  fi.addEventListener("change", e=>{
+    const f = e.target.files && e.target.files[0]; if(!f) return;
+    if(f.size > 2*1024*1024){ alert("Logo must be under 2 MB"); fi.value=""; return; }
+    const r = new FileReader();
+    r.onload = ev => { _logoDataUrl = ev.target.result; btn.style.display="inline-flex"; render(); };
+    r.readAsDataURL(f);
+  });
+  btn.addEventListener("click", ()=>{ _logoDataUrl=null; fi.value=""; btn.style.display="none"; render(); });
 }
 
-/* ---------------- Init ---------------- */
-(function init(){$("effDate").value=new Date().toISOString().slice(0,10);onChange();})();
-
-
-/* =================== PHASE 1: Logo + Lead Modal =================== */
-const LEAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbz4pRHX1hVl-VmQOw5Tob9pjJL5eY3Q-ZV7OMK-A22mR9bChjAN8WODq7IGTdOGIbY/exec"; // <-- paste Google Apps Script web-app URL here
-let pendingExport = null;
-
-/* logo upload + injection */
-S.logoDataUrl = null;
-$("logoFile").addEventListener("change", e=>{
-  const f = e.target.files && e.target.files[0]; if(!f) return;
-  if(f.size > 2*1024*1024){ alert("Logo must be under 2 MB"); return; }
-  const r = new FileReader();
-  r.onload = ev => { S.logoDataUrl = ev.target.result; $("logoClearBtn").style.display="inline-flex"; render(); };
-  r.readAsDataURL(f);
-});
-$("logoClearBtn").addEventListener("click", ()=>{
-  S.logoDataUrl=null; $("logoFile").value=""; $("logoClearBtn").style.display="none"; render();
-});
-/* hook the document with logo after each render */
-const __origRender = render;
-render = function(){
-  __origRender();
-  if(S.logoDataUrl){
-    const d = document.getElementById("doc");
-    d.innerHTML = '<div class="doc-logo"><img src="'+S.logoDataUrl+'" alt="logo"></div>' + d.innerHTML;
-  }
-};
-render();
-
-/* lead modal logic */
-const leadModal=$("leadModal"), leadForm=$("leadForm"), leadErr=$("leadErr");
-function openLead(which){
-  pendingExport = which;
-  leadErr.classList.remove("show");
-  leadModal.classList.add("show");
+/* lead modal */
+function _openLead(which){
+  _pendingExport = which;
+  $("leadErr").classList.remove("show");
+  $("leadModal").classList.add("show");
   document.body.style.overflow="hidden";
 }
-function closeLead(){ leadModal.classList.remove("show"); document.body.style.overflow=""; pendingExport=null; }
-$("leadClose").addEventListener("click",closeLead);
-$("leadCancel").addEventListener("click",closeLead);
-leadModal.querySelector(".modal-bg").addEventListener("click",closeLead);
-document.addEventListener("keydown",e=>{ if(e.key==="Escape" && leadModal.classList.contains("show")) closeLead(); });
+function _closeLead(){
+  $("leadModal").classList.remove("show");
+  document.body.style.overflow="";
+  _pendingExport = null;
+}
+function _wireModal(){
+  $("leadClose").addEventListener("click", _closeLead);
+  $("leadCancel").addEventListener("click", _closeLead);
+  $("leadModal").querySelector(".modal-bg").addEventListener("click", _closeLead);
+  document.addEventListener("keydown", e=>{ if(e.key==="Escape" && $("leadModal").classList.contains("show")) _closeLead(); });
+  $("leadForm").addEventListener("submit", async e=>{
+    e.preventDefault();
+    const fd = new FormData($("leadForm"));
+    const need = ["name","email","phone","designation","org","industry","dpConsent"];
+    for(const k of need){
+      if(!fd.get(k)){ $("leadErr").textContent="Please complete all required fields."; $("leadErr").classList.add("show"); return; }
+    }
+    const email = fd.get("email");
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ $("leadErr").textContent="Please enter a valid email."; $("leadErr").classList.add("show"); return; }
+    $("leadErr").classList.remove("show");
+    fd.append("tool", document.title);
+    fd.append("ts", new Date().toISOString());
+    if(LEAD_ENDPOINT && LEAD_ENDPOINT.indexOf("http")===0){
+      try{ await fetch(LEAD_ENDPOINT, {method:"POST", mode:"no-cors", body:fd}); }catch(err){}
+    }
+    const which = _pendingExport;
+    _closeLead();
+    if(which==="word") _exportWord();
+    else if(which==="pdf") window.print();
+  });
+}
 
-leadForm.addEventListener("submit", async e=>{
-  e.preventDefault();
-  const fd = new FormData(leadForm);
-  /* basic validation */
-  const required = ["name","email","phone","designation","org","industry","dpConsent"];
-  for(const k of required){ if(!fd.get(k)){ leadErr.textContent="Please complete the required fields."; leadErr.classList.add("show"); return; } }
-  const email = fd.get("email"); if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ leadErr.textContent="Please enter a valid email."; leadErr.classList.add("show"); return; }
-  leadErr.classList.remove("show");
-  /* attach context */
-  fd.append("tool", document.title);
-  fd.append("ts", new Date().toISOString());
-  /* send (fire and forget; we don't gate on response so a broken endpoint won't block users) */
-  if(LEAD_ENDPOINT && LEAD_ENDPOINT.indexOf("YOUR_")!==0){
-    try{ await fetch(LEAD_ENDPOINT,{method:"POST",mode:"no-cors",body:fd}); }catch(err){ /* swallow */ }
-  } else { try{ console.log("[Verbatra] lead captured (no endpoint set):", Object.fromEntries(fd)); }catch(e){} }
-  /* proceed with export */
-  const which = pendingExport;
-  closeLead();
-  if(which==="word") exportWord();
-  else if(which==="pdf") window.print();
+/* word export */
+function _exportWord(){
+  const styles = "@page{size:A4;margin:2.2cm}"
+    +"body{font-family:'Cambria',Georgia,serif;font-size:11.5pt;line-height:1.5;color:#000}"
+    +"h1{font-size:16pt;text-align:center;text-transform:uppercase;letter-spacing:1px;margin:0 0 4pt}"
+    +".sub{text-align:center;font-style:italic;font-size:10pt;color:#444;margin-bottom:16pt}"
+    +"h2{font-size:13pt;text-align:center;text-transform:uppercase;margin:18pt 0 8pt}"
+    +"h3{font-size:11.5pt;text-transform:uppercase;letter-spacing:.5px;margin:12pt 0 4pt}"
+    +"p{text-align:justify;margin:0 0 8pt}.recital{margin-bottom:6pt}"
+    +".sched{margin-top:18pt;border-top:1pt solid #999;padding-top:10pt}"
+    +".stamp-note{font-style:italic;font-size:9.5pt;color:#555;border-top:1pt dashed #999;margin-top:12pt;padding-top:8pt}"
+    +".sig{margin-top:26pt}.sig .block{margin-bottom:20pt}.sig .line{border-bottom:1pt solid #000;height:22pt;margin-bottom:3pt;width:55%}"
+    +".doc-logo{text-align:right;margin-bottom:10pt}.doc-logo img{max-height:60pt}";
+  const html = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>"
+    +"<head><meta charset='utf-8'><title>"+document.title+"</title>"
+    +"<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml><![endif]-->"
+    +"<style>"+styles+"</style></head><body>"+$("doc").innerHTML+"</body></html>";
+  const blob = new Blob(["\ufeff"+html], {type:"application/msword"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "NDA_"+JUR[S.jur].label.replace(/[^a-z]/gi,"")+".doc";
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function _wireExport(){
+  $("wordBtn").addEventListener("click", ()=>_openLead("word"));
+  $("printBtn").addEventListener("click", ()=>_openLead("pdf"));
+}
+
+const S = { dir:"mutual", jur:"india", dr:"courts" };
+
+function partyLine(p){
+  const name = v(p+"Name") || (p==="p1" ? "[Party Name]" : "[Counterparty Name]");
+  const type = v(p+"Type") || "a company";
+  const country = v(p+"Country") || "[country]";
+  const addr = v(p+"Addr") || "[registered address]";
+  return name+", "+type+" incorporated under the laws of "+country+", having its registered office at "+addr;
+}
+
+function doc(){
+  const j = JUR[S.jur];
+  const mutual = S.dir==="mutual";
+  const recv = mutual ? "the other party (in its capacity as the receiving party)" : "the Receiving Party";
+  const giving = mutual ? "each party (in its capacity as the disclosing party)" : "the Disclosing Party";
+  const dr = S.dr==="courts"
+    ? "Any dispute arising out of or in connection with this Agreement shall be subject to the exclusive jurisdiction of "+j.courts+"."
+    : "Any dispute arising out of or in connection with this Agreement shall be finally resolved by "+j.arb+".";
+  const dp = chk("dpToggle");
+  const yrs = or(v("confYears"), "[\u2022]");
+
+  let html = '<h1>'+(mutual?"Mutual ":"")+'Non-Disclosure Agreement</h1>';
+  html += '<div class="sub">Governed by '+j.law+'</div>';
+  html += '<p class="recital">This Non-Disclosure Agreement (the <b>"Agreement"</b>) is made on the '+fmtDate(v("effDate"))+', by and between:</p>';
+  html += '<p class="recital"><b>(1)</b> '+partyLine("p1")+' (the '+(mutual?'<b>"First Party"</b>':'<b>"Disclosing Party"</b>')+'); and</p>';
+  html += '<p class="recital"><b>(2)</b> '+partyLine("p2")+' (the '+(mutual?'<b>"Second Party"</b>':'<b>"Receiving Party"</b>')+').</p>';
+  html += '<p class="recital">The parties wish to explore '+or(v("purpose"),"[purpose of disclosure]")+' (the <b>"Purpose"</b>), in connection with which Confidential Information may be disclosed. The parties agree as follows:</p>';
+
+  const C = [];
+  C.push(['Confidential Information', '"Confidential Information" means all non-public information disclosed by '+giving+' to '+recv+', whether oral, written, electronic or in any other form, that is marked or reasonably understood to be confidential, including business, technical, financial, commercial and personal data.']);
+  C.push(['Obligations', recv.charAt(0).toUpperCase()+recv.slice(1)+' shall: (a) use the Confidential Information solely for the Purpose; (b) keep it strictly confidential and protect it with no less than reasonable care; (c) not disclose it to any third party except to its employees, advisers and affiliates who need to know it and are bound by equivalent obligations; and (d) not copy or reverse-engineer it except as necessary for the Purpose.']);
+  C.push(['Exclusions', 'The obligations do not apply to information that is or becomes public through no breach of this Agreement, was lawfully known prior to disclosure, is independently developed, or is required to be disclosed by law or court order (in which case prompt notice shall be given where lawful).']);
+  C.push(['Term &amp; Survival', 'This Agreement takes effect on the Effective Date and continues until terminated by either party on written notice. The confidentiality obligations survive for '+yrs+' year(s) following termination, and indefinitely for trade secrets and personal data.']);
+  C.push(['Return of Materials', 'Upon termination or written request, '+recv+' shall promptly return or destroy all Confidential Information and certify such destruction in writing, subject to retention required by law.']);
+  C.push(['No Licence; No Warranty', 'No licence or right is granted under any intellectual property by virtue of this Agreement. Confidential Information is provided "as is" without warranty of any kind.']);
+  C.push(['Remedies', 'The parties acknowledge that breach may cause irreparable harm for which damages are inadequate, and that the non-breaching party is entitled to seek injunctive relief in addition to all other remedies available at law.']);
+  if(dp) C.push(['Data Protection', 'Each party shall comply with '+j.dp+' in respect of any personal data processed under this Agreement, and shall implement appropriate technical and organisational measures to safeguard such data.']);
+  C.push(['Governing Law &amp; Dispute Resolution', 'This Agreement is governed by '+j.law+'. '+dr]);
+  C.push(['General', 'This Agreement constitutes the entire agreement between the parties on its subject matter and supersedes all prior discussions. No variation is effective unless in writing and signed by both parties. If any provision is held invalid, the remainder continues in full force. This Agreement may be executed in counterparts, including by electronic signature.']);
+
+  C.forEach((c,i)=>{ html += '<h3>'+(i+1)+'. '+c[0]+'</h3><p>'+c[1]+'</p>'; });
+
+  if(j.stamp) html += '<p class="stamp-note">'+j.stamp+'</p>';
+
+  const r1 = mutual ? "First Party" : "Disclosing Party";
+  const r2 = mutual ? "Second Party" : "Receiving Party";
+  const n1 = v("p1Name") || "["+r1+"]";
+  const n2 = v("p2Name") || "["+r2+"]";
+  html += '<div class="sig">';
+  [n1,n2].forEach(n=>{
+    html += '<div class="block"><div style="font-weight:600;margin-bottom:10px">For and on behalf of '+n+'</div><div class="line"></div>Signature<br><br><div class="line"></div>Name &amp; Title<br><br><div class="line"></div>Date</div>';
+  });
+  html += '</div>';
+
+  return html;
+}
+
+/* populate dropdowns + wire UI */
+const jurSel = $("jur");
+Object.keys(JUR).forEach(k=>{
+  const o = document.createElement("option");
+  o.value = k; o.textContent = JUR[k].label;
+  jurSel.appendChild(o);
 });
+jurSel.value = "india";
 
-/* Intercept the export buttons */
-const wordBtn = document.getElementById("wordBtn");
-const printBtn = document.getElementById("printBtn");
-const newWord = wordBtn.cloneNode(true); wordBtn.parentNode.replaceChild(newWord, wordBtn);
-const newPrint = printBtn.cloneNode(true); printBtn.parentNode.replaceChild(newPrint, printBtn);
-newWord.addEventListener("click", ()=>openLead("word"));
-newPrint.addEventListener("click", ()=>openLead("pdf"));
+function wireSeg(id, key){
+  document.querySelectorAll("#"+id+" button").forEach(b=>{
+    b.addEventListener("click", ()=>{
+      document.querySelectorAll("#"+id+" button").forEach(x=>x.classList.remove("on"));
+      b.classList.add("on");
+      S[key] = b.dataset.v;
+      onUiChange();
+    });
+  });
+}
+wireSeg("dirSeg","dir");
+wireSeg("drSeg","dr");
+jurSel.addEventListener("change", e=>{ S.jur = e.target.value; render(); updateHints(); });
+$("dpToggle").addEventListener("change", render);
+["p1Name","p1Type","p1Country","p1Addr","p2Name","p2Type","p2Country","p2Addr","effDate","purpose","confYears"].forEach(id=>$(id).addEventListener("input", render));
+
+function onUiChange(){
+  const mutual = S.dir==="mutual";
+  $("p1Label").innerHTML = mutual ? "First Party &mdash; full legal name" : "Disclosing Party &mdash; full legal name";
+  $("p2Label").innerHTML = mutual ? "Second Party &mdash; full legal name" : "Receiving Party &mdash; full legal name";
+  updateHints();
+  render();
+}
+function updateHints(){
+  const j = JUR[S.jur];
+  $("jurHint").textContent = j.hint;
+  $("drHint").textContent = S.dr==="courts" ? "Exclusive jurisdiction of the chosen courts." : j.arb.split(",").slice(0,2).join(", ")+"\u2026";
+  $("dpHint").textContent = chk("dpToggle") ? "Will reference: "+j.dp : "No data-protection clause will be included.";
+}
+
+/* init */
+$("effDate").value = new Date().toISOString().slice(0,10);
+_wireLogo();
+_wireModal();
+_wireExport();
+onUiChange();
 
 </script>
 </body>
