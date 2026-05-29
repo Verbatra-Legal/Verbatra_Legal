@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="alternate icon" type="image/png" href="/favicon.svg">
-<title>Trademark Cease and Desist Letter Generator | Verbatra</title>
+<title>Verbatra, Trademark Cease and Desist</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
@@ -104,24 +103,6 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 
 </style>
 
-<meta name="description" content="Draft a cease-and-desist letter for trademark infringement and passing off. Demand cessation, destruction of infringing materials, undertaking and accounting of profits. Adapts to 45 jurisdictions.">
-<meta name="keywords" content="trademark cease and desist, TM infringement notice, passing off notice, trademark protection India, brand enforcement letter">
-<meta name="author" content="Arnav Bhardwaj, Verbatra">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-<link rel="canonical" href="https://www.verbatra.com/trademark-cease-desist.html">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Trademark Cease and Desist Letter Generator | Verbatra">
-<meta property="og:description" content="Draft a cease-and-desist letter for trademark infringement and passing off. Demand cessation, destruction of infringing materials, undertaking and accounting of profits. Adapts to 45 jurisdictions.">
-<meta property="og:url" content="https://www.verbatra.com/trademark-cease-desist.html">
-<meta property="og:image" content="https://www.verbatra.com/arnav.jpg">
-<meta property="og:image:width" content="800">
-<meta property="og:image:height" content="800">
-<meta property="og:site_name" content="Verbatra">
-<meta property="og:locale" content="en_IN">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Trademark Cease and Desist Letter Generator | Verbatra">
-<meta name="twitter:description" content="Draft a cease-and-desist letter for trademark infringement and passing off. Demand cessation, destruction of infringing materials, undertaking and accounting of profits. Adapts to 45 jurisdictions.">
-<meta name="twitter:image" content="https://www.verbatra.com/arnav.jpg">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
@@ -336,6 +317,14 @@ function _wireExport(){
 }
 
 /* copy protection on the preview (export still works) */
+/* RENDER_SAFETY_NET: belt-and-braces initial render to handle any partial init failure */
+try {
+  if (typeof window !== "undefined" && typeof window.addEventListener === "function") {
+    window.addEventListener("load", function(){
+      try { if (typeof render === "function") render(); } catch(e) { /* swallow */ }
+    });
+  }
+} catch(_){}
 function _wireProtect(){
   const d = $("doc");
   if(!d) return;
@@ -373,7 +362,7 @@ function doc(){
   html += '</p>';
 
   html += '<h3>3. The Rights Holder\'s Position</h3>';
-  html += '<p>Your conduct as described above amounts to (a) infringement of the Rights Holder\'s registered Mark, (b) passing off the Rights Holder\'s goods/services as your own, and (c) unfair competition. The conduct is calculated to deceive consumers as to the source or sponsorship of the goods/services in question, and is causing the Rights Holder loss of sales and dilution of its goodwill.</p>';
+  html += '<p>Your conduct as described above amounts to (a) infringement of the Rights Holder\'s registered Mark, '+(['india','uk','singapore','hongkong','australia','newzealand','canada','ireland','southafrica','nigeria','kenya','malaysia'].indexOf(S.jur)>=0 ? '(b) passing off the Rights Holder\'s goods/services as your own, and (c) unfair competition' : '(b) unfair competition under the laws applicable in the relevant jurisdiction')+'. The conduct is calculated to deceive consumers as to the source or sponsorship of the goods/services in question, and is causing the Rights Holder loss of sales and dilution of its goodwill.</p>';
 
   html += '<h3>4. Demand</h3>';
   html += '<p>You are, therefore, called upon to do, within '+dl+' days from the date of this notice, all of the following:</p>';
@@ -384,7 +373,7 @@ function doc(){
   html += '<br>and confirm in writing your compliance with each of the above demands within the said period.</p>';
 
   html += '<h3>5. Consequences of Non-Compliance</h3>';
-  html += '<p>Failure to comply with this notice within the time prescribed shall leave the Rights Holder with no alternative but to institute civil and/or criminal proceedings against you before the competent court at '+j.courts.replace("the ","")+', seeking, without limitation, a permanent injunction, damages or an account of profits, delivery up of infringing materials, and costs, entirely at your risk as to costs and consequences.</p>';
+  html += '<p>Failure to comply with this notice within the time prescribed shall leave the Rights Holder with no alternative but to institute civil and/or criminal proceedings against you before '+j.courts+', seeking, without limitation, a permanent injunction, damages or an account of profits, delivery up of infringing materials, and costs, entirely at your risk as to costs and consequences.</p>';
 
   html += '<h3>6. Reservation of Rights</h3>';
   html += '<p>This notice is sent without prejudice to all rights and remedies available to the Rights Holder, all of which are expressly reserved.</p>';

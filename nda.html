@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="alternate icon" type="image/png" href="/favicon.svg">
-<title>Free NDA Generator: Non-Disclosure Agreement (India & 45 Jurisdictions) | Verbatra</title>
+<title>Verbatra, NDA Generator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
@@ -103,25 +102,6 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 @media print{header.form-panel.preview-tools.modal{display:none!important}body{background:#fff}.wrap{display:block}.preview-panel{background:#fff;padding:0}.doc{box-shadow:none;border:none;max-width:100%;padding:0;font-size:11.5pt}.doc.doc *{user-select:auto!important}}
 
 </style>
-<meta name="description" content="Generate a Non-Disclosure Agreement in seconds. Mutual or one-way NDA, with governing law, dispute resolution and data-protection clauses tailored to 45 jurisdictions. Export to Word or PDF. Built by a qualified corporate lawyer.">
-<meta name="keywords" content="NDA generator, non-disclosure agreement India, NDA template, mutual NDA, one-way NDA, confidentiality agreement online, NDA format Word, NDA Delhi Mumbai Bangalore">
-<meta name="author" content="Arnav Bhardwaj, Verbatra">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-<link rel="canonical" href="https://www.verbatra.com/nda.html">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Free NDA Generator: Non-Disclosure Agreement (India & 45 Jurisdictions) | Verbatra">
-<meta property="og:description" content="Generate a Non-Disclosure Agreement in seconds. Mutual or one-way NDA, with governing law, dispute resolution and data-protection clauses tailored to 45 jurisdictions. Export to Word or PDF. Built by a qualified corporate lawyer.">
-<meta property="og:url" content="https://www.verbatra.com/nda.html">
-<meta property="og:image" content="https://www.verbatra.com/arnav.jpg">
-<meta property="og:image:width" content="800">
-<meta property="og:image:height" content="800">
-<meta property="og:site_name" content="Verbatra">
-<meta property="og:locale" content="en_IN">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Free NDA Generator: Non-Disclosure Agreement (India & 45 Jurisdictions) | Verbatra">
-<meta name="twitter:description" content="Generate a Non-Disclosure Agreement in seconds. Mutual or one-way NDA, with governing law, dispute resolution and data-protection clauses tailored to 45 jurisdictions. Export to Word or PDF. Built by a qualified corporate lawyer.">
-<meta name="twitter:image" content="https://www.verbatra.com/arnav.jpg">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Free NDA Generator: Non-Disclosure Agreement (India & 45 Jurisdictions)", "description": "Generate a Non-Disclosure Agreement in seconds. Mutual or one-way NDA, with governing law, dispute resolution and data-protection clauses tailored to 45 jurisdictions. Export to Word or PDF. Built by a qualified corporate lawyer.", "url": "https://www.verbatra.com/nda.html", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"}, "creator": {"@type": "Organization", "name": "Verbatra", "url": "https://www.verbatra.com"}}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
@@ -184,6 +164,10 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
     <h2 class="sec">Data protection</h2>
     <label class="toggle"><input type="checkbox" id="dpToggle" checked> Include a data-protection clause</label>
     <div class="hint" id="dpHint"></div>
+
+    <h2 class="sec">Optional restraints</h2>
+    <label class="toggle"><input type="checkbox" id="ncTog"> Include non-circumvention &amp; non-solicitation</label>
+    <div class="hint">Off by default. In India (Section 27, Indian Contract Act), post-termination restraints are construed strictly; non-compete is generally void, non-solicitation is enforceable only if narrow.</div>
   </section>
   <section class="panel preview-panel">
     <div class="preview-tools">
@@ -353,6 +337,14 @@ function _wireExport(){
 }
 
 /* copy protection on the preview (export still works) */
+/* RENDER_SAFETY_NET: belt-and-braces initial render to handle any partial init failure */
+try {
+  if (typeof window !== "undefined" && typeof window.addEventListener === "function") {
+    window.addEventListener("load", function(){
+      try { if (typeof render === "function") render(); } catch(e) { /* swallow */ }
+    });
+  }
+} catch(_){}
 function _wireProtect(){
   const d = $("doc");
   if(!d) return;
@@ -375,34 +367,43 @@ function partyLine(p){
 function doc(){
   const j = JUR[S.jur];
   const mutual = S.dir==="mutual";
-  const recv = mutual ? "the other party (in its capacity as the receiving party)" : "the Receiving Party";
-  const giving = mutual ? "each party (in its capacity as the disclosing party)" : "the Disclosing Party";
+  const isIndia = S.jur==="india";
+  const recv = mutual ? "the Receiving Party" : "the Receiving Party";
+  const Recv = "The Receiving Party";
+  const giving = mutual ? "the Disclosing Party" : "the Disclosing Party";
   const dr = S.dr==="courts"
     ? "Any dispute arising out of or in connection with this Agreement shall be subject to the exclusive jurisdiction of "+j.courts+"."
     : "Any dispute arising out of or in connection with this Agreement shall be finally resolved by "+j.arb+".";
   const dp = chk("dpToggle");
-  const yrs = or(v("confYears"), "[\u2022]");
+  const yrs = or(v("confYears"), "three (3)");
+  const incNonCompete = chk("ncTog");
 
   let html = '<h1>'+(mutual?"Mutual ":"")+'Non-Disclosure Agreement</h1>';
   html += '<div class="sub">Governed by '+j.law+'</div>';
   html += '<p class="recital">This Non-Disclosure Agreement (the <b>"Agreement"</b>) is made on the '+fmtDate(v("effDate"))+', by and between:</p>';
   html += '<p class="recital"><b>(1)</b> '+partyLine("p1")+' (the '+(mutual?'<b>"First Party"</b>':'<b>"Disclosing Party"</b>')+'); and</p>';
   html += '<p class="recital"><b>(2)</b> '+partyLine("p2")+' (the '+(mutual?'<b>"Second Party"</b>':'<b>"Receiving Party"</b>')+').</p>';
+  if(mutual) html += '<p class="recital">In this Agreement, <b>"Disclosing Party"</b> means whichever of the parties is, in any given instance, disclosing Confidential Information; and <b>"Receiving Party"</b> means the other party, in its capacity as the recipient of such Confidential Information. The parties intend that confidentiality obligations apply reciprocally.</p>';
   html += '<p class="recital">The parties wish to explore '+or(v("purpose"),"[purpose of disclosure]")+' (the <b>"Purpose"</b>), in connection with which Confidential Information may be disclosed. The parties agree as follows:</p>';
 
   const C = [];
   C.push(['Confidential Information', '"Confidential Information" means all non-public information disclosed by '+giving+' to '+recv+', whether oral, written, electronic or in any other form, that is marked or reasonably understood to be confidential, including business, technical, financial, commercial and personal data.']);
-  C.push(['Obligations', recv.charAt(0).toUpperCase()+recv.slice(1)+' shall: (a) use the Confidential Information solely for the Purpose; (b) keep it strictly confidential and protect it with no less than reasonable care; (c) not disclose it to any third party except to its employees, advisers and affiliates who need to know it and are bound by equivalent obligations; and (d) not copy or reverse-engineer it except as necessary for the Purpose.']);
-  C.push(['Exclusions', 'The obligations do not apply to information that is or becomes public through no breach of this Agreement, was lawfully known prior to disclosure, is independently developed, or is required to be disclosed by law or court order (in which case prompt notice shall be given where lawful).']);
+  C.push(['Obligations', Recv+' shall: (a) use the Confidential Information solely for the Purpose; (b) keep it strictly confidential and protect it with no less than reasonable care; (c) not disclose it to any third party except to its employees, advisers and affiliates who need to know it and are bound by equivalent obligations; and (d) not copy or reverse-engineer it except as necessary for the Purpose.']);
+  C.push(['Exclusions', 'The obligations do not apply to information that is or becomes public through no breach of this Agreement, was lawfully known prior to disclosure, is independently developed without reference to the Confidential Information, or is required to be disclosed by law or court order (in which case prompt notice shall be given where lawful).']);
   C.push(['Term &amp; Survival', 'This Agreement takes effect on the Effective Date and continues until terminated by either party on written notice. The confidentiality obligations survive for '+yrs+' year(s) following termination, and indefinitely for trade secrets and personal data.']);
   C.push(['Return of Materials', 'Upon termination or written request, '+recv+' shall promptly return or destroy all Confidential Information and certify such destruction in writing, subject to retention required by law.']);
   C.push(['No Licence; No Warranty', 'No licence or right is granted under any intellectual property by virtue of this Agreement. Confidential Information is provided "as is" without warranty of any kind.']);
   C.push(['Remedies', 'The parties acknowledge that breach may cause irreparable harm for which damages are inadequate, and that the non-breaching party is entitled to seek injunctive relief in addition to all other remedies available at law.']);
-  C.push(['Compelled Disclosure', 'If '+recv+' is required by law, regulation or a court or regulatory order to disclose any Confidential Information, it shall, to the extent legally permitted, give the disclosing party prompt prior written notice and reasonable cooperation so that the disclosing party may seek a protective order, and shall disclose only that portion of the Confidential Information that it is legally required to disclose.']);
+  C.push(['Compelled Disclosure', 'If '+recv+' is required by law, regulation or a court or regulatory order to disclose any Confidential Information, it shall, to the extent legally permitted, give '+giving+' prompt prior written notice and reasonable cooperation so that '+giving+' may seek a protective order, and shall disclose only that portion of the Confidential Information that it is legally required to disclose.']);
   C.push(['No Obligation to Proceed', 'Nothing in this Agreement obliges either party to proceed with any transaction, relationship or further disclosure. Each party may terminate discussions at any time, and no binding agreement relating to the Purpose arises unless and until recorded in a separate written contract signed by both parties.']);
-  C.push(['Ownership of Information', 'All Confidential Information, and all intellectual property rights in it, remain the exclusive property of the disclosing party. Nothing in this Agreement transfers or assigns, or grants any option or licence over, any such rights to '+recv+', except the limited right to use the Confidential Information for the Purpose.']);
-  C.push(['Non-Circumvention', recv.charAt(0).toUpperCase()+recv.slice(1)+' shall not use the Confidential Information to circumvent the disclosing party or to deal directly with any customer, supplier, investor, lender or other business contact first identified or introduced to it through the Confidential Information, without the disclosing party\'s prior written consent.']);
-  C.push(['Non-Solicitation', 'During the term and for twelve (12) months after termination, neither party shall knowingly solicit for employment any employee or contractor of the other party with whom it had material contact in connection with the Purpose, save that general advertising not specifically targeted at such persons shall not breach this clause.']);
+  C.push(['Ownership of Information', 'All Confidential Information, and all intellectual property rights in it, remain the exclusive property of '+giving+'. Nothing in this Agreement transfers or assigns, or grants any option or licence over, any such rights to '+recv+', except the limited right to use the Confidential Information for the Purpose.']);
+  if(incNonCompete){
+    C.push(['Non-Circumvention', Recv+' shall not use the Confidential Information to circumvent '+giving+' or to deal directly with any customer, supplier, investor, lender or other business contact first identified or introduced to it through the Confidential Information, without '+giving+'\'s prior written consent.'+(isIndia?' This restriction is intended to be limited to what is reasonable and necessary for the protection of the disclosing party\'s legitimate interests, in light of section 27 of the Indian Contract Act, 1872.':'')]);
+    let nsClause = 'During the term and for twelve (12) months after termination, neither party shall knowingly solicit for employment any employee or contractor of the other party with whom it had material contact in connection with the Purpose, save that general advertising not specifically targeted at such persons shall not breach this clause.';
+    if(isIndia) nsClause += ' The parties acknowledge that, under section 27 of the Indian Contract Act, 1872, restraints on trade beyond what is reasonable for the protection of legitimate interests may not be enforceable; this clause is intended to be limited to what is reasonable and necessary.';
+    if(isIndia) nsClause += ' <span style="font-style:italic;color:#6a655a">[Note: Under Section 27 of the Indian Contract Act, 1872, post-termination restrictions are construed strictly. Non-solicitation clauses are generally enforceable only if narrow and reasonable; non-compete clauses operating after termination are generally void.]</span>';
+    C.push(['Non-Solicitation', nsClause]);
+  }
   C.push(['No Publicity', 'Neither party shall make any public announcement concerning, or use the name, marks or logo of the other party in connection with, this Agreement or the Purpose, without the other party\'s prior written consent, except as required by law or any regulatory or listing authority.']);
   C.push(['Notices', 'Any notice under this Agreement shall be in writing and sent to the relevant party at its address stated above (or as later notified in writing), and shall be deemed received on delivery if delivered by hand, on the second business day after posting if sent by pre-paid post, or on transmission if sent by email with confirmation of transmission.']);
   C.push(['Assignment', 'Neither party may assign, transfer or otherwise dispose of any of its rights or obligations under this Agreement without the prior written consent of the other party, save to an affiliate or in connection with a bona fide reorganisation or sale of substantially all of its business.']);
@@ -451,6 +452,7 @@ wireSeg("dirSeg","dir");
 wireSeg("drSeg","dr");
 jurSel.addEventListener("change", e=>{ S.jur = e.target.value; render(); updateHints(); });
 $("dpToggle").addEventListener("change", render);
+$("ncTog").addEventListener("change", render);
 ["p1Name","p1Type","p1Country","p1Addr","p2Name","p2Type","p2Country","p2Addr","effDate","purpose","confYears"].forEach(id=>$(id).addEventListener("input", render));
 
 function onUiChange(){

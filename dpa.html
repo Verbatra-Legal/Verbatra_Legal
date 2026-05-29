@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="alternate icon" type="image/png" href="/favicon.svg">
-<title>Free DPA Generator: Data Processing Agreement (DPDP, GDPR, CCPA & 39 Regimes) | Verbatra</title>
+<title>Verbatra, DPA Generator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
@@ -103,25 +102,6 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 @media print{header.form-panel.preview-tools.modal{display:none!important}body{background:#fff}.wrap{display:block}.preview-panel{background:#fff;padding:0}.doc{box-shadow:none;border:none;max-width:100%;padding:0;font-size:11.5pt}.doc.doc *{user-select:auto!important}}
 
 </style>
-<meta name="description" content="Generate a Data Processing Agreement that adapts to GDPR, India's DPDP Act, CCPA, LGPD and 36 other data-protection regimes. Controller and processor obligations, three annexes, ready in Word or PDF.">
-<meta name="keywords" content="DPA generator, data processing agreement template, GDPR DPA, DPDP Act India, CCPA DPA, controller processor agreement, data protection contract, DPDP compliance">
-<meta name="author" content="Arnav Bhardwaj, Verbatra">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-<link rel="canonical" href="https://www.verbatra.com/dpa.html">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Free DPA Generator: Data Processing Agreement (DPDP, GDPR, CCPA & 39 Regimes) | Verbatra">
-<meta property="og:description" content="Generate a Data Processing Agreement that adapts to GDPR, India's DPDP Act, CCPA, LGPD and 36 other data-protection regimes. Controller and processor obligations, three annexes, ready in Word or PDF.">
-<meta property="og:url" content="https://www.verbatra.com/dpa.html">
-<meta property="og:image" content="https://www.verbatra.com/arnav.jpg">
-<meta property="og:image:width" content="800">
-<meta property="og:image:height" content="800">
-<meta property="og:site_name" content="Verbatra">
-<meta property="og:locale" content="en_IN">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Free DPA Generator: Data Processing Agreement (DPDP, GDPR, CCPA & 39 Regimes) | Verbatra">
-<meta name="twitter:description" content="Generate a Data Processing Agreement that adapts to GDPR, India's DPDP Act, CCPA, LGPD and 36 other data-protection regimes. Controller and processor obligations, three annexes, ready in Word or PDF.">
-<meta name="twitter:image" content="https://www.verbatra.com/arnav.jpg">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Free DPA Generator: Data Processing Agreement (DPDP, GDPR, CCPA & 39 Regimes)", "description": "Generate a Data Processing Agreement that adapts to GDPR, India's DPDP Act, CCPA, LGPD and 36 other data-protection regimes. Controller and processor obligations, three annexes, ready in Word or PDF.", "url": "https://www.verbatra.com/dpa.html", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"}, "creator": {"@type": "Organization", "name": "Verbatra", "url": "https://www.verbatra.com"}}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
@@ -363,6 +343,14 @@ function _wireExport(){
 }
 
 /* copy protection on the preview (export still works) */
+/* RENDER_SAFETY_NET: belt-and-braces initial render to handle any partial init failure */
+try {
+  if (typeof window !== "undefined" && typeof window.addEventListener === "function") {
+    window.addEventListener("load", function(){
+      try { if (typeof render === "function") render(); } catch(e) { /* swallow */ }
+    });
+  }
+} catch(_){}
 function _wireProtect(){
   const d = $("doc");
   if(!d) return;
@@ -385,7 +373,11 @@ function partyLine(p, role){
 function doc(){
   const r = REG[S.reg];
   const C0 = r.ctrl, P0 = r.proc, DS = r.subj, AUTH = r.authority, LAW = r.law;
-  const breach = or(v("breachHrs"), "[\u2022]");
+  // Breach notification hours: regime-aware sensible defaults
+  var defaultBreach = '72';
+  if(S.reg==='india') defaultBreach = '24';
+  else if(S.reg==='us_ccpa' || S.reg==='us_va' || S.reg==='us_co' || S.reg==='us_ct' || S.reg==='us_tx' || S.reg==='us_ut') defaultBreach = '48';
+  const breach = v("breachHrs") || defaultBreach;
   const audit  = or(v("auditDays"), "[\u2022]");
 
   const subMode = v("subMode");
@@ -411,7 +403,18 @@ function doc(){
   C.push(['Security of Processing', 'The '+P0+' shall implement and maintain appropriate technical and organisational measures to ensure a level of security appropriate to the risk, as further described in Annex B.']);
   C.push(['Sub-processing', sub]);
   C.push([DS.charAt(0).toUpperCase()+DS.slice(1)+' Rights', 'Taking into account the nature of the processing, the '+P0+' shall assist the '+C0+' by appropriate technical and organisational measures, insofar as possible, to fulfil the '+C0+"'s obligation to respond to "+DS+'-rights requests under the Applicable Data Protection Law.']);
-  C.push(['Assistance &amp; Impact Assessments', 'The '+P0+' shall assist the '+C0+' in ensuring compliance with its obligations relating to security, data-protection impact assessments and prior consultation with '+AUTH+'.']);
+  // DPIA clause varies by regime: GDPR/UK/EU regimes require DPIAs broadly; DPDP only for Significant Data Fiduciaries; CCPA does not require DPIAs in the same way.
+  var dpdpRegime = (S.reg==='india');
+  var ccpaRegime = (S.reg==='us_ccpa');
+  var dpiaText;
+  if(dpdpRegime){
+    dpiaText = 'The '+P0+' shall assist the '+C0+' in ensuring compliance with its obligations relating to security and breach notification to '+AUTH+'. Where the '+C0+' is notified as a Significant Data Fiduciary under section 10 of the DPDP Act, the '+P0+' shall additionally assist with periodic Data Protection Impact Assessments and audits conducted by an independent data auditor.';
+  } else if(ccpaRegime){
+    dpiaText = 'The '+P0+' shall assist the '+C0+' in fulfilling its obligations under the Applicable Data Protection Law, including responding to consumer requests and complying with risk assessment requirements where applicable.';
+  } else {
+    dpiaText = 'The '+P0+' shall assist the '+C0+' in ensuring compliance with its obligations relating to security, data protection impact assessments and prior consultation with '+AUTH+'.';
+  }
+  C.push(['Assistance &amp; Impact Assessments', dpiaText]);
   C.push(['Personal Data Breach', 'The '+P0+' shall notify the '+C0+' without undue delay, and in any event within '+breach+' hours, of any Personal Data Breach affecting the '+C0+"'s Personal Data, and shall assist with investigation, mitigation and notification to "+AUTH+' and '+DS+'s as required.']);
   if(chk("transferToggle")) C.push(['International Transfers', 'The '+P0+' shall not transfer Personal Data to a third country or international organisation except on the '+C0+"'s documented instructions and in accordance with a lawful transfer mechanism. In particular, "+r.transfer+'.']);
   C.push(['Audits &amp; Inspections', 'The '+P0+' shall make available all information necessary to demonstrate compliance with this DPA and allow audits, including inspections, conducted by the '+C0+' or its mandated auditor, on at least '+audit+' days\' written notice and no more than once in any twelve-month period (save where required by '+AUTH+' or following a Personal Data Breach).']);
@@ -442,15 +445,15 @@ function doc(){
 
   /* Annexes */
   const sp = chk("specialToggle") ? '<p class="anx"><b>Special / sensitive categories:</b> processed and require enhanced safeguards.</p>' : '';
-  html += '<div class="sched"><h2>Annex A, Details of the Processing</h2>'
+  html += '<div class="sched"><h2>Annex A: Details of the Processing</h2>'
        +'<p class="anx"><b>Subject matter:</b> '+or(v("subjMatter"),"[Services under the Principal Agreement]")+'</p>'
        +'<p class="anx"><b>Nature &amp; purpose:</b> '+or(v("purpose"),"[nature and purpose]")+'</p>'
        +'<p class="anx"><b>Duration:</b> '+or(v("duration"),"[duration]")+'</p>'
        +'<p class="anx"><b>Categories of '+DS+'s:</b> '+or(v("catSubjects"),"[categories of data subjects]")+'</p>'
        +'<p class="anx"><b>Categories of Personal Data:</b> '+or(v("catData"),"[categories of personal data]")+'</p>'+sp+'</div>';
-  html += '<div class="sched"><h2>Annex B, Technical &amp; Organisational Measures</h2>'
+  html += '<div class="sched"><h2>Annex B: Technical &amp; Organisational Measures</h2>'
        +'<p>The '+P0+' shall maintain measures appropriate to the risk, including: access control and least privilege; encryption of Personal Data in transit and at rest; pseudonymisation where appropriate; network and endpoint security; logging, monitoring and intrusion detection; secure backup and DR; staff confidentiality and training; documented incident response; vendor and Sub-processor management; physical and environmental security; and data-minimisation and retention controls.</p></div>';
-  html += '<div class="sched"><h2>Annex C, Approved Sub-processors</h2>'
+  html += '<div class="sched"><h2>Annex C: Approved Sub-processors</h2>'
        +'<p>The '+P0+' may engage the following Sub-processors, each bound by data-protection obligations equivalent to those in this DPA. The current list shall be made available to the '+C0+' on request.</p>'
        +'<p style="font-style:italic;color:#6a655a">[Name], [Location], [Activity], [Transfer safeguard]</p></div>';
   return html;

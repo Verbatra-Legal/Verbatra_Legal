@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="alternate icon" type="image/png" href="/favicon.svg">
-<title>Free Sale Deed Generator: Property Conveyance Format (India) | Verbatra</title>
+<title>Verbatra, Sale Deed</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
@@ -103,25 +102,6 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 @media print{header.form-panel.preview-tools.modal{display:none!important}body{background:#fff}.wrap{display:block}.preview-panel{background:#fff;padding:0}.doc{box-shadow:none;border:none;max-width:100%;padding:0;font-size:11.5pt}.doc.doc *{user-select:auto!important}}
 
 </style>
-<meta name="description" content="Generate a sale deed for the conveyance of immovable property , consideration, title warranties, possession and property schedule. Note: sale deeds require stamping and registration.">
-<meta name="keywords" content="sale deed format India, property sale deed template, conveyance deed, sale deed Word, sale deed registration India, immovable property sale agreement">
-<meta name="author" content="Arnav Bhardwaj, Verbatra">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-<link rel="canonical" href="https://www.verbatra.com/saledeed.html">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Free Sale Deed Generator: Property Conveyance Format (India) | Verbatra">
-<meta property="og:description" content="Generate a sale deed for the conveyance of immovable property , consideration, title warranties, possession and property schedule. Note: sale deeds require stamping and registration.">
-<meta property="og:url" content="https://www.verbatra.com/saledeed.html">
-<meta property="og:image" content="https://www.verbatra.com/arnav.jpg">
-<meta property="og:image:width" content="800">
-<meta property="og:image:height" content="800">
-<meta property="og:site_name" content="Verbatra">
-<meta property="og:locale" content="en_IN">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Free Sale Deed Generator: Property Conveyance Format (India) | Verbatra">
-<meta name="twitter:description" content="Generate a sale deed for the conveyance of immovable property , consideration, title warranties, possession and property schedule. Note: sale deeds require stamping and registration.">
-<meta name="twitter:image" content="https://www.verbatra.com/arnav.jpg">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Free Sale Deed Generator: Property Conveyance Format (India)", "description": "Generate a sale deed for the conveyance of immovable property , consideration, title warranties, possession and property schedule. Note: sale deeds require stamping and registration.", "url": "https://www.verbatra.com/saledeed.html", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"}, "creator": {"@type": "Organization", "name": "Verbatra", "url": "https://www.verbatra.com"}}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
@@ -151,6 +131,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
     <div class="field"><label>Buyer address</label><textarea id="bAddr"></textarea></div>
 
     <h2 class="sec">Property &amp; Consideration</h2>
+    <div class="field"><label>Seller's source of title</label><textarea id="titleSource" placeholder="e.g. by purchase under sale deed dated 12 March 2010 registered as Document No. 12345 with the Sub-Registrar, [City]"></textarea></div>
     <div class="field"><label>Property description (schedule)</label><textarea id="prop" placeholder="Full description: area, boundaries, survey/plot no. address"></textarea></div>
     <div class="field"><label>Sale consideration (amount)</label><input type="number" id="price" placeholder="e.g. 5000000"></div>
     <div class="field"><label>Date of execution</label><input type="date" id="startDate"></div>
@@ -328,6 +309,14 @@ function _wireExport(){
 }
 
 /* copy protection on the preview (export still works) */
+/* RENDER_SAFETY_NET: belt-and-braces initial render to handle any partial init failure */
+try {
+  if (typeof window !== "undefined" && typeof window.addEventListener === "function") {
+    window.addEventListener("load", function(){
+      try { if (typeof render === "function") render(); } catch(e) { /* swallow */ }
+    });
+  }
+} catch(_){}
 function _wireProtect(){
   const d = $("doc");
   if(!d) return;
@@ -343,7 +332,8 @@ function doc(){
   const j = JUR[S.jur], sym = curSym();
   const full = v("payStatus")==="full";
   const C = [];
-  C.push(['Recitals', 'The Seller is the absolute and lawful owner of the property described in the Schedule below (the <b>"Property"</b>), having a clear and marketable title, and has agreed to sell the Property to the Buyer for the consideration stated in this deed.']);
+  C.push(['Recitals', 'The Seller is the absolute and lawful owner of the property described in the Schedule below (the <b>"Property"</b>), having acquired the same '+(v("titleSource") || "[describe how Seller acquired title: by purchase under sale deed dated [date] registered with [sub-registrar] / by inheritance / by gift / by partition, etc.]")+'. The Seller has a clear and marketable title to the Property, free from all encumbrances, charges, attachments and prior agreements to sell, and has agreed to sell the Property to the Buyer for the consideration stated in this deed. The Buyer has inspected the Property and the Seller\'s title documents and is satisfied therewith.']);
+  C.push(['Property Tax &amp; Society Dues', 'The Seller declares that all property tax, municipal tax, society maintenance charges, electricity and water charges and all other outgoings in respect of the Property have been paid up to the date of this deed, and the Seller shall produce receipts and a no-objection certificate from the society (if applicable) at the time of registration.']);
   C.push(['Sale &amp; Consideration', 'In consideration of the sum of '+sym+' '+or(v("price"),"[amount]")+' (the <b>"Sale Consideration"</b>), '+(full?'the receipt of which in full the Seller hereby acknowledges,':'paid as to part with the balance payable at registration,')+' the Seller hereby sells, conveys and transfers the Property absolutely to the Buyer, together with all rights, easements and appurtenances attached to it.']);
   if(chk("vacant")) C.push(['Delivery of Possession', 'The Seller has handed over vacant and peaceful possession of the Property to the Buyer, who is now entitled to hold and enjoy the Property as absolute owner.']);
   if(chk("encum")) C.push(['Title &amp; Encumbrances', 'The Seller warrants that the Property is free from all encumbrances, charges, liens, mortgages, attachments and prior agreements to sell, and that the Seller has full right and authority to sell and convey it.']);
@@ -357,8 +347,8 @@ function doc(){
   html += '<div class="sub">Conveyance of Immovable Property &middot; Governed by '+j.law+'</div>';
   html += '<p class="recital">This Sale Deed is executed on '+fmtDate(v("startDate"))+' between '+or(v("sName"),"[Seller]")+', of '+or(v("sAddr"),"[address]")+' (the <b>"Seller"</b>), and '+or(v("bName"),"[Buyer]")+', of '+or(v("bAddr"),"[address]")+' (the <b>"Buyer"</b>).</p>';
   C.forEach((c,i)=>{ html += '<h3>'+(i+1)+'. '+c[0]+'</h3><p>'+c[1]+'</p>'; });
-  html += '<div class="sched"><h2>Schedule, The Property</h2><p>'+or(v("prop"),"[Full description of the Property: total area, boundaries on all four sides, survey/plot/khasra number, and complete address.]")+'</p></div>';
-  html += '<p class="stamp-note"><b>Registration &amp; stamp duty required.</b> A sale deed is a compulsorily registrable instrument. It must be stamped with the applicable stamp duty and registered before the competent Sub-Registrar within the time limit prescribed by law. '+(j.stamp||'')+' This draft is a starting point only and must be reviewed by a qualified property lawyer and adapted to local registration requirements before execution.</p>';
+  html += '<div class="sched"><h2>Schedule: The Property</h2><p>'+or(v("prop"),"[Full description of the Property: total area, boundaries on all four sides, survey/plot/khasra number, and complete address.]")+'</p></div>';
+  html += '<p class="stamp-note"><b>Registration &amp; stamp duty required.</b> A sale deed is a compulsorily registrable instrument. In India, stamp duty is typically a State-specific percentage of the higher of (a) sale consideration and (b) the circle/ready-reckoner value of the Property, commonly between 4% and 8%, plus a registration fee (typically 1%). It must be stamped with the applicable stamp duty and registered before the competent Sub-Registrar within the time limit prescribed by law. '+(j.stamp||'')+' This draft is a starting point only and must be reviewed by a qualified property lawyer and adapted to local registration requirements before execution.</p>';
   html += '<div class="sig"><div class="block"><div style="font-weight:600;margin-bottom:10px">Seller</div><div class="line"></div>'+or(v("sName"),"[Seller]")+'<br><br><div class="line"></div>Date</div><div class="block"><div style="font-weight:600;margin-bottom:10px">Buyer</div><div class="line"></div>'+or(v("bName"),"[Buyer]")+'<br><br><div class="line"></div>Date</div></div>';
   html += '<div class="sig" style="margin-top:24px"><div class="block"><div style="font-weight:600;margin-bottom:10px">Witness 1</div><div class="line"></div>Name &amp; Signature</div><div class="block"><div style="font-weight:600;margin-bottom:10px">Witness 2</div><div class="line"></div>Name &amp; Signature</div></div>';
   return html;
@@ -373,7 +363,7 @@ const jurSel=$("jur");
 Object.keys(JUR).forEach(k=>{const o=document.createElement("option");o.value=k;o.textContent=JUR[k].label;jurSel.appendChild(o);});
 jurSel.value="india";
 jurSel.addEventListener("change",e=>{S.jur=e.target.value;$("jurHint").textContent=JUR[S.jur].hint;render();});
-["sName","sAddr","bName","bAddr","prop","price","startDate","payStatus"].forEach(id=>$(id).addEventListener("input",render));
+["sName","sAddr","bName","bAddr","prop","price","startDate","payStatus","titleSource"].forEach(id=>$(id).addEventListener("input",render));
 ["vacant","encum"].forEach(id=>$(id).addEventListener("change",render));
 $("startDate").value=new Date().toISOString().slice(0,10);
 $("jurHint").textContent=JUR[S.jur].hint;

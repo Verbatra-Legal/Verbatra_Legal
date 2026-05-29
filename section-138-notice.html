@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="alternate icon" type="image/png" href="/favicon.svg">
-<title>Section 138 NI Act Notice Generator (Cheque Bounce) | Verbatra</title>
+<title>Verbatra, Section 138 NI Act Notice</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
@@ -110,24 +109,6 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 .lawyer-cta a{color:var(--oxblood);font-weight:600;text-decoration:underline}
 .lawyer-cta a:hover{color:var(--green)}
 </style>
-<meta name="description" content="Draft the statutory cheque bounce notice under Section 138 of the Negotiable Instruments Act, 1881. 15-day demand, cheque and dishonour particulars, underlying liability. We can send it through advocate's letterhead.">
-<meta name="keywords" content="section 138 notice format, cheque bounce notice India, NI Act notice, dishonour of cheque, Section 138 NI Act">
-<meta name="author" content="Arnav Bhardwaj, Verbatra">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-<link rel="canonical" href="https://www.verbatra.com/section-138-notice.html">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Section 138 NI Act Notice Generator (Cheque Bounce) | Verbatra">
-<meta property="og:description" content="Draft the statutory cheque bounce notice under Section 138 of the Negotiable Instruments Act, 1881. 15-day demand, cheque and dishonour particulars, underlying liability. We can send it through advocate's letterhead.">
-<meta property="og:url" content="https://www.verbatra.com/section-138-notice.html">
-<meta property="og:image" content="https://www.verbatra.com/arnav.jpg">
-<meta property="og:image:width" content="800">
-<meta property="og:image:height" content="800">
-<meta property="og:site_name" content="Verbatra">
-<meta property="og:locale" content="en_IN">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Section 138 NI Act Notice Generator (Cheque Bounce) | Verbatra">
-<meta name="twitter:description" content="Draft the statutory cheque bounce notice under Section 138 of the Negotiable Instruments Act, 1881. 15-day demand, cheque and dishonour particulars, underlying liability. We can send it through advocate's letterhead.">
-<meta name="twitter:image" content="https://www.verbatra.com/arnav.jpg">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
@@ -361,6 +342,14 @@ function _wireExport(){
 }
 
 /* copy protection on the preview (export still works) */
+/* RENDER_SAFETY_NET: belt-and-braces initial render to handle any partial init failure */
+try {
+  if (typeof window !== "undefined" && typeof window.addEventListener === "function") {
+    window.addEventListener("load", function(){
+      try { if (typeof render === "function") render(); } catch(e) { /* swallow */ }
+    });
+  }
+} catch(_){}
 function _wireProtect(){
   const d = $("doc");
   if(!d) return;
@@ -404,30 +393,31 @@ function doc(){
   html += '<p>'
     +'(a) Cheque number: <b>'+or(v("chequeNo"),"[number]")+'</b><br>'
     +'(b) Cheque date: <b>'+fmtDate(v("chequeDate"))+'</b><br>'
-    +'(c) Amount: <b>'+curMoney(amt)+'</b><br>'
+    +'(c) Amount: <b>'+((amt&&Number(amt)>0)?curMoney(amt):'[amount]')+'</b><br>'
     +'(d) Drawn on: <b>'+or(v("bankName"),"[bank and branch]")+'</b><br>'
     +'(e) Account No.: <b>'+or(v("acctNo"),"[account number]")+'</b><br>'
     +'(f) Drawer: <b>'+or(v("drawerName"),"[Drawer]")+'</b>'
     +'</p>';
 
   html += '<h3>3. Presentation and Dishonour</h3>';
-  html += '<p>The Payee duly presented the said cheque for encashment through its banker on '+fmtDate(v("depositDate"))+', within the period of its validity. The cheque was, however, returned unpaid by the Drawer\'s bank vide return memo dated '+fmtDate(v("returnDate"))+' with the remark <b>"'+v("returnReason")+'"</b>. The dishonour and the reason therefor are matters of bank record.</p>';
+  html += '<p>The Payee duly presented the said cheque for encashment through its banker on '+fmtDate(v("depositDate"))+', within the period of its validity. The cheque was, however, returned unpaid by the Drawer\'s bank vide return memo dated '+fmtDate(v("returnDate"))+' with the remark <b>"'+(v("returnReason")||"[reason as per memo]")+'"</b>. The dishonour and the reason therefor are matters of bank record.</p>';
 
   html += '<h3>4. Cause of Action under Section 138</h3>';
   html += '<p>By reason of the aforesaid dishonour of the cheque drawn in discharge of a legally enforceable debt or other liability, you have committed an offence punishable under Section 138 of the Negotiable Instruments Act, 1881. The Payee\'s cause of action has duly arisen.</p>';
 
   html += '<h3>5. Demand</h3>';
-  html += '<p>You are, accordingly, hereby called upon to make payment of the sum of <b>'+curMoney(amt)+'</b> (being the amount of the dishonoured cheque) to the Payee within a period of <b>fifteen (15) days</b> from the receipt of this notice, by way of demand draft or by direct transfer to a bank account to be notified, failing which the Payee shall be constrained to initiate appropriate criminal proceedings against you under Section 138 read with Section 142 of the Negotiable Instruments Act, 1881, before the competent Magistrate, entirely at your risk as to costs and consequences, and without any further notice to you.</p>';
+  html += '<p>You are, accordingly, hereby called upon to make payment of the sum of <b>'+((amt&&Number(amt)>0)?curMoney(amt):'[the cheque amount]')+'</b> (being the amount of the dishonoured cheque) to the Payee within a period of <b>fifteen (15) days</b> from the receipt of this notice, by way of demand draft or by direct transfer to a bank account to be notified, failing which the Payee shall be constrained to initiate appropriate criminal proceedings against you under Section 138 read with Section 142 of the Negotiable Instruments Act, 1881, before the competent Magistrate having jurisdiction, entirely at your risk as to costs and consequences, and without any further notice to you.</p>';
 
   html += '<h3>6. Reservation of Rights</h3>';
   html += '<p>This notice is issued without prejudice to all other civil and criminal rights and remedies available to the Payee, all of which are expressly reserved.</p>';
 
   html += '<p>A copy of this notice has been retained in '+(hasCounsel?'my':'the Payee\'s')+' records for the purposes of any subsequent proceedings.</p>';
 
-  html += '<p style="margin-top:24px">Yours faithfully,</p>';
   if(hasCounsel){
-    html += '<p style="margin-top:30px"><b>'+cn+'</b><br>Advocate'+(v("counselEnrol")?'<br>Enrolment No: '+v("counselEnrol"):'')+'<br><br>For and on behalf of: <b>'+or(v("payeeName"),"[Payee]")+'</b></p>';
+    html += '<p style="margin-top:24px">Yours sincerely,</p>';
+    html += '<p style="margin-top:30px"><b>'+cn+'</b><br>Advocate'+(v("counselEnrol")?'<br>Enrolment No: '+v("counselEnrol"):'')+'<br>Counsel for the Payee, '+or(v("payeeName"),"[Payee]")+'</p>';
   } else {
+    html += '<p style="margin-top:24px">Yours faithfully,</p>';
     html += '<p style="margin-top:30px"><b>'+or(v("payeeName"),"[Payee]")+'</b></p>';
   }
 

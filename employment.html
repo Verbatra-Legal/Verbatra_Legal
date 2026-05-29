@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="alternate icon" type="image/png" href="/favicon.svg">
-<title>Free Employment Agreement & Offer Letter Generator (India) | Verbatra</title>
+<title>Verbatra, Employment / Offer Letter</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
@@ -103,25 +102,6 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 @media print{header.form-panel.preview-tools.modal{display:none!important}body{background:#fff}.wrap{display:block}.preview-panel{background:#fff;padding:0}.doc{box-shadow:none;border:none;max-width:100%;padding:0;font-size:11.5pt}.doc.doc *{user-select:auto!important}}
 
 </style>
-<meta name="description" content="Draft an employment contract or offer letter in seconds. Role, salary, probation, confidentiality, IP assignment and termination clauses. Built by a corporate lawyer. Export to Word or PDF.">
-<meta name="keywords" content="employment agreement India, offer letter format, employment contract template, appointment letter India, employment contract Word, offer letter generator">
-<meta name="author" content="Arnav Bhardwaj, Verbatra">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-<link rel="canonical" href="https://www.verbatra.com/employment.html">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Free Employment Agreement & Offer Letter Generator (India) | Verbatra">
-<meta property="og:description" content="Draft an employment contract or offer letter in seconds. Role, salary, probation, confidentiality, IP assignment and termination clauses. Built by a corporate lawyer. Export to Word or PDF.">
-<meta property="og:url" content="https://www.verbatra.com/employment.html">
-<meta property="og:image" content="https://www.verbatra.com/arnav.jpg">
-<meta property="og:image:width" content="800">
-<meta property="og:image:height" content="800">
-<meta property="og:site_name" content="Verbatra">
-<meta property="og:locale" content="en_IN">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Free Employment Agreement & Offer Letter Generator (India) | Verbatra">
-<meta name="twitter:description" content="Draft an employment contract or offer letter in seconds. Role, salary, probation, confidentiality, IP assignment and termination clauses. Built by a corporate lawyer. Export to Word or PDF.">
-<meta name="twitter:image" content="https://www.verbatra.com/arnav.jpg">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Free Employment Agreement & Offer Letter Generator (India)", "description": "Draft an employment contract or offer letter in seconds. Role, salary, probation, confidentiality, IP assignment and termination clauses. Built by a corporate lawyer. Export to Word or PDF.", "url": "https://www.verbatra.com/employment.html", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"}, "creator": {"@type": "Organization", "name": "Verbatra", "url": "https://www.verbatra.com"}}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
@@ -338,6 +318,14 @@ function _wireExport(){
 }
 
 /* copy protection on the preview (export still works) */
+/* RENDER_SAFETY_NET: belt-and-braces initial render to handle any partial init failure */
+try {
+  if (typeof window !== "undefined" && typeof window.addEventListener === "function") {
+    window.addEventListener("load", function(){
+      try { if (typeof render === "function") render(); } catch(e) { /* swallow */ }
+    });
+  }
+} catch(_){}
 function _wireProtect(){
   const d = $("doc");
   if(!d) return;
@@ -352,19 +340,34 @@ const S = { jur:"india" };
 function doc(){
   const j = JUR[S.jur], sym = curSym();
   const offer = v("dtype")==="offer";
+  const isIndia = S.jur==="india";
   const C = [];
-  C.push(['Position', 'The Company appoints the Employee as <b>'+or(v("title"),"[job title]")+'</b>, reporting to '+or(v("reports"),"[manager]")+'. The Employee shall perform the duties reasonably associated with the role and such other duties as may be assigned.']);
-  C.push(['Commencement', 'Employment commences on '+fmtDate(v("startDate"))+'. The first '+or(v("probation"),"[\u2022]")+' month(s) shall be a probationary period, during which either party may terminate on shorter notice as permitted by law.']);
-  C.push(['Place of Work', 'The Employee\'s primary place of work is '+or(v("location"),"[location]")+'. The Company may reasonably vary the place of work on notice.']);
-  C.push(['Remuneration', 'The Company shall pay the Employee a gross annual salary of '+sym+' '+or(v("salary"),"[amount]")+', payable monthly in arrears, subject to lawful deductions including applicable taxes and statutory contributions.']);
-  if(chk("benefits")) C.push(['Leave &amp; Benefits', 'The Employee is entitled to paid leave and statutory benefits in accordance with the Company\'s policies and applicable law, including any provident fund, gratuity or insurance benefits as applicable.']);
-  C.push(['Hours &amp; Conduct', 'The Employee shall devote their full working time and attention to the Company during working hours, comply with Company policies, and act in the Company\'s best interests at all times.']);
-  if(chk("confTog")) C.push(['Confidentiality', 'The Employee shall keep confidential all non-public information of the Company and its clients, both during and after employment, and shall not use or disclose it except in the proper performance of their duties.']);
-  if(chk("ipTog")) C.push(['Intellectual Property', 'All intellectual property created by the Employee in the course of employment, or relating to the Company\'s business, shall vest in the Company. The Employee assigns all such rights to the Company and shall execute any documents needed to give effect to this.']);
-  if(chk("nonComp")) C.push(['Non-Compete &amp; Non-Solicitation', 'During employment and for a reasonable period after it ends, the Employee shall not solicit the Company\'s clients or employees, nor engage in a business that directly competes with the Company, to the extent such restrictions are enforceable under applicable law.']);
-  C.push(['Termination', 'After probation, either party may terminate this employment by giving '+or(v("notice"),"[\u2022]")+' days\' written notice or salary in lieu. The Company may terminate without notice for gross misconduct or material breach. On termination, the Employee shall return all Company property and confidential information.']);
-  C.push(['Governing Law', 'This '+(offer?'offer':'Agreement')+' is governed by '+j.law+', and the parties submit to the jurisdiction of '+j.courts+'.']);
-  C.push(['General', 'This document constitutes the entire agreement on the Employee\'s engagement and supersedes prior discussions. Any variation must be in writing and signed by both parties.']);
+  C.push(['Position', 'The Company appoints the Employee as <b>'+or(v("title"),"[job title]")+'</b>, reporting to '+or(v("reports"),"[manager]")+'. The Employee shall perform the duties reasonably associated with the role and such other duties as may be assigned, consistent with the position.']);
+  C.push(['Commencement &amp; Probation', 'Employment commences on '+fmtDate(v("startDate"))+'. The first '+or(v("probation"),"[\u2022]")+' month(s) shall be a probationary period, during which either party may terminate on shorter notice as permitted by law. Confirmation of employment following probation shall be communicated in writing.']);
+  C.push(['Place of Work', 'The Employee\'s primary place of work is '+or(v("location"),"[location]")+'. The Company may, on reasonable notice and to a reasonable extent, vary the place of work having regard to the needs of the business.']);
+  C.push(['Remuneration', 'The Company shall pay the Employee a gross annual salary of '+sym+' '+or(v("salary"),"[amount]")+', payable monthly in arrears, subject to lawful deductions including applicable income tax (TDS)'+(isIndia?', employee provident-fund contributions under the Employees\' Provident Funds and Miscellaneous Provisions Act, 1952 (if applicable), employee state insurance under the Employees\' State Insurance Act, 1948 (if applicable), and professional tax (where levied by the relevant State)':' and applicable statutory contributions')+'. The salary breakdown shall be set out in the Annexure or appointment letter.']);
+  if(chk("benefits")){
+    if(isIndia){
+      C.push(['Leave', 'The Employee shall be entitled to paid leave in accordance with the Company\'s leave policy and applicable law, including the Shops and Establishments Act of the State where the Employee is engaged. The Company\'s policy will set out earned leave, casual leave, sick leave and other entitlements.']);
+      C.push(['Statutory Benefits', 'The Employee shall be entitled to statutory benefits applicable from time to time, including (where the relevant thresholds are met) provident fund and pension benefits, employees\' state insurance, and gratuity under the Payment of Gratuity Act, 1972 upon completion of qualifying service. Group medical and other insurance cover, if provided, shall be subject to the Company\'s applicable scheme.']);
+    } else {
+      C.push(['Leave &amp; Benefits', 'The Employee shall be entitled to paid leave and statutory benefits in accordance with the Company\'s policies and applicable law of '+j.label+', including any pension, insurance or social-security benefits as applicable.']);
+    }
+  }
+  C.push(['Hours &amp; Conduct', 'The Employee shall devote their full working time and attention to the Company during working hours, comply with the Company\'s policies (including the code of conduct, anti-bribery, anti-corruption and information-security policies), and act at all times in the Company\'s best interests.']);
+  if(isIndia){
+    C.push(['Prevention of Sexual Harassment', 'The Employee acknowledges that the Company maintains a policy on the prevention, prohibition and redressal of sexual harassment at the workplace in accordance with the Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013 and the rules made thereunder. The Employee shall comply with the said policy, cooperate with the Internal Committee, and conduct themselves in a manner that upholds a safe and respectful workplace.']);
+  }
+  if(chk("confTog")) C.push(['Confidentiality', 'The Employee shall keep confidential all non-public information of the Company and its clients, both during and after employment, and shall not use or disclose it except in the proper performance of their duties. This obligation continues without limit in time.']);
+  if(chk("ipTog")) C.push(['Intellectual Property', 'All intellectual property created by the Employee in the course of employment, or relating to the Company\'s business or arising from the use of the Company\'s resources, shall vest in the Company. The Employee assigns all such rights to the Company by way of present assignment of future rights to the maximum extent permitted by applicable law, and shall execute any documents reasonably required to give effect to this clause.']);
+  if(chk("nonComp")){
+    let nc = 'During employment, the Employee shall not engage in any other gainful employment or business that competes with the Company. For a reasonable period of '+or(v("ncMonths"),"twelve (12)")+' months after employment ends, the Employee shall not solicit the Company\'s customers, suppliers or employees with whom the Employee had material contact, nor use the Company\'s confidential information for the benefit of a competitor.';
+    if(isIndia) nc += ' <span style="font-style:italic;color:#6a655a">[Note: Under Section 27 of the Indian Contract Act, 1872, post-termination restrictions are generally void as restraints of trade. Indian courts may enforce narrow non-solicitation, but not post-termination non-compete. This clause should be reviewed by counsel for enforceability.]</span>';
+    C.push(['Non-Compete &amp; Non-Solicitation', nc]);
+  }
+  C.push(['Termination', 'After probation, either party may terminate this employment by giving '+or(v("notice"),"[\u2022]")+' days\' written notice or payment of basic salary in lieu. The Company may terminate without notice for misconduct (including dishonesty, breach of trust, persistent neglect of duty or any act that brings the Company into disrepute) or material breach of this Agreement, subject to the inquiry process required by applicable law where relevant. On termination, the Employee shall return all Company property, confidential information and access credentials, and complete any handover reasonably required.']);
+  C.push(['Governing Law &amp; Jurisdiction', 'This '+(offer?'offer':'Agreement')+' is governed by '+j.law+', and the parties submit to the jurisdiction of '+j.courts+'.']);
+  C.push(['General', 'This document constitutes the entire agreement on the Employee\'s engagement and supersedes prior discussions, representations and oral understandings. Any variation must be in writing and signed by both parties. If any provision is held invalid, the remainder continues in full force.']);
 
   let html;
   if(offer){

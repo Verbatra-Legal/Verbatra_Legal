@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="alternate icon" type="image/png" href="/favicon.svg">
-<title>Free Power of Attorney Generator: General & Special POA Format (India) | Verbatra</title>
+<title>Verbatra, Power of Attorney</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
@@ -103,25 +102,6 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 @media print{header.form-panel.preview-tools.modal{display:none!important}body{background:#fff}.wrap{display:block}.preview-panel{background:#fff;padding:0}.doc{box-shadow:none;border:none;max-width:100%;padding:0;font-size:11.5pt}.doc.doc *{user-select:auto!important}}
 
 </style>
-<meta name="description" content="Draft a general or special Power of Attorney in seconds. Select powers granted , financial, property, legal , with durability option and witness blocks. Export to Word or PDF.">
-<meta name="keywords" content="power of attorney format India, general POA template, special POA, power of attorney Word, POA for property, POA for banking, durable power of attorney">
-<meta name="author" content="Arnav Bhardwaj, Verbatra">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-<link rel="canonical" href="https://www.verbatra.com/poa.html">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Free Power of Attorney Generator: General & Special POA Format (India) | Verbatra">
-<meta property="og:description" content="Draft a general or special Power of Attorney in seconds. Select powers granted , financial, property, legal , with durability option and witness blocks. Export to Word or PDF.">
-<meta property="og:url" content="https://www.verbatra.com/poa.html">
-<meta property="og:image" content="https://www.verbatra.com/arnav.jpg">
-<meta property="og:image:width" content="800">
-<meta property="og:image:height" content="800">
-<meta property="og:site_name" content="Verbatra">
-<meta property="og:locale" content="en_IN">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Free Power of Attorney Generator: General & Special POA Format (India) | Verbatra">
-<meta name="twitter:description" content="Draft a general or special Power of Attorney in seconds. Select powers granted , financial, property, legal , with durability option and witness blocks. Export to Word or PDF.">
-<meta name="twitter:image" content="https://www.verbatra.com/arnav.jpg">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Free Power of Attorney Generator: General & Special POA Format (India)", "description": "Draft a general or special Power of Attorney in seconds. Select powers granted , financial, property, legal , with durability option and witness blocks. Export to Word or PDF.", "url": "https://www.verbatra.com/poa.html", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"}, "creator": {"@type": "Organization", "name": "Verbatra", "url": "https://www.verbatra.com"}}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
@@ -329,6 +309,14 @@ function _wireExport(){
 }
 
 /* copy protection on the preview (export still works) */
+/* RENDER_SAFETY_NET: belt-and-braces initial render to handle any partial init failure */
+try {
+  if (typeof window !== "undefined" && typeof window.addEventListener === "function") {
+    window.addEventListener("load", function(){
+      try { if (typeof render === "function") render(); } catch(e) { /* swallow */ }
+    });
+  }
+} catch(_){}
 function _wireProtect(){
   const d = $("doc");
   if(!d) return;
@@ -343,12 +331,15 @@ const S = { jur:"india" };
 function doc(){
   const j = JUR[S.jur];
   const special = v("ptype")==="special";
+  const isIndia = S.jur==="india";
+  const includesProperty = chk("property");
   const C = [];
   let granted = [];
   if(chk("financial")) granted.push('to operate, manage and transact upon bank accounts, deposits and investments, to draw and endorse cheques, and to deal with financial institutions on my behalf');
   if(chk("property")) granted.push('to manage, let, maintain and deal with my immovable property, and to execute, present and admit registration of documents relating to it');
   if(chk("legal")) granted.push('to represent me before any court, tribunal, authority or public office, to sign, verify and file documents, and to appoint advocates and agents');
-  granted.push(or(v("powers"),"[describe the specific powers granted]"));
+  if(v("powers")) granted.push(v("powers"));
+  if(granted.length===0) granted.push('<span style="color:#b89;font-style:italic">[Please tick at least one category above (financial, property, legal) or describe the specific powers in the box.]</span>');
 
   C.push(['Appointment', 'I, '+or(v("prinName"),"[Principal name]")+', residing at '+or(v("prinAddr"),"[address]")+' (the <b>"Principal"</b>), hereby appoint '+or(v("attName"),"[Attorney name]")+', residing at '+or(v("attAddr"),"[address]")+(v("rel")?', my '+v("rel"):'')+' (the <b>"Attorney"</b>), to be my true and lawful attorney.']);
   C.push(['Powers Granted', 'The Attorney is authorised, in my name and on my behalf, '+granted.join('; ')+'.'+(special?' These powers are limited strictly to the matters described above and to no other.':' These powers are general in nature and extend to all acts reasonably necessary to give effect to the above.')]);
@@ -363,7 +354,11 @@ function doc(){
   html += '<div class="sub">Governed by '+j.law+'</div>';
   html += '<p class="recital">By this deed executed on '+fmtDate(v("startDate"))+':</p>';
   C.forEach((c,i)=>{ html += '<h3>'+(i+1)+'. '+c[0]+'</h3><p>'+c[1]+'</p>'; });
-  if(j.stamp) html += '<p class="stamp-note">'+j.stamp+' A Power of Attorney generally requires stamping and notarisation, and where it concerns immovable property, registration is typically mandatory.</p>';
+  if(j.stamp){
+    let stampMsg = j.stamp + ' A Power of Attorney generally requires stamping and notarisation.';
+    if(includesProperty) stampMsg += ' Where this POA concerns immovable property, registration before the competent Sub-Registrar is typically mandatory under the Registration Act, 1908 (or local equivalent), and an unregistered POA cannot effectively transfer or create rights in immovable property.';
+    html += '<p class="stamp-note">'+stampMsg+'</p>';
+  }
   html += '<div class="sig"><div class="block"><div style="font-weight:600;margin-bottom:10px">Signed by the Principal</div><div class="line"></div>'+or(v("prinName"),"[Principal]")+'<br><br><div class="line"></div>Date</div>';
   html += '<div class="block"><div style="font-weight:600;margin-bottom:10px">Accepted by the Attorney</div><div class="line"></div>'+or(v("attName"),"[Attorney]")+'<br><br><div class="line"></div>Date</div></div>';
   html += '<div class="sig" style="margin-top:24px"><div class="block"><div style="font-weight:600;margin-bottom:10px">Witness 1</div><div class="line"></div>Name &amp; Signature</div><div class="block"><div style="font-weight:600;margin-bottom:10px">Witness 2</div><div class="line"></div>Name &amp; Signature</div></div>';

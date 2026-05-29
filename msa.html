@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="alternate icon" type="image/png" href="/favicon.svg">
-<title>Free MSA Generator: Master Service Agreement (19 Industries, 45 Jurisdictions) | Verbatra</title>
+<title>Verbatra, MSA Generator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
@@ -103,25 +102,6 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 @media print{header.form-panel.preview-tools.modal{display:none!important}body{background:#fff}.wrap{display:block}.preview-panel{background:#fff;padding:0}.doc{box-shadow:none;border:none;max-width:100%;padding:0;font-size:11.5pt}.doc.doc *{user-select:auto!important}}
 
 </style>
-<meta name="description" content="Draft a Master Service Agreement in seconds. Industry-specific clauses for SaaS, IT, consulting, manufacturing and more. Governing law adapts across 45 jurisdictions. Export to Word or PDF.">
-<meta name="keywords" content="MSA generator, master service agreement template, MSA for SaaS, IT services agreement, consulting agreement India, service agreement online, MSA Word format">
-<meta name="author" content="Arnav Bhardwaj, Verbatra">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-<link rel="canonical" href="https://www.verbatra.com/msa.html">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Free MSA Generator: Master Service Agreement (19 Industries, 45 Jurisdictions) | Verbatra">
-<meta property="og:description" content="Draft a Master Service Agreement in seconds. Industry-specific clauses for SaaS, IT, consulting, manufacturing and more. Governing law adapts across 45 jurisdictions. Export to Word or PDF.">
-<meta property="og:url" content="https://www.verbatra.com/msa.html">
-<meta property="og:image" content="https://www.verbatra.com/arnav.jpg">
-<meta property="og:image:width" content="800">
-<meta property="og:image:height" content="800">
-<meta property="og:site_name" content="Verbatra">
-<meta property="og:locale" content="en_IN">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Free MSA Generator: Master Service Agreement (19 Industries, 45 Jurisdictions) | Verbatra">
-<meta name="twitter:description" content="Draft a Master Service Agreement in seconds. Industry-specific clauses for SaaS, IT, consulting, manufacturing and more. Governing law adapts across 45 jurisdictions. Export to Word or PDF.">
-<meta name="twitter:image" content="https://www.verbatra.com/arnav.jpg">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Free MSA Generator: Master Service Agreement (19 Industries, 45 Jurisdictions)", "description": "Draft a Master Service Agreement in seconds. Industry-specific clauses for SaaS, IT, consulting, manufacturing and more. Governing law adapts across 45 jurisdictions. Export to Word or PDF.", "url": "https://www.verbatra.com/msa.html", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"}, "creator": {"@type": "Organization", "name": "Verbatra", "url": "https://www.verbatra.com"}}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
@@ -385,6 +365,14 @@ function _wireExport(){
 }
 
 /* copy protection on the preview (export still works) */
+/* RENDER_SAFETY_NET: belt-and-braces initial render to handle any partial init failure */
+try {
+  if (typeof window !== "undefined" && typeof window.addEventListener === "function") {
+    window.addEventListener("load", function(){
+      try { if (typeof render === "function") render(); } catch(e) { /* swallow */ }
+    });
+  }
+} catch(_){}
 function _wireProtect(){
   const d = $("doc");
   if(!d) return;
@@ -409,7 +397,9 @@ function capText(j){
   if(t==="fees12") return "the total Fees paid or payable by the Client under this Agreement in the twelve (12) months preceding the event giving rise to the claim";
   if(t==="feestotal") return "the total Fees paid or payable by the Client under this Agreement";
   if(t==="multiple") return "an amount equal to "+(v("capMult")||"[\u2022]")+" times the total annual Fees payable under this Agreement";
-  return curMoney(v("capFixed"));
+  var amt = v("capFixed");
+  if(!amt || Number(amt) <= 0) return "the total Fees paid or payable by the Client in the twelve (12) months preceding the event giving rise to the claim";
+  return curMoney(amt);
 }
 function ipText(){
   const m = v("ipMode");
@@ -459,7 +449,7 @@ function doc(){
   C.push(['Governing Law &amp; Dispute Resolution', 'This Agreement and any non-contractual obligations arising out of it are governed by '+j.law+'. The parties shall first attempt to resolve any dispute through good-faith senior-level negotiation. '+dr]);
   C.push(['Notices', 'Notices shall be in writing and sent to the address of the relevant party stated above (or as later notified in writing), and shall be deemed received on delivery if delivered by hand, on the second business day after posting if sent by pre-paid post, or on transmission if sent by email with confirmation of transmission.']);
   C.push(['Relationship of the Parties', 'The Provider is an independent contractor. Nothing in this Agreement creates any partnership, joint venture, agency or employment relationship between the parties, and neither party may bind the other or hold itself out as having authority to do so.']);
-  C.push(['Time Limit for Claims', 'Except for claims relating to payment, confidentiality, intellectual property or either party\'s indemnities, neither party shall bring any claim arising out of or in connection with this Agreement more than twenty-four (24) months after the date on which the cause of action accrued, to the extent permitted by applicable law.']);
+  if(S.jur!=='india') C.push(['Time Limit for Claims', 'Except for claims relating to payment, confidentiality, intellectual property or either party\'s indemnities, neither party shall bring any claim arising out of or in connection with this Agreement more than twenty-four (24) months after the date on which the cause of action accrued, to the extent permitted by applicable law.']);
   C.push(['General', 'This Agreement, together with each SOW, constitutes the entire agreement between the parties and supersedes all prior discussions. No variation is effective unless in writing and signed by both parties. No waiver is effective unless in writing. If any provision is held invalid, the remainder continues in full force. This Agreement confers no rights on third parties save as expressly stated, and may be executed in counterparts, including by electronic signature.']);
 
   let html = '<h1>Master Service Agreement</h1>';
@@ -478,7 +468,7 @@ function doc(){
     html += '<div class="block"><div style="font-weight:600;margin-bottom:10px">For and on behalf of '+n+'</div><div class="line"></div>Signature<br><br><div class="line"></div>Name &amp; Title<br><br><div class="line"></div>Date</div>';
   });
   html += '</div>';
-  html += '<div class="sched"><h2>Schedule 1, Statement of Work (Template)</h2><p>Each SOW should set out: (1) Services and scope; (2) Deliverables and acceptance criteria; (3) timeline, milestones and Key Personnel; (4) Fees, payment schedule and expenses (in '+curCode()+'); (5) service levels and any service credits; (6) data-processing details (categories of data, purpose, retention); and (7) SOW-specific assumptions, dependencies or special terms. Each signed SOW incorporates and is governed by this Agreement.</p></div>';
+  html += '<div class="sched"><h2>Schedule 1: Statement of Work (Template)</h2><p>Each SOW should set out: (1) Services and scope; (2) Deliverables and acceptance criteria; (3) timeline, milestones and Key Personnel; (4) Fees, payment schedule and expenses (in '+curCode()+'); (5) service levels and any service credits; (6) data-processing details (categories of data, purpose, retention); and (7) SOW-specific assumptions, dependencies or special terms. Each signed SOW incorporates and is governed by this Agreement.</p></div>';
   return html;
 }
 
