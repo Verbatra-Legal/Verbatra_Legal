@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Section 138 NI Act Notice Format India - Cheque Bounce Notice Template 2026 | Verbatra</title>
+<title>Section 138 NI Act Notice Generator (Cheque Bounce) | Verbatra</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
@@ -109,16 +109,29 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 .lawyer-cta a{color:var(--oxblood);font-weight:600;text-decoration:underline}
 .lawyer-cta a:hover{color:var(--green)}
 </style>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
-<meta name="theme-color" content="#1f3d30">
+<meta name="description" content="Draft the statutory cheque bounce notice under Section 138 of the Negotiable Instruments Act, 1881. 15-day demand, cheque and dishonour particulars, underlying liability. We can send it through advocate's letterhead.">
+<meta name="keywords" content="section 138 notice format, cheque bounce notice India, NI Act notice, dishonour of cheque, Section 138 NI Act">
+<meta name="author" content="Arnav Bhardwaj, Verbatra">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://www.verbatra.com/section-138-notice.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Section 138 NI Act Notice Generator (Cheque Bounce) | Verbatra">
+<meta property="og:description" content="Draft the statutory cheque bounce notice under Section 138 of the Negotiable Instruments Act, 1881. 15-day demand, cheque and dishonour particulars, underlying liability. We can send it through advocate's letterhead.">
+<meta property="og:url" content="https://www.verbatra.com/section-138-notice.html">
+<meta property="og:image" content="https://www.verbatra.com/arnav.jpg">
+<meta property="og:image:width" content="800">
+<meta property="og:image:height" content="800">
+<meta property="og:site_name" content="Verbatra">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Section 138 NI Act Notice Generator (Cheque Bounce) | Verbatra">
+<meta name="twitter:description" content="Draft the statutory cheque bounce notice under Section 138 of the Negotiable Instruments Act, 1881. 15-day demand, cheque and dishonour particulars, underlying liability. We can send it through advocate's letterhead.">
+<meta name="twitter:image" content="https://www.verbatra.com/arnav.jpg">
 </head>
 <body><header>
   <a href="/" class="back-home">Back to Verbatra</a>
   <div class="brand">
-    <div class="mark">Agreement&nbsp;<span>Forge</span></div>
+    <div class="mark">Verbatra<span>.</span></div>
     <div class="tag">Cheque Bounce Notice, Section 138 NI Act</div>
   </div>
   <p class="disclaimer">Draft the statutory legal notice for cheque dishonour under Section 138 of the Negotiable Instruments Act, 1881. The 15-day timeline and 30-day filing window are strict. This notice should be sent under an advocate's signature and through registered post with acknowledgement. We can do that for you. <strong>This is not legal advice.</strong> Every draft must be reviewed by a qualified lawyer admitted in the relevant jurisdiction before execution.</p>
@@ -437,14 +450,16 @@ jurSel.addEventListener("change",e=>{S.jur=e.target.value;render();});
 ["counselName","counselEnrol","counselAddr","payeeName","payeeAddr","drawerName","drawerAddr","chequeNo","chequeDate","chequeAmt","bankName","acctNo","depositDate","returnDate","returnReason","liability","dateSent"].forEach(id=>$(id).addEventListener("input",render));
 $("dateSent").value=new Date().toISOString().slice(0,10);
 
-const currSel=$("curr");
+const currSel=document.getElementById("curr");
+if(currSel){
 CURRENCIES.forEach(function(c){ var o=document.createElement("option"); o.value=c.code; o.textContent=c.code+" ("+c.sym+") \u2014 "+c.name; currSel.appendChild(o); });
 currSel.value="INR";
 if(typeof S!=="undefined" && S.jur && JUR[S.jur] && JUR[S.jur].code){ var dc=JUR[S.jur].code; for(var i=0;i<CURRENCIES.length;i++){ if(CURRENCIES[i].code===dc){ currSel.value=dc; break; } } }
-function curSym(){ var c=currSel.value; for(var i=0;i<CURRENCIES.length;i++){ if(CURRENCIES[i].code===c) return CURRENCIES[i].sym; } return c; }
-function curCode(){ return currSel.value; }
-function curMoney(amt){ return curCode()+" "+Number(amt||0).toLocaleString("en-US"); }
 currSel.addEventListener("change", render);
+}
+function curSym(){ if(!currSel) return JUR[S.jur].sym; var c=currSel.value; for(var i=0;i<CURRENCIES.length;i++){ if(CURRENCIES[i].code===c) return CURRENCIES[i].sym; } return c; }
+function curCode(){ return currSel ? currSel.value : JUR[S.jur].code; }
+function curMoney(amt){ return curCode()+" "+Number(amt||0).toLocaleString("en-US"); }
 
 _wireLogo();
 _wireModal();

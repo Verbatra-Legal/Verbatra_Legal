@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Free Rent Agreement Format India - 11 Month Residential & Commercial Lease Template | Verbatra</title>
+<title>Free Rent Agreement Generator , Residential & Commercial Lease Format (India) | Verbatra</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
@@ -102,16 +102,30 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 @media print{header.form-panel.preview-tools.modal{display:none!important}body{background:#fff}.wrap{display:block}.preview-panel{background:#fff;padding:0}.doc{box-shadow:none;border:none;max-width:100%;padding:0;font-size:11.5pt}.doc.doc *{user-select:auto!important}}
 
 </style>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
-<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
-<meta name="theme-color" content="#1f3d30">
+<meta name="description" content="Create a residential rent agreement or commercial lease in seconds. Rent, security deposit, escalation, maintenance and subletting clauses included. Export to Word or PDF.">
+<meta name="keywords" content="rent agreement format India, 11 month rent agreement, commercial lease template, residential rent agreement online, leave and licence, rent agreement Delhi Mumbai Bangalore">
+<meta name="author" content="Arnav Bhardwaj, Verbatra">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://www.verbatra.com/rent.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Free Rent Agreement Generator , Residential & Commercial Lease Format (India) | Verbatra">
+<meta property="og:description" content="Create a residential rent agreement or commercial lease in seconds. Rent, security deposit, escalation, maintenance and subletting clauses included. Export to Word or PDF.">
+<meta property="og:url" content="https://www.verbatra.com/rent.html">
+<meta property="og:image" content="https://www.verbatra.com/arnav.jpg">
+<meta property="og:image:width" content="800">
+<meta property="og:image:height" content="800">
+<meta property="og:site_name" content="Verbatra">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free Rent Agreement Generator , Residential & Commercial Lease Format (India) | Verbatra">
+<meta name="twitter:description" content="Create a residential rent agreement or commercial lease in seconds. Rent, security deposit, escalation, maintenance and subletting clauses included. Export to Word or PDF.">
+<meta name="twitter:image" content="https://www.verbatra.com/arnav.jpg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Free Rent Agreement Generator , Residential & Commercial Lease Format (India)", "description": "Create a residential rent agreement or commercial lease in seconds. Rent, security deposit, escalation, maintenance and subletting clauses included. Export to Word or PDF.", "url": "https://www.verbatra.com/rent.html", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"}, "creator": {"@type": "Organization", "name": "Verbatra", "url": "https://www.verbatra.com"}}</script>
 </head>
 <body><header>
   <a href="/" class="back-home">Back to Verbatra</a>
   <div class="brand">
-    <div class="mark">Agreement&nbsp;<span>Forge</span></div>
+    <div class="mark">Verbatra<span>.</span></div>
     <div class="tag">Rent &amp; Lease &middot; 45 jurisdictions</div>
   </div>
   <p class="disclaimer">Build a residential rent or commercial lease agreement. Rent, deposit, term and key clauses adapt to your inputs, with governing law set by jurisdiction. <strong>This is not legal advice.</strong> Every draft must be reviewed by a qualified lawyer admitted in the relevant jurisdiction before execution.</p>
@@ -388,14 +402,16 @@ jurSel.addEventListener("change",e=>{S.jur=e.target.value;$("jurHint").textConte
 $("startDate").value=new Date().toISOString().slice(0,10);
 $("jurHint").textContent=JUR[S.jur].hint;
 
-const currSel=$("curr");
+const currSel=document.getElementById("curr");
+if(currSel){
 CURRENCIES.forEach(function(c){ var o=document.createElement("option"); o.value=c.code; o.textContent=c.code+" ("+c.sym+") \u2014 "+c.name; currSel.appendChild(o); });
 currSel.value="INR";
 if(typeof S!=="undefined" && S.jur && JUR[S.jur] && JUR[S.jur].code){ var dc=JUR[S.jur].code; for(var i=0;i<CURRENCIES.length;i++){ if(CURRENCIES[i].code===dc){ currSel.value=dc; break; } } }
-function curSym(){ var c=currSel.value; for(var i=0;i<CURRENCIES.length;i++){ if(CURRENCIES[i].code===c) return CURRENCIES[i].sym; } return c; }
-function curCode(){ return currSel.value; }
-function curMoney(amt){ return curCode()+" "+Number(amt||0).toLocaleString("en-US"); }
 currSel.addEventListener("change", render);
+}
+function curSym(){ if(!currSel) return JUR[S.jur].sym; var c=currSel.value; for(var i=0;i<CURRENCIES.length;i++){ if(CURRENCIES[i].code===c) return CURRENCIES[i].sym; } return c; }
+function curCode(){ return currSel ? currSel.value : JUR[S.jur].code; }
+function curMoney(amt){ return curCode()+" "+Number(amt||0).toLocaleString("en-US"); }
 
 _wireLogo();
 _wireModal();
