@@ -73,6 +73,17 @@
   .note-box{background:rgba(122,46,38,.05);border:1px solid rgba(122,46,38,.18);border-radius:13px;padding:24px 28px}
   .note-box b{color:var(--oxblood)}
   .note-box p{font-size:13.5px;line-height:1.6;color:var(--ink-soft)}
+  .journal-strip{padding:30px 7vw 30px;max-width:1180px;margin:0 auto}
+  .js-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:6px}
+  .js-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px 24px 22px;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:.18s}
+  .js-card:hover{transform:translateY(-2px);box-shadow:0 18px 36px -24px rgba(26,26,23,.4);border-color:var(--gold)}
+  .js-card.all{background:rgba(31,61,48,.06);border-style:dashed;border-color:rgba(31,61,48,.25)}
+  .js-meta{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:14px}
+  .js-card h3{font-family:'Fraunces',serif;font-weight:500;font-size:19px;letter-spacing:-.01em;color:var(--ink);margin-bottom:10px;line-height:1.25}
+  .js-card:hover h3{color:var(--green)}
+  .js-card p{font-size:13.5px;color:var(--ink-soft);line-height:1.55;flex:1;margin-bottom:14px}
+  .js-go{font-size:13px;font-weight:600;color:var(--green)}
+  @media (max-width:880px){.js-grid{grid-template-columns:1fr}}
   .why{padding:70px 7vw 30px;max-width:1180px;margin:0 auto}
   .compare{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:8px}
   .comp-col{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:26px 24px;position:relative}
@@ -97,6 +108,20 @@
   .cred-link{font-size:13.5px;font-weight:600;color:var(--green);text-decoration:none}
   .cred-link:hover{text-decoration:underline}
   @media (max-width:880px){.compare{grid-template-columns:1fr}.cred-stats{grid-template-columns:1fr 1fr;gap:18px}}
+  .latest-blog{padding:30px 7vw 30px;max-width:1180px;margin:0 auto}
+  .latest-blog .head-row{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:14px;margin-bottom:28px}
+  .latest-blog h2{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(26px,3.5vw,38px);letter-spacing:-.01em;color:var(--ink);margin-top:8px}
+  .latest-blog .all-link{font-size:13.5px;font-weight:600;color:var(--green);text-decoration:none}
+  .latest-blog .all-link:hover{text-decoration:underline}
+  .latest-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .latest-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px 28px 24px;text-decoration:none;color:inherit;transition:.2s;display:flex;flex-direction:column}
+  .latest-card:hover{transform:translateY(-3px);box-shadow:0 22px 44px -28px rgba(26,26,23,.4);border-color:var(--line-soft)}
+  .latest-card .cat{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--oxblood);margin-bottom:12px}
+  .latest-card h3{font-family:'Fraunces',serif;font-weight:500;font-size:22px;line-height:1.22;color:var(--ink);margin-bottom:12px;letter-spacing:-.01em}
+  .latest-card p{font-size:14px;line-height:1.55;color:var(--ink-soft);margin-bottom:18px;flex:1}
+  .latest-card .meta{font-size:11.5px;color:var(--ink-soft);display:flex;gap:10px;align-items:center}
+  .latest-card .meta .d{width:3px;height:3px;border-radius:50%;background:var(--ink-soft);opacity:.4}
+  @media (max-width:760px){.latest-grid{grid-template-columns:1fr}}
   .contact{padding:20px 7vw 80px;max-width:1180px;margin:0 auto}
   .contact-inner{background:var(--green);border-radius:20px;padding:54px 56px;color:var(--paper)}
   .contact-inner .eyebrow{color:var(--gold)}
@@ -158,7 +183,9 @@
   <div class="nav-links">
     <a href="#tools">Tools</a>
     <a href="#why">Why us</a>
+    <a href="blog.html">Blog</a>
     <a href="#how">How it works</a>
+    <a href="blog.html">Journal</a>
     <a href="founder.html">Founder</a>
     <a href="#contact">Contact</a>
     <a href="#tools" class="nav-cta">Draft</a>
@@ -302,11 +329,62 @@
     </div>
   </div>
 </section>
+<section class="journal-strip" id="journal">
+  <div class="js-inner">
+    <div class="section-head">
+      <div class="eyebrow">The Verbatra Journal</div>
+      <h2>Lawyer-authored. Practical. Fresh.</h2>
+    </div>
+    <div class="js-grid">
+      <a class="js-card" href="blog-dpdp-dpa-checklist-saas.html">
+        <div class="js-meta">28 May 2026 &middot; 8 min read</div>
+        <h3>DPDP Act Compliance for SaaS: A 10-Point DPA Checklist</h3>
+        <p>A practical checklist for drafting a Data Processing Agreement under India&rsquo;s DPDP Act, 2023. What every SaaS company processing personal data needs to get right.</p>
+        <span class="js-go">Read article &rarr;</span>
+      </a>
+      <a class="js-card" href="blog-how-to-draft-nda-india.html">
+        <div class="js-meta">28 May 2026 &middot; 9 min read</div>
+        <h3>How to Draft an NDA in India: A Corporate Lawyer&rsquo;s Checklist</h3>
+        <p>Mutual versus one-way, the clauses founders skip, stamp duty, and what holds up if your NDA is ever tested. The drafting approach used in practice.</p>
+        <span class="js-go">Read article &rarr;</span>
+      </a>
+      <a class="js-card all" href="blog.html">
+        <div class="js-meta">All articles</div>
+        <h3>Visit the Journal</h3>
+        <p>Practical, lawyer-authored writing on the legal questions growing businesses actually face. Written by Arnav Bhardwaj, founder of Verbatra.</p>
+        <span class="js-go">Browse the Journal &rarr;</span>
+      </a>
+    </div>
+  </div>
+</section>
 <div class="note">
   <div class="note-box">
     <p><b>Important.</b> Verbatra generates first drafts to save time, not legal advice. Every document should be reviewed by a qualified lawyer admitted in the relevant jurisdiction before it is signed. Using these tools does not create a lawyer&ndash;client relationship.</p>
   </div>
 </div>
+<section class="latest-blog">
+  <div class="head-row">
+    <div>
+      <div class="eyebrow">From the blog</div>
+      <h2>Practical legal writing, by a lawyer.</h2>
+    </div>
+    <a href="blog.html" class="all-link">View all articles &rarr;</a>
+  </div>
+  <div class="latest-grid">
+    <a class="latest-card" href="blog-dpdp-dpa-checklist.html">
+      <div class="cat">Data Protection</div>
+      <h3>DPDP Act Compliance: The 10-Point Checklist Every DPA Should Pass</h3>
+      <p>India's Digital Personal Data Protection Act, 2023 changed what your Data Processing Agreement must say. The practical checklist most DPAs still fail.</p>
+      <div class="meta"><span>28 May 2026</span><span class="d"></span><span>9 min read</span></div>
+    </a>
+    <a class="latest-card" href="blog-nda-india-guide.html">
+      <div class="cat">Contracts</div>
+      <h3>How to Draft an NDA in India: A Corporate Lawyer's Practical Guide</h3>
+      <p>When you actually need an NDA, which clauses matter, and how Indian law (including section 27 of the Contract Act) shapes what is enforceable.</p>
+      <div class="meta"><span>28 May 2026</span><span class="d"></span><span>10 min read</span></div>
+    </a>
+  </div>
+</section>
 <section class="contact" id="contact">
   <div class="contact-inner">
     <div class="eyebrow">Get in touch</div>
@@ -333,7 +411,7 @@
     <div class="foot-brand">Verbatra<span class="dot">.</span><small>Every word, made to hold.</small></div>
     <div class="foot-links">
       <a href="nda.html">NDA</a><a href="msa.html">MSA</a><a href="dpa.html">DPA</a><a href="employment.html">Employment</a><a href="consultancy.html">Consultancy</a><a href="rent.html">Rent &amp; Lease</a><a href="poa.html">Power of Attorney</a><a href="saledeed.html">Sale Deed</a>
-      <a href="founder.html">Founder</a><a href="#contact">Contact</a><a href="privacy.html">Privacy</a>
+      <a href="founder.html">Founder</a><a href="blog.html">Blog</a><a href="#contact">Contact</a><a href="privacy.html">Privacy</a>
     </div>
     <div class="copy">&copy; <span id="yr"></span> Verbatra. Not a substitute for legal advice.</div>
   </div>
