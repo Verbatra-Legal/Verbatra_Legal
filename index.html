@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Verbatra — Free Legal Document Generator | NDA, MSA, DPA, Rent, Sale Deed (India & 45 Jurisdictions)</title>
+<title>Verbatra — Commercial agreements, drafted in seconds</title>
+<meta name="description" content="Verbatra drafts negotiation-ready NDAs, Master Service Agreements and Data Processing Agreements that adapt to your jurisdiction and industry. Export to Word or PDF. No login." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Hanken+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&display=swap" rel="stylesheet">
@@ -43,6 +44,25 @@
   .btn-ghost{font-size:15px;font-weight:600;background:transparent;color:var(--green);border:1px solid var(--line);border-radius:9px;padding:14px 26px;text-decoration:none;transition:.15s;display:inline-block}
   .btn-ghost:hover{border-color:var(--green);background:var(--card)}
   .watermark{position:absolute;right:-2vw;top:60px;font-family:'Fraunces',serif;font-weight:600;font-size:clamp(80px,20vw,260px);color:var(--green);opacity:.04;letter-spacing:-.03em;pointer-events:none;user-select:none;line-height:1;z-index:0}
+  /* animated blog ticker — small column, top right of hero */
+  .blog-ticker{position:absolute;top:60px;right:7vw;width:280px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px 16px;text-decoration:none;color:inherit;transition:.18s;z-index:5;box-shadow:0 12px 32px -22px rgba(26,26,23,.35)}
+  .blog-ticker:hover{transform:translateY(-2px);border-color:var(--green-2);box-shadow:0 20px 44px -22px rgba(26,26,23,.45)}
+  .blog-ticker .bt-eyebrow{font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--oxblood);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  .blog-ticker .bt-eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--oxblood);animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .blog-ticker .bt-window{height:62px;overflow:hidden;position:relative;margin-bottom:10px}
+  .blog-ticker .bt-track{animation:tickerScroll 9s cubic-bezier(.7,0,.3,1) infinite}
+  .blog-ticker .bt-item{height:62px;display:flex;align-items:center;font-family:'Fraunces',serif;font-weight:500;font-size:15px;line-height:1.25;color:var(--ink);letter-spacing:-.01em}
+  @keyframes tickerScroll{
+    0%, 33%   {transform:translateY(0)}
+    38%, 71%  {transform:translateY(-62px)}
+    76%, 100% {transform:translateY(-124px)}
+  }
+  .blog-ticker .bt-foot{display:flex;justify-content:space-between;align-items:center;font-size:11.5px;color:var(--ink-soft);font-weight:600;border-top:1px solid var(--line-soft);padding-top:10px}
+  .blog-ticker .bt-foot .arr{color:var(--green);transition:transform .2s}
+  .blog-ticker:hover .bt-foot .arr{transform:translateX(4px)}
+  @media (max-width:1100px){.blog-ticker{width:240px;right:5vw}}
+  @media (max-width:880px){.blog-ticker{position:relative;top:0;right:0;width:100%;margin-bottom:30px}}
   .meaning{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:rgba(251,248,240,.5);padding:54px 7vw}
   .meaning-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1.6fr;gap:50px;align-items:center}
   .meaning .word{font-family:'Fraunces',serif;font-style:italic;font-size:clamp(34px,5vw,56px);color:var(--oxblood);line-height:1.1}
@@ -75,17 +95,7 @@
   .note-box{background:rgba(122,46,38,.05);border:1px solid rgba(122,46,38,.18);border-radius:13px;padding:24px 28px}
   .note-box b{color:var(--oxblood)}
   .note-box p{font-size:13.5px;line-height:1.6;color:var(--ink-soft)}
-  .journal-strip{padding:30px 7vw 30px;max-width:1180px;margin:0 auto}
-  .js-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:6px}
-  .js-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:24px 24px 22px;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:.18s}
-  .js-card:hover{transform:translateY(-2px);box-shadow:0 18px 36px -24px rgba(26,26,23,.4);border-color:var(--gold)}
-  .js-card.all{background:rgba(31,61,48,.06);border-style:dashed;border-color:rgba(31,61,48,.25)}
-  .js-meta{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:14px}
-  .js-card h3{font-family:'Fraunces',serif;font-weight:500;font-size:19px;letter-spacing:-.01em;color:var(--ink);margin-bottom:10px;line-height:1.25}
-  .js-card:hover h3{color:var(--green)}
-  .js-card p{font-size:13.5px;color:var(--ink-soft);line-height:1.55;flex:1;margin-bottom:14px}
-  .js-go{font-size:13px;font-weight:600;color:var(--green)}
-  @media (max-width:880px){.js-grid{grid-template-columns:1fr}}
+  @media (max-width:880px){}
   .why{padding:70px 7vw 30px;max-width:1180px;margin:0 auto}
   .compare{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:8px}
   .comp-col{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:26px 24px;position:relative}
@@ -110,20 +120,7 @@
   .cred-link{font-size:13.5px;font-weight:600;color:var(--green);text-decoration:none}
   .cred-link:hover{text-decoration:underline}
   @media (max-width:880px){.compare{grid-template-columns:1fr}.cred-stats{grid-template-columns:1fr 1fr;gap:18px}}
-  .latest-blog{padding:30px 7vw 30px;max-width:1180px;margin:0 auto}
-  .latest-blog .head-row{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:14px;margin-bottom:28px}
-  .latest-blog h2{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(26px,3.5vw,38px);letter-spacing:-.01em;color:var(--ink);margin-top:8px}
-  .latest-blog .all-link{font-size:13.5px;font-weight:600;color:var(--green);text-decoration:none}
-  .latest-blog .all-link:hover{text-decoration:underline}
-  .latest-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-  .latest-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px 28px 24px;text-decoration:none;color:inherit;transition:.2s;display:flex;flex-direction:column}
-  .latest-card:hover{transform:translateY(-3px);box-shadow:0 22px 44px -28px rgba(26,26,23,.4);border-color:var(--line-soft)}
-  .latest-card .cat{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--oxblood);margin-bottom:12px}
-  .latest-card h3{font-family:'Fraunces',serif;font-weight:500;font-size:22px;line-height:1.22;color:var(--ink);margin-bottom:12px;letter-spacing:-.01em}
-  .latest-card p{font-size:14px;line-height:1.55;color:var(--ink-soft);margin-bottom:18px;flex:1}
-  .latest-card .meta{font-size:11.5px;color:var(--ink-soft);display:flex;gap:10px;align-items:center}
-  .latest-card .meta .d{width:3px;height:3px;border-radius:50%;background:var(--ink-soft);opacity:.4}
-  @media (max-width:760px){.latest-grid{grid-template-columns:1fr}}
+  @media (max-width:760px){}
   .contact{padding:20px 7vw 80px;max-width:1180px;margin:0 auto}
   .contact-inner{background:var(--green);border-radius:20px;padding:54px 56px;color:var(--paper)}
   .contact-inner .eyebrow{color:var(--gold)}
@@ -147,26 +144,6 @@
   .copy{width:100%;border-top:1px solid var(--line);margin-top:30px;padding-top:20px;font-size:12.5px;color:var(--ink-soft)}
   @media (max-width:880px){.nav-links a:not(.nav-cta):not(.nav-cta-solid){display:none}.meaning-inner{grid-template-columns:1fr;gap:26px}.grid{grid-template-columns:1fr}.how-grid{grid-template-columns:1fr;gap:28px}.hero{padding:60px 7vw 50px}}
 </style>
-<meta name="description" content="Verbatra generates legal documents in seconds — NDAs, Master Service Agreements, Data Processing Agreements, Employment contracts, Rent agreements, Power of Attorney, Sale Deeds and Consultancy agreements. Adapts to your jurisdiction. Export to Word or PDF. Built by a qualified lawyer.">
-<meta name="keywords" content="legal document generator, NDA template India, MSA generator, DPA template DPDP, free legal documents India, online contract drafting, rent agreement online, employment contract India, sale deed format, power of attorney India, consultancy agreement, Verbatra">
-<meta name="author" content="Arnav Bhardwaj, Verbatra">
-<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
-<link rel="canonical" href="https://www.verbatra.com/">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Verbatra — Free Legal Document Generator | NDA, MSA, DPA, Rent, Sale Deed (India & 45 Jurisdictions)">
-<meta property="og:description" content="Verbatra generates legal documents in seconds — NDAs, Master Service Agreements, Data Processing Agreements, Employment contracts, Rent agreements, Power of Attorney, Sale Deeds and Consultancy agreements. Adapts to your jurisdiction. Export to Word or PDF. Built by a qualified lawyer.">
-<meta property="og:url" content="https://www.verbatra.com/">
-<meta property="og:image" content="https://www.verbatra.com/arnav.jpg">
-<meta property="og:image:width" content="800">
-<meta property="og:image:height" content="800">
-<meta property="og:site_name" content="Verbatra">
-<meta property="og:locale" content="en_IN">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Verbatra — Free Legal Document Generator | NDA, MSA, DPA, Rent, Sale Deed (India & 45 Jurisdictions)">
-<meta name="twitter:description" content="Verbatra generates legal documents in seconds — NDAs, Master Service Agreements, Data Processing Agreements, Employment contracts, Rent agreements, Power of Attorney, Sale Deeds and Consultancy agreements. Adapts to your jurisdiction. Export to Word or PDF. Built by a qualified lawyer.">
-<meta name="twitter:image" content="https://www.verbatra.com/arnav.jpg">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Verbatra", "url": "https://www.verbatra.com", "logo": "https://www.verbatra.com/arnav.jpg", "description": "Legal document generator and legal-operations partner for growing businesses. Drafts NDAs, MSAs, DPAs, employment, rent, consultancy and other legal documents tailored to your jurisdiction.", "founder": {"@type": "Person", "name": "Arnav Bhardwaj", "jobTitle": "Founder, Corporate Lawyer", "alumniOf": "Amity University", "sameAs": "https://www.linkedin.com/in/bhardwajarnav/"}, "contactPoint": {"@type": "ContactPoint", "email": "verbatra.legal@gmail.com", "telephone": "+91-9368730710", "contactType": "Customer Support", "areaServed": "Worldwide"}, "sameAs": ["https://www.linkedin.com/company/verbatra/", "https://www.linkedin.com/in/bhardwajarnav/"]}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is Verbatra?", "acceptedAnswer": {"@type": "Answer", "text": "Verbatra is a legal-document platform that generates NDAs, Master Service Agreements, Data Processing Agreements, Rent agreements, Employment contracts, Power of Attorney, Sale Deeds and Consultancy agreements in seconds, tailored to your jurisdiction. It is built and run by a qualified corporate lawyer, and pairs the self-serve tools with a subscription legal-operations service for growing businesses."}}, {"@type": "Question", "name": "Are Verbatra's legal documents valid?", "acceptedAnswer": {"@type": "Answer", "text": "The documents are drafted using standard commercial and legal language and adapt to the governing law you select. Like any template-generated document, they should be reviewed by a qualified lawyer admitted in the relevant jurisdiction before signing. Using Verbatra does not create a lawyer–client relationship."}}, {"@type": "Question", "name": "Which jurisdictions does Verbatra cover?", "acceptedAnswer": {"@type": "Answer", "text": "Verbatra adapts its documents to 45 jurisdictions worldwide, including India, the United States (Delaware, New York, California), the United Kingdom, the EU member states, Singapore, UAE, Australia and many others."}}, {"@type": "Question", "name": "How does Verbatra handle data protection?", "acceptedAnswer": {"@type": "Answer", "text": "Verbatra's DPA generator supports 39 data-protection regimes including India's DPDP Act, the EU GDPR, the UK GDPR, the CCPA/CPRA, LGPD, POPIA, PIPL and more. The contract details you type into a generator are processed in your browser and not stored on Verbatra's servers."}}, {"@type": "Question", "name": "Does Verbatra offer ongoing legal support?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Beyond the self-serve tools, Verbatra offers a subscription-based legal-operations service for growing businesses — a real lawyer running your legal function at a fraction of the cost of a full in-house team. Contact us to learn more."}}]}</script>
 </head>
 <body>
 <div class="launch-banner">
@@ -194,6 +171,17 @@
 </nav>
 <section class="hero" id="top">
   <div class="watermark">verba</div>
+  <a class="blog-ticker" href="blog.html" aria-label="Read the latest articles on the Verbatra blog">
+    <div class="bt-eyebrow">Latest from the blog</div>
+    <div class="bt-window">
+      <div class="bt-track">
+        <div class="bt-item">DPDP Act Compliance: The 10-Point Checklist Every DPA Should Pass</div>
+        <div class="bt-item">How to Draft an NDA in India: A Corporate Lawyer's Practical Guide</div>
+        <div class="bt-item">DPDP Act Compliance: The 10-Point Checklist Every DPA Should Pass</div>
+      </div>
+    </div>
+    <div class="bt-foot"><span>Read on the blog</span><span class="arr">&rarr;</span></div>
+  </a>
   <div class="eyebrow">Legal documentation, without the wait</div>
   <h1>Legal documents, <em>drafted</em> in seconds.</h1>
   <p class="lede">Verbatra builds negotiation-ready legal documents that adapt their clauses, governing law and even their legal terminology to your jurisdiction and circumstances &mdash; automatically. Export to Word or PDF, online, no login.</p>
@@ -330,62 +318,11 @@
     </div>
   </div>
 </section>
-<section class="journal-strip" id="journal">
-  <div class="js-inner">
-    <div class="section-head">
-      <div class="eyebrow">The Verbatra Journal</div>
-      <h2>Lawyer-authored. Practical. Fresh.</h2>
-    </div>
-    <div class="js-grid">
-      <a class="js-card" href="blog-dpdp-dpa-checklist-saas.html">
-        <div class="js-meta">28 May 2026 &middot; 8 min read</div>
-        <h3>DPDP Act Compliance for SaaS: A 10-Point DPA Checklist</h3>
-        <p>A practical checklist for drafting a Data Processing Agreement under India&rsquo;s DPDP Act, 2023. What every SaaS company processing personal data needs to get right.</p>
-        <span class="js-go">Read article &rarr;</span>
-      </a>
-      <a class="js-card" href="blog-how-to-draft-nda-india.html">
-        <div class="js-meta">28 May 2026 &middot; 9 min read</div>
-        <h3>How to Draft an NDA in India: A Corporate Lawyer&rsquo;s Checklist</h3>
-        <p>Mutual versus one-way, the clauses founders skip, stamp duty, and what holds up if your NDA is ever tested. The drafting approach used in practice.</p>
-        <span class="js-go">Read article &rarr;</span>
-      </a>
-      <a class="js-card all" href="blog.html">
-        <div class="js-meta">All articles</div>
-        <h3>Visit the Journal</h3>
-        <p>Practical, lawyer-authored writing on the legal questions growing businesses actually face. Written by Arnav Bhardwaj, founder of Verbatra.</p>
-        <span class="js-go">Browse the Journal &rarr;</span>
-      </a>
-    </div>
-  </div>
-</section>
 <div class="note">
   <div class="note-box">
     <p><b>Important.</b> Verbatra generates first drafts to save time, not legal advice. Every document should be reviewed by a qualified lawyer admitted in the relevant jurisdiction before it is signed. Using these tools does not create a lawyer&ndash;client relationship.</p>
   </div>
 </div>
-<section class="latest-blog">
-  <div class="head-row">
-    <div>
-      <div class="eyebrow">From the blog</div>
-      <h2>Practical legal writing, by a lawyer.</h2>
-    </div>
-    <a href="blog.html" class="all-link">View all articles &rarr;</a>
-  </div>
-  <div class="latest-grid">
-    <a class="latest-card" href="blog-dpdp-dpa-checklist.html">
-      <div class="cat">Data Protection</div>
-      <h3>DPDP Act Compliance: The 10-Point Checklist Every DPA Should Pass</h3>
-      <p>India's Digital Personal Data Protection Act, 2023 changed what your Data Processing Agreement must say. The practical checklist most DPAs still fail.</p>
-      <div class="meta"><span>28 May 2026</span><span class="d"></span><span>9 min read</span></div>
-    </a>
-    <a class="latest-card" href="blog-nda-india-guide.html">
-      <div class="cat">Contracts</div>
-      <h3>How to Draft an NDA in India: A Corporate Lawyer's Practical Guide</h3>
-      <p>When you actually need an NDA, which clauses matter, and how Indian law (including section 27 of the Contract Act) shapes what is enforceable.</p>
-      <div class="meta"><span>28 May 2026</span><span class="d"></span><span>10 min read</span></div>
-    </a>
-  </div>
-</section>
 <section class="contact" id="contact">
   <div class="contact-inner">
     <div class="eyebrow">Get in touch</div>
