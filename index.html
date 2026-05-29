@@ -29,6 +29,8 @@
   .nav-links a:hover{color:var(--green)}
   .nav-cta{border:1px solid var(--green);border-radius:7px;padding:7px 15px;color:var(--green)!important}
   .nav-cta:hover{background:var(--green);color:var(--paper)!important}
+  .nav-cta-solid{background:var(--green);border:1px solid var(--green);border-radius:7px;padding:7px 15px;color:var(--paper)!important}
+  .nav-cta-solid:hover{background:var(--green-2);border-color:var(--green-2)}
   .hero{padding:90px 7vw 70px;max-width:1180px;margin:0 auto;position:relative}
   .eyebrow{font-size:12px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--oxblood);display:flex;align-items:center;gap:12px;margin-bottom:26px}
   .eyebrow::before{content:"";width:34px;height:1px;background:var(--gold)}
@@ -143,7 +145,7 @@
   .foot-links a{font-size:13.5px;color:var(--ink-soft);text-decoration:none;font-weight:500;transition:color .15s}
   .foot-links a:hover{color:var(--green)}
   .copy{width:100%;border-top:1px solid var(--line);margin-top:30px;padding-top:20px;font-size:12.5px;color:var(--ink-soft)}
-  @media (max-width:880px){.nav-links a:not(.nav-cta){display:none}.meaning-inner{grid-template-columns:1fr;gap:26px}.grid{grid-template-columns:1fr}.how-grid{grid-template-columns:1fr;gap:28px}.hero{padding:60px 7vw 50px}}
+  @media (max-width:880px){.nav-links a:not(.nav-cta):not(.nav-cta-solid){display:none}.meaning-inner{grid-template-columns:1fr;gap:26px}.grid{grid-template-columns:1fr}.how-grid{grid-template-columns:1fr;gap:28px}.hero{padding:60px 7vw 50px}}
 </style>
 <meta name="description" content="Verbatra generates legal documents in seconds — NDAs, Master Service Agreements, Data Processing Agreements, Employment contracts, Rent agreements, Power of Attorney, Sale Deeds and Consultancy agreements. Adapts to your jurisdiction. Export to Word or PDF. Built by a qualified lawyer.">
 <meta name="keywords" content="legal document generator, NDA template India, MSA generator, DPA template DPDP, free legal documents India, online contract drafting, rent agreement online, employment contract India, sale deed format, power of attorney India, consultancy agreement, Verbatra">
@@ -183,12 +185,11 @@
   <div class="nav-links">
     <a href="#tools">Tools</a>
     <a href="#why">Why us</a>
-    <a href="blog.html">Blog</a>
     <a href="#how">How it works</a>
-    <a href="blog.html">Journal</a>
     <a href="founder.html">Founder</a>
     <a href="#contact">Contact</a>
-    <a href="#tools" class="nav-cta">Draft</a>
+    <a href="blog.html" class="nav-cta">Blog</a>
+    <a href="#tools" class="nav-cta-solid">Draft</a>
   </div>
 </nav>
 <section class="hero" id="top">
