@@ -144,17 +144,39 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 .cl-empty h3{font-family:'Fraunces',serif;font-size:20px;color:var(--ink);font-weight:500;margin-bottom:8px}
 .cl-empty p{font-size:14px;line-height:1.55}
 
-/* Scanner styling (Mode 2) */
-.scan-textarea{width:100%;min-height:340px;font-family:'Source Serif 4',Georgia,serif;font-size:13.5px;line-height:1.55;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:18px 20px;resize:vertical;transition:.15s}
-.scan-textarea:focus{outline:none;border-color:var(--green-2);box-shadow:0 0 0 3px rgba(31,61,48,.08)}
-.scan-meta{display:flex;justify-content:space-between;align-items:center;margin:8px 2px 18px;font-size:12px;color:var(--ink-soft)}
-.scan-meta b{color:var(--ink);font-weight:600}
-.scan-actions{display:flex;gap:10px;align-items:center;margin-top:6px}
+/* Scanner styling (Mode 2) — UPLOAD UI */
+.drop-zone{border:2px dashed var(--line);background:var(--card);border-radius:14px;padding:50px 30px 44px;text-align:center;cursor:pointer;transition:.15s;margin-bottom:14px}
+.drop-zone:hover{border-color:var(--green-2);background:rgba(31,61,48,.03)}
+.drop-zone.dragging{border-color:var(--green);background:rgba(31,61,48,.07);transform:scale(1.01)}
+.drop-zone .dz-icon{font-size:38px;color:var(--green);margin-bottom:14px;line-height:1}
+.drop-zone .dz-primary{font-family:'Fraunces',serif;font-size:19px;color:var(--ink);font-weight:500;margin-bottom:6px;letter-spacing:-.01em}
+.drop-zone .dz-secondary{font-size:13.5px;color:var(--ink-soft);margin-bottom:14px}
+.drop-zone .dz-link{color:var(--green-2);font-weight:600;text-decoration:underline}
+.drop-zone .dz-formats{font-size:11.5px;color:var(--ink-soft);letter-spacing:.04em;text-transform:uppercase;font-weight:600;opacity:.7}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+.file-loaded{display:flex;align-items:center;gap:14px;background:var(--card);border:1.5px solid var(--green);border-radius:12px;padding:16px 18px;margin-bottom:14px}
+.file-loaded .fl-icon{width:38px;height:38px;background:var(--green);color:#f4efe4;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex:none;font-weight:bold}
+.file-loaded .fl-info{flex:1;min-width:0}
+.file-loaded .fl-name{font-weight:600;color:var(--ink);font-size:14px;margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.file-loaded .fl-meta{font-size:12px;color:var(--ink-soft)}
+.file-loaded .fl-clear{background:none;border:none;color:var(--ink-soft);font-size:24px;cursor:pointer;padding:4px 8px;line-height:1;border-radius:6px;transition:.15s}
+.file-loaded .fl-clear:hover{background:rgba(122,46,38,.08);color:var(--oxblood)}
+
+.scan-error{background:rgba(122,46,38,.06);border:1px solid rgba(122,46,38,.2);border-left:3px solid var(--oxblood);border-radius:8px;padding:14px 16px;margin:14px 0;font-size:13px;color:var(--ink);line-height:1.55}
+.scan-error b{color:var(--oxblood)}
+
+.privacy-panel{display:flex;gap:14px;background:rgba(31,61,48,.05);border:1px solid rgba(31,61,48,.18);border-radius:10px;padding:16px 18px;margin-top:16px;align-items:flex-start}
+.privacy-panel .pp-icon{font-size:22px;color:var(--green);flex:none;line-height:1.2}
+.privacy-panel .pp-body{flex:1}
+.privacy-panel .pp-title{font-weight:600;color:var(--ink);font-size:13.5px;margin-bottom:5px}
+.privacy-panel .pp-body p{font-size:12px;color:var(--ink-soft);line-height:1.55;margin:0}
+
+.scan-actions{display:flex;gap:10px;align-items:center;margin-top:6px;flex-wrap:wrap}
 .scan-btn{font-family:inherit;font-size:13.5px;font-weight:600;border:1px solid var(--green);background:var(--green);color:#f4efe4;border-radius:8px;padding:10px 22px;cursor:pointer;transition:.15s}
 .scan-btn:hover{background:var(--green-2);transform:translateY(-1px)}
 .scan-btn:disabled{background:#aaa;border-color:#aaa;cursor:not-allowed;transform:none}
-.scan-clear{font-family:inherit;font-size:12.5px;color:var(--ink-soft);background:none;border:none;cursor:pointer;text-decoration:underline}
-.scan-clear:hover{color:var(--oxblood)}
+
 .scan-disclaimer{font-size:11.5px;color:var(--ink-soft);line-height:1.55;background:rgba(168,132,63,.07);border:1px solid rgba(168,132,63,.2);border-radius:8px;padding:12px 14px;margin-top:16px}
 .scan-disclaimer b{color:var(--ink);font-weight:600}
 
@@ -212,7 +234,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
   .rr{padding:30px 24px}
 }
 </style>
-<meta name="description" content="Free contract review tool by Verbatra. Two modes: guided checklist OR paste-and-scan against 200+ risk patterns. NDA, MSA, Consultancy, Employment contracts. Get a risk report with suggested redlines, drafted by a corporate lawyer.">
+<meta name="description" content="Free contract review tool by Verbatra. Two modes: guided checklist OR upload-and-scan against 200+ risk patterns. NDA, MSA, Consultancy, Employment contracts. Get a risk report with suggested redlines, drafted by a corporate lawyer.">
 <meta name="keywords" content="contract review India, contract redlining tool, NDA review checklist, MSA risk review, contract scanner, employment contract review, contract risk flags, contract negotiation India, free legal review">
 <meta name="author" content="Verbatra">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
@@ -220,7 +242,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://verbatra.com/redline.html">
 <meta property="og:title" content="Contract Risk Review — Free Checklist + Smart Scanner | Verbatra">
-<meta property="og:description" content="Two free modes for contract review. Guided checklist OR paste-and-scan against 200+ risk patterns. Personalised risk report with suggested redlines.">
+<meta property="og:description" content="Two free modes for contract review. Guided checklist OR upload-and-scan against 200+ risk patterns. Personalised risk report with suggested redlines.">
 <meta property="og:site_name" content="Verbatra">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Contract Risk Review — Free Checklist + Smart Scanner | Verbatra">
@@ -230,6 +252,13 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
 <meta name="theme-color" content="#1f3d30">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+if(typeof pdfjsLib !== 'undefined'){
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+}
+</script>
 </head>
 <body><header>
   <a href="/" class="back-home">Back to Verbatra</a>
@@ -433,7 +462,9 @@ const S = {
   type: null,          // selected contract type
   answers: {},         // checklist answers
   scanText: '',        // scanner input text
-  scanFlags: []        // scanner output flags
+  scanFlags: [],       // scanner output flags
+  scanFileName: null,  // uploaded file name
+  scanError: null      // error message if upload/extraction failed
 };
 
 function setMode(m){
@@ -467,7 +498,7 @@ function renderModeTabs(){
     '</button>' +
     '<button type="button" class="mode-tab' + (S.mode==='scanner'?' on':'') + '" onclick="setMode(\'scanner\')">' +
       '<span class="mt-title">Smart Scanner</span>' +
-      '<span class="mt-sub">Paste your contract text, get instant risk flags</span>' +
+      '<span class="mt-sub">Upload your contract, get instant risk flags</span>' +
     '</button>' +
   '</div>';
 }
@@ -535,18 +566,49 @@ function renderScannerMode(){
   html += renderTypePicker('Step 1, Pick the contract type');
   if(!S.type) return html;
 
-  html += '<h2 class="sec">Step 2, Paste your contract text</h2>';
-  html += '<p class="hint" style="margin-bottom:10px;font-size:12.5px;line-height:1.5">Copy the full text of your contract and paste it below. The scanner will check it against known risk patterns and produce a risk report on the right.</p>';
-  html += '<textarea id="scanText" class="scan-textarea" placeholder="Paste your contract text here..." oninput="onScanInput(event)">' + escapeHtml(S.scanText) + '</textarea>';
+  html += '<h2 class="sec">Step 2, Upload your contract</h2>';
+  html += '<p class="hint" style="margin-bottom:14px;font-size:12.5px;line-height:1.5">Drop your contract file below or click to browse. Supports Word (.docx), PDF, and plain text (.txt). The scanner checks it against known risk patterns and produces a risk report on the right.</p>';
 
-  var wc = S.scanText.trim() ? S.scanText.trim().split(/\s+/).length : 0;
-  html += '<div class="scan-meta"><span><b>' + wc + '</b> words, <b>' + S.scanText.length + '</b> characters</span>';
-  if(S.scanText.length > 0) html += '<button class="scan-clear" type="button" onclick="clearScan()">Clear text</button>';
+  // Upload zone, or extracted-text confirmation
+  if(!S.scanText){
+    html += '<div id="dropZone" class="drop-zone" ondragover="onDragOver(event)" ondragleave="onDragLeave(event)" ondrop="onDrop(event)" onclick="document.getElementById(\'fileInput\').click()">';
+    html += '<div class="dz-icon">&#8682;</div>';
+    html += '<div class="dz-primary">Drop your contract here</div>';
+    html += '<div class="dz-secondary">or <span class="dz-link">click to browse</span></div>';
+    html += '<div class="dz-formats">Word .docx &middot; PDF &middot; Plain text .txt &middot; up to 5 MB</div>';
+    html += '</div>';
+    html += '<input type="file" id="fileInput" accept=".docx,.pdf,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain" style="display:none" onchange="onFileSelected(event)">';
+  } else {
+    var wc = S.scanText.trim() ? S.scanText.trim().split(/\s+/).length : 0;
+    html += '<div class="file-loaded">';
+    html += '<div class="fl-icon">&#10003;</div>';
+    html += '<div class="fl-info"><div class="fl-name">' + escapeHtml(S.scanFileName || 'Contract loaded') + '</div>';
+    html += '<div class="fl-meta"><b>' + wc.toLocaleString() + '</b> words, <b>' + S.scanText.length.toLocaleString() + '</b> characters extracted</div></div>';
+    html += '<button class="fl-clear" type="button" onclick="clearScan()" aria-label="Remove file">&times;</button>';
+    html += '</div>';
+
+    html += '<div class="scan-actions">';
+    html += '<button class="scan-btn" type="button" onclick="runScan()"' + (wc < 50 ? ' disabled' : '') + '>Scan for risks</button>';
+    if(wc < 50) html += '<span style="font-size:12px;color:var(--ink-soft)">File extracted only ' + wc + ' words. The contract may not have extracted cleanly, try uploading the original .docx instead.</span>';
+    html += '</div>';
+  }
+
+  // Error display
+  if(S.scanError){
+    html += '<div class="scan-error">';
+    html += '<b>Could not extract text from this file.</b><br>' + escapeHtml(S.scanError);
+    html += '<br><br>Try uploading the original Word .docx if you have it (Word files extract more reliably than PDFs), or convert the PDF to text first.';
+    html += '</div>';
+  }
+
+  // Privacy panel — PLACEHOLDER for Arnav to fill in his own confidentiality wording
+  html += '<div class="privacy-panel">';
+  html += '<div class="pp-icon">&#128274;</div>';
+  html += '<div class="pp-body">';
+  html += '<div class="pp-title">Your contract never leaves your device.</div>';
+  html += '<p>The file is processed entirely in your browser. Nothing is uploaded to Verbatra\'s servers, stored anywhere, or transmitted to any third party. Verbatra cannot see what you upload.</p>';
+  html += '<!-- TODO ARNAV: add your own confidentiality wording here if you want to add anything beyond the architectural privacy guarantee above -->';
   html += '</div>';
-
-  html += '<div class="scan-actions">';
-  html += '<button class="scan-btn" type="button" onclick="runScan()"' + (wc < 50 ? ' disabled' : '') + '>Scan for risks</button>';
-  if(wc < 50) html += '<span style="font-size:12px;color:var(--ink-soft)">Paste at least 50 words to enable scanning</span>';
   html += '</div>';
 
   html += '<div class="scan-disclaimer">';
@@ -562,22 +624,159 @@ function escapeHtml(s){
   });
 }
 
-function onScanInput(e){
-  S.scanText = e.target.value;
-  // Re-render just the meta line, not the whole form, to avoid losing focus
-  var wcEl = document.querySelector('.scan-meta');
-  if(wcEl){
-    var wc = S.scanText.trim() ? S.scanText.trim().split(/\s+/).length : 0;
-    wcEl.innerHTML = '<span><b>' + wc + '</b> words, <b>' + S.scanText.length + '</b> characters</span>' +
-      (S.scanText.length > 0 ? '<button class="scan-clear" type="button" onclick="clearScan()">Clear text</button>' : '');
-    var btn = document.querySelector('.scan-btn');
-    if(btn) btn.disabled = wc < 50;
+// === FILE UPLOAD HANDLERS ===
+function onDragOver(e){
+  e.preventDefault();
+  var z = document.getElementById('dropZone');
+  if(z) z.classList.add('dragging');
+}
+function onDragLeave(e){
+  e.preventDefault();
+  var z = document.getElementById('dropZone');
+  if(z) z.classList.remove('dragging');
+}
+function onDrop(e){
+  e.preventDefault();
+  var z = document.getElementById('dropZone');
+  if(z) z.classList.remove('dragging');
+  var files = e.dataTransfer && e.dataTransfer.files;
+  if(files && files.length > 0){ handleFile(files[0]); }
+}
+function onFileSelected(e){
+  var files = e.target.files;
+  if(files && files.length > 0){ handleFile(files[0]); }
+}
+
+function handleFile(file){
+  S.scanError = null;
+  S.scanText = '';
+  S.scanFlags = [];
+  S.scanFileName = file.name;
+
+  // Size check
+  if(file.size > 5 * 1024 * 1024){
+    S.scanError = 'File is larger than 5 MB. Please upload a smaller contract or remove embedded images.';
+    renderForm();
+    return;
   }
+  if(file.size === 0){
+    S.scanError = 'The file appears to be empty.';
+    renderForm();
+    return;
+  }
+
+  // Show loading state
+  var z = document.getElementById('dropZone');
+  if(z){ z.innerHTML = '<div class="dz-icon" style="animation:spin 1s linear infinite">&#8635;</div><div class="dz-primary">Reading ' + escapeHtml(file.name) + '...</div>'; }
+
+  var name = file.name.toLowerCase();
+  if(name.endsWith('.txt')){
+    extractTxt(file);
+  } else if(name.endsWith('.docx')){
+    extractDocx(file);
+  } else if(name.endsWith('.pdf')){
+    extractPdf(file);
+  } else {
+    S.scanError = 'Unsupported file format. Please upload a .docx, .pdf, or .txt file.';
+    renderForm();
+  }
+}
+
+function extractTxt(file){
+  var reader = new FileReader();
+  reader.onload = function(e){
+    S.scanText = e.target.result;
+    renderForm();
+    renderReport();
+  };
+  reader.onerror = function(){
+    S.scanError = 'Could not read this file.';
+    renderForm();
+  };
+  reader.readAsText(file);
+}
+
+function extractDocx(file){
+  if(typeof mammoth === 'undefined'){
+    S.scanError = 'Word extraction library failed to load. Please refresh the page and try again, or check your internet connection.';
+    renderForm();
+    return;
+  }
+  var reader = new FileReader();
+  reader.onload = function(e){
+    mammoth.extractRawText({arrayBuffer: e.target.result})
+      .then(function(result){
+        S.scanText = result.value || '';
+        if(S.scanText.trim().length < 20){
+          S.scanError = 'Almost no text was extracted from this Word file. The document may contain only images or have an unusual format.';
+        }
+        renderForm();
+        renderReport();
+      })
+      .catch(function(err){
+        S.scanError = 'Could not extract text from this Word file. The file may be corrupted or use an unsupported Word format.';
+        renderForm();
+      });
+  };
+  reader.onerror = function(){
+    S.scanError = 'Could not read this file.';
+    renderForm();
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function extractPdf(file){
+  if(typeof pdfjsLib === 'undefined'){
+    S.scanError = 'PDF extraction library failed to load. Please refresh the page and try again, or check your internet connection.';
+    renderForm();
+    return;
+  }
+  var reader = new FileReader();
+  reader.onload = function(e){
+    var data = new Uint8Array(e.target.result);
+    pdfjsLib.getDocument({data: data}).promise
+      .then(function(pdf){
+        var pages = [];
+        var promises = [];
+        for(var i=1; i<=pdf.numPages; i++){
+          promises.push(pdf.getPage(i).then(function(page){
+            return page.getTextContent().then(function(content){
+              return content.items.map(function(it){ return it.str; }).join(' ');
+            });
+          }));
+        }
+        return Promise.all(promises);
+      })
+      .then(function(pageTexts){
+        S.scanText = pageTexts.join('\n\n').replace(/[ \t]+/g, ' ').trim();
+        if(S.scanText.trim().length < 20){
+          S.scanError = 'Almost no text was extracted from this PDF. It may be a scanned image, in which case you will need to OCR it first (Google Drive can do this for free).';
+        }
+        renderForm();
+        renderReport();
+      })
+      .catch(function(err){
+        var msg = (err && err.message) ? err.message.toLowerCase() : '';
+        if(msg.indexOf('password') !== -1 || msg.indexOf('encrypted') !== -1){
+          S.scanError = 'This PDF is password-protected or encrypted. Please remove the password and try again.';
+        } else {
+          S.scanError = 'Could not extract text from this PDF. The file may be a scanned image, encrypted, or in an unsupported PDF format.';
+        }
+        renderForm();
+      });
+  };
+  reader.onerror = function(){
+    S.scanError = 'Could not read this file.';
+    renderForm();
+  };
+  reader.readAsArrayBuffer(file);
 }
 
 function clearScan(){
   S.scanText = '';
   S.scanFlags = [];
+  S.scanFileName = null;
+  S.scanError = null;
   renderForm();
   renderReport();
 }
@@ -749,7 +948,7 @@ function renderReport(){
 
   if(S.mode === 'scanner'){
     if(S.scanFlags.length === 0 && S.scanText.length === 0){
-      html += '<p>Paste your contract text on the left and click <b>Scan for risks</b>. The scanner checks against ' + (RULES[S.type] ? RULES[S.type].length : 0) + ' known risk patterns for ' + c.name + '.</p>';
+      html += '<p>Upload your contract on the left and click <b>Scan for risks</b>. The scanner checks against ' + (RULES[S.type] ? RULES[S.type].length : 0) + ' known risk patterns for ' + c.name + '.</p>';
     } else if(S.scanFlags.length === 0){
       html += '<div class="none">No risks were flagged by the automated scanner. This does not mean the contract is risk-free, only that the patterns the scanner knows about were not detected. A qualified lawyer\'s review is still recommended.</div>';
     } else {
