@@ -246,6 +246,12 @@
   .tools{padding:80px 7vw 50px;max-width:1180px;margin:0 auto}
   .section-head{margin-bottom:42px}
   .section-head h2{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(28px,4vw,42px);letter-spacing:-.01em;color:var(--ink);margin-top:6px}
+  .section-sub{font-size:16px;line-height:1.6;color:var(--ink-soft);margin-top:14px;max-width:58ch}
+  .cat-group{margin-top:46px;padding-top:34px;border-top:1px solid var(--line)}
+  .cat-group:first-of-type{margin-top:34px;border-top:none;padding-top:0}
+  .cat-head{margin-bottom:22px;display:flex;flex-direction:column;gap:6px}
+  .cat-tag{font-family:'Fraunces',serif;font-weight:500;font-size:19px;color:var(--green);letter-spacing:-.01em}
+  .cat-head p{font-size:14px;color:var(--ink-soft);max-width:62ch;line-height:1.55}
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
   .tool{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:32px 28px 28px;text-decoration:none;color:inherit;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:.18s}
   .tool::after{content:"";position:absolute;left:0;top:0;height:3px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .25s}
@@ -342,6 +348,11 @@
     .grid{grid-template-columns:1fr;gap:18px}
     .tool{padding:24px 22px}
     .tool h3{font-size:21px}
+    /* Categories: tighter spacing on mobile */
+    .cat-group{margin-top:34px;padding-top:24px}
+    .cat-tag{font-size:16px}
+    .cat-head{margin-bottom:16px}
+    .section-sub{font-size:14.5px;margin-top:10px}
     /* How it works stacks */
     .how{padding:40px 6vw 50px}
     .how-grid{grid-template-columns:1fr;gap:24px}
@@ -446,105 +457,128 @@
 <section class="tools" id="tools" aria-labelledby="tools-heading">
   <div class="section-head">
     <div class="eyebrow">The suite</div>
-    <h2 id="tools-heading">Twelve legal documents. From day one to deal close.</h2>
+    <h2 id="tools-heading">Twelve documents, organised the way lawyers think.</h2>
+    <p class="section-sub">From the contract you send a customer to the notice you send a defaulter. All categorised, all jurisdiction-aware, all in seconds.</p>
   </div>
-  <div class="grid">
-    <a class="tool" href="nda.html" style="--accent:#2c5443">
-      <div class="num">01</div>
-      <h3>Non-Disclosure Agreement</h3>
-      <div class="abbr">NDA</div>
-      <p>Mutual or one-way confidentiality, ready to send. Governing law, dispute resolution and data-protection clauses swap automatically across jurisdictions.</p>
-      <div class="meta"><span class="chip">45 jurisdictions</span><span class="chip">Word &amp; PDF</span></div>
-      <div class="go">Open the NDA generator <span class="arr">&rarr;</span></div>
-    </a>
-    <a class="tool" href="msa.html" style="--accent:#7a2e26">
-      <div class="num">02</div>
-      <h3>Master Service Agreement</h3>
-      <div class="abbr">MSA</div>
-      <p>A full framework contract with a Statement-of-Work schedule. The industry you pick injects sector-specific clauses; the jurisdiction sets the law, courts and tax.</p>
-      <div class="meta"><span class="chip">45 jurisdictions</span><span class="chip">19 industries</span></div>
-      <div class="go">Open the MSA generator <span class="arr">&rarr;</span></div>
-    </a>
-    <a class="tool" href="dpa.html" style="--accent:#a8843f">
-      <div class="num">03</div>
-      <h3>Data Processing Agreement</h3>
-      <div class="abbr">DPA</div>
-      <p>Controller-to-processor terms with three annexes. Terminology, supervisory authority and transfer mechanism adapt to GDPR, DPDP, CCPA, LGPD and more.</p>
-      <div class="meta"><span class="chip">39 data regimes</span><span class="chip">Annexes A&ndash;C</span></div>
-      <div class="go">Open the DPA generator <span class="arr">&rarr;</span></div>
-    </a>
-    <a class="tool" href="employment.html" style="--accent:#2c5443">
-      <div class="num">04</div>
-      <h3>Employment &amp; Offer Letter</h3>
-      <div class="abbr">Employment</div>
-      <p>Hire with confidence. Role, salary, probation, confidentiality, IP assignment and termination, as a full agreement or a clean offer letter.</p>
-      <div class="meta"><span class="chip">45 jurisdictions</span><span class="chip">Agreement / offer</span></div>
-      <div class="go">Open the generator <span class="arr">&rarr;</span></div>
-    </a>
-    <a class="tool" href="consultancy.html" style="--accent:#7a2e26">
-      <div class="num">05</div>
-      <h3>Consultancy / Freelancer</h3>
-      <div class="abbr">Consultancy</div>
-      <p>Engage independent contractors cleanly. Fee structure, IP assignment on payment, confidentiality and independent-contractor terms.</p>
-      <div class="meta"><span class="chip">45 jurisdictions</span><span class="chip">Fixed / hourly / retainer</span></div>
-      <div class="go">Open the generator <span class="arr">&rarr;</span></div>
-    </a>
-    <a class="tool" href="rent.html" style="--accent:#a8843f">
-      <div class="num">06</div>
-      <h3>Rent / Lease Agreement</h3>
-      <div class="abbr">Rent &amp; Lease</div>
-      <p>Residential rent or commercial lease. Rent, deposit, term, escalation, maintenance and subletting, with an optional furniture inventory.</p>
-      <div class="meta"><span class="chip">45 jurisdictions</span><span class="chip">Residential / commercial</span></div>
-      <div class="go">Open the generator <span class="arr">&rarr;</span></div>
-    </a>
-    <a class="tool" href="poa.html" style="--accent:#2c5443">
-      <div class="num">07</div>
-      <h3>Power of Attorney</h3>
-      <div class="abbr">POA</div>
-      <p>General or special. Choose the powers granted &mdash; financial, property, legal &mdash; with durability option and witness execution blocks.</p>
-      <div class="meta"><span class="chip">45 jurisdictions</span><span class="chip">General / special</span></div>
-      <div class="go">Open the generator <span class="arr">&rarr;</span></div>
-    </a>
-    <a class="tool" href="saledeed.html" style="--accent:#7a2e26">
-      <div class="num">08</div>
-      <h3>Sale Deed</h3>
-      <div class="abbr">Sale Deed</div>
-      <p>Conveyance of immovable property. Consideration, title warranties, possession and a property schedule. Requires stamping and registration.</p>
-      <div class="meta"><span class="chip">45 jurisdictions</span><span class="chip">Property</span></div>
-      <div class="go">Open the generator <span class="arr">&rarr;</span></div>
-    </a>
-    <a class="tool" href="legal-warning.html" style="--accent:#a8843f">
-      <div class="num">09</div>
-      <h3>Legal Warning</h3>
-      <div class="abbr">Cease &amp; desist</div>
-      <p>A formal warning for breach of contract, IP, confidentiality, default or harassment. Sets deadlines and reserves rights without yet committing to litigation.</p>
-      <div class="meta"><span class="chip">45 jurisdictions</span><span class="chip">Lawyer-reviewable</span></div>
-      <div class="go">Open the generator <span class="arr">&rarr;</span></div>
-    </a>
-    <a class="tool" href="legal-notice.html" style="--accent:#2c5443">
-      <div class="num">10</div>
-      <h3>Legal Notice</h3>
-      <div class="abbr">Pre-litigation</div>
-      <p>The formal statutory or contractual notice that precedes a suit. Statement of facts, cause of action, relief, costs, all on advocate's letterhead when needed.</p>
-      <div class="meta"><span class="chip">45 jurisdictions</span><span class="chip">Lawyer-reviewable</span></div>
-      <div class="go">Open the generator <span class="arr">&rarr;</span></div>
-    </a>
-    <a class="tool" href="section-138-notice.html" style="--accent:#7a2e26">
-      <div class="num">11</div>
-      <h3>Section 138 NI Act Notice</h3>
-      <div class="abbr">Cheque bounce</div>
-      <p>The statutory cheque-dishonour notice. 15-day demand, 30-day filing window, particulars of cheque, dishonour and underlying liability. India-specific.</p>
-      <div class="meta"><span class="chip">India</span><span class="chip">Statutory</span></div>
-      <div class="go">Open the generator <span class="arr">&rarr;</span></div>
-    </a>
-    <a class="tool" href="trademark-cease-desist.html" style="--accent:#a8843f">
-      <div class="num">12</div>
-      <h3>Trademark Cease &amp; Desist</h3>
-      <div class="abbr">IP enforcement</div>
-      <p>Cease-and-desist for trademark infringement and passing off. Demand cessation, destruction of infringing materials, undertaking and accounting of profits.</p>
-      <div class="meta"><span class="chip">45 jurisdictions</span><span class="chip">Brand protection</span></div>
-      <div class="go">Open the generator <span class="arr">&rarr;</span></div>
-    </a>
+
+  <div class="cat-group">
+    <div class="cat-head">
+      <div class="cat-tag">01 &middot; Commercial Contracts</div>
+      <p>The contracts you sign with customers, vendors and people you hire.</p>
+    </div>
+    <div class="grid">
+      <a class="tool" href="nda.html" style="--accent:#2c5443">
+        <h3>Non-Disclosure Agreement</h3>
+        <div class="abbr">NDA</div>
+        <p>Mutual or one-way confidentiality, ready to send. Governing law, dispute resolution and data-protection clauses swap automatically across jurisdictions.</p>
+        <div class="meta"><span class="chip">45 jurisdictions</span><span class="chip">Mutual / one-way</span></div>
+        <div class="go">Open the NDA generator <span class="arr">&rarr;</span></div>
+      </a>
+      <a class="tool" href="msa.html" style="--accent:#7a2e26">
+        <h3>Master Service Agreement</h3>
+        <div class="abbr">MSA</div>
+        <p>A full framework contract with a Statement-of-Work schedule. The industry you pick injects sector-specific clauses; the jurisdiction sets the law, courts and tax.</p>
+        <div class="meta"><span class="chip">45 jurisdictions</span><span class="chip">19 industries</span></div>
+        <div class="go">Open the MSA generator <span class="arr">&rarr;</span></div>
+      </a>
+      <a class="tool" href="consultancy.html" style="--accent:#a8843f">
+        <h3>Consultancy / Freelancer</h3>
+        <div class="abbr">Consultancy</div>
+        <p>Engage independent contractors cleanly. Fee structure, IP assignment on payment, confidentiality and independent-contractor terms.</p>
+        <div class="meta"><span class="chip">45 jurisdictions</span><span class="chip">Fixed / hourly / retainer</span></div>
+        <div class="go">Open the generator <span class="arr">&rarr;</span></div>
+      </a>
+      <a class="tool" href="employment.html" style="--accent:#2c5443">
+        <h3>Employment &amp; Offer Letter</h3>
+        <div class="abbr">Employment</div>
+        <p>Hire with confidence. Role, salary, probation, confidentiality, IP assignment and termination, as a full agreement or a clean offer letter.</p>
+        <div class="meta"><span class="chip">45 jurisdictions</span><span class="chip">Agreement / offer</span></div>
+        <div class="go">Open the generator <span class="arr">&rarr;</span></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="cat-group">
+    <div class="cat-head">
+      <div class="cat-tag">02 &middot; Data &amp; Privacy</div>
+      <p>The documents that keep you compliant with global data-protection law.</p>
+    </div>
+    <div class="grid">
+      <a class="tool" href="dpa.html" style="--accent:#7a2e26">
+        <h3>Data Processing Agreement</h3>
+        <div class="abbr">DPA</div>
+        <p>Controller-to-processor terms with three annexes. Terminology, supervisory authority and transfer mechanism adapt to GDPR, DPDP, CCPA, LGPD and more.</p>
+        <div class="meta"><span class="chip">39 data regimes</span><span class="chip">Annexes A, B, C</span></div>
+        <div class="go">Open the DPA generator <span class="arr">&rarr;</span></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="cat-group">
+    <div class="cat-head">
+      <div class="cat-tag">03 &middot; Property &amp; Authority</div>
+      <p>Real-estate transfers, leases and grants of authority. Real legal weight, stamping and registration apply.</p>
+    </div>
+    <div class="grid">
+      <a class="tool" href="rent.html" style="--accent:#a8843f">
+        <h3>Rent / Lease Agreement</h3>
+        <div class="abbr">Rent &amp; Lease</div>
+        <p>Residential rent or commercial lease. Rent, deposit, term, escalation, maintenance and subletting, with an optional furniture inventory.</p>
+        <div class="meta"><span class="chip">45 jurisdictions</span><span class="chip">Residential / commercial</span></div>
+        <div class="go">Open the generator <span class="arr">&rarr;</span></div>
+      </a>
+      <a class="tool" href="saledeed.html" style="--accent:#2c5443">
+        <h3>Sale Deed</h3>
+        <div class="abbr">Sale Deed</div>
+        <p>Conveyance of immovable property. Consideration, title warranties, possession and a property schedule. Requires stamping and registration.</p>
+        <div class="meta"><span class="chip">45 jurisdictions</span><span class="chip">Property</span></div>
+        <div class="go">Open the generator <span class="arr">&rarr;</span></div>
+      </a>
+      <a class="tool" href="poa.html" style="--accent:#7a2e26">
+        <h3>Power of Attorney</h3>
+        <div class="abbr">POA</div>
+        <p>General or special. Choose the powers granted, financial, property, legal, with durability option and witness execution blocks.</p>
+        <div class="meta"><span class="chip">45 jurisdictions</span><span class="chip">General / special</span></div>
+        <div class="go">Open the generator <span class="arr">&rarr;</span></div>
+      </a>
+    </div>
+  </div>
+
+  <div class="cat-group">
+    <div class="cat-head">
+      <div class="cat-tag">04 &middot; Pre-Litigation</div>
+      <p>Formal warnings and statutory notices, drafted in seconds, sent on advocate's letterhead if you want our team to handle it.</p>
+    </div>
+    <div class="grid">
+      <a class="tool" href="legal-warning.html" style="--accent:#a8843f">
+        <h3>Legal Warning</h3>
+        <div class="abbr">Cease &amp; desist</div>
+        <p>A formal warning for breach of contract, IP, confidentiality, default or harassment. Sets deadlines and reserves rights without yet committing to litigation.</p>
+        <div class="meta"><span class="chip">45 jurisdictions</span><span class="chip">Lawyer-reviewable</span></div>
+        <div class="go">Open the generator <span class="arr">&rarr;</span></div>
+      </a>
+      <a class="tool" href="legal-notice.html" style="--accent:#2c5443">
+        <h3>Legal Notice</h3>
+        <div class="abbr">Pre-litigation</div>
+        <p>The formal statutory or contractual notice that precedes a suit. Statement of facts, cause of action, relief, costs, all on advocate's letterhead when needed.</p>
+        <div class="meta"><span class="chip">45 jurisdictions</span><span class="chip">Lawyer-reviewable</span></div>
+        <div class="go">Open the generator <span class="arr">&rarr;</span></div>
+      </a>
+      <a class="tool" href="section-138-notice.html" style="--accent:#7a2e26">
+        <h3>Section 138 NI Act Notice</h3>
+        <div class="abbr">Cheque bounce</div>
+        <p>The statutory cheque-dishonour notice. 15-day demand, 30-day filing window, particulars of cheque, dishonour and underlying liability. India-specific.</p>
+        <div class="meta"><span class="chip">India</span><span class="chip">Statutory</span></div>
+        <div class="go">Open the generator <span class="arr">&rarr;</span></div>
+      </a>
+      <a class="tool" href="trademark-cease-desist.html" style="--accent:#a8843f">
+        <h3>Trademark Cease &amp; Desist</h3>
+        <div class="abbr">IP enforcement</div>
+        <p>Cease-and-desist for trademark infringement and passing off. Demand cessation, destruction of infringing materials, undertaking and accounting of profits.</p>
+        <div class="meta"><span class="chip">45 jurisdictions</span><span class="chip">Brand protection</span></div>
+        <div class="go">Open the generator <span class="arr">&rarr;</span></div>
+      </a>
+    </div>
   </div>
 </section>
 <section class="how" id="how" aria-labelledby="how-heading">
