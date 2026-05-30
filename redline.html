@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Verbatra, Contract Risk Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
+<style>
+
+:root{--ink:#1a1a17;--ink-soft:#4a4a42;--paper:#f4efe4;--paper-2:#ece5d6;--card:#fbf8f0;--green:#1f3d30;--green-2:#2c5443;--oxblood:#7a2e26;--line:#d8cfbc;--line-soft:#e4ddcc;--gold:#a8843f}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:'Hanken Grotesk',sans-serif;background:var(--paper);color:var(--ink);
+  background-image:radial-gradient(circle at 12% 8%,rgba(31,61,48,.05),transparent 40%),radial-gradient(circle at 88% 92%,rgba(122,46,38,.04),transparent 42%);
+  -webkit-font-smoothing:antialiased}
+header{border-bottom:1px solid var(--line);background:linear-gradient(180deg,#fbf8f0,#f4efe4);padding:18px 30px 16px}
+.back-home{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:var(--ink-soft);text-decoration:none;margin-bottom:10px;letter-spacing:.02em;transition:color .15s}
+.back-home::before{content:"\2190";font-size:14px}
+.back-home:hover{color:var(--green)}
+.brand{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.mark{font-family:'Fraunces',serif;font-weight:600;font-size:28px;letter-spacing:-.01em;color:var(--green)}
+.mark span{color:var(--oxblood)}
+.tag{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);border-left:1px solid var(--line);padding-left:14px}
+.disclaimer{margin-top:10px;font-size:12.5px;color:var(--ink-soft);line-height:1.5;max-width:820px}
+.disclaimer strong{color:var(--oxblood);font-weight:600}
+.wrap{display:grid;grid-template-columns:minmax(360px,1fr) 1.3fr;min-height:calc(100vh - 130px)}
+.panel{padding:24px 28px}
+.form-panel{border-right:1px solid var(--line);background:rgba(251,248,240,.5);max-height:calc(100vh - 130px);overflow-y:auto}
+.preview-panel{background:var(--paper-2)}
+h2.sec{font-family:'Fraunces',serif;font-weight:500;font-size:14.5px;color:var(--green);margin:24px 0 12px;display:flex;align-items:center;gap:0}
+h2.sec:first-of-type{margin-top:0}
+.field{margin-bottom:13px}
+label{display:block;font-size:11.5px;font-weight:600;color:var(--ink-soft);margin-bottom:5px;letter-spacing:.02em}
+input[type=text],input[type=date],input[type=number],input[type=email],input[type=tel],select,textarea{width:100%;font-family:'Hanken Grotesk',sans-serif;font-size:14px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:7px;padding:9px 11px;transition:border-color .15s,box-shadow .15s}
+textarea{resize:vertical;min-height:60px;line-height:1.45}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2);box-shadow:0 0 0 3px rgba(31,61,48,.1)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:11px}
+.seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:var(--card)}
+.seg button{flex:1;border:none;background:transparent;font-family:inherit;font-size:13px;font-weight:600;color:var(--ink-soft);padding:9px 8px;cursor:pointer;transition:.15s}
+.seg button.on{background:var(--green);color:#f4efe4}
+.seg button+button{border-left:1px solid var(--line)}
+.hint{font-size:11.5px;color:var(--ink-soft);margin-top:5px;line-height:1.45}
+.modlist{font-size:11.5px;color:var(--green-2);margin-top:7px;line-height:1.5;background:rgba(31,61,48,.06);border-radius:6px;padding:8px 10px}
+.toggle{display:flex;align-items:center;gap:9px;cursor:pointer;font-size:13px;color:var(--ink);font-weight:500;margin-bottom:10px}
+.toggle input{width:16px;height:16px;accent-color:var(--green)}
+
+.preview-tools{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px;align-items:center}
+.btn{font-family:'Hanken Grotesk',sans-serif;font-size:13px;font-weight:600;border:1px solid var(--green);background:var(--green);color:#f4efe4;border-radius:7px;padding:9px 16px;cursor:pointer;transition:.15s}
+.btn:hover{background:var(--green-2);transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--green);border-color:var(--line)}
+.btn.ghost:hover{background:var(--card)}
+
+.doc{background:#fffdf7;border:1px solid var(--line);border-radius:4px;box-shadow:0 18px 40px -24px rgba(26,26,23,.4),0 2px 0 var(--line-soft);padding:50px 52px;font-family:'Source Serif 4',Georgia,serif;color:#23211c;font-size:13.5px;line-height:1.62;max-width:760px}
+.doc h1{font-family:'Source Serif 4',serif;font-weight:600;font-size:18px;text-align:center;letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px}
+.doc .sub{text-align:center;font-size:12px;color:#6a655a;margin-bottom:24px;font-style:italic}
+.doc h3{font-weight:600;font-size:13px;margin:17px 0 6px;text-transform:uppercase;letter-spacing:.03em}
+.doc p{margin-bottom:11px;text-align:justify}
+.doc .recital{margin-bottom:9px}
+.doc .sched{margin-top:30px;border-top:2px solid #cbc3b0;padding-top:18px}
+.doc .sched h2{font-family:'Source Serif 4',serif;font-size:15px;text-align:center;letter-spacing:.03em;text-transform:uppercase;margin-bottom:14px}
+.doc .anx{margin-bottom:7px}
+.doc .sig{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:42px}
+.doc .sig .block{font-size:12.5px;line-height:1.9}
+.doc .sig .line{border-bottom:1px solid #999;height:30px;margin-bottom:4px}
+.doc .stamp-note{font-size:11.5px;font-style:italic;color:#6a655a;border-top:1px dashed #cbc3b0;margin-top:18px;padding-top:10px}
+.doc-header{display:flex;justify-content:flex-end;align-items:center;padding:0 0 12px 0;margin:0 0 22px 0;border-bottom:1.5px solid #cbc3b0;min-height:40px}
+.doc-header img{height:46px;max-width:170px;width:auto;object-fit:contain;display:block}
+@media print{.doc-header{border-bottom:1pt solid #999;margin-bottom:16pt;padding-bottom:8pt}.doc-header img{height:46pt}}
+
+/* Lead modal */
+.modal{position:fixed;inset:0;display:none;z-index:200;align-items:center;justify-content:center;padding:20px}
+.modal.show{display:flex}
+.modal-bg{position:absolute;inset:0;background:rgba(26,26,23,.55);backdrop-filter:blur(6px)}
+.modal-card{position:relative;width:100%;max-width:560px;max-height:92vh;overflow-y:auto;background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:0 30px 80px -20px rgba(26,26,23,.55);padding:30px 32px 26px}
+.modal-close{position:absolute;top:12px;right:14px;background:none;border:none;font-size:22px;color:var(--ink-soft);cursor:pointer;line-height:1;width:28px;height:28px;border-radius:8px}
+.modal-close:hover{background:var(--card);color:var(--ink)}
+.modal-eyebrow{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--oxblood);margin-bottom:10px;display:flex;align-items:center;gap:0}
+.modal-h{font-family:'Fraunces',serif;font-weight:500;font-size:23px;color:var(--ink);margin-bottom:8px}
+.modal-lede{font-size:13.5px;color:var(--ink-soft);line-height:1.55;margin-bottom:16px}
+.modal-row{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:10px}
+.modal-field label{display:block;font-size:11.5px;font-weight:600;color:var(--ink-soft);margin-bottom:4px}
+.modal-field input.modal-field select{width:100%;font-size:14px;font-family:inherit;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:7px;padding:9px 11px}
+.modal-field input:focus.modal-field select:focus{outline:none;border-color:var(--green-2);box-shadow:0 0 0 3px rgba(31,61,48,.1)}
+.modal-consent{margin:14px 0 4px;padding:13px 15px;background:rgba(31,61,48,.05);border:1px solid rgba(31,61,48,.13);border-radius:10px}
+.modal-consent label{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;color:var(--ink);line-height:1.5;margin-bottom:10px;cursor:pointer}
+.modal-consent label:last-child{margin-bottom:0}
+.modal-consent input{margin-top:3px;width:15px;height:15px;accent-color:var(--green);flex:none}
+.modal-consent b{color:var(--green)}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
+.modal-err{background:rgba(122,46,38,.08);border:1px solid rgba(122,46,38,.2);color:var(--oxblood);font-size:12.5px;padding:9px 13px;border-radius:7px;margin-bottom:10px;display:none}
+.modal-err.show{display:block}
+.modal-fine{font-size:11px;color:var(--ink-soft);text-align:center;margin-top:12px}
+
+@media (max-width:920px){.wrap{grid-template-columns:1fr}.form-panel{border-right:none;border-bottom:1px solid var(--line);max-height:none;overflow:visible}.doc{padding:30px 24px}}
+@media (max-width:560px){.modal-card{padding:24px 20px}.modal-row{grid-template-columns:1fr}}
+/* copy protection on the live preview only (export still works) */
+.doc.doc *{ -webkit-user-select:none; -moz-user-select:none; -ms-user-select:none; user-select:none; }
+.doc{ -webkit-touch-callout:none; }
+@media print{header.form-panel.preview-tools.modal{display:none!important}body{background:#fff}.wrap{display:block}.preview-panel{background:#fff;padding:0}.doc{box-shadow:none;border:none;max-width:100%;padding:0;font-size:11.5pt}.doc.doc *{user-select:auto!important}}
+
+</style>
+<style>
+/* Mode switch tabs */
+.mode-tabs{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card);margin-bottom:22px}
+.mode-tab{flex:1;border:none;background:transparent;font-family:inherit;font-size:13px;font-weight:600;color:var(--ink-soft);padding:13px 12px;cursor:pointer;transition:.15s;line-height:1.3;text-align:left}
+.mode-tab .mt-title{font-family:'Fraunces',serif;font-size:15px;color:var(--ink);display:block;margin-bottom:2px;font-weight:500}
+.mode-tab .mt-sub{font-size:11.5px;color:var(--ink-soft);font-weight:500}
+.mode-tab.on{background:var(--green);color:#f4efe4}
+.mode-tab.on .mt-title{color:#f4efe4}
+.mode-tab.on .mt-sub{color:#d9d2c0}
+.mode-tab+.mode-tab{border-left:1px solid var(--line)}
+.mode-tab:not(.on):hover{background:rgba(31,61,48,.04)}
+
+/* Contract type picker */
+.contract-picker{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:24px}
+.contract-pick{display:block;border:1.5px solid var(--line);background:var(--card);border-radius:10px;padding:18px 16px;cursor:pointer;transition:.15s;text-align:left;font-family:inherit}
+.contract-pick:hover{border-color:var(--green-2);transform:translateY(-1px)}
+.contract-pick.on{border-color:var(--green);background:rgba(31,61,48,.06)}
+.contract-pick .cp-icon{font-family:'Fraunces',serif;color:var(--green);font-size:14px;letter-spacing:.05em;margin-bottom:6px}
+.contract-pick .cp-name{font-family:'Fraunces',serif;font-size:17px;color:var(--ink);font-weight:500;line-height:1.25}
+
+/* Checklist styling (Mode 1) */
+.cl-cat{border-top:1px solid var(--line);margin-top:24px;padding-top:20px}
+.cl-cat:first-of-type{border-top:none;margin-top:8px;padding-top:0}
+.cl-cat-head{margin-bottom:14px}
+.cl-cat-title{font-family:'Fraunces',serif;font-size:18px;font-weight:500;color:var(--green);letter-spacing:-.01em;margin-bottom:4px}
+.cl-cat-intro{font-size:12.5px;color:var(--ink-soft);line-height:1.55}
+.cl-item{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px 12px;margin-bottom:10px;transition:.15s}
+.cl-item.flagged{border-color:#c47a3a;background:rgba(196,122,58,.04)}
+.cl-item.critical{border-color:#b85f4f;background:rgba(184,95,79,.05)}
+.cl-q{font-size:13.5px;color:var(--ink);font-weight:500;line-height:1.5;margin-bottom:9px}
+.cl-why{font-size:12px;color:var(--ink-soft);line-height:1.5;margin-bottom:10px;padding-left:11px;border-left:2px solid var(--line)}
+.cl-actions{display:flex;gap:6px;flex-wrap:wrap}
+.cl-btn{flex:1;min-width:80px;font-family:inherit;font-size:11.5px;font-weight:600;background:#fff;border:1px solid var(--line);color:var(--ink-soft);border-radius:6px;padding:7px 8px;cursor:pointer;transition:.12s;text-align:center;line-height:1.2}
+.cl-btn:hover{border-color:var(--green-2);color:var(--ink)}
+.cl-btn.on-ok{background:#2c5443;color:#f4efe4;border-color:#2c5443}
+.cl-btn.on-flag{background:#c47a3a;color:#fff;border-color:#c47a3a}
+.cl-btn.on-miss{background:#7a2e26;color:#fff;border-color:#7a2e26}
+.cl-btn.on-dk{background:#8a857a;color:#fff;border-color:#8a857a}
+.cl-empty{padding:60px 30px;text-align:center;color:var(--ink-soft);background:var(--card);border:1px dashed var(--line);border-radius:10px;margin-top:20px}
+.cl-empty h3{font-family:'Fraunces',serif;font-size:20px;color:var(--ink);font-weight:500;margin-bottom:8px}
+.cl-empty p{font-size:14px;line-height:1.55}
+
+/* Scanner styling (Mode 2) */
+.scan-textarea{width:100%;min-height:340px;font-family:'Source Serif 4',Georgia,serif;font-size:13.5px;line-height:1.55;color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:18px 20px;resize:vertical;transition:.15s}
+.scan-textarea:focus{outline:none;border-color:var(--green-2);box-shadow:0 0 0 3px rgba(31,61,48,.08)}
+.scan-meta{display:flex;justify-content:space-between;align-items:center;margin:8px 2px 18px;font-size:12px;color:var(--ink-soft)}
+.scan-meta b{color:var(--ink);font-weight:600}
+.scan-actions{display:flex;gap:10px;align-items:center;margin-top:6px}
+.scan-btn{font-family:inherit;font-size:13.5px;font-weight:600;border:1px solid var(--green);background:var(--green);color:#f4efe4;border-radius:8px;padding:10px 22px;cursor:pointer;transition:.15s}
+.scan-btn:hover{background:var(--green-2);transform:translateY(-1px)}
+.scan-btn:disabled{background:#aaa;border-color:#aaa;cursor:not-allowed;transform:none}
+.scan-clear{font-family:inherit;font-size:12.5px;color:var(--ink-soft);background:none;border:none;cursor:pointer;text-decoration:underline}
+.scan-clear:hover{color:var(--oxblood)}
+.scan-disclaimer{font-size:11.5px;color:var(--ink-soft);line-height:1.55;background:rgba(168,132,63,.07);border:1px solid rgba(168,132,63,.2);border-radius:8px;padding:12px 14px;margin-top:16px}
+.scan-disclaimer b{color:var(--ink);font-weight:600}
+
+/* Risk report (preview side) */
+.rr{background:#fffdf7;border:1px solid var(--line);border-radius:4px;box-shadow:0 18px 40px -24px rgba(26,26,23,.4),0 2px 0 var(--line-soft);padding:42px 44px;font-family:'Source Serif 4',Georgia,serif;color:#23211c;font-size:13.5px;line-height:1.62;max-width:760px}
+.rr h1{font-family:'Source Serif 4',serif;font-weight:600;font-size:19px;text-align:center;letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px}
+.rr .sub{text-align:center;font-size:12px;color:#6a655a;margin-bottom:24px;font-style:italic}
+.rr h2{font-family:'Source Serif 4',serif;font-size:14.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin:24px 0 10px;color:#23211c;border-bottom:1px solid #cbc3b0;padding-bottom:4px}
+.rr h3{font-weight:600;font-size:13px;margin:14px 0 5px;color:#23211c}
+.rr p{margin-bottom:9px;text-align:left}
+.rr .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:8px 0 18px}
+.rr .stat{background:#f4efe4;border-radius:6px;padding:11px 8px;text-align:center}
+.rr .stat .n{font-family:'Fraunces',serif;font-size:24px;font-weight:500;line-height:1;display:block;margin-bottom:3px}
+.rr .stat .l{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:#6a655a;font-weight:600}
+.rr .stat.crit .n{color:#b85f4f}
+.rr .stat.high .n{color:#c47a3a}
+.rr .stat.med .n{color:#a8843f}
+.rr .stat.ok .n{color:#2c5443}
+.rr .risk{margin-bottom:14px;padding:11px 14px;border-radius:6px;border-left:3px solid #c47a3a;background:rgba(196,122,58,.05)}
+.rr .risk.critical{border-left-color:#b85f4f;background:rgba(184,95,79,.05)}
+.rr .risk.high{border-left-color:#c47a3a;background:rgba(196,122,58,.05)}
+.rr .risk.medium{border-left-color:#a8843f;background:rgba(168,132,63,.05)}
+.rr .risk-tag{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;display:block}
+.rr .risk.critical .risk-tag{color:#b85f4f}
+.rr .risk.high .risk-tag{color:#c47a3a}
+.rr .risk.medium .risk-tag{color:#a8843f}
+.rr .risk-q{font-size:13px;color:#23211c;margin-bottom:6px;font-weight:600;line-height:1.4}
+.rr .risk-why{font-size:12px;color:#3a3833;margin-bottom:5px;line-height:1.5}
+.rr .risk-redline{font-size:12px;color:#23211c;line-height:1.5;background:#fffdf7;padding:7px 10px;border-radius:4px;border:1px solid #e8e2d2;margin-top:5px}
+.rr .risk-redline b{color:#7a2e26;font-size:10.5px;letter-spacing:.06em;display:block;margin-bottom:3px;text-transform:uppercase}
+.rr .risk-evidence{font-size:11.5px;color:#6a655a;font-style:italic;background:rgba(0,0,0,.03);padding:5px 9px;border-radius:4px;margin-top:5px;font-family:'Source Code Pro',monospace}
+.rr .cta{margin-top:28px;padding:18px 22px;background:#1f3d30;color:#f4efe4;border-radius:8px;text-align:center}
+.rr .cta h3{color:#f4efe4;font-family:'Fraunces',serif;font-size:17px;font-weight:500;margin-bottom:6px}
+.rr .cta p{font-size:12.5px;line-height:1.55;color:#d9d2c0;margin-bottom:10px}
+.rr .cta a{display:inline-block;background:#f4efe4;color:#1f3d30;padding:8px 18px;border-radius:6px;font-weight:600;font-size:12.5px;text-decoration:none}
+.rr .none{padding:30px 20px;text-align:center;color:#6a655a;font-style:italic;background:#f4efe4;border-radius:6px}
+.rr .priorities{background:rgba(31,61,48,.05);border-radius:6px;padding:14px 16px;margin-top:12px}
+.rr .priorities ol{margin:6px 0 0 18px;padding:0}
+.rr .priorities li{margin-bottom:6px;font-size:12.5px;line-height:1.5}
+.rr .scanner-note{font-size:11.5px;font-style:italic;color:#6a655a;border-top:1px dashed #cbc3b0;margin-top:18px;padding-top:10px}
+
+.progress{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:11px 14px;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.progress-bar{flex:1;height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.progress-fill{height:100%;background:var(--green);border-radius:3px;transition:width .3s}
+.progress-text{font-size:11.5px;color:var(--ink-soft);font-weight:600;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap}
+
+@media print {
+  .rr{box-shadow:none;border:none;padding:0;max-width:none}
+  .rr .cta{display:none}
+}
+@media (max-width:880px){
+  .contract-picker{grid-template-columns:1fr}
+  .mode-tab{padding:11px 10px}
+  .mode-tab .mt-title{font-size:14px}
+  .rr{padding:30px 24px}
+}
+</style>
+<meta name="description" content="Free contract review tool by Verbatra. Two modes: guided checklist OR paste-and-scan against 200+ risk patterns. NDA, MSA, Consultancy, Employment contracts. Get a risk report with suggested redlines, drafted by a corporate lawyer.">
+<meta name="keywords" content="contract review India, contract redlining tool, NDA review checklist, MSA risk review, contract scanner, employment contract review, contract risk flags, contract negotiation India, free legal review">
+<meta name="author" content="Verbatra">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+<link rel="canonical" href="https://verbatra.com/redline.html">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://verbatra.com/redline.html">
+<meta property="og:title" content="Contract Risk Review — Free Checklist + Smart Scanner | Verbatra">
+<meta property="og:description" content="Two free modes for contract review. Guided checklist OR paste-and-scan against 200+ risk patterns. Personalised risk report with suggested redlines.">
+<meta property="og:site_name" content="Verbatra">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Contract Risk Review — Free Checklist + Smart Scanner | Verbatra">
+<meta name="twitter:description" content="Identify contract risks instantly. Free guided checklist or smart scanner.">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
+<meta name="theme-color" content="#1f3d30">
+</head>
+<body><header>
+  <a href="/" class="back-home">Back to Verbatra</a>
+  <div class="brand">
+    <div class="mark">Verbatra<span>.</span></div>
+    <div class="tag">Contract Review, 4 types &middot; Checklist + Scanner</div>
+  </div>
+  <p class="disclaimer">Two ways to review: walk through a guided checklist OR paste your contract text into the Smart Scanner. Get a personalised risk report with severity flags and suggested redlines. <strong>This is not legal advice.</strong> Every draft must be reviewed by a qualified lawyer admitted in the relevant jurisdiction before execution.</p>
+</header>
+<div class="wrap">
+  <section class="panel form-panel" id="formArea"></section>
+  <section class="panel preview-panel">
+    <div class="preview-tools">
+      <button class="btn" id="wordBtn">Download Word</button>
+      <button class="btn ghost" id="printBtn">Save as PDF</button>
+    </div>
+    <div class="doc" id="doc"></div>
+  </section>
+</div>
+
+<div class="modal" id="leadModal" role="dialog" aria-modal="true">
+  <div class="modal-bg" data-close></div>
+  <div class="modal-card">
+    <button class="modal-close" id="leadClose" aria-label="Close">&times;</button>
+    <div class="modal-eyebrow">One last step</div>
+    <h2 class="modal-h">Before you download</h2>
+    <p class="modal-lede">Tell us a little about you. We use this to keep improving Verbatra, and, if you allow it below, to reach out about helping you run your in-house legal operations.</p>
+    <div class="modal-err" id="leadErr">Please complete the required fields.</div>
+    <form id="leadForm" novalidate>
+      <div class="modal-row">
+        <div class="modal-field"><label>Full name *</label><input type="text" name="name" required></div>
+        <div class="modal-field"><label>Email *</label><input type="email" name="email" required></div>
+      </div>
+      <div class="modal-row">
+        <div class="modal-field"><label>Phone (with code) *</label><input type="tel" name="phone" required placeholder="+91 ..."></div>
+        <div class="modal-field"><label>Designation *</label><input type="text" name="designation" required></div>
+      </div>
+      <div class="modal-row">
+        <div class="modal-field"><label>Organisation (or 'Personal') *</label><input type="text" name="org" required></div>
+        <div class="modal-field"><label>Industry *</label>
+          <select name="industry" required>
+            <option value="">Choose&hellip;</option>
+            <option>Information Technology / Software</option>
+            <option>SaaS / Cloud</option>
+            <option>Professional Services / Consulting</option>
+            <option>Marketing / Advertising / Creative</option>
+            <option>Construction &amp; Engineering</option>
+            <option>Manufacturing &amp; Supply</option>
+            <option>Healthcare &amp; Life Sciences</option>
+            <option>Financial Services / Fintech</option>
+            <option>Logistics &amp; Transportation</option>
+            <option>Telecommunications</option>
+            <option>Media &amp; Entertainment</option>
+            <option>Education / EdTech</option>
+            <option>Real Estate / Facilities</option>
+            <option>Energy &amp; Utilities</option>
+            <option>Retail / E-commerce</option>
+            <option>Hospitality &amp; Travel</option>
+            <option>Legal / Compliance</option>
+            <option>Staffing / HR</option>
+            <option>Personal / Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-consent">
+        <label><input type="checkbox" name="contactOk" value="yes"> <span>I'd like Verbatra to reach out (email, phone or WhatsApp) about running my legal operations on a subscription, a tailored, affordable alternative to a full in-house legal team.</span></label>
+        <label><input type="checkbox" name="dpConsent" required> <span>I consent to Verbatra processing the details above for this purpose. <b style="color:var(--oxblood)">*</b></span></label>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn ghost" id="leadCancel">Cancel</button>
+        <button type="submit" class="btn" id="leadSubmit">Continue &amp; download</button>
+      </div>
+      <div class="modal-fine">Your details are not shared outside Verbatra.</div>
+    </form>
+  </div>
+</div>
+<script>
+const CL = {"nda": {"name": "Non-Disclosure Agreement (NDA)", "icon": "01", "intro": "Going to share or receive confidential information? Walk through this checklist to spot the gaps in the NDA before you sign. Takes about 5 minutes.", "categories": [{"id": "parties", "title": "Parties and Purpose", "intro": "Who is bound by this NDA, and why are they sharing information?", "items": [{"id": "p1", "q": "Are the parties named in full, with legal entity names (not just brand or trade names)?", "why": "An NDA against \"ABC Tech\" is hard to enforce if the actual entity is \"ABC Technologies Pvt Ltd\". Wrong-entity NDAs have been thrown out for this alone.", "redline": "State each party's full registered legal name, CIN/equivalent identifier, and registered address.", "severity": "high"}, {"id": "p2", "q": "Is the NDA mutual (both sides protect each other's info), or one-way?", "why": "If you're going to share anything sensitive, mutual is safer. One-way only protects them, not you.", "redline": "If discussions are genuinely mutual, ask for it to be made mutual. If one-way is fine, confirm you are the disclosing party, not the receiving party.", "severity": "medium"}, {"id": "p3", "q": "Is the Purpose of disclosure defined narrowly and specifically?", "why": "A broad purpose like \"to explore a business relationship\" lets the recipient use your info for almost anything. A narrow purpose limits use.", "redline": "Define Purpose with specifics: \"to evaluate a potential partnership for [specific project] between [date] and [date].\"", "severity": "high"}, {"id": "p4", "q": "Does it cover the parties' affiliates, group companies, employees, and advisers?", "why": "If the NDA only binds the named entity, a sister company or external consultant they share with isn't covered.", "redline": "Add: \"This Agreement extends to each party's affiliates, employees, and professional advisers who have a need to know, who must be bound by equivalent confidentiality obligations.\"", "severity": "high"}]}, {"id": "confdef", "title": "Definition of \"Confidential Information\"", "intro": "What exactly is being protected? Too narrow and your stuff isn't covered. Too broad and the NDA may be unenforceable.", "items": [{"id": "c1", "q": "Is \"Confidential Information\" defined broadly enough to cover everything you might share (oral, written, technical, business, customer lists, financials)?", "why": "If you share commercial info orally and the definition only covers \"written information marked Confidential,\" your disclosures aren't protected.", "redline": "Definition should include: \"all information in any form, whether written, oral, electronic or visual, disclosed by one party to the other.\"", "severity": "critical"}, {"id": "c2", "q": "Are there standard exceptions (publicly available, independently developed, lawfully received from third parties, required by law)?", "why": "Without these standard carve-outs, a receiving party could be technically in breach for knowing the same fact from another source.", "redline": "Standard exceptions should be present. If they're missing, add them; if present, they should be reasonable and narrow.", "severity": "medium"}, {"id": "c3", "q": "Does it require the disclosure to be marked \"Confidential\" or treated as such within a fixed time?", "why": "A marking requirement protects the recipient (they know what's confidential) but burdens the discloser (you must remember to mark).", "redline": "If you are mostly disclosing: remove marking requirements, or require marking only for written materials. If receiving: a marking requirement helps you.", "severity": "medium"}]}, {"id": "obligations", "title": "Obligations of the Receiving Party", "intro": "What can the recipient do with your information, and what are they prohibited from doing?", "items": [{"id": "o1", "q": "Is use limited strictly to the Purpose, with no other use permitted?", "why": "Without a strict use limitation, the recipient can technically use your info for competing or unrelated activities.", "redline": "Add: \"The Receiving Party shall use the Confidential Information solely for the Purpose and for no other use whatsoever.\"", "severity": "critical"}, {"id": "o2", "q": "Must the receiving party protect the information with at least \"reasonable care\" (or higher standard)?", "why": "Without a care standard, it's hard to prove the recipient was negligent in protecting your info.", "redline": "\"…shall protect the Confidential Information with the same degree of care it uses for its own confidential information, but in no event less than a reasonable standard of care.\"", "severity": "high"}, {"id": "o3", "q": "Does it require the return or destruction of confidential material at the end?", "why": "Without return/destruction obligations, the recipient can keep your information indefinitely after the engagement ends.", "redline": "Add: \"Upon termination or written request, the Receiving Party shall promptly return or destroy all Confidential Information, including all copies, and certify such destruction in writing.\"", "severity": "high"}]}, {"id": "term", "title": "Term and Survival", "intro": "How long does the NDA last? And how long do the confidentiality obligations survive after?", "items": [{"id": "t1", "q": "Is the term of the NDA itself stated (typically 1-3 years)?", "why": "An open-ended NDA without a stated term can be argued to be unenforceable for being indefinite.", "redline": "Specify a term: \"This Agreement shall remain in effect for [2/3] years from the Effective Date.\"", "severity": "medium"}, {"id": "t2", "q": "Do confidentiality obligations survive for a reasonable period (3-5 years typical) after termination?", "why": "If obligations end when the NDA ends, you have no protection during the period when leaked information matters most.", "redline": "\"The confidentiality obligations shall survive for [3-5] years after termination, and indefinitely for trade secrets and personal data.\"", "severity": "high"}]}, {"id": "remedies", "title": "Remedies, Disputes, and Governing Law", "intro": "If something goes wrong, where do you fight, under what law, and what remedies are available?", "items": [{"id": "r1", "q": "Does the NDA include the right to seek injunctive relief (a court order to stop the breach)?", "why": "Damages are often inadequate for confidentiality breaches because the harm is already done. An injunction lets you stop further disclosure immediately.", "redline": "Add: \"The parties acknowledge that monetary damages may be inadequate to remedy a breach, and each party shall be entitled to seek injunctive relief without proving actual damages or posting bond.\"", "severity": "high"}, {"id": "r2", "q": "Is the governing law and forum (courts or arbitration) specified, and acceptable to you?", "why": "If the governing law is somewhere you can't realistically litigate (say, Delaware for an Indian SME), enforcement becomes practically impossible.", "redline": "Specify Indian law and the courts of your home city, or a major commercial hub. Arbitration in India (Mumbai/Delhi/Bangalore) is also acceptable.", "severity": "high"}, {"id": "r3", "q": "Does it include a non-circumvention or non-solicitation clause?", "why": "These prevent the recipient from going directly to your customers, suppliers, or employees they learn about through the disclosure. Note: in India, post-termination non-compete is generally void under section 27 of the Indian Contract Act, 1872; non-solicitation is enforceable in limited circumstances.", "redline": "If you are disclosing introductions: include non-circumvention (12 months) and non-solicitation of employees (12 months). If you are receiving: scrutinize the scope carefully.", "severity": "medium"}]}]}, "msa": {"name": "Master Service Agreement (MSA)", "icon": "02", "intro": "An MSA is the most consequential contract for a services business, your default trading terms with every customer. Walk through 8 categories of risk to find what to negotiate. Takes about 10 minutes.", "categories": [{"id": "scope", "title": "Scope and Services", "intro": "What you are actually committed to deliver. Vague scope is the #1 cause of services-contract disputes.", "items": [{"id": "s1", "q": "Are the services or deliverables defined in a separate Statement of Work (SOW), not in the MSA itself?", "why": "An MSA should be a framework. Specific services belong in SOWs so the MSA doesn't need to be renegotiated each time scope changes.", "redline": "Confirm Services are defined via Statement of Work (\"SOW\"), with the MSA governing all SOWs.", "severity": "high"}, {"id": "s2", "q": "Are change-order procedures clearly defined (how scope changes happen and get priced)?", "why": "Without change-order procedures, customers can demand additional work as part of the existing scope (\"scope creep\"), and providers can't price it.", "redline": "Add a Change Order clause: \"Any modification to the Services or Fees shall be effective only upon a written Change Order signed by both parties.\"", "severity": "high"}, {"id": "s3", "q": "Is the standard of performance specified (e.g., \"professional and workmanlike manner,\" specific SLA, deliverable acceptance criteria)?", "why": "Without a performance standard, customers can claim breach for almost any dissatisfaction, and providers have no defensible baseline.", "redline": "Add: \"Services shall be performed in a professional and workmanlike manner consistent with industry standards.\" For SaaS, add specific SLA metrics.", "severity": "medium"}]}, {"id": "money", "title": "Money, Payment, Expenses, Taxes", "intro": "The commercial heart of the contract. Get this wrong and you're either underpaid or in breach.", "items": [{"id": "m1", "q": "Are the fees, payment terms (e.g., net 30, net 60), and payment frequency clearly stated?", "why": "Vague payment terms are the most common cause of cash-flow disputes. \"Promptly\" is not a payment term.", "redline": "State: \"Customer shall pay invoices within thirty (30) days of receipt.\" Add late-fee terms.", "severity": "critical"}, {"id": "m2", "q": "Are interest/late fees specified for overdue invoices (typically 1.5% per month or 18% per annum)?", "why": "Without late fees, customers have no economic incentive to pay on time, and you can't recover the cost of chasing them.", "redline": "Add: \"Overdue amounts shall bear interest at [1.5%] per month or the maximum rate permitted by law, whichever is lower.\"", "severity": "high"}, {"id": "m3", "q": "Are reimbursable expenses defined (pre-approved, capped, with receipts required)?", "why": "Open-ended expense reimbursements create disputes and audit issues. Customer-side: this is a leak you should plug.", "redline": "\"Pre-approved expenses shall be reimbursed at cost, supported by receipts, with no markup. Travel above [INR X] requires prior written approval.\"", "severity": "medium"}, {"id": "m4", "q": "Is the treatment of GST/taxes clear (whether fees are inclusive or exclusive, who pays withholding)?", "why": "If fees are stated without GST clarity, you may have to absorb 18% GST. Withholding tax can be 10% on professional fees in India.", "redline": "\"All Fees are exclusive of applicable taxes (GST). Customer shall pay GST in addition to the Fees. Customer may withhold tax as required by law and shall provide Form 16A.\"", "severity": "high"}]}, {"id": "ip", "title": "Intellectual Property", "intro": "Who owns what gets created? This is often where the biggest hidden value (and risk) lives.", "items": [{"id": "ip1", "q": "Is each party's pre-existing IP (\"Background IP\") clearly retained by that party?", "why": "Without this, you risk losing rights in your own tools, frameworks, or methodologies that pre-date the contract.", "redline": "\"Each party shall retain all right, title and interest in its Background IP. Nothing in this Agreement transfers ownership of Background IP.\"", "severity": "critical"}, {"id": "ip2", "q": "Is the ownership of newly created deliverables (\"Foreground IP\") clearly assigned to the appropriate party?", "why": "If you are the provider and don't assign deliverables, the customer can't safely use them. If you are the customer and IP isn't assigned, you may not own what you paid for.", "redline": "Customer should typically own bespoke deliverables, on receipt of payment in full. Provider should retain rights to generic methodology and tools.", "severity": "critical"}, {"id": "ip3", "q": "Does the provider get a licence to its generic methodology/know-how to reuse on other projects?", "why": "If the customer owns everything including generic methodology, the provider can't reuse their own work for other clients.", "redline": "Provider retains rights to all generic methodology, frameworks, and know-how developed in the course of the Services, with a perpetual licence to use these for other clients.", "severity": "high"}]}, {"id": "liability", "title": "Liability, Indemnification, Insurance", "intro": "What is each party on the hook for when things go wrong? Usually the most negotiated section.", "items": [{"id": "l1", "q": "Is there a cap on total liability (typically 12 months of fees, or the total contract value)?", "why": "Uncapped liability is dangerous, especially for service providers. A single dispute could be company-ending.", "redline": "\"Each party's total aggregate liability under this Agreement shall not exceed the total Fees paid or payable in the twelve (12) months preceding the event giving rise to the claim.\"", "severity": "critical"}, {"id": "l2", "q": "Are consequential, indirect, and special damages (lost profits, lost data) explicitly excluded?", "why": "Consequential damages can be many times the contract value (customer claims you cost them ₹10 crore in lost revenue from a ₹5 lakh project).", "redline": "\"Neither party shall be liable for any indirect, incidental, special, consequential, or punitive damages, including lost profits or lost data, regardless of the theory of liability.\"", "severity": "critical"}, {"id": "l3", "q": "Are indemnification obligations mutual and reasonable (typically for IP infringement, gross negligence, breach of confidentiality)?", "why": "One-sided indemnification (where only one party indemnifies the other) is a major red flag. Indemnity for \"any breach\" is overly broad.", "redline": "Indemnities should be mutual and limited to: (a) IP infringement, (b) breach of confidentiality, (c) gross negligence or wilful misconduct.", "severity": "high"}, {"id": "l4", "q": "Are insurance requirements (Professional Indemnity, General Liability) reasonable and aligned to the value of the contract?", "why": "Insurance requirements of INR 5 crore on a INR 5 lakh contract are unreasonable and add cost. Conversely, no insurance on a high-stakes engagement leaves the customer exposed.", "redline": "Insurance amounts should be proportionate. For most SME engagements: Professional Indemnity INR 1-2 crore, General Liability INR 1 crore, both maintained for the term.", "severity": "medium"}]}, {"id": "termination", "title": "Term and Termination", "intro": "How does the contract end, and what happens to fees, IP, and obligations after?", "items": [{"id": "tm1", "q": "Are termination rights mutual (either party can terminate for convenience on similar notice)?", "why": "One-sided termination (only the customer can terminate for convenience) is a major red flag for service providers, customer can fire you anytime, you can't leave.", "redline": "Termination for convenience should be mutual, on equal notice (typically 30-60 days). If one-sided, push back.", "severity": "high"}, {"id": "tm2", "q": "Is there a wind-down obligation (provider helps customer transition to a new provider) and is it paid?", "why": "Transition obligations are common but often uncompensated, locking the provider into months of unpaid work.", "redline": "\"Upon termination, Provider shall provide reasonable transition assistance for up to [30/60] days, at its then-current standard rates.\"", "severity": "medium"}, {"id": "tm3", "q": "Is the treatment of accrued but unpaid fees on termination clear (all earned fees become immediately payable)?", "why": "Without this, customers can terminate to avoid paying for work already done.", "redline": "\"On termination, Customer shall pay for all Services rendered up to the effective date of termination, including all work-in-progress.\"", "severity": "high"}]}, {"id": "warranty", "title": "Warranties and Disclaimers", "intro": "What is each party guaranteeing about the services and the contract itself?", "items": [{"id": "w1", "q": "Are warranties limited and specific (e.g., right to enter into agreement, services performed professionally), not broad guarantees of results?", "why": "Broad warranties like \"the services will achieve [specific business outcome]\" make you a guarantor of results outside your control.", "redline": "Warranties should be limited to: (a) authority to enter the agreement, (b) services performed in a professional manner, (c) no infringement of third-party IP. Disclaim all other warranties.", "severity": "high"}, {"id": "w2", "q": "Are all other warranties (merchantability, fitness for purpose) explicitly disclaimed?", "why": "Without explicit disclaimer, implied warranties under applicable law may apply, exposing you to claims you didn't expect.", "redline": "\"EXCEPT AS EXPRESSLY STATED, ALL OTHER WARRANTIES, EXPRESS OR IMPLIED, INCLUDING MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, ARE DISCLAIMED.\"", "severity": "medium"}]}, {"id": "confdpa", "title": "Confidentiality and Data Protection", "intro": "Information shared and personal data processed during the engagement.", "items": [{"id": "cd1", "q": "Is there a confidentiality clause covering all information exchanged?", "why": "Without confidentiality terms in the MSA itself, you rely on separate NDAs that may not cover all situations.", "redline": "Include a confidentiality clause matching the NDA standards (definition, exceptions, term, return/destruction).", "severity": "high"}, {"id": "cd2", "q": "If personal data is processed, is there a Data Processing Agreement (DPA) referenced or attached?", "why": "Under DPDP (India), GDPR (EU), and others, a separate DPA is legally required when one party processes personal data on behalf of another.", "redline": "Add: \"The parties shall enter into a separate Data Processing Agreement before any processing of Personal Data commences.\" Or attach a DPA as Schedule.", "severity": "critical"}]}, {"id": "boilerplate", "title": "Governing Law, Disputes, Boilerplate", "intro": "The provisions everyone skips, but that decide where and how you fight.", "items": [{"id": "b1", "q": "Is the governing law and forum specified, and acceptable (typically courts of a major Indian commercial city)?", "why": "Foreign governing law makes enforcement expensive and slow. A small-town forum makes interim relief slow.", "redline": "Indian law, courts of Mumbai/Delhi/Bangalore for litigation, or arbitration under the Arbitration and Conciliation Act 1996 seated in the same.", "severity": "high"}, {"id": "b2", "q": "Is force majeure defined to cover modern events (pandemic, internet outage, cyber attack)?", "why": "Old-style force majeure clauses only cover \"acts of God,\" missing the realities that actually disrupt modern business.", "redline": "Update force majeure to expressly include: pandemic, epidemic, government action, cyber attack, prolonged internet or utility outage.", "severity": "medium"}, {"id": "b3", "q": "Is assignment restricted (no assignment without consent, with exception for affiliates or successors)?", "why": "Without assignment restrictions, your customer could be acquired by a competitor and the new entity inherits your contract.", "redline": "\"Neither party may assign this Agreement without the other's prior written consent, except to a successor by merger, acquisition, or sale of substantially all assets.\"", "severity": "medium"}]}]}, "consultancy": {"name": "Consultancy / Freelancer Agreement", "icon": "03", "intro": "Engaging an independent contractor (or being one)? The biggest risks here are IP ownership, misclassification as an employee, and unclear scope. Walk through 6 categories. Takes about 8 minutes.", "categories": [{"id": "engagement", "title": "Engagement and Scope", "intro": "What the consultant is being hired to do, and what deliverables look like.", "items": [{"id": "e1", "q": "Are the specific deliverables defined, with acceptance criteria?", "why": "Vague scope leads to either client dissatisfaction (\"this isn't what I wanted\") or consultant over-delivery (unpaid extra work).", "redline": "List deliverables specifically: \"D1: User research report (PDF, 20+ pages, covering A/B/C). D2: Design system (Figma file with components X/Y/Z).\"", "severity": "high"}, {"id": "e2", "q": "Are timelines and milestones clearly stated?", "why": "Without timelines, both sides have no enforceable expectation. Consultant misses deadlines without consequence; client demands faster delivery without contractual basis.", "redline": "Define milestones with dates: \"D1 by [date]. D2 by [date]. Final delivery by [date].\" Include a process for handling slippage.", "severity": "medium"}, {"id": "e3", "q": "Is there a mechanism for revisions (number of rounds included, charges for extra rounds)?", "why": "Open-ended revisions are the #1 source of consultancy disputes. \"Just one small change\" eight times.", "redline": "\"Each deliverable includes [2/3] rounds of revisions. Additional rounds will be charged at [INR X] per round.\"", "severity": "high"}]}, {"id": "fees", "title": "Fees and Expenses", "intro": "How and when the consultant gets paid.", "items": [{"id": "f1", "q": "Is the fee structure clear (fixed, hourly with cap, retainer, milestone-based)?", "why": "Hybrid or unclear structures lead to invoice disputes. \"INR 50,000 plus expenses\" is not enough detail.", "redline": "Pick one structure and detail it: \"Fixed fee of INR [X], payable [50% on signing, 50% on delivery]\" or \"Hourly rate of INR [X], capped at [X hours per month].\"", "severity": "high"}, {"id": "f2", "q": "Is the payment schedule defined (milestones, monthly invoicing, advance, etc.)?", "why": "Without a payment schedule, consultants have no leverage to enforce payment, and clients have no idea when bills will arrive.", "redline": "\"Invoices will be raised on [the 1st of each month / on completion of each milestone] and payable within 30 days.\"", "severity": "high"}, {"id": "f3", "q": "Are GST and TDS treatment explicit (consultant's GST registration status, applicable withholding rate)?", "why": "If you're hiring a consultant for >INR 30k/year in professional fees, you must deduct 10% TDS under Section 194J. Failure has penalties.", "redline": "\"Consultant's fees are exclusive of GST. Client may withhold TDS at applicable rates and shall furnish Form 16A within 30 days of each quarter end.\"", "severity": "medium"}]}, {"id": "consultip", "title": "Intellectual Property (the hardest issue)", "intro": "Who owns what the consultant creates? Default rules in Indian law are not what most people expect.", "items": [{"id": "ci1", "q": "Is there an explicit IP assignment from consultant to client (for client-specific deliverables)?", "why": "Under Indian Copyright Act, copyright in commissioned work vests in the AUTHOR (the consultant) by default, not the client, unless there's an express written assignment. Many clients are shocked to learn they don't own what they paid for.", "redline": "\"Consultant hereby assigns to Client, on receipt of payment in full, all right, title and interest in the Deliverables, including all copyright, patent, and other intellectual property rights worldwide.\"", "severity": "critical"}, {"id": "ci2", "q": "Does the consultant retain rights to pre-existing IP and generic methodology/tools used during the work?", "why": "Without this, the consultant could be argued to have assigned their entire pre-existing toolkit to the client, hampering future work.", "redline": "\"Consultant retains all rights to its pre-existing materials, methodologies, frameworks, and tools used in or developed during the Services, with a non-exclusive licence granted to Client to use these as embedded in the Deliverables.\"", "severity": "critical"}, {"id": "ci3", "q": "Are moral rights (right to be identified as author, right to integrity) addressed?", "why": "Indian copyright law gives authors moral rights that cannot be assigned, only waived. A clean assignment includes a waiver of moral rights.", "redline": "\"To the maximum extent permitted by law, Consultant waives all moral rights in the Deliverables.\"", "severity": "medium"}]}, {"id": "icstatus", "title": "Independent Contractor Status", "intro": "Critical because misclassification can trigger employer obligations (PF, ESI, gratuity, notice pay) retroactively.", "items": [{"id": "ic1", "q": "Is the consultant clearly identified as an independent contractor, not an employee?", "why": "If the engagement looks like employment in substance (fixed hours, exclusive engagement, control by client), Indian courts and tax authorities can reclassify it, triggering employer obligations.", "redline": "\"Consultant is engaged as an independent contractor. Nothing herein creates an employment, partnership, or agency relationship. Consultant is solely responsible for own taxes, insurance, and statutory obligations.\"", "severity": "high"}, {"id": "ic2", "q": "Is the consultant free to work for other clients (no exclusivity required)?", "why": "Exclusivity is a strong indicator of employment. If the consultant can only work for you, they may not actually be independent.", "redline": "Avoid blanket exclusivity. Limit to: \"Consultant will not work for direct competitors named in Schedule [X] during the engagement.\"", "severity": "high"}, {"id": "ic3", "q": "Does the consultant control how the work is done (no detailed direction from client on hours, methods, etc.)?", "why": "Detailed client control (\"you must work 9-6, use these tools, report daily\") indicates employment in substance.", "redline": "\"Consultant shall determine the means and methods of performing the Services, subject only to the scope and deliverable specifications.\"", "severity": "medium"}]}, {"id": "confcomp", "title": "Confidentiality and Restrictive Covenants", "intro": "Protecting client info and limiting consultant's post-engagement activities.", "items": [{"id": "cc1", "q": "Is there a confidentiality clause covering both client info shared and consultant work product?", "why": "Consultants often work with sensitive business information. A breach can be company-damaging.", "redline": "Include standard confidentiality terms (definition, exceptions, term, return/destruction).", "severity": "high"}, {"id": "cc2", "q": "If a non-compete is included, is it (a) limited in scope and duration and (b) consistent with section 27 Indian Contract Act?", "why": "Post-termination non-compete is GENERALLY VOID in India under section 27. Only \"during the engagement\" non-compete is reliably enforceable.", "redline": "Limit non-compete to the term of the engagement. Replace post-termination non-compete with non-solicitation of specific named customers/employees for 12 months.", "severity": "high"}, {"id": "cc3", "q": "Is non-solicitation of client's employees/customers limited to a reasonable period (12 months) and specific list?", "why": "Broad, indefinite non-solicitation is unenforceable. Specific, time-limited non-solicitation has a better chance.", "redline": "\"For 12 months post-termination, Consultant shall not solicit any employee or customer of Client with whom Consultant had material dealings during the engagement.\"", "severity": "medium"}]}, {"id": "consultterm", "title": "Termination", "intro": "How the engagement ends, and what happens to in-progress work and fees.", "items": [{"id": "ct1", "q": "Are termination rights specified (notice period, for cause vs. for convenience)?", "why": "Without termination terms, either side can argue the contract is open-ended, leading to disputes when one wants to exit.", "redline": "\"Either party may terminate this Agreement on [30] days' written notice. Either party may terminate immediately for material breach uncured after [15] days' notice.\"", "severity": "high"}, {"id": "ct2", "q": "Is the treatment of work-in-progress and accrued fees on termination clear?", "why": "Clients sometimes terminate to avoid paying for work done; consultants stop work mid-project leaving the client stuck.", "redline": "\"On termination, Consultant shall deliver all work-in-progress in current state, and Client shall pay for all Services rendered and reasonable expenses incurred up to the termination date.\"", "severity": "high"}]}]}, "employment": {"name": "Employment Agreement / Offer Letter", "icon": "04", "intro": "Hiring an employee or being hired? Indian employment law has hard rules that override what's in the contract. Walk through 7 categories to find the gaps. Takes about 10 minutes.", "categories": [{"id": "role", "title": "Role and Reporting", "intro": "Title, reporting line, work location, working hours.", "items": [{"id": "ro1", "q": "Is the job title, department, and reporting manager clearly specified?", "why": "Vague role definitions create disputes about whether the employee is performing their role.", "redline": "State title, function, department, and reporting line specifically: \"Employee shall serve as [Title] in the [Department], reporting to [Title of Manager].\"", "severity": "medium"}, {"id": "ro2", "q": "Is the work location specified (with remote/hybrid arrangements, if applicable)?", "why": "Location ambiguity causes problems with statutory benefits (which state's Shops Act applies), tax (state-specific professional tax), and disputes about return-to-office.", "redline": "Specify primary work location. If hybrid: \"Employee shall work from [Office Location] for at least [X] days per week, with remote work permitted on other days.\"", "severity": "medium"}, {"id": "ro3", "q": "Are working hours stated, and are they compliant with the applicable Shops and Establishments Act?", "why": "State Shops Acts have hard maximum hours (typically 48 hours/week, 9 hours/day) and overtime rules. Contracts that exceed these are unenforceable to the extent of conflict.", "redline": "\"Working hours shall be [hours] per week, subject to the [State] Shops and Establishments Act. Overtime, if required, shall be compensated as per applicable law.\"", "severity": "medium"}]}, {"id": "compensation", "title": "Compensation", "intro": "Salary, variable pay, ESOPs, benefits.", "items": [{"id": "comp1", "q": "Is the gross salary clearly broken down (basic, HRA, special allowance, etc.) with annual total?", "why": "Salary structure determines income tax, PF contributions, gratuity, and HRA exemption. Vague structures cause endless payroll disputes.", "redline": "Provide a detailed CTC breakdown in a Schedule: Basic, HRA, Conveyance, Special Allowance, employer PF contribution, gratuity provision, total CTC.", "severity": "high"}, {"id": "comp2", "q": "If there is variable pay (bonus, commissions, incentives), are the conditions clear (when paid, what triggers it, can it be revoked)?", "why": "\"Discretionary bonus\" gives the employer complete control; \"guaranteed bonus\" creates an enforceable obligation. The two extremes need different treatment.", "redline": "If discretionary: \"Bonus is at the sole discretion of management.\" If targeted: state specific KPIs, calculation method, and payment timing.", "severity": "high"}, {"id": "comp3", "q": "If ESOPs are offered, is there a reference to a separate ESOP letter/scheme with vesting schedule and exercise terms?", "why": "ESOPs are a separate legal beast. They cannot be properly addressed in an employment contract; they need their own grant letter and scheme document.", "redline": "\"Employee shall be eligible for [X] stock options under the Company's ESOP Scheme, subject to a separate Grant Letter and the terms of the Scheme.\" Attach both.", "severity": "high"}, {"id": "comp4", "q": "Are employee benefits (medical insurance, leave, gratuity) stated, with reference to applicable policies?", "why": "Without explicit benefits, employees rely only on statutory minimums; with overly generous unspecific promises, employers create unintended obligations.", "redline": "List specific benefits with limits: \"Group Medical Insurance: INR [X] coverage, terms per separate policy. Annual leave: [X] days per company Leave Policy.\"", "severity": "medium"}]}, {"id": "ipconf", "title": "IP Assignment and Confidentiality", "intro": "What the employee creates belongs to whom; what they learn cannot be shared.", "items": [{"id": "ipc1", "q": "Is there a comprehensive IP assignment clause (covering all work-related creations)?", "why": "Without this, employees may retain rights in code, designs, or content they create — a startup-killing issue if not handled.", "redline": "\"Employee hereby assigns to Company all right, title and interest in any IP created by Employee in connection with employment, whenever created during the term of employment.\"", "severity": "critical"}, {"id": "ipc2", "q": "Are pre-existing inventions and personal projects carved out (so they remain with the employee)?", "why": "Without a carve-out, employees may inadvertently assign rights in their personal projects or pre-existing IP, leading to disputes later.", "redline": "\"Employee's pre-existing inventions and personal projects, listed in Schedule [X] (or notified in writing before commencement), are excluded from this assignment.\"", "severity": "high"}, {"id": "ipc3", "q": "Is there a confidentiality obligation covering both during and post-employment?", "why": "Post-employment confidentiality is what protects you when employees leave with knowledge of trade secrets, customer lists, strategy.", "redline": "\"Employee shall keep Company's Confidential Information strictly confidential during employment and indefinitely thereafter, returning all materials on exit.\"", "severity": "critical"}]}, {"id": "restrictive", "title": "Restrictive Covenants (non-compete, non-solicit, garden leave)", "intro": "Critical India-specific issue: post-employment restraints have limited enforceability under section 27 Indian Contract Act 1872.", "items": [{"id": "rc1", "q": "If there is a post-employment non-compete clause, is the employee aware it is likely unenforceable in India?", "why": "Section 27 Indian Contract Act voids any agreement that restrains a person from exercising a lawful profession, trade, or business. Post-employment non-compete is therefore generally void in India, regardless of how it's drafted.", "redline": "Replace non-compete with: (a) garden leave (employee paid full salary but not required to work), (b) non-solicitation of specific clients/employees for 12 months, (c) confidentiality (which is always enforceable).", "severity": "high"}, {"id": "rc2", "q": "If there is non-solicitation, is it limited (specific named clients/employees, time-bound to 12 months)?", "why": "Broad non-solicitation (\"any customer\") is unenforceable. Specific, time-limited non-solicitation has a chance of holding up.", "redline": "\"For 12 months post-employment, Employee shall not directly solicit (a) any customer with whom Employee had material dealings in the last 12 months of employment, or (b) any current Company employee.\"", "severity": "medium"}, {"id": "rc3", "q": "Is garden leave (if any) mutually structured, with full pay during the leave period?", "why": "Garden leave is the enforceable alternative to non-compete. The employee remains employed and paid but doesn't work, preventing immediate transition to a competitor.", "redline": "\"During any notice period or garden leave, Employee remains in service, continues to receive full salary and benefits, but Company may relieve Employee of duties.\"", "severity": "medium"}]}, {"id": "termination_emp", "title": "Termination", "intro": "Notice, severance, garden leave, F&F.", "items": [{"id": "te1", "q": "Is the notice period mutual and consistent with industry standards (typically 1-3 months)?", "why": "One-sided notice (employee gives 3 months but employer can terminate with 1 day) is a major red flag for employees and often unenforceable in any case.", "redline": "\"Either party may terminate this employment on [60/90] days' written notice. Either party may waive notice in writing.\"", "severity": "high"}, {"id": "te2", "q": "Are termination-for-cause grounds clearly defined (misconduct, gross negligence, breach of policy)?", "why": "Without defined for-cause grounds, employers struggle to terminate without paying severance; employees can be summarily dismissed without basis.", "redline": "List specific grounds: \"willful misconduct, gross negligence, breach of confidentiality or IP obligations, conviction of an offence involving moral turpitude, material breach of Company policy.\"", "severity": "medium"}, {"id": "te3", "q": "Is full and final settlement (\"F&F\") procedure mentioned (including timing of dues payment)?", "why": "Delayed F&F payments are a major source of post-employment disputes. State a timeline.", "redline": "\"Company shall pay all accrued dues (salary, leave encashment, gratuity if applicable, reimbursements) within [45] days of the last working day.\"", "severity": "medium"}]}, {"id": "statutory", "title": "Statutory Compliance", "intro": "Mandatory under Indian law — usually overlooked in template contracts.", "items": [{"id": "st1", "q": "Is the employee's coverage under Provident Fund (PF) and ESI explicitly stated?", "why": "PF is mandatory for establishments with 20+ employees; ESI for employees earning ≤INR 21,000/month. Failure to enroll triggers penalties.", "redline": "\"Employee shall be enrolled in PF and ESI as per applicable statutory thresholds and rates. Company and Employee contributions shall be deducted/contributed as per applicable law.\"", "severity": "high"}, {"id": "st2", "q": "Is gratuity entitlement under the Payment of Gratuity Act 1972 acknowledged?", "why": "Gratuity vests after 5 years of continuous service and is mandatory. Contracts that exclude it are void to that extent.", "redline": "\"Employee shall be entitled to gratuity as per the Payment of Gratuity Act, 1972, payable on completion of 5 years of continuous service.\"", "severity": "medium"}, {"id": "st3", "q": "Is there a clear reference to the Company's PoSH (Prevention of Sexual Harassment) policy and Internal Committee?", "why": "Mandatory under the Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013 for establishments with 10+ employees. Failure to comply carries penalties up to INR 50,000.", "redline": "\"Employee acknowledges receipt of Company's PoSH Policy and the contact details of the Internal Complaints Committee.\"", "severity": "critical"}]}, {"id": "emp_other", "title": "Other Terms (governing law, modifications, etc.)", "intro": "Boilerplate that matters when there's a dispute.", "items": [{"id": "eo1", "q": "Is the governing law and dispute forum specified (typically the city where the employee primarily works)?", "why": "Without this, jurisdiction disputes can paralyze a wrongful termination claim or a quit-and-dispute scenario.", "redline": "\"Governed by laws of India. Disputes shall be subject to the exclusive jurisdiction of the courts of [primary work city].\"", "severity": "medium"}, {"id": "eo2", "q": "Does the contract include an integration clause and a procedure for amendments?", "why": "Without this, alleged oral promises (\"my manager told me I'd get a 10% raise\") can become contract disputes.", "redline": "\"This Agreement, together with the listed Schedules, constitutes the entire agreement. Modifications must be in writing and signed by both parties.\"", "severity": "medium"}]}]}};
+const RULES = {"nda": [{"id": "no_governing_law", "type": "absence", "severity": "high", "category": "Governing Law & Disputes", "title": "Governing law not specified", "finding": "The contract does not appear to specify a governing law.", "why": "Without governing law, disputes default to whichever forum a party first sues in. Result: forum-shopping, applicable rules unpredictable.", "redline": "Add a clause: 'This Agreement shall be governed by and construed in accordance with the laws of India.' (Or your preferred jurisdiction.)", "patterns": ["governing law", "governed by", "applicable law", "shall be governed", "laws of", "construed in accordance with"]}, {"id": "no_dispute_forum", "type": "absence", "severity": "high", "category": "Governing Law & Disputes", "title": "Dispute resolution forum not specified", "finding": "No specification of courts or arbitration for resolving disputes.", "why": "Even with governing law specified, you still need a forum. Without it, the suing party gets to choose, often a forum that disadvantages you.", "redline": "Add: 'Any dispute shall be subject to the exclusive jurisdiction of the courts at [your city]' OR specify arbitration seat and rules.", "patterns": ["jurisdiction of the courts", "subject to the exclusive", "courts of", "arbitration", "arbitrator", "submit to the jurisdiction"]}, {"id": "sole_discretion_overuse", "type": "presence_count", "severity": "high", "category": "One-Sided Power", "title": "Excessive 'sole discretion' clauses", "finding": "The phrase 'sole/absolute discretion' appears multiple times, suggesting the other party can make key decisions unilaterally.", "why": "'Sole discretion' clauses give one party unchecked power. The more they appear, the more arbitrary the contract becomes.", "redline": "Wherever you see 'sole discretion', try to replace with 'reasonable discretion' or 'acting in good faith'. For consequential decisions, require mutual consent.", "patterns": ["sole discretion", "absolute discretion"], "threshold": 3}, {"id": "perpetuity_clause", "type": "presence", "severity": "high", "category": "Term & Termination", "title": "Perpetual or irrevocable obligation found", "finding": "The contract uses 'perpetual', 'in perpetuity', or 'forever' language for one or more obligations.", "why": "Perpetual obligations bind you indefinitely. Especially dangerous for IP licences, confidentiality (unless for trade secrets), or service obligations.", "redline": "Identify which clause is perpetual and ask: does it need to be? Replace with a fixed term (e.g. 5-10 years) where possible.", "patterns": ["in perpetuity", "perpetual", "forever and irrevocably", "perpetual and irrevocable"]}, {"id": "as_is_basis", "type": "presence", "severity": "medium", "category": "Warranties & Disclaimers", "title": "'As is' disclaimer present", "finding": "The contract disclaims warranties using 'AS IS' or 'with all faults' language.", "why": "If you are the recipient (customer), this means no protection if the goods/services don't work. If you are the provider, this protects you, but is increasingly customer-unfriendly.", "redline": "Customer-side: push back. Replace with limited warranties (right to perform, performed in a workmanlike manner). Provider-side: keep, but consider softening to 'as available' with limited warranties.", "patterns": ["AS IS", "AS-IS", "as is basis", "with all faults"]}, {"id": "any_reason_termination", "type": "presence", "severity": "high", "category": "Term & Termination", "title": "Termination for any reason (without cause)", "finding": "One party can terminate the contract without cause or reason.", "why": "Without-cause termination is fine if mutual. If only ONE side has it, you have no security in the relationship and they can fire you at will.", "redline": "Check: is termination-for-convenience mutual? If not, request mutual rights, or specify a transition payment if terminated without cause.", "patterns": ["for any reason", "for any or no reason", "without cause", "at any time without"]}, {"id": "indemnify_any_breach", "type": "presence", "severity": "critical", "category": "Liability & Indemnification", "title": "Overly broad indemnification scope", "finding": "Indemnification language is extremely broad ('any breach', 'any and all claims').", "why": "Broad indemnification means you pay for the other party's legal costs and damages from a very wide range of issues, often much wider than your actual responsibility.", "redline": "Limit indemnification to specific events: (a) IP infringement, (b) breach of confidentiality, (c) gross negligence or wilful misconduct. Reject 'any breach'.", "patterns": ["indemnify .{0,100}for any breach", "indemnify .{0,80}arising out of any", "hold harmless from any and all"]}, {"id": "no_force_majeure", "type": "absence", "severity": "medium", "category": "Risk Allocation", "title": "No force majeure clause", "finding": "No force majeure clause found.", "why": "Without force majeure protection, you remain liable for non-performance even during pandemics, natural disasters, government actions, internet outages, or cyber attacks.", "redline": "Add a force majeure clause covering: natural disasters, pandemic/epidemic, government action, cyber attack, prolonged internet/utility outage. Excuse performance during these events.", "patterns": ["force majeure", "act of god", "events beyond", "circumstances beyond"]}, {"id": "auto_renewal", "type": "presence", "severity": "medium", "category": "Term & Termination", "title": "Auto-renewal clause detected", "finding": "The contract appears to auto-renew unless terminated.", "why": "Auto-renewal is fine if you remember to act before the deadline; it becomes a trap when you forget and find yourself locked in for another full term.", "redline": "Either: (a) require both-party affirmative renewal instead of auto-renewal, OR (b) ensure the notice period to prevent renewal is long enough (60+ days) and notify your team.", "patterns": ["automatically renew", "auto-renew", "shall automatically", "successive .{0,30}terms", "shall renew for successive", "shall be renewed for"]}, {"id": "modification_writing", "type": "absence", "severity": "medium", "category": "Contract Mechanics", "title": "No 'amendments in writing' requirement", "finding": "No clear requirement that amendments must be in writing and signed by both parties.", "why": "Without this, oral agreements or informal emails can be argued to modify the contract, creating disputes about what the deal actually is.", "redline": "Add: 'This Agreement may be amended only by a written instrument signed by authorised representatives of both parties.'", "patterns": ["in writing.{0,30}signed by both", "amended only", "modification.{0,40}writing", "amendments must be"]}, {"id": "assignment_unrestricted", "type": "absence", "severity": "medium", "category": "Contract Mechanics", "title": "No assignment restriction", "finding": "No clause restricting either party from assigning the contract.", "why": "Without restriction, your counterparty could be acquired by a competitor and your contract automatically transfers to them.", "redline": "Add: 'Neither party may assign this Agreement without the other party's prior written consent, except to a successor by merger or acquisition.'", "patterns": ["assignment", "shall not assign", "without consent", "transfer this agreement"]}, {"id": "nda_no_purpose", "type": "absence", "severity": "high", "category": "Scope of Disclosure", "title": "Purpose of disclosure not defined", "finding": "No specific 'Purpose' for disclosure has been defined.", "why": "Without a defined Purpose, the recipient can argue they are free to use your information for any related activity, including competing with you.", "redline": "Add: 'The Confidential Information shall be used solely for [specific purpose, e.g., evaluating a potential investment in / partnership with the Disclosing Party] and for no other purpose.'", "patterns": ["the Purpose", "for the Purpose", "permitted purpose", "evaluate", "evaluating"]}, {"id": "nda_no_return_destroy", "type": "absence", "severity": "high", "category": "End of Engagement", "title": "No return/destruction obligation", "finding": "No requirement to return or destroy confidential information when the engagement ends.", "why": "Without this, the recipient can keep your sensitive information indefinitely, even after the relationship ends.", "redline": "Add: 'Upon termination or written request, the Receiving Party shall promptly return or destroy all Confidential Information including copies, and certify such destruction in writing.'", "patterns": ["return or destroy", "return and destroy", "destroy all", "delete all copies", "destruction of"]}, {"id": "nda_no_survival", "type": "absence", "severity": "high", "category": "Duration", "title": "No survival period for confidentiality", "finding": "No clause specifying how long confidentiality obligations last after the NDA itself ends.", "why": "If obligations end when the NDA ends, your protection vanishes precisely when the recipient might want to use what they learned.", "redline": "Add: 'The confidentiality obligations shall survive termination for a period of [3-5] years, and indefinitely for trade secrets and personal data.'", "patterns": ["shall survive", "survives termination", "survival", "obligations shall continue", "shall remain in effect"]}, {"id": "nda_no_injunctive", "type": "absence", "severity": "medium", "category": "Remedies", "title": "No injunctive relief clause", "finding": "No provision for injunctive relief (court order to stop breach).", "why": "For confidentiality, damages after the fact are inadequate. An injunction lets you immediately stop further disclosure.", "redline": "Add: 'The parties acknowledge monetary damages may be inadequate. Each party may seek injunctive relief without proving actual damages or posting bond.'", "patterns": ["injunctive relief", "injunction", "equitable relief", "specific performance", "without proving"]}, {"id": "nda_one_way_check", "type": "presence", "severity": "medium", "category": "Mutuality", "title": "One-way NDA detected", "finding": "This appears to be a one-way NDA (only one party's information is protected).", "why": "One-way NDAs are fine if only one side is sharing sensitive info. But if you will be sharing anything in the discussion, your information has no protection.", "redline": "If you'll share anything sensitive (even informally), request mutual NDA. If you're sure you won't, confirm you're the Disclosing Party.", "patterns": ["one-way", "one way", "unilateral.{0,30}disclosure"]}], "msa": [{"id": "no_governing_law", "type": "absence", "severity": "high", "category": "Governing Law & Disputes", "title": "Governing law not specified", "finding": "The contract does not appear to specify a governing law.", "why": "Without governing law, disputes default to whichever forum a party first sues in. Result: forum-shopping, applicable rules unpredictable.", "redline": "Add a clause: 'This Agreement shall be governed by and construed in accordance with the laws of India.' (Or your preferred jurisdiction.)", "patterns": ["governing law", "governed by", "applicable law", "shall be governed", "laws of", "construed in accordance with"]}, {"id": "no_dispute_forum", "type": "absence", "severity": "high", "category": "Governing Law & Disputes", "title": "Dispute resolution forum not specified", "finding": "No specification of courts or arbitration for resolving disputes.", "why": "Even with governing law specified, you still need a forum. Without it, the suing party gets to choose, often a forum that disadvantages you.", "redline": "Add: 'Any dispute shall be subject to the exclusive jurisdiction of the courts at [your city]' OR specify arbitration seat and rules.", "patterns": ["jurisdiction of the courts", "subject to the exclusive", "courts of", "arbitration", "arbitrator", "submit to the jurisdiction"]}, {"id": "sole_discretion_overuse", "type": "presence_count", "severity": "high", "category": "One-Sided Power", "title": "Excessive 'sole discretion' clauses", "finding": "The phrase 'sole/absolute discretion' appears multiple times, suggesting the other party can make key decisions unilaterally.", "why": "'Sole discretion' clauses give one party unchecked power. The more they appear, the more arbitrary the contract becomes.", "redline": "Wherever you see 'sole discretion', try to replace with 'reasonable discretion' or 'acting in good faith'. For consequential decisions, require mutual consent.", "patterns": ["sole discretion", "absolute discretion"], "threshold": 3}, {"id": "perpetuity_clause", "type": "presence", "severity": "high", "category": "Term & Termination", "title": "Perpetual or irrevocable obligation found", "finding": "The contract uses 'perpetual', 'in perpetuity', or 'forever' language for one or more obligations.", "why": "Perpetual obligations bind you indefinitely. Especially dangerous for IP licences, confidentiality (unless for trade secrets), or service obligations.", "redline": "Identify which clause is perpetual and ask: does it need to be? Replace with a fixed term (e.g. 5-10 years) where possible.", "patterns": ["in perpetuity", "perpetual", "forever and irrevocably", "perpetual and irrevocable"]}, {"id": "as_is_basis", "type": "presence", "severity": "medium", "category": "Warranties & Disclaimers", "title": "'As is' disclaimer present", "finding": "The contract disclaims warranties using 'AS IS' or 'with all faults' language.", "why": "If you are the recipient (customer), this means no protection if the goods/services don't work. If you are the provider, this protects you, but is increasingly customer-unfriendly.", "redline": "Customer-side: push back. Replace with limited warranties (right to perform, performed in a workmanlike manner). Provider-side: keep, but consider softening to 'as available' with limited warranties.", "patterns": ["AS IS", "AS-IS", "as is basis", "with all faults"]}, {"id": "any_reason_termination", "type": "presence", "severity": "high", "category": "Term & Termination", "title": "Termination for any reason (without cause)", "finding": "One party can terminate the contract without cause or reason.", "why": "Without-cause termination is fine if mutual. If only ONE side has it, you have no security in the relationship and they can fire you at will.", "redline": "Check: is termination-for-convenience mutual? If not, request mutual rights, or specify a transition payment if terminated without cause.", "patterns": ["for any reason", "for any or no reason", "without cause", "at any time without"]}, {"id": "indemnify_any_breach", "type": "presence", "severity": "critical", "category": "Liability & Indemnification", "title": "Overly broad indemnification scope", "finding": "Indemnification language is extremely broad ('any breach', 'any and all claims').", "why": "Broad indemnification means you pay for the other party's legal costs and damages from a very wide range of issues, often much wider than your actual responsibility.", "redline": "Limit indemnification to specific events: (a) IP infringement, (b) breach of confidentiality, (c) gross negligence or wilful misconduct. Reject 'any breach'.", "patterns": ["indemnify .{0,100}for any breach", "indemnify .{0,80}arising out of any", "hold harmless from any and all"]}, {"id": "no_force_majeure", "type": "absence", "severity": "medium", "category": "Risk Allocation", "title": "No force majeure clause", "finding": "No force majeure clause found.", "why": "Without force majeure protection, you remain liable for non-performance even during pandemics, natural disasters, government actions, internet outages, or cyber attacks.", "redline": "Add a force majeure clause covering: natural disasters, pandemic/epidemic, government action, cyber attack, prolonged internet/utility outage. Excuse performance during these events.", "patterns": ["force majeure", "act of god", "events beyond", "circumstances beyond"]}, {"id": "auto_renewal", "type": "presence", "severity": "medium", "category": "Term & Termination", "title": "Auto-renewal clause detected", "finding": "The contract appears to auto-renew unless terminated.", "why": "Auto-renewal is fine if you remember to act before the deadline; it becomes a trap when you forget and find yourself locked in for another full term.", "redline": "Either: (a) require both-party affirmative renewal instead of auto-renewal, OR (b) ensure the notice period to prevent renewal is long enough (60+ days) and notify your team.", "patterns": ["automatically renew", "auto-renew", "shall automatically", "successive .{0,30}terms", "shall renew for successive", "shall be renewed for"]}, {"id": "modification_writing", "type": "absence", "severity": "medium", "category": "Contract Mechanics", "title": "No 'amendments in writing' requirement", "finding": "No clear requirement that amendments must be in writing and signed by both parties.", "why": "Without this, oral agreements or informal emails can be argued to modify the contract, creating disputes about what the deal actually is.", "redline": "Add: 'This Agreement may be amended only by a written instrument signed by authorised representatives of both parties.'", "patterns": ["in writing.{0,30}signed by both", "amended only", "modification.{0,40}writing", "amendments must be"]}, {"id": "assignment_unrestricted", "type": "absence", "severity": "medium", "category": "Contract Mechanics", "title": "No assignment restriction", "finding": "No clause restricting either party from assigning the contract.", "why": "Without restriction, your counterparty could be acquired by a competitor and your contract automatically transfers to them.", "redline": "Add: 'Neither party may assign this Agreement without the other party's prior written consent, except to a successor by merger or acquisition.'", "patterns": ["assignment", "shall not assign", "without consent", "transfer this agreement"]}, {"id": "msa_no_liability_cap", "type": "absence", "severity": "critical", "category": "Liability", "title": "No liability cap found", "finding": "No clause limiting total liability under the contract.", "why": "Uncapped liability is dangerous. A single dispute could expose you to damages many times the contract value, potentially company-ending for SMEs.", "redline": "Add: 'Each party's total aggregate liability shall not exceed the total Fees paid or payable in the twelve (12) months preceding the event giving rise to the claim.'", "patterns": ["liability shall not exceed", "aggregate liability", "total liability", "limited to .{0,30}fees", "cap on liability"]}, {"id": "msa_low_cap_detected", "type": "numeric_low_cap", "severity": "high", "category": "Liability", "title": "Liability cap may be too low", "finding": "A liability cap was found, but at a value below INR 1,00,000.", "why": "Very low liability caps protect the cap-setting party (often the provider) but leave the other party (customer) with no meaningful recourse.", "redline": "Industry standard is the GREATER OF: (a) total fees paid in the past 12 months, or (b) a fixed amount proportional to deal size (often 1-2x annual contract value).", "patterns": ["liability shall not exceed (?:INR |Rs\\.?\\s?|₹\\s?)?([\\d,]+)", "limited to (?:INR |Rs\\.?\\s?|₹\\s?)?([\\d,]+)"], "threshold_inr": 100000}, {"id": "msa_no_consequential_excl", "type": "absence", "severity": "critical", "category": "Liability", "title": "Consequential damages not excluded", "finding": "No exclusion of consequential, indirect, or special damages found.", "why": "Consequential damages (lost profits, lost data, business interruption) can be many multiples of the contract value. Excluding them is standard market practice.", "redline": "Add: 'Neither party shall be liable for indirect, incidental, special, consequential or punitive damages, including lost profits or lost data, regardless of theory of liability.'", "patterns": ["indirect", "consequential", "incidental", "special damages", "lost profits", "lost revenue", "lost data"]}, {"id": "msa_no_payment_terms", "type": "absence", "severity": "high", "category": "Payment", "title": "Payment terms unclear", "finding": "No specific payment terms (e.g., 'within 30 days', 'net 30') found.", "why": "Without specific payment terms, disputes about when payment is due become inevitable. 'Promptly' is not a payment term in law.", "redline": "Specify: 'Invoices shall be paid within thirty (30) days of receipt. Overdue amounts shall bear interest at 1.5% per month.'", "patterns": ["within \\d+ days", "net \\d+", "thirty days", "sixty days", "payable within", "payment due", "due date", "invoice.{0,80}days"]}, {"id": "msa_no_change_order", "type": "absence", "severity": "high", "category": "Scope", "title": "No change-order mechanism", "finding": "No procedure for handling scope changes found.", "why": "Without a change-order process, scope creep is inevitable. Customers demand 'just one more thing'; providers do it without getting paid.", "redline": "Add: 'Any modification to the Services or Fees shall be effective only upon a written Change Order signed by authorised representatives of both parties.'", "patterns": ["change order", "change request", "scope change", "additional services", "out of scope"]}, {"id": "msa_no_ip_clause", "type": "absence", "severity": "critical", "category": "Intellectual Property", "title": "No IP ownership clause", "finding": "No clause addressing intellectual property ownership found.", "why": "Without an IP clause, ownership of deliverables and pre-existing materials is determined by default copyright rules — which usually favour the creator, not the customer.", "redline": "Add clauses: (a) Each party retains its Background IP; (b) Foreground IP in deliverables assigned to [Customer/Provider as appropriate] on payment in full; (c) Provider retains rights to generic methodology.", "patterns": ["intellectual property", "IP rights", "Intellectual Property Rights", "copyright", "ownership of"]}, {"id": "msa_no_termination", "type": "absence", "severity": "high", "category": "Term & Termination", "title": "No termination clause", "finding": "No clear termination provisions found.", "why": "Without termination rights, exiting the contract becomes legally complex. Either party may be locked in or able to walk away depending on interpretation.", "redline": "Add both: (a) Termination for convenience on [60] days notice (mutual), (b) Termination for material breach uncured after 30 days notice.", "patterns": ["termination", "terminate this", "terminate the agreement", "expiry", "expiration"]}, {"id": "msa_no_warranties", "type": "absence", "severity": "medium", "category": "Warranties", "title": "No service warranties", "finding": "No service performance warranties found.", "why": "Without warranties, the customer has no contractual basis to insist on quality, and the provider has no defined standard to meet.", "redline": "Add: 'Provider warrants that Services will be performed in a professional and workmanlike manner consistent with industry standards.'", "patterns": ["warrants that", "warranty", "warranties", "workmanlike manner", "professional manner", "industry standards"]}, {"id": "msa_no_tax_clarity", "type": "absence", "severity": "medium", "category": "Payment", "title": "GST/tax treatment unclear", "finding": "No clear treatment of GST or applicable taxes.", "why": "If unclear, the provider may absorb 18% GST or the customer may face TDS disputes. For Indian transactions especially, this is a major source of disputes.", "redline": "Add: 'All Fees are exclusive of GST. Customer shall pay GST in addition to Fees. Customer may withhold TDS as required by law.'", "patterns": ["GST", "exclusive of tax", "inclusive of tax", "TDS", "tax deducted", "withholding", "applicable taxes"]}], "consultancy": [{"id": "no_governing_law", "type": "absence", "severity": "high", "category": "Governing Law & Disputes", "title": "Governing law not specified", "finding": "The contract does not appear to specify a governing law.", "why": "Without governing law, disputes default to whichever forum a party first sues in. Result: forum-shopping, applicable rules unpredictable.", "redline": "Add a clause: 'This Agreement shall be governed by and construed in accordance with the laws of India.' (Or your preferred jurisdiction.)", "patterns": ["governing law", "governed by", "applicable law", "shall be governed", "laws of", "construed in accordance with"]}, {"id": "no_dispute_forum", "type": "absence", "severity": "high", "category": "Governing Law & Disputes", "title": "Dispute resolution forum not specified", "finding": "No specification of courts or arbitration for resolving disputes.", "why": "Even with governing law specified, you still need a forum. Without it, the suing party gets to choose, often a forum that disadvantages you.", "redline": "Add: 'Any dispute shall be subject to the exclusive jurisdiction of the courts at [your city]' OR specify arbitration seat and rules.", "patterns": ["jurisdiction of the courts", "subject to the exclusive", "courts of", "arbitration", "arbitrator", "submit to the jurisdiction"]}, {"id": "sole_discretion_overuse", "type": "presence_count", "severity": "high", "category": "One-Sided Power", "title": "Excessive 'sole discretion' clauses", "finding": "The phrase 'sole/absolute discretion' appears multiple times, suggesting the other party can make key decisions unilaterally.", "why": "'Sole discretion' clauses give one party unchecked power. The more they appear, the more arbitrary the contract becomes.", "redline": "Wherever you see 'sole discretion', try to replace with 'reasonable discretion' or 'acting in good faith'. For consequential decisions, require mutual consent.", "patterns": ["sole discretion", "absolute discretion"], "threshold": 3}, {"id": "perpetuity_clause", "type": "presence", "severity": "high", "category": "Term & Termination", "title": "Perpetual or irrevocable obligation found", "finding": "The contract uses 'perpetual', 'in perpetuity', or 'forever' language for one or more obligations.", "why": "Perpetual obligations bind you indefinitely. Especially dangerous for IP licences, confidentiality (unless for trade secrets), or service obligations.", "redline": "Identify which clause is perpetual and ask: does it need to be? Replace with a fixed term (e.g. 5-10 years) where possible.", "patterns": ["in perpetuity", "perpetual", "forever and irrevocably", "perpetual and irrevocable"]}, {"id": "as_is_basis", "type": "presence", "severity": "medium", "category": "Warranties & Disclaimers", "title": "'As is' disclaimer present", "finding": "The contract disclaims warranties using 'AS IS' or 'with all faults' language.", "why": "If you are the recipient (customer), this means no protection if the goods/services don't work. If you are the provider, this protects you, but is increasingly customer-unfriendly.", "redline": "Customer-side: push back. Replace with limited warranties (right to perform, performed in a workmanlike manner). Provider-side: keep, but consider softening to 'as available' with limited warranties.", "patterns": ["AS IS", "AS-IS", "as is basis", "with all faults"]}, {"id": "any_reason_termination", "type": "presence", "severity": "high", "category": "Term & Termination", "title": "Termination for any reason (without cause)", "finding": "One party can terminate the contract without cause or reason.", "why": "Without-cause termination is fine if mutual. If only ONE side has it, you have no security in the relationship and they can fire you at will.", "redline": "Check: is termination-for-convenience mutual? If not, request mutual rights, or specify a transition payment if terminated without cause.", "patterns": ["for any reason", "for any or no reason", "without cause", "at any time without"]}, {"id": "indemnify_any_breach", "type": "presence", "severity": "critical", "category": "Liability & Indemnification", "title": "Overly broad indemnification scope", "finding": "Indemnification language is extremely broad ('any breach', 'any and all claims').", "why": "Broad indemnification means you pay for the other party's legal costs and damages from a very wide range of issues, often much wider than your actual responsibility.", "redline": "Limit indemnification to specific events: (a) IP infringement, (b) breach of confidentiality, (c) gross negligence or wilful misconduct. Reject 'any breach'.", "patterns": ["indemnify .{0,100}for any breach", "indemnify .{0,80}arising out of any", "hold harmless from any and all"]}, {"id": "no_force_majeure", "type": "absence", "severity": "medium", "category": "Risk Allocation", "title": "No force majeure clause", "finding": "No force majeure clause found.", "why": "Without force majeure protection, you remain liable for non-performance even during pandemics, natural disasters, government actions, internet outages, or cyber attacks.", "redline": "Add a force majeure clause covering: natural disasters, pandemic/epidemic, government action, cyber attack, prolonged internet/utility outage. Excuse performance during these events.", "patterns": ["force majeure", "act of god", "events beyond", "circumstances beyond"]}, {"id": "auto_renewal", "type": "presence", "severity": "medium", "category": "Term & Termination", "title": "Auto-renewal clause detected", "finding": "The contract appears to auto-renew unless terminated.", "why": "Auto-renewal is fine if you remember to act before the deadline; it becomes a trap when you forget and find yourself locked in for another full term.", "redline": "Either: (a) require both-party affirmative renewal instead of auto-renewal, OR (b) ensure the notice period to prevent renewal is long enough (60+ days) and notify your team.", "patterns": ["automatically renew", "auto-renew", "shall automatically", "successive .{0,30}terms", "shall renew for successive", "shall be renewed for"]}, {"id": "modification_writing", "type": "absence", "severity": "medium", "category": "Contract Mechanics", "title": "No 'amendments in writing' requirement", "finding": "No clear requirement that amendments must be in writing and signed by both parties.", "why": "Without this, oral agreements or informal emails can be argued to modify the contract, creating disputes about what the deal actually is.", "redline": "Add: 'This Agreement may be amended only by a written instrument signed by authorised representatives of both parties.'", "patterns": ["in writing.{0,30}signed by both", "amended only", "modification.{0,40}writing", "amendments must be"]}, {"id": "assignment_unrestricted", "type": "absence", "severity": "medium", "category": "Contract Mechanics", "title": "No assignment restriction", "finding": "No clause restricting either party from assigning the contract.", "why": "Without restriction, your counterparty could be acquired by a competitor and your contract automatically transfers to them.", "redline": "Add: 'Neither party may assign this Agreement without the other party's prior written consent, except to a successor by merger or acquisition.'", "patterns": ["assignment", "shall not assign", "without consent", "transfer this agreement"]}, {"id": "cons_no_ip_assignment", "type": "absence", "severity": "critical", "category": "Intellectual Property", "title": "No IP assignment from consultant", "finding": "No clear assignment of IP in deliverables from consultant to client.", "why": "Under Indian Copyright Act, copyright in commissioned work vests in the AUTHOR (the consultant) by default. Many clients assume they own what they pay for; without express assignment, they don't.", "redline": "Add: 'Consultant hereby assigns to Client, on receipt of payment in full, all right, title and interest in the Deliverables, including all copyright and IP rights worldwide.'", "patterns": ["assigns to.{0,40}Client", "transfers to.{0,40}Client", "Client.{0,30}shall own", "vest.{0,40}Client", "all rights.{0,60}Client"]}, {"id": "cons_no_indep_contractor", "type": "absence", "severity": "high", "category": "Engagement Status", "title": "Consultant status not clarified", "finding": "No clear statement that the consultant is an independent contractor (not an employee).", "why": "If the engagement looks like employment in substance, Indian courts and tax authorities can reclassify it, triggering employer obligations (PF, ESI, gratuity, notice pay) retroactively.", "redline": "Add: 'Consultant is engaged as an independent contractor. Nothing herein creates an employment, partnership, or agency relationship. Consultant is solely responsible for own taxes and statutory obligations.'", "patterns": ["independent contractor", "not an employee", "no employment relationship", "principal-to-principal"]}, {"id": "cons_exclusive_engagement", "type": "presence", "severity": "high", "category": "Engagement Status", "title": "Exclusivity requirement detected", "finding": "The contract requires the consultant to work exclusively for the client.", "why": "Exclusivity is a strong indicator of employment (not consultancy) in substance. Combined with other employment-like terms, this can trigger employee reclassification.", "redline": "Narrow exclusivity to direct competitors: 'Consultant may not work for [specific named competitors] during the engagement.' Allow other clients otherwise.", "patterns": ["exclusive engagement", "exclusively for", "shall not.{0,30}work for", "may not.{0,30}other clients", "full-time.{0,30}consultant"]}, {"id": "cons_no_revisions", "type": "absence", "severity": "medium", "category": "Scope", "title": "No revision-rounds mechanism", "finding": "No mechanism defining how many rounds of revisions are included.", "why": "Open-ended revisions are the most common cause of consultancy disputes. 'Just one small change' eight times kills the project economics.", "redline": "Add: 'Each deliverable includes [2-3] rounds of revisions. Additional revisions billed at INR [X] per hour or as agreed.'", "patterns": ["revisions", "rounds of feedback", "iterations", "rework", "modifications.{0,40}deliverable"]}], "employment": [{"id": "no_governing_law", "type": "absence", "severity": "high", "category": "Governing Law & Disputes", "title": "Governing law not specified", "finding": "The contract does not appear to specify a governing law.", "why": "Without governing law, disputes default to whichever forum a party first sues in. Result: forum-shopping, applicable rules unpredictable.", "redline": "Add a clause: 'This Agreement shall be governed by and construed in accordance with the laws of India.' (Or your preferred jurisdiction.)", "patterns": ["governing law", "governed by", "applicable law", "shall be governed", "laws of", "construed in accordance with"]}, {"id": "no_dispute_forum", "type": "absence", "severity": "high", "category": "Governing Law & Disputes", "title": "Dispute resolution forum not specified", "finding": "No specification of courts or arbitration for resolving disputes.", "why": "Even with governing law specified, you still need a forum. Without it, the suing party gets to choose, often a forum that disadvantages you.", "redline": "Add: 'Any dispute shall be subject to the exclusive jurisdiction of the courts at [your city]' OR specify arbitration seat and rules.", "patterns": ["jurisdiction of the courts", "subject to the exclusive", "courts of", "arbitration", "arbitrator", "submit to the jurisdiction"]}, {"id": "sole_discretion_overuse", "type": "presence_count", "severity": "high", "category": "One-Sided Power", "title": "Excessive 'sole discretion' clauses", "finding": "The phrase 'sole/absolute discretion' appears multiple times, suggesting the other party can make key decisions unilaterally.", "why": "'Sole discretion' clauses give one party unchecked power. The more they appear, the more arbitrary the contract becomes.", "redline": "Wherever you see 'sole discretion', try to replace with 'reasonable discretion' or 'acting in good faith'. For consequential decisions, require mutual consent.", "patterns": ["sole discretion", "absolute discretion"], "threshold": 3}, {"id": "perpetuity_clause", "type": "presence", "severity": "high", "category": "Term & Termination", "title": "Perpetual or irrevocable obligation found", "finding": "The contract uses 'perpetual', 'in perpetuity', or 'forever' language for one or more obligations.", "why": "Perpetual obligations bind you indefinitely. Especially dangerous for IP licences, confidentiality (unless for trade secrets), or service obligations.", "redline": "Identify which clause is perpetual and ask: does it need to be? Replace with a fixed term (e.g. 5-10 years) where possible.", "patterns": ["in perpetuity", "perpetual", "forever and irrevocably", "perpetual and irrevocable"]}, {"id": "as_is_basis", "type": "presence", "severity": "medium", "category": "Warranties & Disclaimers", "title": "'As is' disclaimer present", "finding": "The contract disclaims warranties using 'AS IS' or 'with all faults' language.", "why": "If you are the recipient (customer), this means no protection if the goods/services don't work. If you are the provider, this protects you, but is increasingly customer-unfriendly.", "redline": "Customer-side: push back. Replace with limited warranties (right to perform, performed in a workmanlike manner). Provider-side: keep, but consider softening to 'as available' with limited warranties.", "patterns": ["AS IS", "AS-IS", "as is basis", "with all faults"]}, {"id": "any_reason_termination", "type": "presence", "severity": "high", "category": "Term & Termination", "title": "Termination for any reason (without cause)", "finding": "One party can terminate the contract without cause or reason.", "why": "Without-cause termination is fine if mutual. If only ONE side has it, you have no security in the relationship and they can fire you at will.", "redline": "Check: is termination-for-convenience mutual? If not, request mutual rights, or specify a transition payment if terminated without cause.", "patterns": ["for any reason", "for any or no reason", "without cause", "at any time without"]}, {"id": "indemnify_any_breach", "type": "presence", "severity": "critical", "category": "Liability & Indemnification", "title": "Overly broad indemnification scope", "finding": "Indemnification language is extremely broad ('any breach', 'any and all claims').", "why": "Broad indemnification means you pay for the other party's legal costs and damages from a very wide range of issues, often much wider than your actual responsibility.", "redline": "Limit indemnification to specific events: (a) IP infringement, (b) breach of confidentiality, (c) gross negligence or wilful misconduct. Reject 'any breach'.", "patterns": ["indemnify .{0,100}for any breach", "indemnify .{0,80}arising out of any", "hold harmless from any and all"]}, {"id": "no_force_majeure", "type": "absence", "severity": "medium", "category": "Risk Allocation", "title": "No force majeure clause", "finding": "No force majeure clause found.", "why": "Without force majeure protection, you remain liable for non-performance even during pandemics, natural disasters, government actions, internet outages, or cyber attacks.", "redline": "Add a force majeure clause covering: natural disasters, pandemic/epidemic, government action, cyber attack, prolonged internet/utility outage. Excuse performance during these events.", "patterns": ["force majeure", "act of god", "events beyond", "circumstances beyond"]}, {"id": "auto_renewal", "type": "presence", "severity": "medium", "category": "Term & Termination", "title": "Auto-renewal clause detected", "finding": "The contract appears to auto-renew unless terminated.", "why": "Auto-renewal is fine if you remember to act before the deadline; it becomes a trap when you forget and find yourself locked in for another full term.", "redline": "Either: (a) require both-party affirmative renewal instead of auto-renewal, OR (b) ensure the notice period to prevent renewal is long enough (60+ days) and notify your team.", "patterns": ["automatically renew", "auto-renew", "shall automatically", "successive .{0,30}terms", "shall renew for successive", "shall be renewed for"]}, {"id": "modification_writing", "type": "absence", "severity": "medium", "category": "Contract Mechanics", "title": "No 'amendments in writing' requirement", "finding": "No clear requirement that amendments must be in writing and signed by both parties.", "why": "Without this, oral agreements or informal emails can be argued to modify the contract, creating disputes about what the deal actually is.", "redline": "Add: 'This Agreement may be amended only by a written instrument signed by authorised representatives of both parties.'", "patterns": ["in writing.{0,30}signed by both", "amended only", "modification.{0,40}writing", "amendments must be"]}, {"id": "assignment_unrestricted", "type": "absence", "severity": "medium", "category": "Contract Mechanics", "title": "No assignment restriction", "finding": "No clause restricting either party from assigning the contract.", "why": "Without restriction, your counterparty could be acquired by a competitor and your contract automatically transfers to them.", "redline": "Add: 'Neither party may assign this Agreement without the other party's prior written consent, except to a successor by merger or acquisition.'", "patterns": ["assignment", "shall not assign", "without consent", "transfer this agreement"]}, {"id": "emp_post_term_noncompete", "type": "presence", "severity": "high", "category": "Restrictive Covenants", "title": "Post-employment non-compete (likely unenforceable in India)", "finding": "A post-termination non-compete clause was detected.", "why": "Section 27 of the Indian Contract Act 1872 voids any agreement that restrains a person from exercising a lawful profession, trade or business. Post-employment non-competes are GENERALLY UNENFORCEABLE in India.", "redline": "Replace with: (a) Garden leave (employee paid full salary but not required to work), (b) Non-solicitation of specific named customers/employees for 12 months, (c) Confidentiality (which IS enforceable).", "patterns": ["non-compete.{0,200}after.{0,40}(?:termination|cessation|employment)", "shall not.{0,150}compete.{0,80}for.{0,30}(\\d+)", "post-termination non-compete"]}, {"id": "emp_no_posh", "type": "absence", "severity": "critical", "category": "Statutory Compliance", "title": "No reference to PoSH policy", "finding": "No reference to the Sexual Harassment of Women at Workplace Act 2013 or PoSH policy/Internal Committee.", "why": "PoSH compliance is MANDATORY in India for any establishment with 10+ employees. Non-compliance triggers penalties up to INR 50,000 plus risk of cancellation of registrations.", "redline": "Add: 'Employee acknowledges receipt of Company's PoSH Policy and the contact details of the Internal Complaints Committee constituted under the Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013.'", "patterns": ["POSH", "sexual harassment", "Internal Committee", "Internal Complaints Committee", "ICC", "prevention of sexual harassment"]}, {"id": "emp_no_pf_esi", "type": "absence", "severity": "high", "category": "Statutory Compliance", "title": "No mention of PF/ESI", "finding": "No reference to Provident Fund or Employees' State Insurance.", "why": "PF is mandatory for establishments with 20+ employees; ESI for employees earning under INR 21,000/month. Silence in the contract doesn't excuse non-compliance, but creates ambiguity.", "redline": "Add: 'Employee shall be enrolled in PF and ESI as per applicable statutory thresholds and contribution rates.'", "patterns": ["Provident Fund", " PF ", "EPF", "Employees.{0,15}Provident", "ESI", "Employees.{0,15}State Insurance"]}, {"id": "emp_no_gratuity", "type": "absence", "severity": "medium", "category": "Statutory Compliance", "title": "No gratuity provision", "finding": "No reference to gratuity entitlement under the Payment of Gratuity Act 1972.", "why": "Gratuity vests after 5 years of continuous service and is mandatory by law. Contracts cannot exclude it.", "redline": "Add: 'Employee shall be entitled to gratuity as per the Payment of Gratuity Act, 1972, payable on completion of 5 years of continuous service.'", "patterns": ["gratuity", "Payment of Gratuity Act", "Gratuity Act 1972"]}, {"id": "emp_asymmetric_notice", "type": "asymmetric_notice", "severity": "high", "category": "Termination", "title": "Asymmetric notice period (possibly)", "finding": "The notice periods for employer-termination and employee-resignation appear to differ.", "why": "Asymmetric notice (employee must give 90 days but employer can terminate with 30 days) is one-sided and often unenforceable in any case. Employment standards require equal notice or significant severance.", "redline": "Make notice periods mutual: '[X] days notice, OR salary in lieu, on either side.'"}, {"id": "emp_no_ip_assignment", "type": "absence", "severity": "critical", "category": "Intellectual Property", "title": "No IP assignment clause", "finding": "No clear assignment of work-related IP from employee to employer.", "why": "Under Indian Copyright Act, copyright in original work vests in the AUTHOR (the employee) by default. Without express assignment, the company may not own what the employee creates on the job.", "redline": "Add: 'Employee hereby assigns to Company all right, title and interest in any IP created by Employee in the course of, or in connection with, employment, including all copyright, patent, and other IP rights worldwide.'", "patterns": ["assigns to.{0,40}(?:Company|Employer)", "assignment of IP", "Company.{0,30}shall own", "Employer.{0,30}shall own", "all rights.{0,60}vest"]}]};
+
+/* =================== Shared engine =================== */
+const LEAD_ENDPOINT = "https://script.google.com/macros/s/AKfycbz4pRHX1hVl-VmQOw5Tob9pjJL5eY3Q-ZV7OMK-A22mR9bChjAN8WODq7IGTdOGIbY/exec";
+let _pendingExport = null;
+
+const $ = id => document.getElementById(id);
+
+function ordn(n){const s=["th","st","nd","rd"],x=n%100;return n+(s[(x-20)%10]||s[x]||s[0]);}
+function fmtDate(iso){
+  if(!iso) return "[\u2022], 20[\u2022]";
+  const d=new Date(iso+"T00:00:00");
+  const m=["January","February","March","April","May","June","July","August","September","October","November","December"];
+  return ordn(d.getDate())+" day of "+m[d.getMonth()]+" "+d.getFullYear();
+}
+function v(id){const el=$(id);return el?el.value.trim():"";}
+function chk(id){const el=$(id);return el?el.checked:false;}
+function or(val, ph){return val ? val : '<span style="color:#b89;font-style:italic">'+ph+'</span>';}
+function money(code, amt){return code+" "+Number(amt||0).toLocaleString("en-US");}
+
+/* doc render wrapper, call render() to refresh */
+function _renderAll(){
+  $("doc").innerHTML = doc();
+}
+function render(){ _renderAll(); }
+
+/* logo upload removed, no-op kept so init calls stay safe */
+function _wireLogo(){}
+
+/* lead modal */
+function _openLead(which){
+  _pendingExport = which;
+  $("leadErr").classList.remove("show");
+  $("leadModal").classList.add("show");
+  document.body.style.overflow="hidden";
+}
+function _closeLead(){
+  $("leadModal").classList.remove("show");
+  document.body.style.overflow="";
+  _pendingExport = null;
+}
+function _wireModal(){
+  $("leadClose").addEventListener("click", _closeLead);
+  $("leadCancel").addEventListener("click", _closeLead);
+  $("leadModal").querySelector(".modal-bg").addEventListener("click", _closeLead);
+  document.addEventListener("keydown", e=>{ if(e.key==="Escape" && $("leadModal").classList.contains("show")) _closeLead(); });
+  $("leadForm").addEventListener("submit", async e=>{
+    e.preventDefault();
+    const fd = new FormData($("leadForm"));
+    const need = ["name","email","phone","designation","org","industry","dpConsent"];
+    for(const k of need){
+      if(!fd.get(k)){ $("leadErr").textContent="Please complete all required fields."; $("leadErr").classList.add("show"); return; }
+    }
+    const email = fd.get("email");
+    if(!/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(email)){ $("leadErr").textContent="Please enter a valid email address (e.g. name@company.com)."; $("leadErr").classList.add("show"); return; }
+    const phoneRaw = fd.get("phone");
+    const phoneDigits = (phoneRaw.match(/\d/g)||[]).length;
+    if(!/^[+]?[\d\s\-()]+$/.test(phoneRaw) || phoneDigits < 8 || phoneDigits > 15){ $("leadErr").textContent="Please enter a valid phone number with country code (8\u201315 digits)."; $("leadErr").classList.add("show"); return; }
+    $("leadErr").classList.remove("show");
+    fd.append("tool", document.title);
+    fd.append("ts", new Date().toISOString());
+    if(LEAD_ENDPOINT && LEAD_ENDPOINT.indexOf("http")===0){
+      try{ await fetch(LEAD_ENDPOINT, {method:"POST", mode:"no-cors", body:fd}); }catch(err){}
+    }
+    const which = _pendingExport;
+    _closeLead();
+    if(which==="word") _exportWord();
+    else if(which==="pdf") window.print();
+  });
+}
+
+/* word export */
+function _exportWord(){
+  const styles = "@page{size:A4;margin:2.2cm}"
+    +"body{font-family:'Cambria',Georgia,serif;font-size:11.5pt;line-height:1.5;color:#000}"
+    +"h1{font-size:16pt;text-align:center;text-transform:uppercase;letter-spacing:1px;margin:0 0 4pt}"
+    +".sub{text-align:center;font-style:italic;font-size:10pt;color:#444;margin-bottom:16pt}"
+    +"h2{font-size:13pt;text-align:center;text-transform:uppercase;margin:18pt 0 8pt}"
+    +"h3{font-size:11.5pt;text-transform:uppercase;letter-spacing:.5px;margin:12pt 0 4pt}"
+    +"p{text-align:justify;margin:0 0 8pt}.recital{margin-bottom:6pt}"
+    +".sched{margin-top:18pt;border-top:1pt solid #999;padding-top:10pt}"
+    +".stamp-note{font-style:italic;font-size:9.5pt;color:#555;border-top:1pt dashed #999;margin-top:12pt;padding-top:8pt}"
+    +".sig{margin-top:26pt}.sig .block{margin-bottom:20pt}.sig .line{border-bottom:1pt solid #000;height:22pt;margin-bottom:3pt;width:55%}"
+    +".doc-header{text-align:right;border-bottom:1pt solid #999;padding-bottom:8pt;margin-bottom:16pt}.doc-header img{max-height:46pt}";
+  const html = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>"
+    +"<head><meta charset='utf-8'><title>"+document.title+"</title>"
+    +"<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml><![endif]-->"
+    +"<style>"+styles+"</style></head><body>"+$("doc").innerHTML+"</body></html>";
+  const blob = new Blob(["\ufeff"+html], {type:"application/msword"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "Contract_Risk_Review_" + (S.type ? S.type.toUpperCase() : "BLANK") + ".doc";
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function _wireExport(){
+  $("wordBtn").addEventListener("click", ()=>_openLead("word"));
+  $("printBtn").addEventListener("click", ()=>_openLead("pdf"));
+}
+
+/* copy protection on the preview (export still works) */
+/* RENDER_SAFETY_NET: belt-and-braces initial render to handle any partial init failure */
+try {
+  if (typeof window !== "undefined" && typeof window.addEventListener === "function") {
+    window.addEventListener("load", function(){
+      try { if (typeof render === "function") render(); } catch(e) { /* swallow */ }
+    });
+  }
+} catch(_){}
+function _wireProtect(){
+  const d = $("doc");
+  if(!d) return;
+  ["copy","cut","contextmenu","dragstart"].forEach(ev=>{
+    d.addEventListener(ev, e=>{ e.preventDefault(); return false; });
+  });
+  d.addEventListener("selectstart", e=>{ e.preventDefault(); return false; });
+}
+
+
+const S = {
+  mode: 'checklist',   // 'checklist' or 'scanner'
+  type: null,          // selected contract type
+  answers: {},         // checklist answers
+  scanText: '',        // scanner input text
+  scanFlags: []        // scanner output flags
+};
+
+function setMode(m){
+  S.mode = m;
+  renderForm();
+  renderReport();
+}
+
+function pickType(t){
+  S.type = t;
+  if(S.mode === 'checklist'){
+    S.answers = {};
+  } else {
+    S.scanFlags = [];
+  }
+  renderForm();
+  renderReport();
+}
+
+function answer(itemId, val){
+  S.answers[itemId] = val;
+  renderForm();
+  renderReport();
+}
+
+function renderModeTabs(){
+  return '<div class="mode-tabs">' +
+    '<button type="button" class="mode-tab' + (S.mode==='checklist'?' on':'') + '" onclick="setMode(\'checklist\')">' +
+      '<span class="mt-title">Guided Checklist</span>' +
+      '<span class="mt-sub">Walk through structured questions, no contract draft needed</span>' +
+    '</button>' +
+    '<button type="button" class="mode-tab' + (S.mode==='scanner'?' on':'') + '" onclick="setMode(\'scanner\')">' +
+      '<span class="mt-title">Smart Scanner</span>' +
+      '<span class="mt-sub">Paste your contract text, get instant risk flags</span>' +
+    '</button>' +
+  '</div>';
+}
+
+function renderTypePicker(stepLabel){
+  var html = '<h2 class="sec">' + stepLabel + '</h2>';
+  html += '<div class="contract-picker">';
+  Object.keys(CL).forEach(function(k){
+    var c = CL[k];
+    var on = (S.type === k) ? ' on' : '';
+    html += '<button class="contract-pick' + on + '" type="button" onclick="pickType(\'' + k + '\')">';
+    html += '<div class="cp-icon">' + c.icon + '</div>';
+    html += '<div class="cp-name">' + c.name + '</div>';
+    html += '</button>';
+  });
+  html += '</div>';
+  return html;
+}
+
+function renderChecklistMode(){
+  var html = renderModeTabs();
+  html += renderTypePicker('Step 1, Pick the contract type');
+  if(!S.type) return html;
+
+  var c = CL[S.type];
+  html += '<h2 class="sec">Step 2, Walk through the checklist</h2>';
+  html += '<p class="hint" style="margin-bottom:14px;font-size:12.5px;line-height:1.5">' + c.intro + '</p>';
+
+  // Progress
+  var total = 0;
+  c.categories.forEach(function(cat){ total += cat.items.length; });
+  var done = Object.keys(S.answers).length;
+  var pct = total === 0 ? 0 : Math.round((done / total) * 100);
+  html += '<div class="progress"><div class="progress-bar"><div class="progress-fill" style="width:' + pct + '%"></div></div><div class="progress-text">' + done + ' / ' + total + ' answered</div></div>';
+
+  c.categories.forEach(function(cat){
+    html += '<div class="cl-cat">';
+    html += '<div class="cl-cat-head">';
+    html += '<div class="cl-cat-title">' + cat.title + '</div>';
+    html += '<div class="cl-cat-intro">' + cat.intro + '</div>';
+    html += '</div>';
+    cat.items.forEach(function(it){
+      var ans = S.answers[it.id];
+      var itemCls = '';
+      if(ans === 'flag') itemCls = ' flagged';
+      else if(ans === 'miss') itemCls = ' critical';
+      html += '<div class="cl-item' + itemCls + '">';
+      html += '<div class="cl-q">' + it.q + '</div>';
+      html += '<div class="cl-why"><b>Why it matters:</b> ' + it.why + '</div>';
+      html += '<div class="cl-actions">';
+      html += '<button type="button" class="cl-btn' + (ans === 'ok' ? ' on-ok' : '') + '" onclick="answer(\'' + it.id + '\',\'ok\')">Looks fine</button>';
+      html += '<button type="button" class="cl-btn' + (ans === 'flag' ? ' on-flag' : '') + '" onclick="answer(\'' + it.id + '\',\'flag\')">Concerning</button>';
+      html += '<button type="button" class="cl-btn' + (ans === 'miss' ? ' on-miss' : '') + '" onclick="answer(\'' + it.id + '\',\'miss\')">Missing</button>';
+      html += '<button type="button" class="cl-btn' + (ans === 'dk' ? ' on-dk' : '') + '" onclick="answer(\'' + it.id + '\',\'dk\')">Don\'t know</button>';
+      html += '</div>';
+      html += '</div>';
+    });
+    html += '</div>';
+  });
+  return html;
+}
+
+function renderScannerMode(){
+  var html = renderModeTabs();
+  html += renderTypePicker('Step 1, Pick the contract type');
+  if(!S.type) return html;
+
+  html += '<h2 class="sec">Step 2, Paste your contract text</h2>';
+  html += '<p class="hint" style="margin-bottom:10px;font-size:12.5px;line-height:1.5">Copy the full text of your contract and paste it below. The scanner will check it against known risk patterns and produce a risk report on the right.</p>';
+  html += '<textarea id="scanText" class="scan-textarea" placeholder="Paste your contract text here..." oninput="onScanInput(event)">' + escapeHtml(S.scanText) + '</textarea>';
+
+  var wc = S.scanText.trim() ? S.scanText.trim().split(/\s+/).length : 0;
+  html += '<div class="scan-meta"><span><b>' + wc + '</b> words, <b>' + S.scanText.length + '</b> characters</span>';
+  if(S.scanText.length > 0) html += '<button class="scan-clear" type="button" onclick="clearScan()">Clear text</button>';
+  html += '</div>';
+
+  html += '<div class="scan-actions">';
+  html += '<button class="scan-btn" type="button" onclick="runScan()"' + (wc < 50 ? ' disabled' : '') + '>Scan for risks</button>';
+  if(wc < 50) html += '<span style="font-size:12px;color:var(--ink-soft)">Paste at least 50 words to enable scanning</span>';
+  html += '</div>';
+
+  html += '<div class="scan-disclaimer">';
+  html += '<b>Important:</b> This automated scanner checks your contract against approximately 200 known risk patterns. It is not full AI legal analysis and may miss subtle or novel issues. Use it as a first pass, then have a qualified lawyer review before signing.';
+  html += '</div>';
+
+  return html;
+}
+
+function escapeHtml(s){
+  return String(s||'').replace(/[&<>"']/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+
+function onScanInput(e){
+  S.scanText = e.target.value;
+  // Re-render just the meta line, not the whole form, to avoid losing focus
+  var wcEl = document.querySelector('.scan-meta');
+  if(wcEl){
+    var wc = S.scanText.trim() ? S.scanText.trim().split(/\s+/).length : 0;
+    wcEl.innerHTML = '<span><b>' + wc + '</b> words, <b>' + S.scanText.length + '</b> characters</span>' +
+      (S.scanText.length > 0 ? '<button class="scan-clear" type="button" onclick="clearScan()">Clear text</button>' : '');
+    var btn = document.querySelector('.scan-btn');
+    if(btn) btn.disabled = wc < 50;
+  }
+}
+
+function clearScan(){
+  S.scanText = '';
+  S.scanFlags = [];
+  renderForm();
+  renderReport();
+}
+
+// THE CORE SCANNER ENGINE
+function runScan(){
+  if(!S.type){ return; }
+  var text = S.scanText;
+  if(!text || text.trim().split(/\s+/).length < 50){ return; }
+
+  var rules = RULES[S.type] || [];
+  var flags = [];
+
+  rules.forEach(function(rule){
+    var result = applyRule(rule, text);
+    if(result){
+      flags.push(Object.assign({}, rule, result));
+    }
+  });
+
+  S.scanFlags = flags;
+  renderReport();
+  // Scroll the preview into view on mobile (guard for environments without scrollIntoView)
+  var doc = document.getElementById('doc');
+  if(doc && typeof doc.scrollIntoView === 'function') doc.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function applyRule(rule, text){
+  var lower = text.toLowerCase();
+
+  if(rule.type === 'presence'){
+    for(var i=0;i<rule.patterns.length;i++){
+      var p = rule.patterns[i];
+      var re = new RegExp(p, 'i');
+      var m = text.match(re);
+      if(m){
+        return { matched: true, evidence: trimEvidence(text, m.index) };
+      }
+    }
+    return null;
+  }
+
+  if(rule.type === 'absence'){
+    var anyFound = rule.patterns.some(function(p){
+      return new RegExp(p, 'i').test(text);
+    });
+    if(!anyFound){
+      return { matched: true, evidence: null };
+    }
+    return null;
+  }
+
+  if(rule.type === 'presence_count'){
+    var count = 0;
+    rule.patterns.forEach(function(p){
+      var re = new RegExp(p, 'gi');
+      var matches = text.match(re);
+      if(matches) count += matches.length;
+    });
+    if(count >= (rule.threshold || 1)){
+      return { matched: true, evidence: 'Found ' + count + ' occurrences', count: count };
+    }
+    return null;
+  }
+
+  if(rule.type === 'numeric_low_cap'){
+    for(var j=0;j<rule.patterns.length;j++){
+      var re2 = new RegExp(rule.patterns[j], 'i');
+      var m2 = text.match(re2);
+      if(m2 && m2[1]){
+        var num = parseInt(m2[1].replace(/,/g, ''), 10);
+        if(!isNaN(num) && num < (rule.threshold_inr || 100000)){
+          return { matched: true, evidence: 'Detected cap of INR ' + num.toLocaleString('en-IN') };
+        }
+      }
+    }
+    return null;
+  }
+
+  if(rule.type === 'asymmetric_notice'){
+    // Detect "X days notice" by employer vs Y days by employee
+    var noticeMatches = text.match(/(\d+)\s*(?:days?|months?)\s*(?:'?\s*)?(?:prior\s*)?(?:written\s*)?notice/gi) || [];
+    if(noticeMatches.length >= 2){
+      var nums = noticeMatches.map(function(s){ var m = s.match(/(\d+)/); return m ? parseInt(m[1],10) : 0; }).filter(function(n){return n>0;});
+      var unique = nums.filter(function(v,i,a){return a.indexOf(v)===i;});
+      if(unique.length >= 2){
+        return { matched: true, evidence: 'Notice periods found: ' + unique.join(', ') + ' days/months' };
+      }
+    }
+    return null;
+  }
+
+  return null;
+}
+
+function trimEvidence(text, idx){
+  // Return ~80 chars of context around the match
+  var start = Math.max(0, idx - 30);
+  var end = Math.min(text.length, idx + 100);
+  var snip = text.substring(start, end).replace(/\s+/g, ' ').trim();
+  return (start > 0 ? '...' : '') + snip + (end < text.length ? '...' : '');
+}
+
+function renderForm(){
+  var html;
+  if(S.mode === 'scanner') html = renderScannerMode();
+  else html = renderChecklistMode();
+  document.getElementById('formArea').innerHTML = html;
+}
+
+// REPORT GENERATION — handles both modes
+function getFlagsFromChecklist(){
+  if(!S.type) return [];
+  var flags = [];
+  CL[S.type].categories.forEach(function(cat){
+    cat.items.forEach(function(it){
+      var a = S.answers[it.id];
+      if(a === 'flag' || a === 'miss' || a === 'dk'){
+        flags.push({
+          title: it.q,
+          why: it.why,
+          redline: it.redline,
+          category: cat.title,
+          severity: a === 'miss' ? 'critical' : (a === 'dk' ? 'medium' : it.severity),
+          evidence: null
+        });
+      }
+    });
+  });
+  return flags;
+}
+
+function getFlagsFromScanner(){
+  return (S.scanFlags || []).map(function(f){
+    return {
+      title: f.title,
+      why: f.why,
+      redline: f.redline,
+      category: f.category,
+      severity: f.severity,
+      evidence: f.evidence,
+      finding: f.finding
+    };
+  });
+}
+
+function renderReport(){
+  var el = document.getElementById('doc');
+  if(!S.type){
+    el.innerHTML = '<div class="cl-empty"><h3>Your contract risk report will appear here</h3><p>Pick a contract type on the left, choose your mode (checklist or scanner), and the report builds itself as you go.</p></div>';
+    return;
+  }
+  var c = CL[S.type];
+  var flags = S.mode === 'scanner' ? getFlagsFromScanner() : getFlagsFromChecklist();
+  var crit = flags.filter(function(f){return f.severity === 'critical';}).length;
+  var high = flags.filter(function(f){return f.severity === 'high';}).length;
+  var med = flags.filter(function(f){return f.severity === 'medium';}).length;
+
+  var html = '<h1>Contract Risk Review</h1>';
+  html += '<div class="sub">' + c.name + ' &middot; ' + (S.mode === 'scanner' ? 'Smart Scanner' : 'Guided Checklist') + ' &middot; ' + new Date().toLocaleDateString('en-IN', {day:'numeric', month:'long', year:'numeric'}) + '</div>';
+
+  html += '<h2>Executive Summary</h2>';
+  html += '<div class="summary">';
+  html += '<div class="stat crit"><span class="n">' + crit + '</span><span class="l">Critical</span></div>';
+  html += '<div class="stat high"><span class="n">' + high + '</span><span class="l">High</span></div>';
+  html += '<div class="stat med"><span class="n">' + med + '</span><span class="l">Medium</span></div>';
+  html += '<div class="stat ok"><span class="n">' + flags.length + '</span><span class="l">Total flags</span></div>';
+  html += '</div>';
+
+  if(S.mode === 'scanner'){
+    if(S.scanFlags.length === 0 && S.scanText.length === 0){
+      html += '<p>Paste your contract text on the left and click <b>Scan for risks</b>. The scanner checks against ' + (RULES[S.type] ? RULES[S.type].length : 0) + ' known risk patterns for ' + c.name + '.</p>';
+    } else if(S.scanFlags.length === 0){
+      html += '<div class="none">No risks were flagged by the automated scanner. This does not mean the contract is risk-free, only that the patterns the scanner knows about were not detected. A qualified lawyer\'s review is still recommended.</div>';
+    } else {
+      html += '<p>The scanner identified <b>' + flags.length + ' risk' + (flags.length === 1 ? '' : 's') + '</b> in your ' + c.name + '. Critical and high-severity items are listed first.</p>';
+    }
+  } else {
+    var total = 0;
+    c.categories.forEach(function(cat){ total += cat.items.length; });
+    var done = Object.keys(S.answers).length;
+    html += '<p>You have completed <b>' + done + ' of ' + total + '</b> checks.';
+    if(done < total) html += ' Complete the remaining checks for a fuller picture.';
+    if(flags.length === 0 && done > 0) html += ' No risks have been flagged so far.';
+    else if(flags.length > 0) html += ' <b>' + flags.length + ' risk' + (flags.length === 1 ? '' : 's') + '</b> identified.';
+    html += '</p>';
+  }
+
+  if(flags.length > 0){
+    html += '<h2>Risk Register</h2>';
+    // Group by category
+    var byCat = {};
+    var catOrder = [];
+    flags.forEach(function(f){
+      if(!byCat[f.category]){ byCat[f.category] = []; catOrder.push(f.category); }
+      byCat[f.category].push(f);
+    });
+    // Within each category, sort by severity
+    var sevRank = { critical: 0, high: 1, medium: 2 };
+    catOrder.forEach(function(cn){
+      byCat[cn].sort(function(a,b){return (sevRank[a.severity]||9) - (sevRank[b.severity]||9);});
+      html += '<h3>' + cn + '</h3>';
+      byCat[cn].forEach(function(f){
+        html += '<div class="risk ' + f.severity + '">';
+        html += '<span class="risk-tag">' + f.severity + ' risk</span>';
+        html += '<div class="risk-q">' + (S.mode === 'scanner' ? f.title : f.title.replace(/\?$/, '')) + '</div>';
+        if(f.finding) html += '<div class="risk-why"><b>Finding:</b> ' + f.finding + '</div>';
+        html += '<div class="risk-why"><b>Why it matters:</b> ' + f.why + '</div>';
+        html += '<div class="risk-redline"><b>Suggested redline:</b>' + f.redline + '</div>';
+        if(f.evidence) html += '<div class="risk-evidence">"' + escapeHtml(f.evidence) + '"</div>';
+        html += '</div>';
+      });
+    });
+
+    // Top 3 priorities
+    var priorities = flags.filter(function(f){return f.severity === 'critical';})
+      .concat(flags.filter(function(f){return f.severity === 'high';}))
+      .slice(0, 3);
+    if(priorities.length > 0){
+      html += '<h2>Recommended Negotiation Priorities</h2>';
+      html += '<div class="priorities">';
+      html += '<p style="font-size:12.5px;margin-bottom:0">If you can only push back on three things, push back on these:</p>';
+      html += '<ol>';
+      priorities.forEach(function(p){
+        html += '<li>' + p.title.replace(/\?$/, '') + '</li>';
+      });
+      html += '</ol></div>';
+    }
+  }
+
+  html += '<div class="cta">';
+  html += '<h3>Want a lawyer to negotiate these for you?</h3>';
+  html += '<p>Verbatra is built and run by a corporate lawyer. We can review the contract end-to-end, draft the redlines, and negotiate directly with the other side, at a fraction of the cost of your own counsel.</p>';
+  html += '<a href="/#contact">Talk to us &rarr;</a>';
+  html += '</div>';
+
+  if(S.mode === 'scanner'){
+    html += '<div class="scanner-note">This report was generated by Verbatra\'s automated scanner against approximately ' + (RULES[S.type] ? RULES[S.type].length : 0) + ' known risk patterns for ' + c.name + '. The scanner is a first-pass tool and may miss novel or subtly-phrased risks. Always have a qualified lawyer review the contract before signing.</div>';
+  }
+
+  el.innerHTML = html;
+}
+
+// Init
+_wireModal();
+_wireExport();
+_wireProtect();
+renderForm();
+renderReport();
+
+</script>
+</body>
+</html>
