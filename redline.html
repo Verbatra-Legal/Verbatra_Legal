@@ -103,7 +103,168 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 
 </style>
 <style>
-/* Mode switch tabs */
+/* === FULL-WIDTH SINGLE-COLUMN LAYOUT (overrides default two-panel) === */
+.redline-shell{max-width:780px;margin:0 auto;padding:28px 22px 80px}
+@media (max-width:880px){.redline-shell{padding:18px 14px 60px}}
+.redline-form{display:block}
+
+/* === FULLSCREEN REPORT MODAL === */
+.report-modal{position:fixed;inset:0;z-index:1000;background:rgba(26,26,23,.55);display:none;opacity:0;transition:opacity .22s ease-out}
+.report-modal.open{display:block;opacity:1}
+.report-modal .report-bar{position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;padding:14px 28px;background:linear-gradient(180deg,#1f3d30,#15291f);color:#f4efe4;box-shadow:0 4px 16px -4px rgba(0,0,0,.35);z-index:2;border-bottom:1px solid rgba(244,239,228,.12)}
+.report-bar-left{display:flex;align-items:center;gap:18px;min-width:0;flex:1}
+.report-logo{font-family:'Fraunces',serif;font-weight:500;font-size:20px;letter-spacing:-.01em;color:#f4efe4}
+.report-logo .dot{color:#a8843f}
+.report-bar-title{font-size:13px;color:#d9d2c0;letter-spacing:.04em;text-transform:uppercase;font-weight:600;border-left:1px solid rgba(244,239,228,.18);padding-left:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:680px){.report-bar-title{display:none}}
+.report-bar-right{display:flex;align-items:center;gap:8px;flex:none}
+.report-action{display:inline-flex;align-items:center;gap:6px;font-family:inherit;font-size:13px;font-weight:600;background:rgba(244,239,228,.1);color:#f4efe4;border:1px solid rgba(244,239,228,.2);border-radius:8px;padding:8px 14px;cursor:pointer;transition:.15s}
+.report-action:hover{background:rgba(244,239,228,.18);border-color:rgba(244,239,228,.35)}
+.report-action svg{width:15px;height:15px}
+@media (max-width:560px){.report-action{padding:7px 10px;font-size:12px}.report-action svg{width:13px;height:13px}}
+.report-close{width:36px;height:36px;background:transparent;color:#f4efe4;border:1px solid rgba(244,239,228,.2);border-radius:8px;font-size:22px;font-family:inherit;line-height:1;cursor:pointer;transition:.15s;display:flex;align-items:center;justify-content:center;margin-left:6px}
+.report-close:hover{background:rgba(244,239,228,.12);border-color:rgba(244,239,228,.35)}
+.report-scroller{height:calc(100vh - 64px);overflow-y:auto;background:#f0ead8;-webkit-overflow-scrolling:touch}
+.report-doc{max-width:880px;margin:32px auto 60px;padding:0 22px}
+@media (max-width:880px){.report-doc{margin:18px auto 40px;padding:0 14px}}
+
+/* === RICH REPORT PAGES === */
+.rd-page{background:#fffdf7;border-radius:6px;box-shadow:0 24px 60px -28px rgba(26,26,23,.5),0 2px 0 rgba(0,0,0,.04);padding:54px 64px;margin-bottom:24px;position:relative;font-family:'Source Serif 4',Georgia,serif;color:#23211c;line-height:1.62}
+@media (max-width:680px){.rd-page{padding:32px 24px}}
+.rd-cover{padding:80px 64px;text-align:center;background:linear-gradient(180deg,#fffdf7 0%,#f4efe4 100%);border-top:4px solid #1f3d30}
+.rd-cover .rd-logo{font-family:'Fraunces',serif;font-size:36px;font-weight:500;color:#1f3d30;letter-spacing:-.015em;margin-bottom:6px}
+.rd-cover .rd-logo span{color:#7a2e26}
+.rd-cover .rd-eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#7a2e26;font-weight:700;margin-bottom:48px}
+.rd-cover .rd-title{font-family:'Fraunces',serif;font-size:42px;font-weight:500;letter-spacing:-.02em;line-height:1.08;color:#1f3d30;margin-bottom:14px}
+.rd-cover .rd-subtitle{font-size:16px;color:#5a564c;margin-bottom:50px;font-style:italic}
+.rd-cover .rd-meta{display:inline-flex;flex-direction:column;gap:8px;padding:24px 32px;background:rgba(31,61,48,.06);border-radius:8px;font-size:13px;color:#3a3833}
+.rd-cover .rd-meta b{color:#1f3d30;font-weight:600;font-family:'Fraunces',serif}
+.rd-cover .rd-stamp{position:absolute;bottom:32px;right:48px;font-family:'Fraunces',serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#a8843f;border:1px solid #a8843f;padding:6px 14px;border-radius:30px}
+@media (max-width:680px){.rd-cover{padding:50px 28px}.rd-cover .rd-title{font-size:30px}.rd-cover .rd-stamp{position:static;display:inline-block;margin-top:30px}}
+
+.rd-pagenum{position:absolute;bottom:18px;right:32px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#a8a098;font-weight:600;font-family:'Fraunces',serif}
+.rd-section-label{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#7a2e26;font-weight:700;margin-bottom:8px;font-family:'Fraunces',serif}
+.rd-h1{font-family:'Fraunces',serif;font-weight:500;font-size:32px;letter-spacing:-.018em;line-height:1.1;color:#1f3d30;margin-bottom:18px}
+.rd-h2{font-family:'Fraunces',serif;font-weight:500;font-size:21px;letter-spacing:-.012em;color:#1f3d30;margin:36px 0 12px;padding-bottom:8px;border-bottom:1px solid #d9d2c0}
+.rd-h3{font-family:'Fraunces',serif;font-weight:500;font-size:17px;color:#1f3d30;margin:22px 0 8px}
+.rd-page p{font-size:14px;line-height:1.7;margin-bottom:12px;color:#23211c}
+.rd-page p.lede{font-size:16px;line-height:1.7;color:#3a3833;margin-bottom:24px}
+
+/* Risk score gauge */
+.rd-gauge{display:inline-flex;flex-direction:column;align-items:center;margin:32px 0 16px}
+.rd-gauge-ring{position:relative;width:170px;height:170px}
+.rd-gauge-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.rd-gauge-ring .gauge-bg{stroke:#e6dec9;fill:none;stroke-width:12}
+.rd-gauge-ring .gauge-fg{fill:none;stroke-width:12;stroke-linecap:round;transition:stroke-dashoffset 1s}
+.rd-gauge-ring .gauge-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.rd-gauge-ring .gauge-num{font-family:'Fraunces',serif;font-size:46px;font-weight:500;line-height:1;color:#1f3d30}
+.rd-gauge-ring .gauge-of{font-size:12px;color:#8a857a;letter-spacing:.04em;margin-top:2px}
+.rd-gauge .gauge-label{font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-top:14px;font-family:'Fraunces',serif}
+.rd-gauge .gauge-desc{font-size:12px;color:#5a564c;margin-top:6px;max-width:280px;line-height:1.5}
+
+/* Severity badges */
+.sev-badge{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:3px 10px;border-radius:30px;color:#fffdf7;font-family:'Fraunces',serif}
+.sev-badge.critical{background:#b85f4f}
+.sev-badge.high{background:#c47a3a}
+.sev-badge.medium{background:#a8843f}
+
+/* Summary stat tiles */
+.rd-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:24px 0 12px}
+@media (max-width:680px){.rd-stat-grid{grid-template-columns:repeat(2,1fr)}}
+.rd-stat{background:#f4efe4;border-radius:8px;padding:18px 12px;text-align:center;border:1px solid #e6dec9}
+.rd-stat .num{font-family:'Fraunces',serif;font-size:38px;font-weight:500;line-height:1;display:block;margin-bottom:6px;color:#1f3d30}
+.rd-stat .lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.12em;color:#5a564c;font-weight:700}
+.rd-stat.crit .num{color:#b85f4f}
+.rd-stat.high .num{color:#c47a3a}
+.rd-stat.med .num{color:#a8843f}
+
+/* Two-column chart row */
+.rd-chart-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:28px 0 10px}
+@media (max-width:680px){.rd-chart-row{grid-template-columns:1fr}}
+.rd-chart-card{background:#f4efe4;border-radius:10px;padding:22px 20px;border:1px solid #e6dec9}
+.rd-chart-card .chart-title{font-family:'Fraunces',serif;font-size:14px;font-weight:600;color:#1f3d30;margin-bottom:14px;letter-spacing:-.005em}
+.rd-chart-card .chart-canvas-wrap{position:relative;height:200px}
+
+/* Heatmap */
+.rd-heatmap{display:grid;grid-template-columns:auto repeat(3,1fr);gap:8px;margin:18px 0}
+.rd-heatmap .hm-cell{background:#f4efe4;border-radius:6px;padding:12px 14px;font-size:12.5px;color:#3a3833;border:1px solid #e6dec9;min-height:54px;position:relative}
+.rd-heatmap .hm-cell.label{background:transparent;border:none;font-weight:600;color:#5a564c;font-family:'Fraunces',serif;font-size:13px;display:flex;align-items:center}
+.rd-heatmap .hm-cell.head{background:#1f3d30;color:#f4efe4;font-family:'Fraunces',serif;font-weight:500;text-align:center;font-size:12px;letter-spacing:.04em;text-transform:uppercase;display:flex;align-items:center;justify-content:center;border:none}
+.rd-heatmap .hm-count{position:absolute;top:8px;right:10px;font-family:'Fraunces',serif;font-weight:500;font-size:18px}
+.rd-heatmap .hm-cell.has-crit{background:rgba(184,95,79,.12);border-color:rgba(184,95,79,.35)}
+.rd-heatmap .hm-cell.has-crit .hm-count{color:#b85f4f}
+.rd-heatmap .hm-cell.has-high{background:rgba(196,122,58,.1);border-color:rgba(196,122,58,.3)}
+.rd-heatmap .hm-cell.has-high .hm-count{color:#c47a3a}
+.rd-heatmap .hm-cell.has-med{background:rgba(168,132,63,.09);border-color:rgba(168,132,63,.28)}
+.rd-heatmap .hm-cell.has-med .hm-count{color:#a8843f}
+
+/* Priority cards */
+.rd-priority{display:flex;gap:20px;align-items:flex-start;background:#f4efe4;border-radius:10px;padding:24px;margin-bottom:14px;border-left:4px solid #1f3d30}
+.rd-priority .pri-num{font-family:'Fraunces',serif;font-size:42px;font-weight:500;color:#1f3d30;line-height:1;flex:none;width:60px;text-align:center;padding-top:4px}
+.rd-priority .pri-body{flex:1;min-width:0}
+.rd-priority .pri-title{font-family:'Fraunces',serif;font-size:18px;font-weight:500;color:#1f3d30;margin-bottom:8px;line-height:1.3}
+.rd-priority .pri-why{font-size:13px;color:#3a3833;margin-bottom:10px;line-height:1.6}
+.rd-priority .pri-redline{font-size:12.5px;color:#23211c;line-height:1.55;background:#fffdf7;padding:12px 14px;border-radius:6px;border:1px solid #e6dec9}
+.rd-priority .pri-redline b{color:#7a2e26;font-size:10px;letter-spacing:.14em;display:block;margin-bottom:4px;text-transform:uppercase;font-family:'Fraunces',serif}
+
+/* Risk register */
+.rd-risk{background:#fffdf7;border:1px solid #e6dec9;border-left:4px solid #c47a3a;border-radius:8px;padding:18px 22px;margin-bottom:12px;page-break-inside:avoid}
+.rd-risk.critical{border-left-color:#b85f4f}
+.rd-risk.high{border-left-color:#c47a3a}
+.rd-risk.medium{border-left-color:#a8843f}
+.rd-risk-head{display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap}
+.rd-risk-title{font-family:'Fraunces',serif;font-weight:500;font-size:15.5px;color:#1f3d30;line-height:1.35;flex:1;min-width:200px}
+.rd-risk-finding{font-size:12.5px;color:#3a3833;margin:6px 0 8px;line-height:1.55}
+.rd-risk-finding b{color:#1f3d30;font-weight:600}
+.rd-risk-why{font-size:12px;color:#5a564c;line-height:1.55;margin-bottom:10px;padding-left:12px;border-left:2px solid #e6dec9;font-style:italic}
+.rd-risk-redline{font-size:12.5px;color:#23211c;line-height:1.55;background:#f4efe4;padding:10px 14px;border-radius:6px;border:1px solid #e6dec9}
+.rd-risk-redline b{color:#7a2e26;font-size:10px;letter-spacing:.14em;display:block;margin-bottom:4px;text-transform:uppercase;font-family:'Fraunces',serif}
+.rd-risk-evidence{font-size:11.5px;color:#5a564c;font-style:italic;background:rgba(0,0,0,.025);padding:8px 12px;border-radius:5px;margin-top:8px;font-family:Georgia,serif;line-height:1.55}
+.rd-risk-evidence b{color:#23211c;font-weight:600;font-style:normal;letter-spacing:.04em;font-size:10px;text-transform:uppercase;display:block;margin-bottom:3px;font-family:'Fraunces',serif}
+
+/* Category sections */
+.rd-cat-section{margin-top:28px}
+.rd-cat-section:first-child{margin-top:8px}
+.rd-cat-title{font-family:'Fraunces',serif;font-size:16px;font-weight:500;color:#1f3d30;margin-bottom:12px;padding-bottom:6px;border-bottom:1px dashed #d9d2c0;display:flex;justify-content:space-between;align-items:baseline}
+.rd-cat-title .cat-count{font-size:11.5px;color:#7a2e26;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+
+/* CTA */
+.rd-cta{background:linear-gradient(135deg,#1f3d30 0%,#2c5443 100%);color:#f4efe4;padding:36px 44px;border-radius:12px;margin-top:36px;text-align:center;position:relative;overflow:hidden}
+.rd-cta::before{content:"";position:absolute;top:-40%;right:-10%;width:280px;height:280px;background:radial-gradient(circle,rgba(168,132,63,.12),transparent 70%);pointer-events:none}
+.rd-cta .cta-eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#a8843f;font-weight:700;margin-bottom:10px;font-family:'Fraunces',serif}
+.rd-cta .cta-title{font-family:'Fraunces',serif;font-size:26px;font-weight:500;line-height:1.2;margin-bottom:12px;color:#f4efe4}
+.rd-cta .cta-body{font-size:14px;line-height:1.6;color:#d9d2c0;margin-bottom:22px;max-width:540px;margin-left:auto;margin-right:auto}
+.rd-cta .cta-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.rd-cta .cta-btn{display:inline-block;background:#f4efe4;color:#1f3d30;padding:12px 26px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;letter-spacing:.02em;transition:.15s}
+.rd-cta .cta-btn.ghost{background:transparent;color:#f4efe4;border:1px solid rgba(244,239,228,.4)}
+.rd-cta .cta-btn:hover{transform:translateY(-1px)}
+
+/* Methodology block */
+.rd-method{background:#f4efe4;border-radius:10px;padding:24px 28px;margin-top:18px;border:1px solid #e6dec9;font-size:12.5px;line-height:1.7;color:#3a3833}
+.rd-method h4{font-family:'Fraunces',serif;font-size:14px;font-weight:600;color:#1f3d30;margin-bottom:10px}
+
+.rd-footer{text-align:center;padding:32px 20px 0;font-size:11px;color:#8a857a;letter-spacing:.04em}
+.rd-empty{text-align:center;padding:60px 30px;color:#5a564c;font-style:italic}
+.rd-empty h4{font-family:'Fraunces',serif;font-size:18px;font-weight:500;color:#1f3d30;margin-bottom:8px;font-style:normal}
+
+/* "Report ready" preview tile shown in form area after scan completes */
+.report-ready{background:linear-gradient(180deg,rgba(31,61,48,.04),rgba(31,61,48,.08));border:1.5px solid var(--green);border-radius:14px;padding:28px;margin-top:18px;text-align:center;animation:fadeUp .3s cubic-bezier(.4,0,.2,1)}
+.report-ready .rr-icon{width:56px;height:56px;background:linear-gradient(135deg,var(--green),var(--green-2));color:#f4efe4;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;box-shadow:0 6px 16px -6px rgba(31,61,48,.4)}
+.report-ready .rr-icon svg{width:28px;height:28px}
+.report-ready h3{font-family:'Fraunces',serif;font-size:22px;font-weight:500;color:var(--ink);margin-bottom:6px;letter-spacing:-.01em}
+.report-ready p{font-size:13.5px;color:var(--ink-soft);line-height:1.55;margin-bottom:18px;max-width:480px;margin-left:auto;margin-right:auto}
+.report-ready .rr-stats{display:flex;gap:18px;justify-content:center;margin-bottom:20px;flex-wrap:wrap}
+.report-ready .rr-stat{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink)}
+.report-ready .rr-stat .rr-dot{width:10px;height:10px;border-radius:50%}
+.report-ready .rr-stat.crit .rr-dot{background:#b85f4f}
+.report-ready .rr-stat.high .rr-dot{background:#c47a3a}
+.report-ready .rr-stat.med .rr-dot{background:#a8843f}
+.report-ready .rr-stat b{font-weight:700}
+.report-ready .rr-open{display:inline-flex;align-items:center;gap:8px;font-family:inherit;font-size:14px;font-weight:600;background:linear-gradient(180deg,var(--green-2),var(--green));color:#f4efe4;border:1px solid var(--green);border-radius:8px;padding:13px 26px;cursor:pointer;transition:.18s cubic-bezier(.4,0,.2,1);box-shadow:0 4px 10px -3px rgba(31,61,48,.35)}
+.report-ready .rr-open:hover{transform:translateY(-1px);box-shadow:0 6px 14px -3px rgba(31,61,48,.45)}
+.report-ready .rr-open svg{width:16px;height:16px}
+
+/* Scanner styling (Mode 2) — UPLOAD UI */
 .mode-tabs{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--card);margin-bottom:22px}
 .mode-tab{flex:1;border:none;background:transparent;font-family:inherit;font-size:13px;font-weight:600;color:var(--ink-soft);padding:13px 12px;cursor:pointer;transition:.15s;line-height:1.3;text-align:left}
 .mode-tab .mt-title{font-family:'Fraunces',serif;font-size:15px;color:var(--ink);display:block;margin-bottom:2px;font-weight:500}
@@ -145,39 +306,139 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 .cl-empty p{font-size:14px;line-height:1.55}
 
 /* Scanner styling (Mode 2) — UPLOAD UI */
-.drop-zone{border:2px dashed var(--line);background:var(--card);border-radius:14px;padding:50px 30px 44px;text-align:center;cursor:pointer;transition:.15s;margin-bottom:14px}
-.drop-zone:hover{border-color:var(--green-2);background:rgba(31,61,48,.03)}
-.drop-zone.dragging{border-color:var(--green);background:rgba(31,61,48,.07);transform:scale(1.01)}
-.drop-zone .dz-icon{font-size:38px;color:var(--green);margin-bottom:14px;line-height:1}
-.drop-zone .dz-primary{font-family:'Fraunces',serif;font-size:19px;color:var(--ink);font-weight:500;margin-bottom:6px;letter-spacing:-.01em}
-.drop-zone .dz-secondary{font-size:13.5px;color:var(--ink-soft);margin-bottom:14px}
-.drop-zone .dz-link{color:var(--green-2);font-weight:600;text-decoration:underline}
-.drop-zone .dz-formats{font-size:11.5px;color:var(--ink-soft);letter-spacing:.04em;text-transform:uppercase;font-weight:600;opacity:.7}
+.drop-zone{
+  position:relative;
+  border:2px dashed rgba(31,61,48,.25);
+  background:linear-gradient(180deg, rgba(255,253,247,.6), var(--card));
+  border-radius:16px;
+  padding:54px 30px 48px;
+  text-align:center;
+  cursor:pointer;
+  transition:all .2s cubic-bezier(.4,0,.2,1);
+  margin-bottom:14px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.5), 0 1px 2px rgba(26,26,23,.04);
+  overflow:hidden;
+}
+.drop-zone::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 50% 0%, rgba(31,61,48,.04), transparent 70%);
+  pointer-events:none;
+  opacity:0;
+  transition:opacity .25s;
+}
+.drop-zone:hover{
+  border-color:var(--green);
+  background:linear-gradient(180deg, rgba(31,61,48,.03), rgba(31,61,48,.06));
+  transform:translateY(-1px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.5), 0 6px 18px -8px rgba(31,61,48,.25);
+}
+.drop-zone:hover::before{opacity:1}
+.drop-zone.dragging{
+  border-color:var(--green);
+  border-style:solid;
+  background:linear-gradient(180deg, rgba(31,61,48,.08), rgba(31,61,48,.12));
+  transform:scale(1.015);
+  box-shadow:inset 0 0 0 3px rgba(31,61,48,.12), 0 12px 28px -10px rgba(31,61,48,.3);
+}
+.drop-zone .dz-iconwrap{
+  width:64px;
+  height:64px;
+  margin:0 auto 18px;
+  background:linear-gradient(135deg, var(--green), var(--green-2));
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 6px 16px -6px rgba(31,61,48,.4), inset 0 1px 0 rgba(255,255,255,.15);
+  transition:transform .25s cubic-bezier(.4,0,.2,1);
+}
+.drop-zone:hover .dz-iconwrap{transform:translateY(-2px) scale(1.04)}
+.drop-zone.dragging .dz-iconwrap{transform:translateY(-4px) scale(1.08); animation:bounce .6s ease-in-out infinite alternate}
+.drop-zone .dz-iconwrap svg{width:30px; height:30px; color:#f4efe4; display:block}
+.drop-zone .dz-primary{
+  font-family:'Fraunces',serif;
+  font-size:21px;
+  color:var(--ink);
+  font-weight:500;
+  margin-bottom:6px;
+  letter-spacing:-.015em;
+  line-height:1.25;
+}
+.drop-zone .dz-secondary{
+  font-size:13.5px;
+  color:var(--ink-soft);
+  margin-bottom:18px;
+  line-height:1.5;
+}
+.drop-zone .dz-link{color:var(--green-2); font-weight:600; text-decoration:underline; text-underline-offset:2px}
+.drop-zone:hover .dz-link{color:var(--green)}
+.drop-zone .dz-formats{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size:11px;
+  color:var(--ink-soft);
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  font-weight:700;
+  background:rgba(31,61,48,.04);
+  padding:6px 12px;
+  border-radius:30px;
+  border:1px solid rgba(31,61,48,.08);
+}
+.drop-zone .dz-formats .dot{width:3px; height:3px; background:var(--ink-soft); border-radius:50%; opacity:.5}
 @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes bounce{from{transform:translateY(-4px) scale(1.08)} to{transform:translateY(-8px) scale(1.08)}}
+@keyframes pulse-ring{
+  0%{box-shadow:0 0 0 0 rgba(31,61,48,.3), 0 6px 16px -6px rgba(31,61,48,.4), inset 0 1px 0 rgba(255,255,255,.15)}
+  70%{box-shadow:0 0 0 14px rgba(31,61,48,0), 0 6px 16px -6px rgba(31,61,48,.4), inset 0 1px 0 rgba(255,255,255,.15)}
+  100%{box-shadow:0 0 0 0 rgba(31,61,48,0), 0 6px 16px -6px rgba(31,61,48,.4), inset 0 1px 0 rgba(255,255,255,.15)}
+}
+.drop-zone:not(:hover):not(.dragging) .dz-iconwrap{animation:pulse-ring 2.4s ease-out infinite}
 
-.file-loaded{display:flex;align-items:center;gap:14px;background:var(--card);border:1.5px solid var(--green);border-radius:12px;padding:16px 18px;margin-bottom:14px}
-.file-loaded .fl-icon{width:38px;height:38px;background:var(--green);color:#f4efe4;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex:none;font-weight:bold}
+/* Loading state during extraction */
+.dz-loading{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; padding:30px 0}
+.dz-loading .dz-spinner{
+  width:44px; height:44px;
+  border:3px solid rgba(31,61,48,.12);
+  border-top-color:var(--green);
+  border-radius:50%;
+  animation:spin .9s linear infinite;
+}
+.dz-loading .dz-loading-text{font-size:14px; color:var(--ink-soft); font-weight:500}
+.dz-loading .dz-loading-text b{color:var(--ink); font-family:'Fraunces',serif; font-weight:500}
+
+.file-loaded{display:flex;align-items:center;gap:14px;background:linear-gradient(180deg, rgba(31,61,48,.04), rgba(31,61,48,.08));border:1.5px solid var(--green);border-radius:12px;padding:18px 20px;margin-bottom:14px;box-shadow:0 4px 12px -6px rgba(31,61,48,.15);animation:fadeUp .3s cubic-bezier(.4,0,.2,1)}
+@keyframes fadeUp{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:translateY(0)}}
+.file-loaded .fl-icon{width:42px;height:42px;background:linear-gradient(135deg, var(--green), var(--green-2));color:#f4efe4;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;box-shadow:0 4px 10px -3px rgba(31,61,48,.35)}
+.file-loaded .fl-icon svg{width:20px; height:20px}
 .file-loaded .fl-info{flex:1;min-width:0}
-.file-loaded .fl-name{font-weight:600;color:var(--ink);font-size:14px;margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.file-loaded .fl-name{font-weight:600;color:var(--ink);font-size:14.5px;margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .file-loaded .fl-meta{font-size:12px;color:var(--ink-soft)}
-.file-loaded .fl-clear{background:none;border:none;color:var(--ink-soft);font-size:24px;cursor:pointer;padding:4px 8px;line-height:1;border-radius:6px;transition:.15s}
+.file-loaded .fl-meta b{color:var(--green); font-weight:700}
+.file-loaded .fl-clear{background:none;border:none;color:var(--ink-soft);font-size:24px;cursor:pointer;padding:4px 10px;line-height:1;border-radius:6px;transition:.15s;font-family:inherit}
 .file-loaded .fl-clear:hover{background:rgba(122,46,38,.08);color:var(--oxblood)}
 
-.scan-error{background:rgba(122,46,38,.06);border:1px solid rgba(122,46,38,.2);border-left:3px solid var(--oxblood);border-radius:8px;padding:14px 16px;margin:14px 0;font-size:13px;color:var(--ink);line-height:1.55}
+.scan-error{background:linear-gradient(180deg, rgba(122,46,38,.04), rgba(122,46,38,.08));border:1px solid rgba(122,46,38,.22);border-left:3px solid var(--oxblood);border-radius:8px;padding:14px 16px;margin:14px 0;font-size:13px;color:var(--ink);line-height:1.55;animation:fadeUp .3s cubic-bezier(.4,0,.2,1)}
 .scan-error b{color:var(--oxblood)}
 
-.privacy-panel{display:flex;gap:14px;background:rgba(31,61,48,.05);border:1px solid rgba(31,61,48,.18);border-radius:10px;padding:16px 18px;margin-top:16px;align-items:flex-start}
-.privacy-panel .pp-icon{font-size:22px;color:var(--green);flex:none;line-height:1.2}
+.privacy-panel{display:flex;gap:14px;background:linear-gradient(180deg, rgba(31,61,48,.04), rgba(31,61,48,.07));border:1px solid rgba(31,61,48,.16);border-radius:12px;padding:18px 20px;margin-top:18px;align-items:flex-start}
+.privacy-panel .pp-icon{width:32px; height:32px; background:var(--green); color:#f4efe4; border-radius:50%; display:flex; align-items:center; justify-content:center; flex:none; box-shadow:0 3px 8px -3px rgba(31,61,48,.4)}
+.privacy-panel .pp-icon svg{width:16px; height:16px}
 .privacy-panel .pp-body{flex:1}
-.privacy-panel .pp-title{font-weight:600;color:var(--ink);font-size:13.5px;margin-bottom:5px}
-.privacy-panel .pp-body p{font-size:12px;color:var(--ink-soft);line-height:1.55;margin:0}
+.privacy-panel .pp-title{font-weight:600;color:var(--ink);font-size:13.5px;margin-bottom:5px;font-family:'Fraunces',serif;font-weight:500;font-size:15px;letter-spacing:-.01em}
+.privacy-panel .pp-body p{font-size:12.5px;color:var(--ink-soft);line-height:1.55;margin:0}
 
-.scan-actions{display:flex;gap:10px;align-items:center;margin-top:6px;flex-wrap:wrap}
-.scan-btn{font-family:inherit;font-size:13.5px;font-weight:600;border:1px solid var(--green);background:var(--green);color:#f4efe4;border-radius:8px;padding:10px 22px;cursor:pointer;transition:.15s}
-.scan-btn:hover{background:var(--green-2);transform:translateY(-1px)}
-.scan-btn:disabled{background:#aaa;border-color:#aaa;cursor:not-allowed;transform:none}
+.scan-actions{display:flex;gap:12px;align-items:center;margin-top:14px;flex-wrap:wrap}
+.scan-btn{font-family:inherit;font-size:14px;font-weight:600;border:1px solid var(--green);background:linear-gradient(180deg, var(--green-2), var(--green));color:#f4efe4;border-radius:8px;padding:12px 24px;cursor:pointer;transition:.18s cubic-bezier(.4,0,.2,1);box-shadow:0 4px 10px -3px rgba(31,61,48,.35);display:inline-flex;align-items:center;gap:8px}
+.scan-btn:hover{transform:translateY(-1px);box-shadow:0 6px 14px -3px rgba(31,61,48,.45)}
+.scan-btn:active{transform:translateY(0)}
+.scan-btn:disabled{background:#aaa;border-color:#aaa;cursor:not-allowed;transform:none;box-shadow:none}
+.scan-btn svg{width:15px; height:15px}
 
-.scan-disclaimer{font-size:11.5px;color:var(--ink-soft);line-height:1.55;background:rgba(168,132,63,.07);border:1px solid rgba(168,132,63,.2);border-radius:8px;padding:12px 14px;margin-top:16px}
+.scan-disclaimer{font-size:11.5px;color:var(--ink-soft);line-height:1.6;background:rgba(168,132,63,.07);border:1px solid rgba(168,132,63,.2);border-radius:10px;padding:14px 16px;margin-top:16px}
 .scan-disclaimer b{color:var(--ink);font-weight:600}
 
 /* Risk report (preview side) */
@@ -252,12 +513,35 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
 <meta name="theme-color" content="#1f3d30">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<!-- Mammoth (for .docx extraction). Primary: cdnjs. Fallback: jsdelivr. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.9.0/mammoth.browser.min.js"
+  onerror="(function(){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/mammoth@1.9.0/mammoth.browser.min.js';document.head.appendChild(s);})()"></script>
+
+<!-- PDF.js (for .pdf extraction). Primary: cdnjs. Fallback: jsdelivr. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"
+  onerror="(function(){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js';document.head.appendChild(s);})()"></script>
+
+<!-- Chart.js (for report charts) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"
+  onerror="(function(){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js';document.head.appendChild(s);})()"></script>
+
+<!-- jsPDF (for PDF report download) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"
+  onerror="(function(){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js';document.head.appendChild(s);})()"></script>
+
+<!-- jsPDF AutoTable plugin (for tabular report sections) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.0/jspdf.plugin.autotable.min.js"
+  onerror="(function(){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/jspdf-autotable@3.8.0/dist/jspdf.plugin.autotable.min.js';document.head.appendChild(s);})()"></script>
+
 <script>
-if(typeof pdfjsLib !== 'undefined'){
-  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
-}
+// Configure PDF.js worker once it loads. Polled because the load is async.
+(function setupPdfWorker(attempts){
+  if(typeof pdfjsLib !== 'undefined' && pdfjsLib.GlobalWorkerOptions){
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    return;
+  }
+  if(attempts < 50){ setTimeout(function(){ setupPdfWorker(attempts+1); }, 100); }
+})(0);
 </script>
 </head>
 <body><header>
@@ -268,15 +552,31 @@ if(typeof pdfjsLib !== 'undefined'){
   </div>
   <p class="disclaimer">Two ways to review: walk through a guided checklist OR paste your contract text into the Smart Scanner. Get a personalised risk report with severity flags and suggested redlines. <strong>This is not legal advice.</strong> Every draft must be reviewed by a qualified lawyer admitted in the relevant jurisdiction before execution.</p>
 </header>
-<div class="wrap">
-  <section class="panel form-panel" id="formArea"></section>
-  <section class="panel preview-panel">
-    <div class="preview-tools">
-      <button class="btn" id="wordBtn">Download Word</button>
-      <button class="btn ghost" id="printBtn">Save as PDF</button>
+<div class="redline-shell">
+  <section class="redline-form" id="formArea"></section>
+</div>
+
+<div class="report-modal" id="reportModal" aria-hidden="true" role="dialog" aria-label="Contract Risk Report">
+  <div class="report-bar">
+    <div class="report-bar-left">
+      <span class="report-logo">Verbatra<span class="dot">.</span></span>
+      <span class="report-bar-title">Contract Risk Report</span>
     </div>
-    <div class="doc" id="doc"></div>
-  </section>
+    <div class="report-bar-right">
+      <button class="report-action" id="reportWordBtn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Word
+      </button>
+      <button class="report-action" id="reportPdfBtn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        PDF
+      </button>
+      <button class="report-close" id="reportCloseBtn" type="button" aria-label="Close report">&times;</button>
+    </div>
+  </div>
+  <div class="report-scroller" id="reportScroller">
+    <div class="report-doc" id="reportDoc"></div>
+  </div>
 </div>
 
 <div class="modal" id="leadModal" role="dialog" aria-modal="true">
@@ -572,24 +872,26 @@ function renderScannerMode(){
   // Upload zone, or extracted-text confirmation
   if(!S.scanText){
     html += '<div id="dropZone" class="drop-zone" ondragover="onDragOver(event)" ondragleave="onDragLeave(event)" ondrop="onDrop(event)" onclick="document.getElementById(\'fileInput\').click()">';
-    html += '<div class="dz-icon">&#8682;</div>';
+    html += '<div class="dz-iconwrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg></div>';
     html += '<div class="dz-primary">Drop your contract here</div>';
-    html += '<div class="dz-secondary">or <span class="dz-link">click to browse</span></div>';
-    html += '<div class="dz-formats">Word .docx &middot; PDF &middot; Plain text .txt &middot; up to 5 MB</div>';
+    html += '<div class="dz-secondary">or <span class="dz-link">click to browse</span> from your computer</div>';
+    html += '<div class="dz-formats">Word .docx<span class="dot"></span>PDF<span class="dot"></span>Text .txt<span class="dot"></span>up to 5 MB</div>';
     html += '</div>';
     html += '<input type="file" id="fileInput" accept=".docx,.pdf,.txt,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain" style="display:none" onchange="onFileSelected(event)">';
   } else {
     var wc = S.scanText.trim() ? S.scanText.trim().split(/\s+/).length : 0;
     html += '<div class="file-loaded">';
-    html += '<div class="fl-icon">&#10003;</div>';
+    html += '<div class="fl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>';
     html += '<div class="fl-info"><div class="fl-name">' + escapeHtml(S.scanFileName || 'Contract loaded') + '</div>';
-    html += '<div class="fl-meta"><b>' + wc.toLocaleString() + '</b> words, <b>' + S.scanText.length.toLocaleString() + '</b> characters extracted</div></div>';
-    html += '<button class="fl-clear" type="button" onclick="clearScan()" aria-label="Remove file">&times;</button>';
+    html += '<div class="fl-meta"><b>' + wc.toLocaleString() + '</b> words, <b>' + S.scanText.length.toLocaleString() + '</b> characters extracted, ready to scan</div></div>';
+    html += '<button class="fl-clear" type="button" onclick="clearScan()" aria-label="Remove file" title="Remove file">&times;</button>';
     html += '</div>';
 
     html += '<div class="scan-actions">';
-    html += '<button class="scan-btn" type="button" onclick="runScan()"' + (wc < 50 ? ' disabled' : '') + '>Scan for risks</button>';
-    if(wc < 50) html += '<span style="font-size:12px;color:var(--ink-soft)">File extracted only ' + wc + ' words. The contract may not have extracted cleanly, try uploading the original .docx instead.</span>';
+    html += '<button class="scan-btn" type="button" onclick="runScan()"' + (wc < 50 ? ' disabled' : '') + '>';
+    html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>';
+    html += 'Scan for risks</button>';
+    if(wc < 50) html += '<span style="font-size:12px;color:var(--ink-soft);max-width:320px;line-height:1.4">File extracted only ' + wc + ' words. The contract may not have extracted cleanly, try uploading the original .docx if you have it.</span>';
     html += '</div>';
   }
 
@@ -601,9 +903,9 @@ function renderScannerMode(){
     html += '</div>';
   }
 
-  // Privacy panel — PLACEHOLDER for Arnav to fill in his own confidentiality wording
+  // Privacy panel
   html += '<div class="privacy-panel">';
-  html += '<div class="pp-icon">&#128274;</div>';
+  html += '<div class="pp-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div>';
   html += '<div class="pp-body">';
   html += '<div class="pp-title">Your contract never leaves your device.</div>';
   html += '<p>The file is processed entirely in your browser. Nothing is uploaded to Verbatra\'s servers, stored anywhere, or transmitted to any third party. Verbatra cannot see what you upload.</p>';
@@ -667,7 +969,7 @@ function handleFile(file){
 
   // Show loading state
   var z = document.getElementById('dropZone');
-  if(z){ z.innerHTML = '<div class="dz-icon" style="animation:spin 1s linear infinite">&#8635;</div><div class="dz-primary">Reading ' + escapeHtml(file.name) + '...</div>'; }
+  if(z){ z.innerHTML = '<div class="dz-loading"><div class="dz-spinner"></div><div class="dz-loading-text">Reading <b>' + escapeHtml(file.name) + '</b>...</div></div>'; }
 
   var name = file.name.toLowerCase();
   if(name.endsWith('.txt')){
@@ -924,106 +1226,726 @@ function getFlagsFromScanner(){
 }
 
 function renderReport(){
-  var el = document.getElementById('doc');
-  if(!S.type){
-    el.innerHTML = '<div class="cl-empty"><h3>Your contract risk report will appear here</h3><p>Pick a contract type on the left, choose your mode (checklist or scanner), and the report builds itself as you go.</p></div>';
-    return;
+  // 1) Build the "Report Ready" tile that lives in the form area, AFTER the form content
+  renderReportReadyTile();
+  // 2) Build the rich report content into the modal (hidden until user clicks Open)
+  renderRichReport();
+}
+
+function renderReportReadyTile(){
+  // Check if there's anywhere to place it
+  var formAreaEl = document.getElementById('formArea');
+  if(!formAreaEl) return;
+
+  // Remove any existing tile so we re-render cleanly
+  var existing = document.getElementById('reportReadyTile');
+  if(existing) existing.remove();
+
+  if(!S.type) return;
+
+  var flags = S.mode === 'scanner' ? getFlagsFromScanner() : getFlagsFromChecklist();
+
+  // Only show tile if there's something to show
+  // Scanner: must have run at least once (scanText present)
+  // Checklist: must have answered at least 1 item
+  var hasOutput = S.mode === 'scanner'
+    ? (S.scanText && S.scanText.length > 0 && S.scanFlags.length > 0)
+    : (Object.keys(S.answers).length > 0);
+  if(!hasOutput) return;
+
+  var crit = flags.filter(function(f){return f.severity === 'critical';}).length;
+  var high = flags.filter(function(f){return f.severity === 'high';}).length;
+  var med = flags.filter(function(f){return f.severity === 'medium';}).length;
+
+  var tile = document.createElement('div');
+  tile.id = 'reportReadyTile';
+  tile.className = 'report-ready';
+  var html = '';
+  html += '<div class="rr-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg></div>';
+  html += '<h3>Your risk report is ready</h3>';
+
+  if(flags.length === 0){
+    html += '<p>No risks were flagged. Open the full report to see the methodology and any recommendations.</p>';
+  } else {
+    html += '<p><b>' + flags.length + '</b> risk' + (flags.length === 1 ? '' : 's') + ' identified across your ' + CL[S.type].name + '. The full report includes severity breakdown, top negotiation priorities, suggested redline language and a risk heatmap.</p>';
+    html += '<div class="rr-stats">';
+    if(crit > 0) html += '<div class="rr-stat crit"><span class="rr-dot"></span><b>' + crit + '</b> critical</div>';
+    if(high > 0) html += '<div class="rr-stat high"><span class="rr-dot"></span><b>' + high + '</b> high</div>';
+    if(med > 0) html += '<div class="rr-stat med"><span class="rr-dot"></span><b>' + med + '</b> medium</div>';
+    html += '</div>';
   }
+  html += '<button class="rr-open" type="button" onclick="openReportModal()">';
+  html += '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>';
+  html += 'Open the full report';
+  html += '</button>';
+  tile.innerHTML = html;
+  formAreaEl.appendChild(tile);
+}
+
+function renderRichReport(){
+  var el = document.getElementById('reportDoc');
+  if(!el || !S.type) return;
+
   var c = CL[S.type];
   var flags = S.mode === 'scanner' ? getFlagsFromScanner() : getFlagsFromChecklist();
   var crit = flags.filter(function(f){return f.severity === 'critical';}).length;
   var high = flags.filter(function(f){return f.severity === 'high';}).length;
   var med = flags.filter(function(f){return f.severity === 'medium';}).length;
 
-  var html = '<h1>Contract Risk Review</h1>';
-  html += '<div class="sub">' + c.name + ' &middot; ' + (S.mode === 'scanner' ? 'Smart Scanner' : 'Guided Checklist') + ' &middot; ' + new Date().toLocaleDateString('en-IN', {day:'numeric', month:'long', year:'numeric'}) + '</div>';
+  // Risk score: weighted sum / max possible, scaled to 0-100. Higher = riskier.
+  var totalPossible = 0;
+  if(S.mode === 'scanner'){
+    totalPossible = (RULES[S.type] || []).length * 3; // each rule, weight 3 if critical
+  } else {
+    c.categories.forEach(function(cat){ totalPossible += cat.items.length * 3; });
+  }
+  var weighted = crit * 3 + high * 2 + med * 1;
+  var riskScore = totalPossible > 0 ? Math.min(100, Math.round((weighted / totalPossible) * 100 * 2)) : 0;
+  var scoreColor, scoreLabel, scoreDesc;
+  if(riskScore >= 60){ scoreColor = '#b85f4f'; scoreLabel = 'High Risk'; scoreDesc = 'Multiple critical issues. Engage qualified counsel before signing.'; }
+  else if(riskScore >= 30){ scoreColor = '#c47a3a'; scoreLabel = 'Moderate Risk'; scoreDesc = 'Several items merit negotiation before signing.'; }
+  else if(riskScore > 0){ scoreColor = '#a8843f'; scoreLabel = 'Low Risk'; scoreDesc = 'Minor items only. Review the priorities and consider negotiating.'; }
+  else { scoreColor = '#2c5443'; scoreLabel = 'No Risks Flagged'; scoreDesc = 'Nothing was flagged by the analysis. A lawyer review is still recommended.'; }
 
-  html += '<h2>Executive Summary</h2>';
-  html += '<div class="summary">';
-  html += '<div class="stat crit"><span class="n">' + crit + '</span><span class="l">Critical</span></div>';
-  html += '<div class="stat high"><span class="n">' + high + '</span><span class="l">High</span></div>';
-  html += '<div class="stat med"><span class="n">' + med + '</span><span class="l">Medium</span></div>';
-  html += '<div class="stat ok"><span class="n">' + flags.length + '</span><span class="l">Total flags</span></div>';
+  var dateStr = new Date().toLocaleDateString('en-IN', {day:'numeric', month:'long', year:'numeric'});
+  var modeLabel = S.mode === 'scanner' ? 'Smart Scanner Analysis' : 'Guided Checklist Review';
+
+  var html = '';
+
+  // ===== COVER PAGE =====
+  var circumference = 2 * Math.PI * 70;
+  var dashOffset = circumference * (1 - riskScore / 100);
+  html += '<div class="rd-page rd-cover">';
+  html += '  <div class="rd-logo">Verbatra<span>.</span></div>';
+  html += '  <div class="rd-eyebrow">Contract Risk Review</div>';
+  html += '  <div class="rd-title">' + escapeHtml(c.name) + '</div>';
+  html += '  <div class="rd-subtitle">' + modeLabel + '</div>';
+  html += '  <div class="rd-gauge">';
+  html += '    <div class="rd-gauge-ring">';
+  html += '      <svg viewBox="0 0 160 160">';
+  html += '        <circle class="gauge-bg" cx="80" cy="80" r="70"/>';
+  html += '        <circle class="gauge-fg" cx="80" cy="80" r="70" stroke="' + scoreColor + '" stroke-dasharray="' + circumference + '" stroke-dashoffset="' + dashOffset + '"/>';
+  html += '      </svg>';
+  html += '      <div class="gauge-center"><div class="gauge-num">' + riskScore + '</div><div class="gauge-of">out of 100</div></div>';
+  html += '    </div>';
+  html += '    <div class="gauge-label" style="color:' + scoreColor + '">' + scoreLabel + '</div>';
+  html += '    <div class="gauge-desc">' + scoreDesc + '</div>';
+  html += '  </div>';
+  html += '  <div class="rd-meta">';
+  html += '    <div><b>Prepared by:</b> Verbatra, drafted by a corporate lawyer</div>';
+  html += '    <div><b>Date:</b> ' + dateStr + '</div>';
+  html += '    <div><b>Total risks identified:</b> ' + flags.length + '</div>';
+  html += '  </div>';
+  html += '  <div class="rd-stamp">Confidential</div>';
   html += '</div>';
 
-  if(S.mode === 'scanner'){
-    if(S.scanFlags.length === 0 && S.scanText.length === 0){
-      html += '<p>Upload your contract on the left and click <b>Scan for risks</b>. The scanner checks against ' + (RULES[S.type] ? RULES[S.type].length : 0) + ' known risk patterns for ' + c.name + '.</p>';
-    } else if(S.scanFlags.length === 0){
-      html += '<div class="none">No risks were flagged by the automated scanner. This does not mean the contract is risk-free, only that the patterns the scanner knows about were not detected. A qualified lawyer\'s review is still recommended.</div>';
-    } else {
-      html += '<p>The scanner identified <b>' + flags.length + ' risk' + (flags.length === 1 ? '' : 's') + '</b> in your ' + c.name + '. Critical and high-severity items are listed first.</p>';
-    }
+  // ===== EXECUTIVE SUMMARY =====
+  html += '<div class="rd-page">';
+  html += '  <div class="rd-section-label">Section 01</div>';
+  html += '  <h1 class="rd-h1">Executive Summary</h1>';
+  if(flags.length === 0){
+    html += '  <p class="lede">No risks were flagged by this analysis. ' + (S.mode === 'scanner' ? 'The scanner did not detect any of the ' + (RULES[S.type] ? RULES[S.type].length : 0) + ' known risk patterns it checks for in ' + c.name + '. This does not mean the contract is risk-free, only that the patterns the scanner knows about were not detected.' : 'You did not flag any items in the checklist.') + ' We still recommend a qualified lawyer review the contract end-to-end before signing.</p>';
   } else {
-    var total = 0;
-    c.categories.forEach(function(cat){ total += cat.items.length; });
-    var done = Object.keys(S.answers).length;
-    html += '<p>You have completed <b>' + done + ' of ' + total + '</b> checks.';
-    if(done < total) html += ' Complete the remaining checks for a fuller picture.';
-    if(flags.length === 0 && done > 0) html += ' No risks have been flagged so far.';
-    else if(flags.length > 0) html += ' <b>' + flags.length + ' risk' + (flags.length === 1 ? '' : 's') + '</b> identified.';
-    html += '</p>';
+    html += '  <p class="lede">This analysis identified <b>' + flags.length + ' risk' + (flags.length === 1 ? '' : 's') + '</b> in the ' + c.name + ' reviewed. Of these, <b>' + crit + ' ' + (crit === 1 ? 'is' : 'are') + ' critical</b>, <b>' + high + ' high</b>, and <b>' + med + ' medium</b> severity. The risks fall across ' + Object.keys(groupByCategory(flags)).length + ' distinct categories of contract risk.</p>';
+  }
+  html += '  <div class="rd-stat-grid">';
+  html += '    <div class="rd-stat crit"><span class="num">' + crit + '</span><span class="lbl">Critical</span></div>';
+  html += '    <div class="rd-stat high"><span class="num">' + high + '</span><span class="lbl">High</span></div>';
+  html += '    <div class="rd-stat med"><span class="num">' + med + '</span><span class="lbl">Medium</span></div>';
+  html += '    <div class="rd-stat"><span class="num">' + flags.length + '</span><span class="lbl">Total</span></div>';
+  html += '  </div>';
+  if(flags.length > 0){
+    html += '  <div class="rd-chart-row">';
+    html += '    <div class="rd-chart-card"><div class="chart-title">Severity Distribution</div><div class="chart-canvas-wrap"><canvas id="chartSeverity"></canvas></div></div>';
+    html += '    <div class="rd-chart-card"><div class="chart-title">Risks by Category</div><div class="chart-canvas-wrap"><canvas id="chartCategory"></canvas></div></div>';
+    html += '  </div>';
+  }
+  html += '  <div class="rd-pagenum">Page 02</div>';
+  html += '</div>';
+
+  // ===== RISK HEATMAP =====
+  if(flags.length > 0){
+    var grouped = groupByCategory(flags);
+    var catNames = Object.keys(grouped);
+    html += '<div class="rd-page">';
+    html += '  <div class="rd-section-label">Section 02</div>';
+    html += '  <h1 class="rd-h1">Risk Heatmap</h1>';
+    html += '  <p class="lede">Distribution of risks across categories and severity. Cells coloured by the highest severity present.</p>';
+    html += '  <div class="rd-heatmap">';
+    html += '    <div class="hm-cell label"></div>';
+    html += '    <div class="hm-cell head">Critical</div>';
+    html += '    <div class="hm-cell head">High</div>';
+    html += '    <div class="hm-cell head">Medium</div>';
+    catNames.forEach(function(cat){
+      var items = grouped[cat];
+      var c1 = items.filter(function(f){return f.severity === 'critical';}).length;
+      var c2 = items.filter(function(f){return f.severity === 'high';}).length;
+      var c3 = items.filter(function(f){return f.severity === 'medium';}).length;
+      html += '    <div class="hm-cell label">' + escapeHtml(cat) + '</div>';
+      html += '    <div class="hm-cell ' + (c1 > 0 ? 'has-crit' : '') + '">' + (c1 > 0 ? '<span class="hm-count">' + c1 + '</span>' : '') + '</div>';
+      html += '    <div class="hm-cell ' + (c2 > 0 ? 'has-high' : '') + '">' + (c2 > 0 ? '<span class="hm-count">' + c2 + '</span>' : '') + '</div>';
+      html += '    <div class="hm-cell ' + (c3 > 0 ? 'has-med' : '') + '">' + (c3 > 0 ? '<span class="hm-count">' + c3 + '</span>' : '') + '</div>';
+    });
+    html += '  </div>';
+    html += '  <div class="rd-pagenum">Page 03</div>';
+    html += '</div>';
   }
 
+  // ===== NEGOTIATION PRIORITIES =====
   if(flags.length > 0){
-    html += '<h2>Risk Register</h2>';
-    // Group by category
-    var byCat = {};
-    var catOrder = [];
-    flags.forEach(function(f){
-      if(!byCat[f.category]){ byCat[f.category] = []; catOrder.push(f.category); }
-      byCat[f.category].push(f);
-    });
-    // Within each category, sort by severity
-    var sevRank = { critical: 0, high: 1, medium: 2 };
-    catOrder.forEach(function(cn){
-      byCat[cn].sort(function(a,b){return (sevRank[a.severity]||9) - (sevRank[b.severity]||9);});
-      html += '<h3>' + cn + '</h3>';
-      byCat[cn].forEach(function(f){
-        html += '<div class="risk ' + f.severity + '">';
-        html += '<span class="risk-tag">' + f.severity + ' risk</span>';
-        html += '<div class="risk-q">' + (S.mode === 'scanner' ? f.title : f.title.replace(/\?$/, '')) + '</div>';
-        if(f.finding) html += '<div class="risk-why"><b>Finding:</b> ' + f.finding + '</div>';
-        html += '<div class="risk-why"><b>Why it matters:</b> ' + f.why + '</div>';
-        html += '<div class="risk-redline"><b>Suggested redline:</b>' + f.redline + '</div>';
-        if(f.evidence) html += '<div class="risk-evidence">"' + escapeHtml(f.evidence) + '"</div>';
-        html += '</div>';
-      });
-    });
-
-    // Top 3 priorities
     var priorities = flags.filter(function(f){return f.severity === 'critical';})
       .concat(flags.filter(function(f){return f.severity === 'high';}))
       .slice(0, 3);
     if(priorities.length > 0){
-      html += '<h2>Recommended Negotiation Priorities</h2>';
-      html += '<div class="priorities">';
-      html += '<p style="font-size:12.5px;margin-bottom:0">If you can only push back on three things, push back on these:</p>';
-      html += '<ol>';
-      priorities.forEach(function(p){
-        html += '<li>' + p.title.replace(/\?$/, '') + '</li>';
+      html += '<div class="rd-page">';
+      html += '  <div class="rd-section-label">Section 03</div>';
+      html += '  <h1 class="rd-h1">Negotiation Priorities</h1>';
+      html += '  <p class="lede">If you can only push back on three items, push back on these. These are the highest-severity risks identified.</p>';
+      priorities.forEach(function(p, i){
+        html += '<div class="rd-priority">';
+        html += '  <div class="pri-num">' + (i + 1).toString().padStart(2, '0') + '</div>';
+        html += '  <div class="pri-body">';
+        html += '    <div class="pri-title">' + escapeHtml(p.title.replace(/\?$/, '')) + '</div>';
+        html += '    <div class="pri-why">' + escapeHtml(p.why) + '</div>';
+        html += '    <div class="pri-redline"><b>Suggested redline</b>' + escapeHtml(p.redline) + '</div>';
+        html += '  </div>';
+        html += '</div>';
       });
-      html += '</ol></div>';
+      html += '  <div class="rd-pagenum">Page 04</div>';
+      html += '</div>';
     }
   }
 
-  html += '<div class="cta">';
-  html += '<h3>Want a lawyer to negotiate these for you?</h3>';
-  html += '<p>Verbatra is built and run by a corporate lawyer. We can review the contract end-to-end, draft the redlines, and negotiate directly with the other side, at a fraction of the cost of your own counsel.</p>';
-  html += '<a href="/#contact">Talk to us &rarr;</a>';
-  html += '</div>';
-
-  if(S.mode === 'scanner'){
-    html += '<div class="scanner-note">This report was generated by Verbatra\'s automated scanner against approximately ' + (RULES[S.type] ? RULES[S.type].length : 0) + ' known risk patterns for ' + c.name + '. The scanner is a first-pass tool and may miss novel or subtly-phrased risks. Always have a qualified lawyer review the contract before signing.</div>';
+  // ===== FULL RISK REGISTER =====
+  if(flags.length > 0){
+    var groupedReg = groupByCategory(flags);
+    var sevRank = { critical: 0, high: 1, medium: 2 };
+    html += '<div class="rd-page">';
+    html += '  <div class="rd-section-label">Section 04</div>';
+    html += '  <h1 class="rd-h1">Full Risk Register</h1>';
+    html += '  <p class="lede">Every identified risk, grouped by category. Each entry includes the finding, why it matters in practice, and suggested redline language to negotiate.</p>';
+    Object.keys(groupedReg).forEach(function(cn){
+      var items = groupedReg[cn].slice().sort(function(a,b){return (sevRank[a.severity]||9) - (sevRank[b.severity]||9);});
+      html += '<div class="rd-cat-section">';
+      html += '  <div class="rd-cat-title"><span>' + escapeHtml(cn) + '</span><span class="cat-count">' + items.length + ' risk' + (items.length === 1 ? '' : 's') + '</span></div>';
+      items.forEach(function(f){
+        html += '<div class="rd-risk ' + f.severity + '">';
+        html += '  <div class="rd-risk-head"><span class="sev-badge ' + f.severity + '">' + f.severity + '</span><span class="rd-risk-title">' + escapeHtml(f.title.replace(/\?$/, '')) + '</span></div>';
+        if(f.finding) html += '<div class="rd-risk-finding"><b>Finding:</b> ' + escapeHtml(f.finding) + '</div>';
+        html += '<div class="rd-risk-why">' + escapeHtml(f.why) + '</div>';
+        html += '<div class="rd-risk-redline"><b>Suggested redline</b>' + escapeHtml(f.redline) + '</div>';
+        if(f.evidence) html += '<div class="rd-risk-evidence"><b>Evidence from your contract</b>"' + escapeHtml(f.evidence) + '"</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+    });
+    html += '  <div class="rd-pagenum">Page 05</div>';
+    html += '</div>';
+  } else {
+    html += '<div class="rd-page">';
+    html += '  <div class="rd-empty"><h4>No risks were flagged</h4><p>Walk through the checklist or scan the contract to surface specific issues. A lawyer review is recommended in any event.</p></div>';
+    html += '</div>';
   }
 
+  // ===== METHODOLOGY =====
+  html += '<div class="rd-page">';
+  html += '  <div class="rd-section-label">Section 05</div>';
+  html += '  <h1 class="rd-h1">Methodology &amp; Limitations</h1>';
+  html += '  <div class="rd-method">';
+  if(S.mode === 'scanner'){
+    html += '<h4>How the analysis was performed</h4>';
+    html += '<p>This report was generated by Verbatra\'s automated Smart Scanner. The scanner reads the uploaded contract text and checks it against <b>' + ((RULES[S.type] && RULES[S.type].length) || 0) + ' known risk patterns</b> specific to ' + c.name + ' contracts. Patterns include missing standard clauses, low liability caps, overly broad indemnification, asymmetric termination rights, and other commonly negotiated terms.</p>';
+    html += '<h4>What the scanner can and cannot do</h4>';
+    html += '<p>The scanner is a first-pass tool. It is accurate for detecting standard patterns but may miss novel or subtly-phrased risks, and may produce false positives for unusual contract structures. It is not a substitute for legal advice, and is not full AI contract analysis.</p>';
+  } else {
+    html += '<h4>How the analysis was performed</h4>';
+    html += '<p>This report was generated from your responses to Verbatra\'s guided ' + c.name + ' checklist. The checklist contains <b>' + (function(){var t=0;c.categories.forEach(function(cat){t+=cat.items.length;});return t;})() + ' questions</b> across ' + c.categories.length + ' risk categories, curated by a corporate lawyer based on years of contract negotiation. Each question identifies a specific clause or issue that lawyers routinely flag.</p>';
+    html += '<h4>What this checklist can and cannot do</h4>';
+    html += '<p>The checklist captures your assessment of each item. The accuracy of the resulting report depends on the accuracy of your answers. The checklist focuses on common risk areas; some contract-specific or industry-specific issues may not be covered.</p>';
+  }
+  html += '<h4>Confidentiality</h4>';
+  html += '<p>Your contract was processed entirely in your browser. Nothing was uploaded to Verbatra\'s servers, stored anywhere, or transmitted to any third party. We cannot see what you analysed.</p>';
+  html += '<h4>Important</h4>';
+  html += '<p>This report is not legal advice and does not create a lawyer-client relationship. It is a tool to help you spot common issues and prepare for negotiation. For binding advice on your specific contract, consult a qualified lawyer.</p>';
+  html += '  </div>';
+  html += '  <div class="rd-pagenum">Page 06</div>';
+  html += '</div>';
+
+  // ===== CTA =====
+  html += '<div class="rd-page" style="padding-bottom:46px">';
+  html += '  <div class="rd-cta">';
+  html += '    <div class="cta-eyebrow">Next Step</div>';
+  html += '    <div class="cta-title">Want a lawyer to negotiate these for you?</div>';
+  html += '    <div class="cta-body">Verbatra is built and run by a corporate lawyer. We can review the contract end-to-end, draft the redlines, and negotiate directly with the other side, at a fraction of the cost of your own counsel.</div>';
+  html += '    <div class="cta-actions">';
+  html += '      <a class="cta-btn" href="/#contact">Talk to us</a>';
+  html += '      <a class="cta-btn ghost" href="https://wa.me/919876543210" target="_blank" rel="noopener">WhatsApp us</a>';
+  html += '    </div>';
+  html += '  </div>';
+  html += '  <div class="rd-footer">Verbatra, contract intelligence for businesses that move quickly &middot; verbatra.com</div>';
+  html += '</div>';
+
   el.innerHTML = html;
+
+  // Charts rendered fresh each time modal opens (in openReportModal)
+  S.lastFlags = flags;
+  S.lastCategoryGroups = flags.length > 0 ? groupByCategory(flags) : {};
+}
+
+function groupByCategory(flags){
+  var by = {};
+  flags.forEach(function(f){
+    if(!by[f.category]) by[f.category] = [];
+    by[f.category].push(f);
+  });
+  return by;
+}
+
+// === REPORT MODAL HANDLERS ===
+function openReportModal(){
+  var modal = document.getElementById('reportModal');
+  if(!modal) return;
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  if(document.body && document.body.style){ document.body.style.overflow = 'hidden'; }
+  // Render charts after modal is visible so canvas dimensions are correct
+  setTimeout(renderCharts, 50);
+}
+
+function closeReportModal(){
+  var modal = document.getElementById('reportModal');
+  if(!modal) return;
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  if(document.body && document.body.style){ document.body.style.overflow = ''; }
+  destroyCharts();
+}
+
+function destroyCharts(){
+  if(S._chartSeverity){ try{ S._chartSeverity.destroy(); }catch(e){} S._chartSeverity = null; }
+  if(S._chartCategory){ try{ S._chartCategory.destroy(); }catch(e){} S._chartCategory = null; }
+}
+
+function renderCharts(){
+  if(typeof Chart === 'undefined') return;
+  destroyCharts();
+  var flags = S.lastFlags || [];
+  if(flags.length === 0) return;
+
+  var crit = flags.filter(function(f){return f.severity === 'critical';}).length;
+  var high = flags.filter(function(f){return f.severity === 'high';}).length;
+  var med = flags.filter(function(f){return f.severity === 'medium';}).length;
+
+  var sevCanvas = document.getElementById('chartSeverity');
+  if(sevCanvas){
+    S._chartSeverity = new Chart(sevCanvas, {
+      type: 'doughnut',
+      data: {
+        labels: ['Critical', 'High', 'Medium'],
+        datasets: [{ data: [crit, high, med], backgroundColor: ['#b85f4f', '#c47a3a', '#a8843f'], borderColor:'#fffdf7', borderWidth:3 }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false, cutout: '60%',
+        plugins: {
+          legend: { position: 'bottom', labels: { font:{family:"'Fraunces',serif", size:12}, color:'#3a3833', padding:14, boxWidth:12, boxHeight:12 } },
+          tooltip: { backgroundColor:'#1f3d30', titleFont:{family:"'Fraunces',serif"}, bodyFont:{family:"'Source Serif 4',serif"} }
+        }
+      }
+    });
+  }
+
+  var byCat = S.lastCategoryGroups || {};
+  var catNames = Object.keys(byCat);
+  var catCounts = catNames.map(function(n){return byCat[n].length;});
+  var catCanvas = document.getElementById('chartCategory');
+  if(catCanvas){
+    S._chartCategory = new Chart(catCanvas, {
+      type: 'bar',
+      data: {
+        labels: catNames,
+        datasets: [{ data: catCounts, backgroundColor: '#1f3d30', borderRadius:4, barThickness:'flex', maxBarThickness:32 }]
+      },
+      options: {
+        indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+        plugins: { legend:{display:false}, tooltip:{backgroundColor:'#1f3d30', titleFont:{family:"'Fraunces',serif"}, bodyFont:{family:"'Source Serif 4',serif"}} },
+        scales: {
+          x: { beginAtZero:true, ticks:{stepSize:1, font:{family:"'Source Serif 4',serif", size:11}, color:'#5a564c'}, grid:{color:'#e6dec9'} },
+          y: { ticks:{font:{family:"'Fraunces',serif", size:11}, color:'#3a3833'}, grid:{display:false} }
+        }
+      }
+    });
+  }
+}
+
+// === PDF GENERATION (jsPDF native, selectable text) ===
+function downloadReportPdf(){
+  if(typeof window.jspdf === 'undefined' && typeof jsPDF === 'undefined'){
+    alert('PDF library is still loading. Please try again in a moment.');
+    return;
+  }
+  var jsPDF_ctor = (typeof window.jspdf !== 'undefined') ? window.jspdf.jsPDF : jsPDF;
+  var doc = new jsPDF_ctor({ unit:'mm', format:'a4', orientation:'portrait' });
+  var pageW = 210, pageH = 297, margin = 18;
+  var maxW = pageW - margin*2;
+  var c = CL[S.type];
+  var flags = S.lastFlags || [];
+
+  // Colours
+  var COL_GREEN = [31,61,48];
+  var COL_OXBLOOD = [122,46,38];
+  var COL_GOLD = [168,132,63];
+  var COL_TEXT = [35,33,28];
+  var COL_TEXT_SOFT = [90,86,76];
+  var COL_BORDER = [217,210,192];
+  var COL_BG = [244,239,228];
+  var COL_CRIT = [184,95,79];
+  var COL_HIGH = [196,122,58];
+  var COL_MED = [168,132,63];
+
+  var crit = flags.filter(function(f){return f.severity === 'critical';}).length;
+  var high = flags.filter(function(f){return f.severity === 'high';}).length;
+  var med = flags.filter(function(f){return f.severity === 'medium';}).length;
+  var totalPossible = (S.mode === 'scanner' ? (RULES[S.type] || []).length * 3 : (function(){var t=0;c.categories.forEach(function(cat){t+=cat.items.length*3;});return t;})());
+  var weighted = crit*3 + high*2 + med*1;
+  var riskScore = totalPossible > 0 ? Math.min(100, Math.round((weighted/totalPossible)*100*2)) : 0;
+  var scoreColor = riskScore>=60?COL_CRIT : riskScore>=30?COL_HIGH : riskScore>0?COL_GOLD : [44,84,67];
+  var scoreLabel = riskScore>=60?'High Risk' : riskScore>=30?'Moderate Risk' : riskScore>0?'Low Risk' : 'No Risks Flagged';
+
+  // --- COVER PAGE ---
+  doc.setFillColor.apply(doc, COL_GREEN); doc.rect(0, 0, pageW, 8, 'F');
+  doc.setFont('helvetica','bold'); doc.setFontSize(28); doc.setTextColor.apply(doc, COL_GREEN);
+  doc.text('Verbatra.', pageW/2, 40, {align:'center'});
+  doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor.apply(doc, COL_OXBLOOD);
+  doc.text('CONTRACT RISK REVIEW', pageW/2, 50, {align:'center'});
+  doc.setFont('helvetica','bold'); doc.setFontSize(24); doc.setTextColor.apply(doc, COL_GREEN);
+  var titleLines = doc.splitTextToSize(c.name, maxW - 20);
+  doc.text(titleLines, pageW/2, 80, {align:'center'});
+  doc.setFont('helvetica','italic'); doc.setFontSize(12); doc.setTextColor.apply(doc, COL_TEXT_SOFT);
+  doc.text(S.mode === 'scanner' ? 'Smart Scanner Analysis' : 'Guided Checklist Review', pageW/2, 80 + titleLines.length*9 + 6, {align:'center'});
+
+  // Score circle
+  var cx = pageW/2, cy = 150, r = 28;
+  doc.setDrawColor(230,222,201); doc.setLineWidth(4);
+  doc.circle(cx, cy, r, 'S');
+  doc.setDrawColor.apply(doc, scoreColor); doc.setLineWidth(4);
+  // Draw partial arc by stroking many small lines
+  var totalArc = Math.PI * 2 * (riskScore/100);
+  var steps = Math.max(8, Math.floor(totalArc * 16));
+  for(var i=0;i<steps;i++){
+    var a1 = -Math.PI/2 + (totalArc * i / steps);
+    var a2 = -Math.PI/2 + (totalArc * (i+1) / steps);
+    doc.line(cx + Math.cos(a1)*r, cy + Math.sin(a1)*r, cx + Math.cos(a2)*r, cy + Math.sin(a2)*r);
+  }
+  doc.setFont('helvetica','bold'); doc.setFontSize(28); doc.setTextColor.apply(doc, COL_GREEN);
+  doc.text(String(riskScore), cx, cy+3, {align:'center'});
+  doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor.apply(doc, COL_TEXT_SOFT);
+  doc.text('OUT OF 100', cx, cy+10, {align:'center'});
+  doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor.apply(doc, scoreColor);
+  doc.text(scoreLabel.toUpperCase(), cx, cy + r + 12, {align:'center'});
+
+  // Meta box
+  doc.setFillColor(247,243,232); doc.roundedRect(margin+20, 215, maxW-40, 36, 3, 3, 'F');
+  doc.setFont('helvetica','normal'); doc.setFontSize(10); doc.setTextColor.apply(doc, COL_TEXT);
+  doc.text('Prepared by: Verbatra, drafted by a corporate lawyer', margin+28, 225);
+  doc.text('Date: ' + new Date().toLocaleDateString('en-IN', {day:'numeric', month:'long', year:'numeric'}), margin+28, 233);
+  doc.text('Total risks identified: ' + flags.length, margin+28, 241);
+
+  doc.setFont('helvetica','italic'); doc.setFontSize(8); doc.setTextColor.apply(doc, COL_GOLD);
+  doc.text('CONFIDENTIAL', pageW - margin, 280, {align:'right'});
+
+  // --- EXEC SUMMARY ---
+  doc.addPage();
+  pdfPageHeader(doc, 'Executive Summary', '01', pageW, margin, COL_OXBLOOD, COL_GREEN);
+  var y = 50;
+  doc.setFont('helvetica','normal'); doc.setFontSize(11); doc.setTextColor.apply(doc, COL_TEXT);
+  var summary;
+  if(flags.length === 0){
+    summary = 'No risks were flagged by this analysis. ' + (S.mode === 'scanner' ? 'The scanner did not detect any of the known risk patterns it checks for in ' + c.name + ' contracts.' : 'You did not flag any items.') + ' A qualified lawyer review is still recommended.';
+  } else {
+    summary = 'This analysis identified ' + flags.length + ' risk' + (flags.length===1?'':'s') + ' in the ' + c.name + ' reviewed. Of these, ' + crit + (crit===1?' is critical, ':' are critical, ') + high + ' high, and ' + med + ' medium severity.';
+  }
+  var sumLines = doc.splitTextToSize(summary, maxW);
+  doc.text(sumLines, margin, y);
+  y += sumLines.length * 6 + 8;
+
+  // Stats row
+  var statW = (maxW - 12)/4, statH = 26;
+  ['Critical','High','Medium','Total'].forEach(function(lbl, i){
+    var val = [crit, high, med, flags.length][i];
+    var col = [COL_CRIT, COL_HIGH, COL_MED, COL_GREEN][i];
+    var x = margin + i*(statW+4);
+    doc.setFillColor.apply(doc, COL_BG); doc.roundedRect(x, y, statW, statH, 2, 2, 'F');
+    doc.setFont('helvetica','bold'); doc.setFontSize(20); doc.setTextColor.apply(doc, col);
+    doc.text(String(val), x + statW/2, y + 12, {align:'center'});
+    doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor.apply(doc, COL_TEXT_SOFT);
+    doc.text(lbl.toUpperCase(), x + statW/2, y + 20, {align:'center'});
+  });
+
+  // --- NEGOTIATION PRIORITIES ---
+  if(flags.length > 0){
+    doc.addPage();
+    pdfPageHeader(doc, 'Negotiation Priorities', '02', pageW, margin, COL_OXBLOOD, COL_GREEN);
+    y = 50;
+    doc.setFont('helvetica','italic'); doc.setFontSize(11); doc.setTextColor.apply(doc, COL_TEXT_SOFT);
+    doc.text(doc.splitTextToSize('If you can only push back on three items, push back on these.', maxW), margin, y);
+    y += 12;
+    var priorities = flags.filter(function(f){return f.severity==='critical';}).concat(flags.filter(function(f){return f.severity==='high';})).slice(0,3);
+    priorities.forEach(function(p, i){
+      var titleLines = doc.splitTextToSize(p.title.replace(/\?$/, ''), maxW - 16);
+      var whyLines = doc.splitTextToSize(p.why, maxW - 16);
+      var redlineLines = doc.splitTextToSize(p.redline, maxW - 22);
+      var boxH = 14 + titleLines.length*5.5 + whyLines.length*5 + redlineLines.length*5 + 14;
+      if(y + boxH > pageH - 25){ doc.addPage(); pdfPageHeader(doc, 'Negotiation Priorities', '02', pageW, margin, COL_OXBLOOD, COL_GREEN); y = 50; }
+      doc.setFillColor.apply(doc, COL_BG); doc.roundedRect(margin, y, maxW, boxH, 2, 2, 'F');
+      doc.setDrawColor.apply(doc, COL_GREEN); doc.setLineWidth(1.4); doc.line(margin, y, margin, y + boxH);
+      doc.setFont('helvetica','bold'); doc.setFontSize(20); doc.setTextColor.apply(doc, COL_GREEN);
+      doc.text(String(i+1).padStart(2,'0'), margin+6, y+13);
+      doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.setTextColor.apply(doc, COL_GREEN);
+      doc.text(titleLines, margin+22, y+8);
+      var afterTitle = y + 8 + titleLines.length*5.5 + 2;
+      doc.setFont('helvetica','normal'); doc.setFontSize(9.5); doc.setTextColor.apply(doc, COL_TEXT);
+      doc.text(whyLines, margin+22, afterTitle);
+      var afterWhy = afterTitle + whyLines.length*5 + 4;
+      doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor.apply(doc, COL_OXBLOOD);
+      doc.text('SUGGESTED REDLINE', margin+22, afterWhy);
+      doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor.apply(doc, COL_TEXT);
+      doc.text(redlineLines, margin+22, afterWhy + 4);
+      y += boxH + 6;
+    });
+  }
+
+  // --- FULL RISK REGISTER ---
+  if(flags.length > 0){
+    doc.addPage();
+    pdfPageHeader(doc, 'Full Risk Register', '03', pageW, margin, COL_OXBLOOD, COL_GREEN);
+    y = 50;
+    var groupedReg = groupByCategory(flags);
+    var sevRank = { critical:0, high:1, medium:2 };
+    Object.keys(groupedReg).forEach(function(cn){
+      var items = groupedReg[cn].slice().sort(function(a,b){return (sevRank[a.severity]||9) - (sevRank[b.severity]||9);});
+      if(y > pageH - 40){ doc.addPage(); pdfPageHeader(doc, 'Full Risk Register', '03', pageW, margin, COL_OXBLOOD, COL_GREEN); y = 50; }
+      doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.setTextColor.apply(doc, COL_GREEN);
+      doc.text(cn, margin, y);
+      doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor.apply(doc, COL_OXBLOOD);
+      doc.text((items.length + ' risk' + (items.length===1?'':'s')).toUpperCase(), pageW - margin, y, {align:'right'});
+      y += 3;
+      doc.setDrawColor.apply(doc, COL_BORDER); doc.setLineWidth(0.3); doc.line(margin, y, pageW-margin, y);
+      y += 6;
+      items.forEach(function(f){
+        var titleLines = doc.splitTextToSize(f.title.replace(/\?$/, ''), maxW - 32);
+        var findingLines = f.finding ? doc.splitTextToSize('Finding: ' + f.finding, maxW - 8) : [];
+        var whyLines = doc.splitTextToSize(f.why, maxW - 8);
+        var redlineLines = doc.splitTextToSize(f.redline, maxW - 14);
+        var evLines = f.evidence ? doc.splitTextToSize('Evidence: "' + f.evidence + '"', maxW - 14) : [];
+        var boxH = 6 + titleLines.length*5 + findingLines.length*4.5 + whyLines.length*4.5 + redlineLines.length*4.5 + evLines.length*4.5 + 14;
+        if(y + boxH > pageH - 25){ doc.addPage(); pdfPageHeader(doc, 'Full Risk Register', '03', pageW, margin, COL_OXBLOOD, COL_GREEN); y = 50; }
+        var sevColor = f.severity==='critical' ? COL_CRIT : f.severity==='high' ? COL_HIGH : COL_MED;
+        doc.setFillColor(255,253,247); doc.setDrawColor.apply(doc, COL_BORDER); doc.setLineWidth(0.2);
+        doc.roundedRect(margin, y, maxW, boxH, 1.5, 1.5, 'FD');
+        doc.setFillColor.apply(doc, sevColor); doc.rect(margin, y, 1.5, boxH, 'F');
+        // Severity badge
+        doc.setFillColor.apply(doc, sevColor); doc.roundedRect(margin+4, y+3, 18, 4.5, 1, 1, 'F');
+        doc.setFont('helvetica','bold'); doc.setFontSize(6.5); doc.setTextColor(255,253,247);
+        doc.text(f.severity.toUpperCase(), margin+13, y+6.2, {align:'center'});
+        // Title
+        doc.setFont('helvetica','bold'); doc.setFontSize(10); doc.setTextColor.apply(doc, COL_GREEN);
+        doc.text(titleLines, margin+26, y+6);
+        var ty = y + 6 + titleLines.length*5 + 2;
+        // Finding
+        if(findingLines.length){
+          doc.setFont('helvetica','normal'); doc.setFontSize(8.5); doc.setTextColor.apply(doc, COL_TEXT);
+          doc.text(findingLines, margin+4, ty); ty += findingLines.length*4.5 + 1;
+        }
+        // Why
+        doc.setFont('helvetica','italic'); doc.setFontSize(8.5); doc.setTextColor.apply(doc, COL_TEXT_SOFT);
+        doc.text(whyLines, margin+4, ty); ty += whyLines.length*4.5 + 2;
+        // Redline
+        doc.setFont('helvetica','bold'); doc.setFontSize(7); doc.setTextColor.apply(doc, COL_OXBLOOD);
+        doc.text('REDLINE', margin+4, ty); ty += 3;
+        doc.setFont('helvetica','normal'); doc.setFontSize(8.5); doc.setTextColor.apply(doc, COL_TEXT);
+        doc.text(redlineLines, margin+4, ty); ty += redlineLines.length*4.5 + 2;
+        // Evidence
+        if(evLines.length){
+          doc.setFont('helvetica','italic'); doc.setFontSize(8); doc.setTextColor.apply(doc, COL_TEXT_SOFT);
+          doc.text(evLines, margin+4, ty);
+        }
+        y += boxH + 4;
+      });
+      y += 4;
+    });
+  }
+
+  // --- METHODOLOGY ---
+  doc.addPage();
+  pdfPageHeader(doc, 'Methodology & Limitations', '04', pageW, margin, COL_OXBLOOD, COL_GREEN);
+  y = 50;
+  doc.setFillColor.apply(doc, COL_BG); doc.roundedRect(margin, y, maxW, pageH - y - 30, 3, 3, 'F');
+  y += 8;
+  var methodSections = [
+    {h:'How the analysis was performed', t: S.mode === 'scanner' ? ('This report was generated by Verbatra\'s automated Smart Scanner. The scanner reads the uploaded contract text and checks it against ' + ((RULES[S.type] && RULES[S.type].length) || 0) + ' known risk patterns specific to ' + c.name + ' contracts.') : ('This report was generated from your responses to Verbatra\'s guided ' + c.name + ' checklist, curated by a corporate lawyer.')},
+    {h:'What this tool can and cannot do', t: S.mode === 'scanner' ? 'The scanner is a first-pass tool. It is accurate for detecting standard patterns but may miss novel or subtly-phrased risks. It is not full AI contract analysis.' : 'The accuracy of this report depends on the accuracy of your answers. The checklist focuses on common risk areas; some contract-specific issues may not be covered.'},
+    {h:'Confidentiality', t: 'Your contract was processed entirely in your browser. Nothing was uploaded to Verbatra\'s servers, stored, or transmitted to any third party.'},
+    {h:'Important', t: 'This report is not legal advice and does not create a lawyer-client relationship. For binding advice on your specific contract, consult a qualified lawyer.'}
+  ];
+  methodSections.forEach(function(s){
+    doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor.apply(doc, COL_GREEN);
+    doc.text(s.h, margin+6, y); y += 5;
+    doc.setFont('helvetica','normal'); doc.setFontSize(9.5); doc.setTextColor.apply(doc, COL_TEXT);
+    var ll = doc.splitTextToSize(s.t, maxW - 12);
+    doc.text(ll, margin+6, y); y += ll.length*5 + 6;
+  });
+
+  // CTA at bottom
+  y = pageH - 60;
+  doc.setFillColor.apply(doc, COL_GREEN); doc.roundedRect(margin, y, maxW, 40, 3, 3, 'F');
+  doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor.apply(doc, COL_GOLD);
+  doc.text('NEXT STEP', pageW/2, y+8, {align:'center'});
+  doc.setFont('helvetica','bold'); doc.setFontSize(14); doc.setTextColor(244,239,228);
+  doc.text('Want a lawyer to negotiate these for you?', pageW/2, y+18, {align:'center'});
+  doc.setFont('helvetica','normal'); doc.setFontSize(10); doc.setTextColor(217,210,192);
+  doc.text('Verbatra is built and run by a corporate lawyer.', pageW/2, y+26, {align:'center'});
+  doc.text('verbatra.com', pageW/2, y+32, {align:'center'});
+
+  // Save
+  var fname = 'Contract_Risk_Review_' + (S.type ? S.type.toUpperCase() : 'BLANK') + '_' + new Date().toISOString().slice(0,10) + '.pdf';
+  doc.save(fname);
+}
+
+function pdfPageHeader(doc, title, num, pageW, margin, oxblood, green){
+  doc.setFont('helvetica','bold'); doc.setFontSize(8); doc.setTextColor.apply(doc, oxblood);
+  doc.text('SECTION ' + num, margin, 22);
+  doc.setFont('helvetica','bold'); doc.setFontSize(18); doc.setTextColor.apply(doc, green);
+  doc.text(title, margin, 35);
+  doc.setDrawColor(217,210,192); doc.setLineWidth(0.3); doc.line(margin, 40, 210-margin, 40);
+}
+
+// Word download — generates rich HTML doc with embedded chart images (charts captured as PNG from canvas)
+function downloadReportWord(){
+  // Capture charts as PNG so they appear in Word
+  var sevPng = '', catPng = '';
+  if(S._chartSeverity){ try { sevPng = S._chartSeverity.toBase64Image('image/png', 1); } catch(e){} }
+  if(S._chartCategory){ try { catPng = S._chartCategory.toBase64Image('image/png', 1); } catch(e){} }
+
+  var reportDoc = document.getElementById('reportDoc');
+  if(!reportDoc){ alert('Report not ready.'); return; }
+  var htmlContent = reportDoc.innerHTML;
+
+  // Replace chart canvases with embedded images (Word can't render canvas)
+  if(sevPng){
+    htmlContent = htmlContent.replace(/<canvas id="chartSeverity"[\s\S]*?<\/canvas>/, '<img src="' + sevPng + '" style="max-width:280px;display:block;margin:0 auto"/>');
+  }
+  if(catPng){
+    htmlContent = htmlContent.replace(/<canvas id="chartCategory"[\s\S]*?<\/canvas>/, '<img src="' + catPng + '" style="max-width:280px;display:block;margin:0 auto"/>');
+  }
+
+  // Inline CSS for Word
+  var stylesheet = '';
+  var styleTags = document.querySelectorAll('style');
+  styleTags.forEach(function(s){ stylesheet += s.innerHTML; });
+
+  var doc = '<!DOCTYPE html><html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>Contract Risk Report</title><style>' + stylesheet + ' body{font-family:Georgia,serif;background:#f0ead8;color:#23211c} .report-modal,.report-bar,.report-close{display:none}</style></head><body>' + htmlContent + '</body></html>';
+
+  var blob = new Blob(['\ufeff', doc], { type: 'application/msword' });
+  var url = URL.createObjectURL(blob);
+  var fname = 'Contract_Risk_Review_' + (S.type ? S.type.toUpperCase() : 'BLANK') + '_' + new Date().toISOString().slice(0,10) + '.doc';
+  var a = document.createElement('a');
+  a.href = url; a.download = fname;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+}
+
+// Wire modal buttons
+function wireReportModalButtons(){
+  var closeBtn = document.getElementById('reportCloseBtn');
+  if(closeBtn) closeBtn.onclick = closeReportModal;
+  var wordBtn = document.getElementById('reportWordBtn');
+  if(wordBtn) wordBtn.onclick = function(){ _gateDownload(downloadReportWord); };
+  var pdfBtn = document.getElementById('reportPdfBtn');
+  if(pdfBtn) pdfBtn.onclick = function(){ _gateDownload(downloadReportPdf); };
+  // Close on Escape
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape'){ closeReportModal(); }
+  });
+  // Close on backdrop click
+  var modal = document.getElementById('reportModal');
+  if(modal){
+    modal.addEventListener('click', function(e){
+      if(e.target === modal){ closeReportModal(); }
+    });
+  }
+}
+
+// Lead-capture gate (uses existing modal)
+function _gateDownload(action){
+  // Check if user has already submitted lead this session
+  if(window._verbatraLeadCaptured){
+    action();
+    return;
+  }
+  S._pendingDownload = action;
+  // Trigger the existing lead modal using the same mechanism as other tools
+  var leadModal = document.getElementById('leadModal');
+  var errEl = document.getElementById('leadErr');
+  if(leadModal){
+    if(errEl) errEl.classList.remove('show');
+    leadModal.classList.add('show');
+    if(document.body && document.body.style){ document.body.style.overflow = 'hidden'; }
+  } else {
+    // No lead modal? Just run directly
+    action();
+  }
+}
+
+// After lead is captured (existing engine fires this), perform the pending download
+function _completePendingDownload(){
+  window._verbatraLeadCaptured = true;
+  if(S._pendingDownload){
+    var fn = S._pendingDownload; S._pendingDownload = null;
+    setTimeout(fn, 250);
+  }
 }
 
 // Init
 _wireModal();
-_wireExport();
+// NOTE: _wireExport() is NOT called because the redline tool removed the standard
+// preview-toolbar (#wordBtn / #printBtn). It uses its own report-modal buttons instead.
 _wireProtect();
+wireReportModalButtons();
+// Override shared engine's lead-form behaviour for the redline tool.
+// The shared _wireModal binds a submit handler that calls _exportWord or window.print
+// based on _pendingExport. We override it: when our pending download is queued, run that instead.
+(function(){
+  var leadForm = document.getElementById('leadForm');
+  if(!leadForm) return;
+  // Clone the form to drop the old listener wholesale, then re-attach our own
+  var newForm = leadForm.cloneNode(true);
+  leadForm.parentNode.replaceChild(newForm, leadForm);
+  newForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    var fd = new FormData(newForm);
+    var errEl = document.getElementById('leadErr');
+    var need = ["name","email","phone","designation","org","industry","dpConsent"];
+    for(var i=0;i<need.length;i++){
+      if(!fd.get(need[i])){ errEl.textContent="Please complete all required fields."; errEl.classList.add("show"); return; }
+    }
+    var email = fd.get("email");
+    if(!/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(email)){ errEl.textContent="Please enter a valid email address."; errEl.classList.add("show"); return; }
+    var phoneRaw = fd.get("phone");
+    var phoneDigits = (phoneRaw.match(/\d/g)||[]).length;
+    if(!/^[+]?[\d\s\-()]+$/.test(phoneRaw) || phoneDigits < 8 || phoneDigits > 15){ errEl.textContent="Please enter a valid phone number with country code (8 to 15 digits)."; errEl.classList.add("show"); return; }
+    errEl.classList.remove("show");
+    fd.append("tool", document.title);
+    fd.append("ts", new Date().toISOString());
+    if(typeof LEAD_ENDPOINT !== 'undefined' && LEAD_ENDPOINT && LEAD_ENDPOINT.indexOf("http")===0){
+      try{ await fetch(LEAD_ENDPOINT, {method:"POST", mode:"no-cors", body:fd}); }catch(err){}
+    }
+    // Close lead modal
+    var leadModal = document.getElementById('leadModal');
+    if(leadModal){ leadModal.classList.remove('show'); leadModal.style.display=''; }
+    if(document.body && document.body.style){ document.body.style.overflow = ''; }
+    _completePendingDownload();
+  });
+})();
 renderForm();
 renderReport();
 
