@@ -111,6 +111,20 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 /* === FULLSCREEN REPORT MODAL === */
 .report-modal{position:fixed;inset:0;z-index:1000;background:rgba(26,26,23,.55);display:none;opacity:0;transition:opacity .22s ease-out}
 .report-modal.open{display:block;opacity:1}
+/* CRITICAL: lead-capture modal must appear ABOVE the report modal */
+.modal{z-index:2200 !important}
+/* Loading overlay shown while scan runs */
+.scan-loading{position:fixed;inset:0;z-index:2100;background:rgba(15,30,22,.94);display:none;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;color:#f4efe4}
+.scan-loading.open{display:flex}
+.sl-stage{font-family:'Fraunces',serif;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#a8843f;font-weight:600;margin-bottom:18px;opacity:.95}
+.sl-title{font-family:'Fraunces',serif;font-size:30px;font-weight:500;letter-spacing:-.015em;color:#f4efe4;margin-bottom:14px;text-align:center;line-height:1.25;max-width:560px}
+.sl-message{font-size:14.5px;color:rgba(244,239,228,.78);text-align:center;line-height:1.55;min-height:46px;max-width:560px;font-style:italic;transition:opacity .25s}
+.sl-spinner{margin:30px 0 22px;width:60px;height:60px;position:relative}
+.sl-spinner::before,.sl-spinner::after{content:"";position:absolute;inset:0;border-radius:50%;border:3px solid transparent;border-top-color:#a8843f;animation:spin 1.1s cubic-bezier(.5,.15,.5,.85) infinite}
+.sl-spinner::after{border-top-color:rgba(244,239,228,.4);animation-duration:1.6s;animation-direction:reverse;inset:8px}
+.sl-progress-track{width:280px;max-width:80vw;height:3px;background:rgba(244,239,228,.12);border-radius:3px;overflow:hidden;margin-top:8px}
+.sl-progress-bar{height:100%;background:linear-gradient(90deg,#a8843f,#c7a25f);border-radius:3px;width:0%;transition:width .35s ease-out}
+.sl-meta{margin-top:18px;font-size:11.5px;color:rgba(244,239,228,.5);letter-spacing:.06em;text-transform:uppercase;font-weight:600}
 .report-modal .report-bar{position:sticky;top:0;display:flex;align-items:center;justify-content:space-between;padding:14px 28px;background:linear-gradient(180deg,#1f3d30,#15291f);color:#f4efe4;box-shadow:0 4px 16px -4px rgba(0,0,0,.35);z-index:2;border-bottom:1px solid rgba(244,239,228,.12)}
 .report-bar-left{display:flex;align-items:center;gap:18px;min-width:0;flex:1}
 .report-logo{font-family:'Fraunces',serif;font-weight:500;font-size:20px;letter-spacing:-.01em;color:#f4efe4}
@@ -179,11 +193,11 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 .rd-stat.med .num{color:#a8843f}
 
 /* Two-column chart row */
-.rd-chart-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:28px 0 10px}
+.rd-chart-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:22px 0 8px}
 @media (max-width:680px){.rd-chart-row{grid-template-columns:1fr}}
-.rd-chart-card{background:#f4efe4;border-radius:10px;padding:22px 20px;border:1px solid #e6dec9}
-.rd-chart-card .chart-title{font-family:'Fraunces',serif;font-size:14px;font-weight:600;color:#1f3d30;margin-bottom:14px;letter-spacing:-.005em}
-.rd-chart-card .chart-canvas-wrap{position:relative;height:200px}
+.rd-chart-card{background:#f4efe4;border-radius:8px;padding:16px 18px;border:1px solid #e6dec9}
+.rd-chart-card .chart-title{font-family:'Fraunces',serif;font-size:12.5px;font-weight:600;color:#5a564c;margin-bottom:10px;letter-spacing:.04em;text-transform:uppercase}
+.rd-chart-card .chart-canvas-wrap{position:relative;height:150px}
 
 /* Heatmap */
 .rd-heatmap{display:grid;grid-template-columns:auto repeat(3,1fr);gap:8px;margin:18px 0}
@@ -199,28 +213,43 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 .rd-heatmap .hm-cell.has-med .hm-count{color:#a8843f}
 
 /* Priority cards */
-.rd-priority{display:flex;gap:20px;align-items:flex-start;background:#f4efe4;border-radius:10px;padding:24px;margin-bottom:14px;border-left:4px solid #1f3d30}
-.rd-priority .pri-num{font-family:'Fraunces',serif;font-size:42px;font-weight:500;color:#1f3d30;line-height:1;flex:none;width:60px;text-align:center;padding-top:4px}
+.rd-priority{display:flex;gap:24px;align-items:flex-start;background:#f4efe4;border-radius:12px;padding:28px 30px;margin-bottom:18px;border-left:5px solid #1f3d30;page-break-inside:avoid;box-shadow:0 1px 0 rgba(0,0,0,.02)}
+.rd-priority .pri-num{font-family:'Fraunces',serif;font-size:52px;font-weight:500;color:#1f3d30;line-height:1;flex:none;width:70px;text-align:center;padding-top:6px;letter-spacing:-.02em;opacity:.85}
 .rd-priority .pri-body{flex:1;min-width:0}
-.rd-priority .pri-title{font-family:'Fraunces',serif;font-size:18px;font-weight:500;color:#1f3d30;margin-bottom:8px;line-height:1.3}
-.rd-priority .pri-why{font-size:13px;color:#3a3833;margin-bottom:10px;line-height:1.6}
-.rd-priority .pri-redline{font-size:12.5px;color:#23211c;line-height:1.55;background:#fffdf7;padding:12px 14px;border-radius:6px;border:1px solid #e6dec9}
-.rd-priority .pri-redline b{color:#7a2e26;font-size:10px;letter-spacing:.14em;display:block;margin-bottom:4px;text-transform:uppercase;font-family:'Fraunces',serif}
+.rd-priority .pri-head{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.rd-priority .pri-cat{font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:#5a564c;font-family:'Fraunces',serif}
+.rd-priority .pri-title{font-family:'Fraunces',serif;font-size:21px;font-weight:500;color:#1f3d30;margin-bottom:14px;line-height:1.3;letter-spacing:-.015em}
+.rd-priority .pri-finding,.rd-priority .pri-why,.rd-priority .pri-posture{font-size:13.5px;color:#3a3833;margin-bottom:12px;line-height:1.7}
+.rd-priority .pri-finding b,.rd-priority .pri-why b,.rd-priority .pri-posture b{color:#1f3d30;font-weight:600}
+.rd-priority .pri-redline{font-size:13px;color:#23211c;line-height:1.65;background:#fffdf7;padding:14px 18px;border-radius:8px;border:1px solid #e6dec9;border-left:3px solid #7a2e26;font-family:Georgia,'Source Serif 4',serif;margin-top:6px}
+.rd-priority .pri-redline b{color:#7a2e26;font-size:10px;letter-spacing:.16em;display:block;margin-bottom:6px;text-transform:uppercase;font-family:'Fraunces',serif}
 
 /* Risk register */
-.rd-risk{background:#fffdf7;border:1px solid #e6dec9;border-left:4px solid #c47a3a;border-radius:8px;padding:18px 22px;margin-bottom:12px;page-break-inside:avoid}
+.rd-risk{background:#fffdf7;border:1px solid #e6dec9;border-left:5px solid #c47a3a;border-radius:10px;padding:24px 28px;margin-bottom:18px;page-break-inside:avoid;box-shadow:0 1px 0 rgba(0,0,0,.02)}
 .rd-risk.critical{border-left-color:#b85f4f}
 .rd-risk.high{border-left-color:#c47a3a}
 .rd-risk.medium{border-left-color:#a8843f}
-.rd-risk-head{display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap}
-.rd-risk-title{font-family:'Fraunces',serif;font-weight:500;font-size:15.5px;color:#1f3d30;line-height:1.35;flex:1;min-width:200px}
-.rd-risk-finding{font-size:12.5px;color:#3a3833;margin:6px 0 8px;line-height:1.55}
-.rd-risk-finding b{color:#1f3d30;font-weight:600}
-.rd-risk-why{font-size:12px;color:#5a564c;line-height:1.55;margin-bottom:10px;padding-left:12px;border-left:2px solid #e6dec9;font-style:italic}
-.rd-risk-redline{font-size:12.5px;color:#23211c;line-height:1.55;background:#f4efe4;padding:10px 14px;border-radius:6px;border:1px solid #e6dec9}
-.rd-risk-redline b{color:#7a2e26;font-size:10px;letter-spacing:.14em;display:block;margin-bottom:4px;text-transform:uppercase;font-family:'Fraunces',serif}
-.rd-risk-evidence{font-size:11.5px;color:#5a564c;font-style:italic;background:rgba(0,0,0,.025);padding:8px 12px;border-radius:5px;margin-top:8px;font-family:Georgia,serif;line-height:1.55}
-.rd-risk-evidence b{color:#23211c;font-weight:600;font-style:normal;letter-spacing:.04em;font-size:10px;text-transform:uppercase;display:block;margin-bottom:3px;font-family:'Fraunces',serif}
+.rd-risk-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap;padding-bottom:12px;border-bottom:1px solid #ebe3cf}
+.rd-risk-num{font-family:'Fraunces',serif;font-size:13px;font-weight:600;color:#a8843f;letter-spacing:.05em;flex:none}
+.rd-risk-title{font-family:'Fraunces',serif;font-weight:500;font-size:18px;color:#1f3d30;line-height:1.3;flex:1;min-width:200px;letter-spacing:-.01em}
+.rd-risk-block{margin-top:14px}
+.rd-risk-block:first-of-type{margin-top:0}
+.rd-block-label{font-family:'Fraunces',serif;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:#7a2e26;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.rd-block-label::before{content:"";width:14px;height:1.5px;background:#7a2e26;display:inline-block;flex:none}
+.rd-block-body{font-size:13.5px;color:#23211c;line-height:1.7;letter-spacing:.005em}
+.rd-finding .rd-block-body{font-weight:500;color:#1f3d30}
+.rd-why .rd-block-body{color:#3a3833}
+.rd-impact .rd-block-body{color:#3a3833;font-size:13px;line-height:1.65}
+.rd-posture .rd-block-body{color:#3a3833;font-size:13px;line-height:1.65}
+.rd-redline-block .rd-block-label{color:#1f3d30}
+.rd-redline-block .rd-block-label::before{background:#1f3d30}
+.rd-redline-text{background:#f4efe4;padding:14px 18px;border-radius:8px;border:1px solid #e6dec9;border-left:3px solid #1f3d30;font-size:13px;line-height:1.65;color:#23211c;font-family:Georgia,'Source Serif 4',serif}
+.rd-evidence-block .rd-block-label{color:#5a564c}
+.rd-evidence-block .rd-block-label::before{background:#5a564c}
+.rd-evidence-text{background:rgba(0,0,0,.03);padding:12px 16px;border-radius:6px;color:#5a564c;font-style:italic;font-family:Georgia,'Source Serif 4',serif;font-size:12.5px;line-height:1.65;border-left:2px solid #c4baa1}
+.rd-reading-key{display:flex;flex-direction:column;gap:8px;background:#f4efe4;border:1px solid #e6dec9;border-radius:8px;padding:14px 18px;margin:18px 0 24px}
+.rd-key-row{display:flex;align-items:center;gap:12px;font-size:12.5px;color:#3a3833;line-height:1.5}
+.rd-key-row .sev-badge{flex:none;min-width:75px;text-align:center}
 
 /* Category sections */
 .rd-cat-section{margin-top:28px}
@@ -1089,9 +1118,10 @@ function runScan(){
   var text = S.scanText;
   if(!text || text.trim().split(/\s+/).length < 50){ return; }
 
+  // Run the analysis silently first into a temp variable so we can show the loading
+  // animation with realistic timing without holding up the actual work.
   var rules = RULES[S.type] || [];
   var flags = [];
-
   rules.forEach(function(rule){
     var result = applyRule(rule, text);
     if(result){
@@ -1099,11 +1129,89 @@ function runScan(){
     }
   });
 
-  S.scanFlags = flags;
-  renderReport();
-  // Scroll the preview into view on mobile (guard for environments without scrollIntoView)
-  var doc = document.getElementById('doc');
-  if(doc && typeof doc.scrollIntoView === 'function') doc.scrollIntoView({behavior:'smooth', block:'start'});
+  // Compute realistic loading duration based on content size:
+  // base 4.5s, +500ms per 5000 chars, capped at 9s
+  var charCount = text.length;
+  var extraTime = Math.min(4500, Math.floor(charCount / 5000) * 500);
+  var totalDuration = 4500 + extraTime;
+
+  showScanLoading(totalDuration, flags.length, function(){
+    S.scanFlags = flags;
+    renderReport();
+    // After loading completes, auto-open the report modal so the user immediately
+    // sees the report they just waited for.
+    setTimeout(function(){
+      openReportModal();
+    }, 200);
+  });
+}
+
+// Loading overlay shown during scan analysis. Realistic staged messages,
+// progress bar, branded design.
+function showScanLoading(totalDuration, flagCount, onDone){
+  var existing = document.getElementById('scanLoadingOverlay');
+  if(existing) existing.remove();
+
+  var overlay = document.createElement('div');
+  overlay.id = 'scanLoadingOverlay';
+  overlay.className = 'scan-loading';
+  overlay.innerHTML =
+    '<div class="sl-stage" id="slStage">Phase 01 of 05</div>' +
+    '<div class="sl-title" id="slTitle">Reading your contract</div>' +
+    '<div class="sl-spinner"></div>' +
+    '<div class="sl-message" id="slMessage">Parsing the document structure and identifying clause boundaries.</div>' +
+    '<div class="sl-progress-track"><div class="sl-progress-bar" id="slProgress"></div></div>' +
+    '<div class="sl-meta">Analysis powered by Verbatra</div>';
+  document.body.appendChild(overlay);
+  // Force reflow then add open class so transition triggers cleanly
+  void overlay.offsetWidth;
+  overlay.classList.add('open');
+  if(document.body && document.body.style){ document.body.style.overflow = 'hidden'; }
+
+  var stages = [
+    { stage:'Phase 01 of 05', title:'Reading your contract', msg:'Parsing the document structure, identifying clause boundaries and party references.' },
+    { stage:'Phase 02 of 05', title:'Mapping legal framework', msg:'Cross-referencing the clauses against Indian contract law, the Contract Act, and applicable sector regulations.' },
+    { stage:'Phase 03 of 05', title:'Identifying risk patterns', msg:'Comparing against ' + ((RULES[S.type] || []).length || 0) + ' known commercial risk patterns lawyers look for in this contract type.' },
+    { stage:'Phase 04 of 05', title:'Analysing commercial impact', msg:'Assessing severity, business impact and the practical consequences of each identified risk.' },
+    { stage:'Phase 05 of 05', title:'Compiling your report', msg:'Drafting findings, suggested redline language and negotiation priorities. Almost done.' }
+  ];
+
+  var stageEl = document.getElementById('slStage');
+  var titleEl = document.getElementById('slTitle');
+  var msgEl = document.getElementById('slMessage');
+  var progEl = document.getElementById('slProgress');
+  var perStage = totalDuration / stages.length;
+  var startTime = Date.now();
+  var stageIdx = 0;
+
+  // Tick progress every 100ms
+  var progressTimer = setInterval(function(){
+    var elapsed = Date.now() - startTime;
+    var pct = Math.min(100, (elapsed / totalDuration) * 100);
+    if(progEl) progEl.style.width = pct + '%';
+    var newStageIdx = Math.min(stages.length - 1, Math.floor(elapsed / perStage));
+    if(newStageIdx !== stageIdx){
+      stageIdx = newStageIdx;
+      var s = stages[stageIdx];
+      // Fade message text
+      if(msgEl){ msgEl.style.opacity = '0'; }
+      setTimeout(function(){
+        if(stageEl) stageEl.textContent = s.stage;
+        if(titleEl) titleEl.textContent = s.title;
+        if(msgEl){ msgEl.textContent = s.msg; msgEl.style.opacity = '1'; }
+      }, 250);
+    }
+    if(elapsed >= totalDuration){
+      clearInterval(progressTimer);
+      // Brief pause on 100% before tearing down
+      setTimeout(function(){
+        overlay.classList.remove('open');
+        if(document.body && document.body.style){ document.body.style.overflow = ''; }
+        setTimeout(function(){ overlay.remove(); }, 250);
+        if(typeof onDone === 'function') onDone();
+      }, 350);
+    }
+  }, 100);
 }
 
 function applyRule(rule, text){
@@ -1346,7 +1454,24 @@ function renderRichReport(){
   if(flags.length === 0){
     html += '  <p class="lede">No risks were flagged by this analysis. ' + (S.mode === 'scanner' ? 'The scanner did not detect any of the ' + (RULES[S.type] ? RULES[S.type].length : 0) + ' known risk patterns it checks for in ' + c.name + '. This does not mean the contract is risk-free, only that the patterns the scanner knows about were not detected.' : 'You did not flag any items in the checklist.') + ' We still recommend a qualified lawyer review the contract end-to-end before signing.</p>';
   } else {
-    html += '  <p class="lede">This analysis identified <b>' + flags.length + ' risk' + (flags.length === 1 ? '' : 's') + '</b> in the ' + c.name + ' reviewed. Of these, <b>' + crit + ' ' + (crit === 1 ? 'is' : 'are') + ' critical</b>, <b>' + high + ' high</b>, and <b>' + med + ' medium</b> severity. The risks fall across ' + Object.keys(groupByCategory(flags)).length + ' distinct categories of contract risk.</p>';
+    var topSeverity = crit > 0 ? 'critical' : (high > 0 ? 'high' : 'medium');
+    var headlineCounts = [];
+    if(crit > 0) headlineCounts.push('<b>' + crit + ' critical</b>');
+    if(high > 0) headlineCounts.push('<b>' + high + ' high</b>');
+    if(med > 0) headlineCounts.push('<b>' + med + ' medium</b>');
+    var countsStr = headlineCounts.length === 1 ? headlineCounts[0] : (headlineCounts.slice(0, -1).join(', ') + ' and ' + headlineCounts.slice(-1));
+    var catCount = Object.keys(groupByCategory(flags)).length;
+    html += '  <p class="lede">This analysis identified <b>' + flags.length + ' risk' + (flags.length === 1 ? '' : 's') + '</b> in the ' + c.name + ' reviewed, of which ' + countsStr + ' severity. The risks span ' + catCount + ' distinct ' + (catCount === 1 ? 'category' : 'categories') + ' of contract risk, ranging from commercial allocation of liability to operational and procedural protections that affect how the relationship works in practice.</p>';
+    var verdict = '';
+    if(crit > 0){
+      verdict = 'The presence of ' + crit + ' critical risk' + (crit === 1 ? '' : 's') + ' means the contract in its current form creates exposure that is unlikely to be acceptable to a counterparty acting in its own interest. The critical items should be addressed before signing, either through negotiation of the underlying clauses or by escalating to qualified legal counsel for a full review.';
+    } else if(high > 0){
+      verdict = 'No critical risks were detected, but the presence of ' + high + ' high-severity ' + (high === 1 ? 'item' : 'items') + ' means the contract is unbalanced in favour of the counterparty on issues that will matter if the relationship sours. These items should be raised during negotiation, and most reasonable counterparties will accept fair redline language on them.';
+    } else {
+      verdict = 'The contract is broadly reasonable, but the medium-severity items represent the kind of small unfairness that, taken cumulatively, shifts the overall risk allocation. Raising these as polite redlines costs nothing and tends to produce a cleaner final contract.';
+    }
+    html += '  <p class="lede" style="margin-top:14px">' + verdict + '</p>';
+    html += '  <p class="lede" style="margin-top:14px">Each risk in the detailed register below includes the specific finding, why it matters in practice under Indian contract law, the business impact if left unaddressed, the suggested negotiation posture, and the precise redline language to insert into the contract. The top three negotiation priorities are highlighted separately.</p>';
   }
   html += '  <div class="rd-stat-grid">';
   html += '    <div class="rd-stat crit"><span class="num">' + crit + '</span><span class="lbl">Critical</span></div>';
@@ -1400,13 +1525,17 @@ function renderRichReport(){
       html += '<div class="rd-page">';
       html += '  <div class="rd-section-label">Section 03</div>';
       html += '  <h1 class="rd-h1">Negotiation Priorities</h1>';
-      html += '  <p class="lede">If you can only push back on three items, push back on these. These are the highest-severity risks identified.</p>';
+      html += '  <p class="lede">Out of the ' + flags.length + ' risks identified, three deserve the strongest pushback in negotiation. These are ranked by severity, by the cost of leaving them unaddressed, and by how reasonable a redline on them would appear to a counterparty negotiating in good faith. Use these to frame the opening round of revisions before progressing to the items in the full register.</p>';
       priorities.forEach(function(p, i){
+        var sc = getSeverityContent(p.severity);
         html += '<div class="rd-priority">';
         html += '  <div class="pri-num">' + (i + 1).toString().padStart(2, '0') + '</div>';
         html += '  <div class="pri-body">';
+        html += '    <div class="pri-head"><span class="sev-badge ' + p.severity + '">' + p.severity + '</span><span class="pri-cat">' + escapeHtml(p.category) + '</span></div>';
         html += '    <div class="pri-title">' + escapeHtml(p.title.replace(/\?$/, '')) + '</div>';
-        html += '    <div class="pri-why">' + escapeHtml(p.why) + '</div>';
+        if(p.finding) html += '    <div class="pri-finding"><b>Finding.</b> ' + escapeHtml(p.finding) + '</div>';
+        html += '    <div class="pri-why"><b>Why it matters.</b> ' + escapeHtml(p.why) + '</div>';
+        html += '    <div class="pri-posture"><b>How to position this.</b> ' + sc.posture + '</div>';
         html += '    <div class="pri-redline"><b>Suggested redline</b>' + escapeHtml(p.redline) + '</div>';
         html += '  </div>';
         html += '</div>';
@@ -1422,19 +1551,31 @@ function renderRichReport(){
     var sevRank = { critical: 0, high: 1, medium: 2 };
     html += '<div class="rd-page">';
     html += '  <div class="rd-section-label">Section 04</div>';
-    html += '  <h1 class="rd-h1">Full Risk Register</h1>';
-    html += '  <p class="lede">Every identified risk, grouped by category. Each entry includes the finding, why it matters in practice, and suggested redline language to negotiate.</p>';
+    html += '  <h1 class="rd-h1">Detailed Risk Register</h1>';
+    html += '  <p class="lede">Each identified risk is documented below with the finding, why it matters in practice, business impact if left unaddressed, suggested negotiation posture, and the specific redline language to insert into the contract. Risks are grouped by category and ordered by severity within each category.</p>';
+    html += '  <div class="rd-reading-key">';
+    html += '    <div class="rd-key-row"><span class="sev-badge critical">critical</span><span>Significant exposure. Address before signing or escalate.</span></div>';
+    html += '    <div class="rd-key-row"><span class="sev-badge high">high</span><span>Meaningful risk. Worth pushing back during negotiation.</span></div>';
+    html += '    <div class="rd-key-row"><span class="sev-badge medium">medium</span><span>Worth raising. Often accepted as a polite redline.</span></div>';
+    html += '  </div>';
     Object.keys(groupedReg).forEach(function(cn){
       var items = groupedReg[cn].slice().sort(function(a,b){return (sevRank[a.severity]||9) - (sevRank[b.severity]||9);});
       html += '<div class="rd-cat-section">';
       html += '  <div class="rd-cat-title"><span>' + escapeHtml(cn) + '</span><span class="cat-count">' + items.length + ' risk' + (items.length === 1 ? '' : 's') + '</span></div>';
-      items.forEach(function(f){
+      items.forEach(function(f, idx){
+        var sevContent = getSeverityContent(f.severity);
         html += '<div class="rd-risk ' + f.severity + '">';
-        html += '  <div class="rd-risk-head"><span class="sev-badge ' + f.severity + '">' + f.severity + '</span><span class="rd-risk-title">' + escapeHtml(f.title.replace(/\?$/, '')) + '</span></div>';
-        if(f.finding) html += '<div class="rd-risk-finding"><b>Finding:</b> ' + escapeHtml(f.finding) + '</div>';
-        html += '<div class="rd-risk-why">' + escapeHtml(f.why) + '</div>';
-        html += '<div class="rd-risk-redline"><b>Suggested redline</b>' + escapeHtml(f.redline) + '</div>';
-        if(f.evidence) html += '<div class="rd-risk-evidence"><b>Evidence from your contract</b>"' + escapeHtml(f.evidence) + '"</div>';
+        html += '  <div class="rd-risk-head">';
+        html += '    <span class="rd-risk-num">' + String(idx + 1).padStart(2, '0') + '</span>';
+        html += '    <span class="sev-badge ' + f.severity + '">' + f.severity + '</span>';
+        html += '    <span class="rd-risk-title">' + escapeHtml(f.title.replace(/\?$/, '')) + '</span>';
+        html += '  </div>';
+        if(f.finding) html += '<div class="rd-risk-block rd-finding"><div class="rd-block-label">Finding</div><div class="rd-block-body">' + escapeHtml(f.finding) + '</div></div>';
+        html += '<div class="rd-risk-block rd-why"><div class="rd-block-label">Why this matters</div><div class="rd-block-body">' + escapeHtml(f.why) + '</div></div>';
+        html += '<div class="rd-risk-block rd-impact"><div class="rd-block-label">Business impact if unaddressed</div><div class="rd-block-body">' + sevContent.impact + '</div></div>';
+        html += '<div class="rd-risk-block rd-posture"><div class="rd-block-label">Suggested negotiation posture</div><div class="rd-block-body">' + sevContent.posture + '</div></div>';
+        html += '<div class="rd-risk-block rd-redline-block"><div class="rd-block-label">Suggested redline language</div><div class="rd-block-body rd-redline-text">' + escapeHtml(f.redline) + '</div></div>';
+        if(f.evidence) html += '<div class="rd-risk-block rd-evidence-block"><div class="rd-block-label">Evidence from your contract</div><div class="rd-block-body rd-evidence-text">&ldquo;' + escapeHtml(f.evidence) + '&rdquo;</div></div>';
         html += '</div>';
       });
       html += '</div>';
@@ -1499,6 +1640,29 @@ function groupByCategory(flags){
     by[f.category].push(f);
   });
   return by;
+}
+
+// Severity-driven boilerplate text used in the detailed risk register.
+// These are deliberate, conservative descriptions of typical commercial
+// consequences and negotiation dynamics by severity, not specific legal
+// advice for any individual clause.
+function getSeverityContent(severity){
+  if(severity === 'critical'){
+    return {
+      impact: 'A critical risk creates the kind of exposure that, if it materialises, is rarely recoverable through ordinary commercial means. Typical consequences include uncapped financial liability beyond the value of the deal, loss of intellectual property or trade secrets, regulatory penalties under Indian law, or the inability to terminate or exit the relationship without significant cost. Critical risks often turn what should be a manageable commercial dispute into existential exposure for one party.',
+      posture: 'Treat this as a deal-affecting item. Position the redline as non-negotiable in your first round, with a clear explanation of why the current language is unacceptable. If the counterparty refuses any movement on a critical item, that refusal is itself important commercial information about how they intend to behave in the relationship, and it warrants escalation to senior decision-makers on your side before the contract proceeds.'
+    };
+  } else if(severity === 'high'){
+    return {
+      impact: 'A high-severity risk represents meaningful commercial exposure that, while not necessarily existential, will typically cause real financial loss, dispute cost, or operational disruption if the underlying issue arises. The downside can usually be measured in lakhs of rupees rather than in business survival, but the cost of fighting over an unfavourable clause after the fact, including legal fees, time, and reputational friction, almost always exceeds the cost of negotiating better language before signing.',
+      posture: 'Push back firmly during negotiation. Most reasonable counterparties will accept a balanced redline on high-severity items because the proposed change is usually fair on its face. A refusal to negotiate any of the high-severity items is a useful signal about how the counterparty approaches commercial fairness more generally, and warrants pricing that signal into the rest of the deal.'
+    };
+  } else {
+    return {
+      impact: 'A medium-severity risk is a contract-hygiene issue rather than a deal-affecting one. The exposure is real but bounded, and the consequences of leaving the language as-is are typically friction in the relationship, ambiguity that has to be resolved later, or terms that quietly favour one party at the expense of the other. The cumulative effect of multiple medium-severity items in a single contract, however, can shift the overall risk allocation meaningfully.',
+      posture: 'Worth raising as a polite redline during negotiation. The counterparty will typically accept a reasonable correction on medium-severity items without resistance, and accepting these redlines costs them very little. The goal is to come out of the negotiation with a clean, balanced contract rather than to win each individual point.'
+    };
+  }
 }
 
 // === REPORT MODAL HANDLERS ===
@@ -1579,8 +1743,9 @@ function renderCharts(){
 
 // === PDF GENERATION (jsPDF native, selectable text) ===
 function downloadReportPdf(){
+  try {
   if(typeof window.jspdf === 'undefined' && typeof jsPDF === 'undefined'){
-    alert('PDF library is still loading. Please try again in a moment.');
+    alert('The PDF library has not finished loading. Please wait a few seconds and try again.\n\nIf this keeps happening, your network may be blocking the CDN. Try downloading the Word version instead.');
     return;
   }
   var jsPDF_ctor = (typeof window.jspdf !== 'undefined') ? window.jspdf.jsPDF : jsPDF;
@@ -1717,13 +1882,13 @@ function downloadReportPdf(){
   // --- FULL RISK REGISTER ---
   if(flags.length > 0){
     doc.addPage();
-    pdfPageHeader(doc, 'Full Risk Register', '03', pageW, margin, COL_OXBLOOD, COL_GREEN);
+    pdfPageHeader(doc, 'Detailed Risk Register', '03', pageW, margin, COL_OXBLOOD, COL_GREEN);
     y = 50;
     var groupedReg = groupByCategory(flags);
     var sevRank = { critical:0, high:1, medium:2 };
     Object.keys(groupedReg).forEach(function(cn){
       var items = groupedReg[cn].slice().sort(function(a,b){return (sevRank[a.severity]||9) - (sevRank[b.severity]||9);});
-      if(y > pageH - 40){ doc.addPage(); pdfPageHeader(doc, 'Full Risk Register', '03', pageW, margin, COL_OXBLOOD, COL_GREEN); y = 50; }
+      if(y > pageH - 40){ doc.addPage(); pdfPageHeader(doc, 'Detailed Risk Register', '03', pageW, margin, COL_OXBLOOD, COL_GREEN); y = 50; }
       doc.setFont('helvetica','bold'); doc.setFontSize(12); doc.setTextColor.apply(doc, COL_GREEN);
       doc.text(cn, margin, y);
       doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor.apply(doc, COL_OXBLOOD);
@@ -1732,44 +1897,53 @@ function downloadReportPdf(){
       doc.setDrawColor.apply(doc, COL_BORDER); doc.setLineWidth(0.3); doc.line(margin, y, pageW-margin, y);
       y += 6;
       items.forEach(function(f){
+        var sc = getSeverityContent(f.severity);
         var titleLines = doc.splitTextToSize(f.title.replace(/\?$/, ''), maxW - 32);
-        var findingLines = f.finding ? doc.splitTextToSize('Finding: ' + f.finding, maxW - 8) : [];
-        var whyLines = doc.splitTextToSize(f.why, maxW - 8);
+        var findingLines = f.finding ? doc.splitTextToSize(f.finding, maxW - 12) : [];
+        var whyLines = doc.splitTextToSize(f.why, maxW - 12);
+        var impactLines = doc.splitTextToSize(sc.impact, maxW - 12);
+        var postureLines = doc.splitTextToSize(sc.posture, maxW - 12);
         var redlineLines = doc.splitTextToSize(f.redline, maxW - 14);
-        var evLines = f.evidence ? doc.splitTextToSize('Evidence: "' + f.evidence + '"', maxW - 14) : [];
-        var boxH = 6 + titleLines.length*5 + findingLines.length*4.5 + whyLines.length*4.5 + redlineLines.length*4.5 + evLines.length*4.5 + 14;
-        if(y + boxH > pageH - 25){ doc.addPage(); pdfPageHeader(doc, 'Full Risk Register', '03', pageW, margin, COL_OXBLOOD, COL_GREEN); y = 50; }
+        var evLines = f.evidence ? doc.splitTextToSize('"' + f.evidence + '"', maxW - 14) : [];
+        // Compute box height (label adds ~4mm per section, body adds ~4mm per line)
+        var boxH = 10 + titleLines.length*5 +
+                   (findingLines.length ? 4 + findingLines.length*4.5 + 2 : 0) +
+                   4 + whyLines.length*4.5 + 2 +
+                   4 + impactLines.length*4.5 + 2 +
+                   4 + postureLines.length*4.5 + 2 +
+                   4 + redlineLines.length*4.5 + 2 +
+                   (evLines.length ? 4 + evLines.length*4.5 + 2 : 0) + 4;
+        if(y + boxH > pageH - 25){ doc.addPage(); pdfPageHeader(doc, 'Detailed Risk Register', '03', pageW, margin, COL_OXBLOOD, COL_GREEN); y = 50; }
         var sevColor = f.severity==='critical' ? COL_CRIT : f.severity==='high' ? COL_HIGH : COL_MED;
         doc.setFillColor(255,253,247); doc.setDrawColor.apply(doc, COL_BORDER); doc.setLineWidth(0.2);
         doc.roundedRect(margin, y, maxW, boxH, 1.5, 1.5, 'FD');
-        doc.setFillColor.apply(doc, sevColor); doc.rect(margin, y, 1.5, boxH, 'F');
+        doc.setFillColor.apply(doc, sevColor); doc.rect(margin, y, 1.8, boxH, 'F');
         // Severity badge
         doc.setFillColor.apply(doc, sevColor); doc.roundedRect(margin+4, y+3, 18, 4.5, 1, 1, 'F');
         doc.setFont('helvetica','bold'); doc.setFontSize(6.5); doc.setTextColor(255,253,247);
         doc.text(f.severity.toUpperCase(), margin+13, y+6.2, {align:'center'});
         // Title
-        doc.setFont('helvetica','bold'); doc.setFontSize(10); doc.setTextColor.apply(doc, COL_GREEN);
-        doc.text(titleLines, margin+26, y+6);
-        var ty = y + 6 + titleLines.length*5 + 2;
-        // Finding
-        if(findingLines.length){
-          doc.setFont('helvetica','normal'); doc.setFontSize(8.5); doc.setTextColor.apply(doc, COL_TEXT);
-          doc.text(findingLines, margin+4, ty); ty += findingLines.length*4.5 + 1;
-        }
-        // Why
-        doc.setFont('helvetica','italic'); doc.setFontSize(8.5); doc.setTextColor.apply(doc, COL_TEXT_SOFT);
-        doc.text(whyLines, margin+4, ty); ty += whyLines.length*4.5 + 2;
-        // Redline
-        doc.setFont('helvetica','bold'); doc.setFontSize(7); doc.setTextColor.apply(doc, COL_OXBLOOD);
-        doc.text('REDLINE', margin+4, ty); ty += 3;
-        doc.setFont('helvetica','normal'); doc.setFontSize(8.5); doc.setTextColor.apply(doc, COL_TEXT);
-        doc.text(redlineLines, margin+4, ty); ty += redlineLines.length*4.5 + 2;
-        // Evidence
-        if(evLines.length){
-          doc.setFont('helvetica','italic'); doc.setFontSize(8); doc.setTextColor.apply(doc, COL_TEXT_SOFT);
-          doc.text(evLines, margin+4, ty);
-        }
-        y += boxH + 4;
+        doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor.apply(doc, COL_GREEN);
+        doc.text(titleLines, margin+26, y+6.5);
+        var ty = y + 6 + titleLines.length*5 + 4;
+        var drawSection = function(label, lines, options){
+          options = options || {};
+          // Label
+          doc.setFont('helvetica','bold'); doc.setFontSize(6.5); doc.setTextColor.apply(doc, COL_OXBLOOD);
+          doc.text(label.toUpperCase(), margin+4, ty); ty += 3.5;
+          // Body
+          doc.setFont('helvetica', options.italic ? 'italic' : 'normal'); doc.setFontSize(options.size || 8.5);
+          doc.setTextColor.apply(doc, options.color || COL_TEXT);
+          doc.text(lines, margin+4, ty);
+          ty += lines.length * 4.5 + 2;
+        };
+        if(findingLines.length) drawSection('Finding', findingLines);
+        drawSection('Why this matters', whyLines, {color:COL_TEXT_SOFT, italic:true});
+        drawSection('Business impact if unaddressed', impactLines, {color:COL_TEXT, size:8});
+        drawSection('Negotiation posture', postureLines, {color:COL_TEXT, size:8});
+        drawSection('Suggested redline', redlineLines);
+        if(evLines.length) drawSection('Evidence from your contract', evLines, {color:COL_TEXT_SOFT, italic:true, size:8});
+        y += boxH + 5;
       });
       y += 4;
     });
@@ -1809,6 +1983,10 @@ function downloadReportPdf(){
   // Save
   var fname = 'Contract_Risk_Review_' + (S.type ? S.type.toUpperCase() : 'BLANK') + '_' + new Date().toISOString().slice(0,10) + '.pdf';
   doc.save(fname);
+  } catch(err){
+    console.error('PDF generation failed:', err);
+    alert('Something went wrong generating the PDF. Error: ' + (err && err.message ? err.message : 'unknown error') + '\n\nPlease try the Word download instead, or refresh the page and try again.');
+  }
 }
 
 function pdfPageHeader(doc, title, num, pageW, margin, oxblood, green){
@@ -1821,14 +1999,19 @@ function pdfPageHeader(doc, title, num, pageW, margin, oxblood, green){
 
 // Word download — generates rich HTML doc with embedded chart images (charts captured as PNG from canvas)
 function downloadReportWord(){
+  try {
   // Capture charts as PNG so they appear in Word
   var sevPng = '', catPng = '';
-  if(S._chartSeverity){ try { sevPng = S._chartSeverity.toBase64Image('image/png', 1); } catch(e){} }
-  if(S._chartCategory){ try { catPng = S._chartCategory.toBase64Image('image/png', 1); } catch(e){} }
+  if(S._chartSeverity){ try { sevPng = S._chartSeverity.toBase64Image('image/png', 1); } catch(e){ console.warn('Severity chart capture failed', e); } }
+  if(S._chartCategory){ try { catPng = S._chartCategory.toBase64Image('image/png', 1); } catch(e){ console.warn('Category chart capture failed', e); } }
 
   var reportDoc = document.getElementById('reportDoc');
-  if(!reportDoc){ alert('Report not ready.'); return; }
+  if(!reportDoc){ alert('Report content is not ready. Please open the full report first and try again.'); return; }
   var htmlContent = reportDoc.innerHTML;
+  if(!htmlContent || htmlContent.length < 100){
+    alert('Report appears empty. Please run a scan or complete the checklist first.');
+    return;
+  }
 
   // Replace chart canvases with embedded images (Word can't render canvas)
   if(sevPng){
@@ -1852,6 +2035,10 @@ function downloadReportWord(){
   a.href = url; a.download = fname;
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  } catch(err){
+    console.error('Word generation failed:', err);
+    alert('Something went wrong generating the Word document. Error: ' + (err && err.message ? err.message : 'unknown error') + '\n\nPlease try the PDF download instead, or refresh the page and try again.');
+  }
 }
 
 // Wire modal buttons
@@ -1859,9 +2046,23 @@ function wireReportModalButtons(){
   var closeBtn = document.getElementById('reportCloseBtn');
   if(closeBtn) closeBtn.onclick = closeReportModal;
   var wordBtn = document.getElementById('reportWordBtn');
-  if(wordBtn) wordBtn.onclick = function(){ _gateDownload(downloadReportWord); };
+  if(wordBtn){
+    wordBtn.onclick = function(){
+      console.log('[Verbatra] Word button clicked, opening lead capture.');
+      _gateDownload(downloadReportWord);
+    };
+  } else {
+    console.warn('[Verbatra] reportWordBtn not found in DOM at wiring time.');
+  }
   var pdfBtn = document.getElementById('reportPdfBtn');
-  if(pdfBtn) pdfBtn.onclick = function(){ _gateDownload(downloadReportPdf); };
+  if(pdfBtn){
+    pdfBtn.onclick = function(){
+      console.log('[Verbatra] PDF button clicked, opening lead capture.');
+      _gateDownload(downloadReportPdf);
+    };
+  } else {
+    console.warn('[Verbatra] reportPdfBtn not found in DOM at wiring time.');
+  }
   // Close on Escape
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape'){ closeReportModal(); }
@@ -1873,12 +2074,14 @@ function wireReportModalButtons(){
       if(e.target === modal){ closeReportModal(); }
     });
   }
+  console.log('[Verbatra] Report modal buttons wired. Word:', !!wordBtn, 'PDF:', !!pdfBtn, 'Close:', !!closeBtn);
 }
 
 // Lead-capture gate (uses existing modal)
 function _gateDownload(action){
   // Check if user has already submitted lead this session
   if(window._verbatraLeadCaptured){
+    console.log('[Verbatra] Lead already captured this session, running download directly.');
     action();
     return;
   }
@@ -1890,7 +2093,9 @@ function _gateDownload(action){
     if(errEl) errEl.classList.remove('show');
     leadModal.classList.add('show');
     if(document.body && document.body.style){ document.body.style.overflow = 'hidden'; }
+    console.log('[Verbatra] Lead modal opened. Download queued.');
   } else {
+    console.warn('[Verbatra] leadModal not found in DOM. Running download without lead capture.');
     // No lead modal? Just run directly
     action();
   }
