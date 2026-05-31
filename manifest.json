@@ -1,0 +1,45 @@
+{
+  "name": "Verbatra \u2014 Free Legal Documents for India",
+  "short_name": "Verbatra",
+  "description": "Free legal document generator for Indian businesses. NDA, MSA, DPA, contracts, notices. Drafted by a corporate lawyer.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f4efe4",
+  "theme_color": "#1f3d30",
+  "lang": "en-IN",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon-16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-180.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/og-image.png",
+      "sizes": "1200x630",
+      "type": "image/png"
+    }
+  ],
+  "categories": [
+    "business",
+    "productivity",
+    "legal"
+  ]
+}

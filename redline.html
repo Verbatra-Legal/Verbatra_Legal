@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Verbatra, Contract Risk Review</title>
+<title>Free Contract Risk Review & Redline Tool | Verbatra</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
@@ -106,6 +106,10 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 /* === FULL-WIDTH SINGLE-COLUMN LAYOUT (overrides default two-panel) === */
 .redline-shell{max-width:780px;margin:0 auto;padding:28px 22px 80px}
 @media (max-width:880px){.redline-shell{padding:18px 14px 60px}}
+.rl-page-h1{font-family:'Fraunces',serif;font-weight:500;font-size:34px;letter-spacing:-.02em;line-height:1.15;color:var(--ink);margin:8px 0 14px}
+@media (max-width:680px){.rl-page-h1{font-size:26px}}
+.rl-page-lede{font-size:15px;color:var(--ink-soft);line-height:1.65;max-width:680px;margin-bottom:30px}
+.rl-page-lede b{color:var(--ink);font-weight:600}
 .redline-form{display:block}
 
 /* === FULLSCREEN REPORT MODAL === */
@@ -524,13 +528,17 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
   .rr{padding:30px 24px}
 }
 </style>
-<meta name="description" content="Free contract review tool by Verbatra. Two modes: guided checklist OR upload-and-scan against 200+ risk patterns. NDA, MSA, Consultancy, Employment contracts. Get a risk report with suggested redlines, drafted by a corporate lawyer.">
+<meta name="description" content="Free contract review tool by Verbatra. Two modes: guided checklist or upload-and-scan against 200+ risk patterns. NDA, MSA, Consultancy, Employment.">
 <meta name="keywords" content="contract review India, contract redlining tool, NDA review checklist, MSA risk review, contract scanner, employment contract review, contract risk flags, contract negotiation India, free legal review">
 <meta name="author" content="Verbatra">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <link rel="canonical" href="https://verbatra.com/redline.html">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://verbatra.com/redline.html">
+<meta property="og:image" content="https://verbatra.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Verbatra — Free legal documents drafted by a lawyer.">
 <meta property="og:title" content="Contract Risk Review — Free Checklist + Smart Scanner | Verbatra">
 <meta property="og:description" content="Two free modes for contract review. Guided checklist OR upload-and-scan against 200+ risk patterns. Personalised risk report with suggested redlines.">
 <meta property="og:site_name" content="Verbatra">
@@ -538,6 +546,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 <meta name="twitter:title" content="Contract Risk Review — Free Checklist + Smart Scanner | Verbatra">
 <meta name="twitter:description" content="Identify contract risks instantly. Free guided checklist or smart scanner.">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="manifest" href="/manifest.json">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
@@ -572,6 +581,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
   if(attempts < 50){ setTimeout(function(){ setupPdfWorker(attempts+1); }, 100); }
 })(0);
 </script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://verbatra.com/#organization","name":"Verbatra","url":"https://verbatra.com","logo":{"@type":"ImageObject","url":"https://verbatra.com/og-image.png"},"founder":{"@type":"Person","name":"Arnav Bhardwaj","jobTitle":"Corporate Lawyer & Founder","url":"https://verbatra.com/founder.html","sameAs":"https://www.linkedin.com/in/bhardwajarnav/"},"contactPoint":{"@type":"ContactPoint","telephone":"+91-9368730710","contactType":"Customer Service","email":"verbatra.legal@gmail.com","areaServed":"IN"},"sameAs":["https://www.linkedin.com/company/verbatra/"]},{"@type":"WebApplication","name":"Verbatra Contract Risk Review","url":"https://verbatra.com/redline.html","description":"Free contract review tool. Two modes: guided checklist or upload-and-scan against 200+ risk patterns for NDA, MSA, Consultancy and Employment contracts. Get a risk report with suggested redlines.","applicationCategory":"BusinessApplication","operatingSystem":"Web Browser","browserRequirements":"Requires modern browser with JavaScript enabled","offers":{"@type":"Offer","price":"0","priceCurrency":"INR","availability":"https://schema.org/InStock"},"provider":{"@id":"https://verbatra.com/#organization"},"isAccessibleForFree":true,"inLanguage":"en-IN"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://verbatra.com/"},{"@type":"ListItem","position":2,"name":"Contract Risk Review","item":"https://verbatra.com/redline.html"}]}]}</script>
 </head>
 <body><header>
   <a href="/" class="back-home">Back to Verbatra</a>
@@ -582,6 +592,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
   <p class="disclaimer">Two ways to review: walk through a guided checklist OR paste your contract text into the Smart Scanner. Get a personalised risk report with severity flags and suggested redlines. <strong>This is not legal advice.</strong> Every draft must be reviewed by a qualified lawyer admitted in the relevant jurisdiction before execution.</p>
 </header>
 <div class="redline-shell">
+  <h1 class="rl-page-h1">Free Contract Risk Review for Indian Businesses</h1>
+  <p class="rl-page-lede">Get a personalised risk report on your <b>NDA</b>, <b>MSA</b>, <b>Consultancy</b> or <b>Employment</b> contract in two minutes. Walk through a lawyer-curated checklist, or upload the document for automatic scanning against 200+ risk patterns. Free, with the report drafted by a corporate lawyer.</p>
   <section class="redline-form" id="formArea"></section>
 </div>
 
@@ -1450,7 +1462,7 @@ function renderRichReport(){
   // ===== EXECUTIVE SUMMARY =====
   html += '<div class="rd-page">';
   html += '  <div class="rd-section-label">Section 01</div>';
-  html += '  <h1 class="rd-h1">Executive Summary</h1>';
+  html += '  <h2 class="rd-h1">Executive Summary</h2>';
   if(flags.length === 0){
     html += '  <p class="lede">No risks were flagged by this analysis. ' + (S.mode === 'scanner' ? 'The scanner did not detect any of the ' + (RULES[S.type] ? RULES[S.type].length : 0) + ' known risk patterns it checks for in ' + c.name + '. This does not mean the contract is risk-free, only that the patterns the scanner knows about were not detected.' : 'You did not flag any items in the checklist.') + ' We still recommend a qualified lawyer review the contract end-to-end before signing.</p>';
   } else {
@@ -1494,7 +1506,7 @@ function renderRichReport(){
     var catNames = Object.keys(grouped);
     html += '<div class="rd-page">';
     html += '  <div class="rd-section-label">Section 02</div>';
-    html += '  <h1 class="rd-h1">Risk Heatmap</h1>';
+    html += '  <h2 class="rd-h1">Risk Heatmap</h2>';
     html += '  <p class="lede">Distribution of risks across categories and severity. Cells coloured by the highest severity present.</p>';
     html += '  <div class="rd-heatmap">';
     html += '    <div class="hm-cell label"></div>';
@@ -1524,7 +1536,7 @@ function renderRichReport(){
     if(priorities.length > 0){
       html += '<div class="rd-page">';
       html += '  <div class="rd-section-label">Section 03</div>';
-      html += '  <h1 class="rd-h1">Negotiation Priorities</h1>';
+      html += '  <h2 class="rd-h1">Negotiation Priorities</h2>';
       html += '  <p class="lede">Out of the ' + flags.length + ' risks identified, three deserve the strongest pushback in negotiation. These are ranked by severity, by the cost of leaving them unaddressed, and by how reasonable a redline on them would appear to a counterparty negotiating in good faith. Use these to frame the opening round of revisions before progressing to the items in the full register.</p>';
       priorities.forEach(function(p, i){
         var sc = getSeverityContent(p.severity);
@@ -1551,7 +1563,7 @@ function renderRichReport(){
     var sevRank = { critical: 0, high: 1, medium: 2 };
     html += '<div class="rd-page">';
     html += '  <div class="rd-section-label">Section 04</div>';
-    html += '  <h1 class="rd-h1">Detailed Risk Register</h1>';
+    html += '  <h2 class="rd-h1">Detailed Risk Register</h2>';
     html += '  <p class="lede">Each identified risk is documented below with the finding, why it matters in practice, business impact if left unaddressed, suggested negotiation posture, and the specific redline language to insert into the contract. Risks are grouped by category and ordered by severity within each category.</p>';
     html += '  <div class="rd-reading-key">';
     html += '    <div class="rd-key-row"><span class="sev-badge critical">critical</span><span>Significant exposure. Address before signing or escalate.</span></div>';
@@ -1591,7 +1603,7 @@ function renderRichReport(){
   // ===== METHODOLOGY =====
   html += '<div class="rd-page">';
   html += '  <div class="rd-section-label">Section 05</div>';
-  html += '  <h1 class="rd-h1">Methodology &amp; Limitations</h1>';
+  html += '  <h2 class="rd-h1">Methodology &amp; Limitations</h2>';
   html += '  <div class="rd-method">';
   if(S.mode === 'scanner'){
     html += '<h4>How the analysis was performed</h4>';
@@ -1613,14 +1625,22 @@ function renderRichReport(){
   html += '</div>';
 
   // ===== CTA =====
+  // Pre-fill WhatsApp message with context so Arnav knows where the lead came from.
+  // Uses %0A for line breaks and url-encoded text for the contract type.
+  var ctaContractName = c.name;
+  var waMessage = 'Hi Verbatra, I just used the Contract Risk Review on the ' + ctaContractName + ' and would like to discuss the findings with a lawyer.';
+  var waHref = 'https://wa.me/919368730710?text=' + encodeURIComponent(waMessage);
+  var emailSubject = 'Contract Risk Review enquiry — ' + ctaContractName;
+  var emailBody = 'Hi Verbatra,\n\nI just used your Contract Risk Review tool on a ' + ctaContractName + ' and would like to discuss the findings.\n\nMy contract has ' + flags.length + ' risk' + (flags.length === 1 ? '' : 's') + ' flagged. Please let me know a good time to talk.\n\nThanks';
+  var emailHref = 'mailto:verbatra.legal@gmail.com?subject=' + encodeURIComponent(emailSubject) + '&body=' + encodeURIComponent(emailBody);
   html += '<div class="rd-page" style="padding-bottom:46px">';
   html += '  <div class="rd-cta">';
   html += '    <div class="cta-eyebrow">Next Step</div>';
   html += '    <div class="cta-title">Want a lawyer to negotiate these for you?</div>';
   html += '    <div class="cta-body">Verbatra is built and run by a corporate lawyer. We can review the contract end-to-end, draft the redlines, and negotiate directly with the other side, at a fraction of the cost of your own counsel.</div>';
   html += '    <div class="cta-actions">';
-  html += '      <a class="cta-btn" href="/#contact">Talk to us</a>';
-  html += '      <a class="cta-btn ghost" href="https://wa.me/919876543210" target="_blank" rel="noopener">WhatsApp us</a>';
+  html += '      <a class="cta-btn" href="' + emailHref + '">Email us</a>';
+  html += '      <a class="cta-btn ghost" href="' + waHref + '" target="_blank" rel="noopener">WhatsApp us</a>';
   html += '    </div>';
   html += '  </div>';
   html += '  <div class="rd-footer">Verbatra, contract intelligence for businesses that move quickly &middot; verbatra.com</div>';
@@ -2015,10 +2035,10 @@ function downloadReportWord(){
 
   // Replace chart canvases with embedded images (Word can't render canvas)
   if(sevPng){
-    htmlContent = htmlContent.replace(/<canvas id="chartSeverity"[\s\S]*?<\/canvas>/, '<img src="' + sevPng + '" style="max-width:280px;display:block;margin:0 auto"/>');
+    htmlContent = htmlContent.replace(/<canvas id="chartSeverity"[\s\S]*?<\/canvas>/, '<img src="' + sevPng + '" style="max-width:280px;display:block;margin:0 auto"/ alt="">');
   }
   if(catPng){
-    htmlContent = htmlContent.replace(/<canvas id="chartCategory"[\s\S]*?<\/canvas>/, '<img src="' + catPng + '" style="max-width:280px;display:block;margin:0 auto"/>');
+    htmlContent = htmlContent.replace(/<canvas id="chartCategory"[\s\S]*?<\/canvas>/, '<img src="' + catPng + '" style="max-width:280px;display:block;margin:0 auto"/ alt="">');
   }
 
   // Inline CSS for Word
