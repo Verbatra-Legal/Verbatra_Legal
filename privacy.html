@@ -41,31 +41,31 @@
   footer a{color:var(--ink-soft);text-decoration:none;margin:0 8px}
   footer a:hover{color:var(--green)}
 
-/* === Verbatra mega-nav (sticky category strip) === */
-.vb-meganav{position:sticky;top:0;z-index:200;background:#fbf8f0;border-top:1px solid #d8cfbc;border-bottom:1px solid #d8cfbc;box-shadow:0 1px 0 rgba(0,0,0,.02),0 4px 14px -8px rgba(0,0,0,.08);font-family:'Hanken Grotesk',sans-serif}
-.vb-meganav-inner{display:flex;max-width:1280px;margin:0 auto;padding:0}
-.vb-cat{flex:1;padding:11px 6px;text-align:center;font-size:12.5px;font-weight:700;color:#4a4a42;background:transparent;border:none;cursor:pointer;letter-spacing:.08em;text-transform:uppercase;position:relative;font-family:inherit;transition:background .15s,color .15s;border-right:1px solid #e8e0cd}
-.vb-cat:last-child{border-right:none}
-.vb-cat:hover,.vb-cat[aria-expanded="true"]{color:#1f3d30;background:rgba(31,61,48,.06)}
-.vb-cat::after{content:"\25BE";margin-left:5px;font-size:9px;opacity:.55;transition:transform .2s}
-.vb-cat[aria-expanded="true"]::after{transform:rotate(180deg);opacity:1}
-.vb-dropdown{position:absolute;top:100%;left:0;right:0;background:#fbf8f0;border-bottom:1px solid #d8cfbc;box-shadow:0 14px 36px -10px rgba(26,26,23,.18);display:none;z-index:201;max-height:75vh;overflow-y:auto}
-.vb-dropdown.open{display:block;animation:vbFade .18s ease-out}
-@keyframes vbFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
-.vb-dropdown-inner{max-width:1280px;margin:0 auto;padding:22px 7vw 26px;display:grid;gap:28px;grid-template-columns:repeat(3,1fr)}
-.vb-group h4{font-family:'Fraunces',serif;font-weight:500;font-size:11px;color:#7a2e26;letter-spacing:.18em;text-transform:uppercase;margin:0 0 10px;padding-bottom:7px;border-bottom:1px solid #d8cfbc;display:flex;align-items:center;gap:8px}
-.vb-group h4::before{content:"";width:14px;height:1px;background:#a8843f}
-.vb-group a{display:block;padding:7px 0;color:#1a1a17;text-decoration:none;font-size:13.5px;font-family:'Hanken Grotesk',sans-serif;font-weight:500;line-height:1.4;transition:color .12s,padding-left .12s}
-.vb-group a:hover{color:#1f3d30;padding-left:4px}
-@media (max-width:760px){
-  .vb-cat{font-size:10.5px;padding:10px 3px;letter-spacing:.06em}
-  .vb-cat::after{font-size:8px;margin-left:3px}
-  .vb-dropdown-inner{grid-template-columns:1fr;padding:18px 5vw 22px;gap:18px}
-  .vb-group h4{font-size:10.5px;margin-bottom:8px}
-  .vb-group a{font-size:14px;padding:8px 0}
-  .vb-dropdown{max-height:80vh}
+
+
+/* === Verbatra nav dropdowns (themed, single nav) === */
+.vbdd{position:relative;display:inline-block}
+.vbdd-trigger{font-family:inherit;font-size:13.5px;font-weight:600;color:var(--ink-soft,#5a5a52);background:none;border:none;cursor:pointer;letter-spacing:.02em;padding:6px 2px;display:inline-flex;align-items:center;gap:5px;transition:color .15s}
+.vbdd-trigger::after{content:"\25BE";font-size:8px;opacity:.5;transition:transform .2s,opacity .2s}
+.vbdd-trigger:hover,.vbdd-trigger[aria-expanded="true"]{color:var(--green,#1f3d30)}
+.vbdd-trigger[aria-expanded="true"]::after{transform:rotate(180deg);opacity:1}
+.vbdd-panel{position:absolute;top:calc(100% + 14px);left:50%;transform:translateX(-50%) translateY(-6px);min-width:248px;background:var(--cream,#f4efe4);border:1px solid var(--line,#d8cfbc);border-radius:13px;box-shadow:0 18px 44px -12px rgba(26,26,23,.26);padding:13px 15px 15px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .16s,transform .16s,visibility .16s;z-index:300}
+.vbdd-panel.open{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.vbdd-panel::before{content:"";position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:var(--cream,#f4efe4);border-left:1px solid var(--line,#d8cfbc);border-top:1px solid var(--line,#d8cfbc)}
+.vbdd-h{display:block;font-family:'Fraunces',serif;font-weight:500;font-size:10px;color:var(--oxblood,#7a2e26);letter-spacing:.16em;text-transform:uppercase;margin:11px 0 5px;padding-bottom:5px;border-bottom:1px solid var(--line,#d8cfbc)}
+.vbdd-h:first-child{margin-top:0}
+.vbdd-panel a{display:block;padding:6px 0;color:var(--ink,#1a1a17);text-decoration:none;font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;font-weight:500;line-height:1.35;transition:color .12s,padding-left .12s;letter-spacing:0;text-transform:none}
+.vbdd-panel a:hover{color:var(--green,#1f3d30);padding-left:4px}
+.vbdd-panel a::after{display:none}
+@media (max-width:860px){
+  .nav-links{flex-wrap:wrap;gap:14px !important;row-gap:10px}
+  .vbdd-panel{position:fixed;left:5vw;right:5vw;top:auto;transform:none;min-width:0;width:90vw;max-height:64vh;overflow-y:auto}
+  .vbdd-panel.open{transform:none}
+  .vbdd-panel::before{display:none}
 }
 
+.nav-links{display:flex;gap:24px;align-items:center}
+nav{display:flex;justify-content:space-between;align-items:center}
 </style>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="manifest" href="/manifest.json">
@@ -93,109 +93,68 @@
 <body>
 <nav>
   <a href="/" class="logo">Verbatra<span class="dot">.</span></a>
-  <a href="/" class="back">&larr; Back to Verbatra</a>
+  <div class="nav-links">
+      <div class="vbdd" data-vbdd="vbdd-tools">
+        <button type="button" class="vbdd-trigger" aria-expanded="false" aria-haspopup="true">Tools</button>
+        <div class="vbdd-panel" id="vbdd-tools">
+          <span class="vbdd-h">Contracts</span>
+          <a href="/nda.html">NDA — Non-Disclosure</a>
+          <a href="/msa.html">Master Service Agreement</a>
+          <a href="/dpa.html">Data Processing Agreement</a>
+          <a href="/consultancy.html">Consultancy Agreement</a>
+          <a href="/employment.html">Employment Contract</a>
+          <a href="/rent.html">Rent / Lease Agreement</a>
+          <a href="/saledeed.html">Sale Deed</a>
+          <a href="/poa.html">Power of Attorney</a>
+          <span class="vbdd-h">Notices & Pre-Litigation</span>
+          <a href="/legal-warning.html">Legal Warning</a>
+          <a href="/legal-notice.html">Legal Notice</a>
+          <a href="/section-138-notice.html">Section 138 Cheque Notice</a>
+          <a href="/trademark-cease-desist.html">Trademark Cease & Desist</a>
+          <span class="vbdd-h">Review</span>
+          <a href="/redline.html">Contract Risk Review</a>
+        </div>
+      </div>
+      <div class="vbdd" data-vbdd="vbdd-courses">
+        <button type="button" class="vbdd-trigger" aria-expanded="false" aria-haspopup="true">Courses</button>
+        <div class="vbdd-panel" id="vbdd-courses">
+          <span class="vbdd-h">Browse</span>
+          <a href="/courses.html">All Courses</a>
+          <a href="/course-verify.html">Verify a Certificate</a>
+          <span class="vbdd-h">Available Now</span>
+          <a href="/course-contract-law-essentials.html">Indian Contract Law Essentials</a>
+        </div>
+      </div>
+      <div class="vbdd" data-vbdd="vbdd-blog">
+        <button type="button" class="vbdd-trigger" aria-expanded="false" aria-haspopup="true">Blog</button>
+        <div class="vbdd-panel" id="vbdd-blog">
+          <span class="vbdd-h">Latest Guides</span>
+          <a href="/blog-section-138-notice-india.html">Section 138 Notice Guide</a>
+          <a href="/blog-saas-msa-india-clauses.html">SaaS MSA in India</a>
+          <a href="/blog-dpdp-dpa-checklist.html">DPDP Act: DPA Checklist</a>
+          <a href="/blog-nda-india-guide.html">NDA India Guide</a>
+          <span class="vbdd-h">Founder Series</span>
+          <a href="/blog-legal-checklist-for-startups.html">Startup Legal Checklist</a>
+          <a href="/blog-why-startups-skip-legal.html">Why Startups Skip Legal</a>
+          <a href="/blog-legal-operations-without-a-team.html">Legal Ops Without a Team</a>
+          <span class="vbdd-h">More</span>
+          <a href="/blog.html">All Blog Posts</a>
+        </div>
+      </div>
+      <div class="vbdd" data-vbdd="vbdd-about">
+        <button type="button" class="vbdd-trigger" aria-expanded="false" aria-haspopup="true">About</button>
+        <div class="vbdd-panel" id="vbdd-about">
+          <span class="vbdd-h">Verbatra</span>
+          <a href="/">Home</a>
+          <a href="/founder.html">Founder — Arnav Bhardwaj</a>
+          <a href="/#contact">Contact</a>
+          <span class="vbdd-h">Policies</span>
+          <a href="/privacy.html">Privacy Policy</a>
+        </div>
+      </div>
+  </div>
 </nav>
 
-<!-- Verbatra mega-nav -->
-<div class="vb-meganav" id="vbMeganav" role="navigation" aria-label="Site sections">
-  <div class="vb-meganav-inner">
-    <button class="vb-cat" data-target="vb-dd-tools" aria-expanded="false" aria-haspopup="true">Tools</button>
-    <button class="vb-cat" data-target="vb-dd-courses" aria-expanded="false" aria-haspopup="true">Courses</button>
-    <button class="vb-cat" data-target="vb-dd-blog" aria-expanded="false" aria-haspopup="true">Blog</button>
-    <button class="vb-cat" data-target="vb-dd-about" aria-expanded="false" aria-haspopup="true">About</button>
-  </div>
-  <div class="vb-dropdown" id="vb-dd-tools" role="menu">
-    <div class="vb-dropdown-inner">
-      <div class="vb-group">
-        <h4>Contracts</h4>
-        <a href="/nda.html">NDA &mdash; Non-Disclosure</a>
-        <a href="/msa.html">Master Service Agreement</a>
-        <a href="/dpa.html">Data Processing Agreement</a>
-        <a href="/consultancy.html">Consultancy Agreement</a>
-        <a href="/employment.html">Employment Contract</a>
-        <a href="/rent.html">Rent / Lease Agreement</a>
-        <a href="/saledeed.html">Sale Deed</a>
-        <a href="/poa.html">Power of Attorney</a>
-      </div>
-      <div class="vb-group">
-        <h4>Notices &amp; Pre-Litigation</h4>
-        <a href="/legal-warning.html">Legal Warning</a>
-        <a href="/legal-notice.html">Legal Notice</a>
-        <a href="/section-138-notice.html">Section 138 Cheque Notice</a>
-        <a href="/trademark-cease-desist.html">Trademark Cease &amp; Desist</a>
-      </div>
-      <div class="vb-group">
-        <h4>Contract Review</h4>
-        <a href="/redline.html">Contract Risk Review</a>
-      </div>
-    </div>
-  </div>
-  <div class="vb-dropdown" id="vb-dd-courses" role="menu">
-    <div class="vb-dropdown-inner">
-      <div class="vb-group">
-        <h4>Live &amp; Catalogue</h4>
-        <a href="/courses.html">All Courses (10)</a>
-        <a href="/course-contract-law-essentials.html">Indian Contract Law Essentials</a>
-        <a href="/course-verify.html">Verify a Certificate</a>
-      </div>
-      <div class="vb-group">
-        <h4>Course 1 &mdash; Modules</h4>
-        <a href="/course-contract-law-essentials-m1.html">M1 &middot; What is a Contract</a>
-        <a href="/course-contract-law-essentials-m2.html">M2 &middot; Offer &amp; Acceptance</a>
-        <a href="/course-contract-law-essentials-m3.html">M3 &middot; Consideration</a>
-        <a href="/course-contract-law-essentials-m4.html">M4 &middot; Capacity &amp; Consent</a>
-        <a href="/course-contract-law-essentials-m5.html">M5 &middot; Lawful Object</a>
-        <a href="/course-contract-law-essentials-m6.html">M6 &middot; Breach &amp; Remedies</a>
-      </div>
-      <div class="vb-group">
-        <h4>Course 1 &mdash; Quizzes</h4>
-        <a href="/course-contract-law-essentials-q1.html">Quiz 1 &middot; Foundations</a>
-        <a href="/course-contract-law-essentials-q2.html">Quiz 2 &middot; Mid-Course</a>
-        <a href="/course-contract-law-essentials-q3.html">Quiz 3 &middot; Final &rarr; Certificate</a>
-      </div>
-    </div>
-  </div>
-  <div class="vb-dropdown" id="vb-dd-blog" role="menu">
-    <div class="vb-dropdown-inner">
-      <div class="vb-group">
-        <h4>Blog Home</h4>
-        <a href="/blog.html">All Posts</a>
-      </div>
-      <div class="vb-group">
-        <h4>Practical Guides</h4>
-        <a href="/blog-section-138-notice-india.html">Section 138 Notice Guide</a>
-        <a href="/blog-saas-msa-india-clauses.html">SaaS MSA in India</a>
-        <a href="/blog-dpdp-dpa-checklist.html">DPDP Act: DPA Checklist</a>
-        <a href="/blog-nda-india-guide.html">NDA India Guide</a>
-      </div>
-      <div class="vb-group">
-        <h4>Founder Series</h4>
-        <a href="/blog-legal-checklist-for-startups.html">Startup Legal Checklist</a>
-        <a href="/blog-why-startups-skip-legal.html">Why Startups Skip Legal</a>
-        <a href="/blog-legal-operations-without-a-team.html">Legal Ops Without a Team</a>
-      </div>
-    </div>
-  </div>
-  <div class="vb-dropdown" id="vb-dd-about" role="menu">
-    <div class="vb-dropdown-inner">
-      <div class="vb-group">
-        <h4>The Project</h4>
-        <a href="/">Verbatra Home</a>
-        <a href="/founder.html">Founder &mdash; Arnav Bhardwaj</a>
-        <a href="/#contact">Contact Us</a>
-      </div>
-      <div class="vb-group">
-        <h4>Policies</h4>
-        <a href="/privacy.html">Privacy Policy</a>
-      </div>
-      <div class="vb-group">
-        <h4>Get Started</h4>
-        <a href="/blog.html">Browse the Blog</a>
-        <a href="/courses.html">Take a Course</a>
-        <a href="/#tools">Draft a Document</a>
-      </div>
-    </div>
-  </div>
 </div>
 
 
@@ -272,37 +231,35 @@
 <script>document.getElementById("yr").textContent=new Date().getFullYear();</script>
 
 <script>
-/* Verbatra mega-nav controller */
+/* Verbatra nav dropdown controller */
 (function(){
-  var mn = document.getElementById('vbMeganav');
-  if(!mn) return;
-  var btns = mn.querySelectorAll('.vb-cat');
-  var dds = mn.querySelectorAll('.vb-dropdown');
-  function closeAll(){
-    dds.forEach(function(d){ d.classList.remove('open'); });
-    btns.forEach(function(b){ b.setAttribute('aria-expanded','false'); });
+  var dds = document.querySelectorAll('.vbdd');
+  if(!dds.length) return;
+  function closeAll(except){
+    dds.forEach(function(d){
+      var panel = d.querySelector('.vbdd-panel');
+      var trig = d.querySelector('.vbdd-trigger');
+      if(d !== except){ panel.classList.remove('open'); trig.setAttribute('aria-expanded','false'); }
+    });
   }
-  btns.forEach(function(btn){
-    btn.addEventListener('click', function(e){
+  dds.forEach(function(d){
+    var trig = d.querySelector('.vbdd-trigger');
+    var panel = d.querySelector('.vbdd-panel');
+    trig.addEventListener('click', function(e){
       e.preventDefault(); e.stopPropagation();
-      var tgt = btn.getAttribute('data-target');
-      var dd = document.getElementById(tgt);
-      var wasOpen = dd.classList.contains('open');
-      closeAll();
-      if(!wasOpen){
-        dd.classList.add('open');
-        btn.setAttribute('aria-expanded','true');
-      }
+      var isOpen = panel.classList.contains('open');
+      closeAll(d);
+      if(isOpen){ panel.classList.remove('open'); trig.setAttribute('aria-expanded','false'); }
+      else { panel.classList.add('open'); trig.setAttribute('aria-expanded','true'); }
     });
   });
   document.addEventListener('click', function(e){
-    if(!mn.contains(e.target)) closeAll();
+    var inside = false;
+    dds.forEach(function(d){ if(d.contains(e.target)) inside = true; });
+    if(!inside) closeAll(null);
   });
-  document.addEventListener('keydown', function(e){
-    if(e.key === 'Escape') closeAll();
-  });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeAll(null); });
 })();
 </script>
-
 </body>
 </html>
