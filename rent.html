@@ -130,6 +130,30 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
 <meta name="theme-color" content="#1f3d30">
+<style data-vb="faq-css">
+/* === FAQ + Related Tools sections === */
+.content-section{max-width:780px;margin:36px auto 24px;padding:0 22px}
+@media (max-width:880px){.content-section{padding:0 16px}}
+.cs-eyebrow{font-family:'Fraunces',serif;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:#a8843f;font-weight:600;margin-bottom:8px}
+.cs-h2{font-family:'Fraunces',serif;font-size:28px;font-weight:500;letter-spacing:-.015em;color:#1f3d30;margin-bottom:10px;line-height:1.2}
+.cs-lede{font-size:14px;color:#5a564c;line-height:1.6;margin-bottom:20px;max-width:640px}
+.faq-list{display:flex;flex-direction:column;gap:8px}
+.faq-list details{background:#fffdf7;border:1px solid #e6dec9;border-radius:10px;padding:0;transition:.15s;overflow:hidden}
+.faq-list details[open]{background:#f4efe4;border-color:#d0c8b0;box-shadow:0 1px 0 rgba(0,0,0,.02)}
+.faq-list summary{padding:16px 22px;cursor:pointer;font-family:'Fraunces',serif;font-size:16px;font-weight:500;color:#1f3d30;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:14px;line-height:1.35;letter-spacing:-.005em}
+.faq-list summary::-webkit-details-marker{display:none}
+.faq-list summary::after{content:"+";font-size:24px;color:#a8843f;font-weight:300;transition:transform .2s;flex:none;line-height:1}
+.faq-list details[open] summary::after{content:"\2013"}
+.faq-list summary:hover{color:#15291f}
+.faq-answer{padding:0 22px 18px;font-size:13.5px;line-height:1.7;color:#3a3833}
+.related-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media (max-width:600px){.related-list{grid-template-columns:1fr}}
+.related-card{display:flex;align-items:center;gap:12px;background:#fffdf7;border:1px solid #e6dec9;border-radius:10px;padding:14px 18px;text-decoration:none;color:#1f3d30;transition:.15s;font-size:14px;font-weight:500;font-family:'Fraunces',serif;line-height:1.3;letter-spacing:-.005em}
+.related-card:hover{background:#f4efe4;border-color:#1f3d30;transform:translateY(-1px);box-shadow:0 4px 12px -4px rgba(31,61,48,.15)}
+.related-card svg{width:16px;height:16px;color:#a8843f;flex:none}
+</style>
+
+<script type="application/ld+json" data-vb="faq">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Does a rent agreement in India need to be registered?","acceptedAnswer":{"@type":"Answer","text":"Rent agreements for a term of more than 11 months are compulsorily registrable under the Registration Act, 1908. This is why most residential rent agreements in India are structured as 11-month agreements (with the intention to renew) — to avoid the registration requirement and associated stamp duty. An unregistered rent agreement for over 11 months is not admissible as evidence of the lease terms in court and cannot be used to evict a tenant. For commercial leases, registration is the norm regardless of duration."}},{"@type":"Question","name":"What's the stamp duty on a rent agreement in India?","acceptedAnswer":{"@type":"Answer","text":"Stamp duty on rent agreements is governed by the state stamp act and varies significantly. As examples: Karnataka charges 0.5% of total rent for the term. Maharashtra charges 0.25% of total rent. Delhi uses a slab system. The agreement should be stamped before signing — failure to stamp does not invalidate the contract but makes it inadmissible as evidence. Verbatra's rent agreement tool reminds you to stamp before signing and notes the typical rate for the jurisdiction you select."}},{"@type":"Question","name":"How much security deposit is reasonable for a residential rent agreement?","acceptedAnswer":{"@type":"Answer","text":"There is no statutory cap in most states. Industry practice varies dramatically by city: Bangalore landlords commonly demand 10 months' rent as deposit; Mumbai is closer to 6 months; Delhi NCR is typically 2 to 3 months. The Model Tenancy Act, 2021 (which states can adopt) caps security deposits at 2 months' rent for residential and 6 months' rent for commercial leases. As of writing, this is not in force in most states. Verbatra's rent agreement lets you set the deposit but defaults to 2 to 3 months which is broadly fair and aligns with the Model Act direction."}},{"@type":"Question","name":"Can the landlord increase the rent during the lease term?","acceptedAnswer":{"@type":"Answer","text":"Only as agreed in the contract. A standard residential rent agreement in India provides for an annual rent escalation of 5% to 10% per year, applied at renewal. The landlord cannot unilaterally increase rent mid-term unless the agreement specifically permits it. For long-term commercial leases, escalation is typically tied to a CPI index or agreed step-up percentages. Verbatra's rent agreement includes a configurable escalation clause."}},{"@type":"Question","name":"What notice does the tenant or landlord need to give to terminate the lease?","acceptedAnswer":{"@type":"Answer","text":"The agreement should specify the notice period for termination by either party. Industry standard for residential rent agreements is one to two months. For commercial leases, three to six months is typical, often tied to a lock-in period during which neither party can terminate. Without a specified notice period, the Transfer of Property Act default applies: 15 days for monthly tenancies. Verbatra's rent agreement defaults to a two-month notice for residential and three-month notice for commercial."}},{"@type":"Question","name":"Is my data safe when I use Verbatra?","acceptedAnswer":{"@type":"Answer","text":"Yes. Verbatra runs entirely in your browser. The document you build is rendered locally on your device and is never uploaded to Verbatra's servers, stored anywhere, or transmitted to any third party. Verbatra cannot read what you draft. The only data we collect is the contact information you voluntarily provide on the lead-capture form before download."}},{"@type":"Question","name":"Do I still need a lawyer if I use Verbatra?","acceptedAnswer":{"@type":"Answer","text":"Verbatra produces a solid, India-specific first draft drafted by a corporate lawyer. For most standard, low-stakes contracts between commercial parties, the generated document is enough. For higher-stakes transactions, contracts that materially deviate from standard terms, contracts involving regulated industries, or anything you would be uncomfortable signing without independent review, you should have a qualified lawyer review the document before execution. Verbatra is not a substitute for advice on your specific facts."}},{"@type":"Question","name":"Is Verbatra actually free?","acceptedAnswer":{"@type":"Answer","text":"Yes, every generator on Verbatra is free to use, with no payment, subscription, or credit card required. Verbatra was built by a corporate lawyer to give Indian businesses access to enterprise-grade legal drafting without the friction of paying a lawyer for a routine first draft. Verbatra makes money by offering paid contract negotiation and legal-operations services to clients who want a lawyer to take the document further."}}]}</script>
 </head>
 <body><header>
   <a href="/" class="back-home">Back to Verbatra</a>
@@ -182,6 +206,58 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
   </section>
 </div>
 
+<!-- VB-FAQ-START -->
+<section class="content-section" aria-labelledby="related-heading">
+  <div class="cs-eyebrow">Related tools</div>
+  <h2 class="cs-h2" id="related-heading">Other Verbatra documents you might need</h2>
+  <p class="cs-lede">Each Verbatra tool is free, browser-based, and drafted by a corporate lawyer. Documents in the same workflow are often used together.</p>
+  <div class="related-list">
+    <a class="related-card" href="/poa.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg><span>Power of Attorney</span></a>
+    <a class="related-card" href="/saledeed.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg><span>Sale Deed</span></a>
+    <a class="related-card" href="/legal-warning.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg><span>Legal Warning</span></a>
+    <a class="related-card" href="/legal-notice.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg><span>Legal Notice</span></a>
+  </div>
+</section>
+<section class="content-section" aria-labelledby="faq-heading">
+  <div class="cs-eyebrow">Frequently asked questions</div>
+  <h2 class="cs-h2" id="faq-heading">Rent Agreement — your questions, answered</h2>
+  <p class="cs-lede">Practical, India-specific answers to the questions we get most about rent agreement. If your question is not here, write to <a href="mailto:verbatra.legal@gmail.com" style="color:#1f3d30;font-weight:600">verbatra.legal@gmail.com</a> and we will add it.</p>
+  <div class="faq-list">
+    <details>
+      <summary>Does a rent agreement in India need to be registered?</summary>
+      <div class="faq-answer">Rent agreements for a term of more than 11 months are compulsorily registrable under the Registration Act, 1908. This is why most residential rent agreements in India are structured as 11-month agreements (with the intention to renew) — to avoid the registration requirement and associated stamp duty. An unregistered rent agreement for over 11 months is not admissible as evidence of the lease terms in court and cannot be used to evict a tenant. For commercial leases, registration is the norm regardless of duration.</div>
+    </details>
+    <details>
+      <summary>What's the stamp duty on a rent agreement in India?</summary>
+      <div class="faq-answer">Stamp duty on rent agreements is governed by the state stamp act and varies significantly. As examples: Karnataka charges 0.5% of total rent for the term. Maharashtra charges 0.25% of total rent. Delhi uses a slab system. The agreement should be stamped before signing — failure to stamp does not invalidate the contract but makes it inadmissible as evidence. Verbatra's rent agreement tool reminds you to stamp before signing and notes the typical rate for the jurisdiction you select.</div>
+    </details>
+    <details>
+      <summary>How much security deposit is reasonable for a residential rent agreement?</summary>
+      <div class="faq-answer">There is no statutory cap in most states. Industry practice varies dramatically by city: Bangalore landlords commonly demand 10 months' rent as deposit; Mumbai is closer to 6 months; Delhi NCR is typically 2 to 3 months. The Model Tenancy Act, 2021 (which states can adopt) caps security deposits at 2 months' rent for residential and 6 months' rent for commercial leases. As of writing, this is not in force in most states. Verbatra's rent agreement lets you set the deposit but defaults to 2 to 3 months which is broadly fair and aligns with the Model Act direction.</div>
+    </details>
+    <details>
+      <summary>Can the landlord increase the rent during the lease term?</summary>
+      <div class="faq-answer">Only as agreed in the contract. A standard residential rent agreement in India provides for an annual rent escalation of 5% to 10% per year, applied at renewal. The landlord cannot unilaterally increase rent mid-term unless the agreement specifically permits it. For long-term commercial leases, escalation is typically tied to a CPI index or agreed step-up percentages. Verbatra's rent agreement includes a configurable escalation clause.</div>
+    </details>
+    <details>
+      <summary>What notice does the tenant or landlord need to give to terminate the lease?</summary>
+      <div class="faq-answer">The agreement should specify the notice period for termination by either party. Industry standard for residential rent agreements is one to two months. For commercial leases, three to six months is typical, often tied to a lock-in period during which neither party can terminate. Without a specified notice period, the Transfer of Property Act default applies: 15 days for monthly tenancies. Verbatra's rent agreement defaults to a two-month notice for residential and three-month notice for commercial.</div>
+    </details>
+    <details>
+      <summary>Is my data safe when I use Verbatra?</summary>
+      <div class="faq-answer">Yes. Verbatra runs entirely in your browser. The document you build is rendered locally on your device and is never uploaded to Verbatra's servers, stored anywhere, or transmitted to any third party. Verbatra cannot read what you draft. The only data we collect is the contact information you voluntarily provide on the lead-capture form before download.</div>
+    </details>
+    <details>
+      <summary>Do I still need a lawyer if I use Verbatra?</summary>
+      <div class="faq-answer">Verbatra produces a solid, India-specific first draft drafted by a corporate lawyer. For most standard, low-stakes contracts between commercial parties, the generated document is enough. For higher-stakes transactions, contracts that materially deviate from standard terms, contracts involving regulated industries, or anything you would be uncomfortable signing without independent review, you should have a qualified lawyer review the document before execution. Verbatra is not a substitute for advice on your specific facts.</div>
+    </details>
+    <details>
+      <summary>Is Verbatra actually free?</summary>
+      <div class="faq-answer">Yes, every generator on Verbatra is free to use, with no payment, subscription, or credit card required. Verbatra was built by a corporate lawyer to give Indian businesses access to enterprise-grade legal drafting without the friction of paying a lawyer for a routine first draft. Verbatra makes money by offering paid contract negotiation and legal-operations services to clients who want a lawyer to take the document further.</div>
+    </details>
+  </div>
+</section>
+<!-- VB-FAQ-END -->
 <div class="modal" id="leadModal" role="dialog" aria-modal="true">
   <div class="modal-bg" data-close></div>
   <div class="modal-card">
