@@ -535,7 +535,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 <link rel="canonical" href="https://verbatra.com/redline.html">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://verbatra.com/redline.html">
-<meta property="og:image" content="https://verbatra.com/og-image.png">
+<meta property="og:image" content="https://www.verbatra.com/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Verbatra — Free legal documents drafted by a lawyer.">
@@ -545,6 +545,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Contract Risk Review — Free Checklist + Smart Scanner | Verbatra">
 <meta name="twitter:description" content="Identify contract risks instantly. Free guided checklist or smart scanner.">
+<meta name="twitter:image" content="https://www.verbatra.com/og-image.png">
+<meta name="twitter:image:alt" content="Verbatra &mdash; Free legal document generator for Indian businesses">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
@@ -581,7 +583,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
   if(attempts < 50){ setTimeout(function(){ setupPdfWorker(attempts+1); }, 100); }
 })(0);
 </script>
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://verbatra.com/#organization","name":"Verbatra","url":"https://verbatra.com","logo":{"@type":"ImageObject","url":"https://verbatra.com/og-image.png"},"founder":{"@type":"Person","name":"Arnav Bhardwaj","jobTitle":"Corporate Lawyer & Founder","url":"https://verbatra.com/founder.html","sameAs":"https://www.linkedin.com/in/bhardwajarnav/"},"contactPoint":{"@type":"ContactPoint","telephone":"+91-9368730710","contactType":"Customer Service","email":"verbatra.legal@gmail.com","areaServed":"IN"},"sameAs":["https://www.linkedin.com/company/verbatra/"]},{"@type":"WebApplication","name":"Verbatra Contract Risk Review","url":"https://verbatra.com/redline.html","description":"Free contract review tool. Two modes: guided checklist or upload-and-scan against 200+ risk patterns for NDA, MSA, Consultancy and Employment contracts. Get a risk report with suggested redlines.","applicationCategory":"BusinessApplication","operatingSystem":"Web Browser","browserRequirements":"Requires modern browser with JavaScript enabled","offers":{"@type":"Offer","price":"0","priceCurrency":"INR","availability":"https://schema.org/InStock"},"provider":{"@id":"https://verbatra.com/#organization"},"isAccessibleForFree":true,"inLanguage":"en-IN"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://verbatra.com/"},{"@type":"ListItem","position":2,"name":"Contract Risk Review","item":"https://verbatra.com/redline.html"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://verbatra.com/#organization","name":"Verbatra","url":"https://verbatra.com","logo":{"@type":"ImageObject","url":"https://www.verbatra.com/og-image.png"},"founder":{"@type":"Person","name":"Arnav Bhardwaj","jobTitle":"Corporate Lawyer & Founder","url":"https://verbatra.com/founder.html","sameAs":"https://www.linkedin.com/in/bhardwajarnav/"},"contactPoint":{"@type":"ContactPoint","telephone":"+91-9368730710","contactType":"Customer Service","email":"verbatra.legal@gmail.com","areaServed":"IN"},"sameAs":["https://www.linkedin.com/company/verbatra/"]},{"@type":"WebApplication","name":"Verbatra Contract Risk Review","url":"https://verbatra.com/redline.html","description":"Free contract review tool. Two modes: guided checklist or upload-and-scan against 200+ risk patterns for NDA, MSA, Consultancy and Employment contracts. Get a risk report with suggested redlines.","applicationCategory":"BusinessApplication","operatingSystem":"Web Browser","browserRequirements":"Requires modern browser with JavaScript enabled","offers":{"@type":"Offer","price":"0","priceCurrency":"INR","availability":"https://schema.org/InStock"},"provider":{"@id":"https://verbatra.com/#organization"},"isAccessibleForFree":true,"inLanguage":"en-IN"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://verbatra.com/"},{"@type":"ListItem","position":2,"name":"Contract Risk Review","item":"https://verbatra.com/redline.html"}]}]}</script>
 <style data-vb="faq-css">
 /* === FAQ + Related Tools sections === */
 .content-section{max-width:780px;margin:36px auto 24px;padding:0 22px}
@@ -603,6 +605,31 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 .related-card{display:flex;align-items:center;gap:12px;background:#fffdf7;border:1px solid #e6dec9;border-radius:10px;padding:14px 18px;text-decoration:none;color:#1f3d30;transition:.15s;font-size:14px;font-weight:500;font-family:'Fraunces',serif;line-height:1.3;letter-spacing:-.005em}
 .related-card:hover{background:#f4efe4;border-color:#1f3d30;transform:translateY(-1px);box-shadow:0 4px 12px -4px rgba(31,61,48,.15)}
 .related-card svg{width:16px;height:16px;color:#a8843f;flex:none}
+
+/* === Verbatra mega-nav (sticky category strip) === */
+.vb-meganav{position:sticky;top:0;z-index:200;background:#fbf8f0;border-top:1px solid #d8cfbc;border-bottom:1px solid #d8cfbc;box-shadow:0 1px 0 rgba(0,0,0,.02),0 4px 14px -8px rgba(0,0,0,.08);font-family:'Hanken Grotesk',sans-serif}
+.vb-meganav-inner{display:flex;max-width:1280px;margin:0 auto;padding:0}
+.vb-cat{flex:1;padding:11px 6px;text-align:center;font-size:12.5px;font-weight:700;color:#4a4a42;background:transparent;border:none;cursor:pointer;letter-spacing:.08em;text-transform:uppercase;position:relative;font-family:inherit;transition:background .15s,color .15s;border-right:1px solid #e8e0cd}
+.vb-cat:last-child{border-right:none}
+.vb-cat:hover,.vb-cat[aria-expanded="true"]{color:#1f3d30;background:rgba(31,61,48,.06)}
+.vb-cat::after{content:"\25BE";margin-left:5px;font-size:9px;opacity:.55;transition:transform .2s}
+.vb-cat[aria-expanded="true"]::after{transform:rotate(180deg);opacity:1}
+.vb-dropdown{position:absolute;top:100%;left:0;right:0;background:#fbf8f0;border-bottom:1px solid #d8cfbc;box-shadow:0 14px 36px -10px rgba(26,26,23,.18);display:none;z-index:201;max-height:75vh;overflow-y:auto}
+.vb-dropdown.open{display:block;animation:vbFade .18s ease-out}
+@keyframes vbFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.vb-dropdown-inner{max-width:1280px;margin:0 auto;padding:22px 7vw 26px;display:grid;gap:28px;grid-template-columns:repeat(3,1fr)}
+.vb-group h4{font-family:'Fraunces',serif;font-weight:500;font-size:11px;color:#7a2e26;letter-spacing:.18em;text-transform:uppercase;margin:0 0 10px;padding-bottom:7px;border-bottom:1px solid #d8cfbc;display:flex;align-items:center;gap:8px}
+.vb-group h4::before{content:"";width:14px;height:1px;background:#a8843f}
+.vb-group a{display:block;padding:7px 0;color:#1a1a17;text-decoration:none;font-size:13.5px;font-family:'Hanken Grotesk',sans-serif;font-weight:500;line-height:1.4;transition:color .12s,padding-left .12s}
+.vb-group a:hover{color:#1f3d30;padding-left:4px}
+@media (max-width:760px){
+  .vb-cat{font-size:10.5px;padding:10px 3px;letter-spacing:.06em}
+  .vb-cat::after{font-size:8px;margin-left:3px}
+  .vb-dropdown-inner{grid-template-columns:1fr;padding:18px 5vw 22px;gap:18px}
+  .vb-group h4{font-size:10.5px;margin-bottom:8px}
+  .vb-group a{font-size:14px;padding:8px 0}
+  .vb-dropdown{max-height:80vh}
+}
 </style>
 
 <script type="application/ld+json" data-vb="faq">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How does the Contract Risk Review work?","acceptedAnswer":{"@type":"Answer","text":"Verbatra's Contract Risk Review operates in two modes. (1) Guided Checklist: you walk through a curated set of questions, organised by category (Liability, IP, Termination, Confidentiality, etc.), and answer how your contract treats each issue. The tool flags risks based on your answers, with severity ratings and suggested redline language. (2) Smart Scanner: you upload the contract (Word, PDF, or text) and the tool extracts the text and scans it against 200+ pattern-matching rules developed for NDA, MSA, Consultancy, and Employment contracts. Both modes produce a comprehensive risk report with severity-graded findings."}},{"@type":"Question","name":"Is this a substitute for a lawyer reviewing my contract?","acceptedAnswer":{"@type":"Answer","text":"No. The Contract Risk Review is a first-pass diagnostic that surfaces common risk patterns and suggests negotiation language. It is genuinely useful for: (1) deciding whether to push back on a contract before involving a lawyer, (2) preparing for a negotiation with informed positions, (3) catching obvious issues you might miss yourself. It is not a substitute for: (1) a substantive review of the contract against your specific commercial situation, (2) advice on complex regulatory or sector-specific issues, (3) negotiation strategy for high-value or relationship-defining deals. For those, engage a qualified lawyer."}},{"@type":"Question","name":"Can it catch every risk in my contract?","acceptedAnswer":{"@type":"Answer","text":"No, and the report says this directly. The scanner detects patterns it knows about — about 200 across the four supported contract types. It will not catch: (1) novel risks specific to your industry or commercial situation, (2) risks created by silence in the contract where a clause should have been included but is missing, (3) drafting ambiguities that depend on context, (4) risks arising from how the contract interacts with other contracts in your portfolio. The Checklist mode catches more 'silent' issues than the Scanner mode because it asks you about specific topics."}},{"@type":"Question","name":"Does Verbatra store or read my contract?","acceptedAnswer":{"@type":"Answer","text":"No. The contract you upload is processed entirely in your browser. The file is read locally by the document-extraction libraries (mammoth.js for Word, pdf.js for PDF), the extracted text is scanned in-browser by the rules engine, and the report is generated and displayed in-browser. Nothing is transmitted to Verbatra's servers. Verbatra cannot see what you upload. If you close the browser tab, the contract content is discarded; if you refresh, you re-upload. This is by deliberate design — confidentiality of your contract is non-negotiable."}},{"@type":"Question","name":"What does the risk score mean?","acceptedAnswer":{"@type":"Answer","text":"The risk score is a 0-100 weighted measure: each critical risk contributes 3 points, each high risk 2 points, each medium risk 1 point. The total is normalised against the maximum possible for the contract type. A score of 0-29 indicates Low Risk (a broadly reasonable contract with minor items worth raising). 30-59 is Moderate Risk (several items merit negotiation). 60+ is High Risk (multiple critical issues; engage qualified counsel before signing). The score is not a measure of contract enforceability; it is a measure of how unbalanced the contract is against the reviewing party."}},{"@type":"Question","name":"What contract types does it support?","acceptedAnswer":{"@type":"Answer","text":"Currently four: (1) NDA (Non-Disclosure Agreement, mutual or one-way), (2) MSA (Master Service Agreement, framework for services with SOWs), (3) Consultancy Agreement (independent contractor engagements), (4) Employment Agreement (employer-employee contracts). For each type, the tool includes a category-organised checklist and a pattern-matching scanner. Additional contract types (Rent, Sale Deed, Distribution, Reseller, etc.) are planned. If you want a specific contract type prioritised, write to verbatra.legal@gmail.com."}},{"@type":"Question","name":"Is my data safe when I use Verbatra?","acceptedAnswer":{"@type":"Answer","text":"Yes. Verbatra runs entirely in your browser. The document you build is rendered locally on your device and is never uploaded to Verbatra's servers, stored anywhere, or transmitted to any third party. Verbatra cannot read what you draft. The only data we collect is the contact information you voluntarily provide on the lead-capture form before download."}},{"@type":"Question","name":"Is Verbatra actually free?","acceptedAnswer":{"@type":"Answer","text":"Yes, every generator on Verbatra is free to use, with no payment, subscription, or credit card required. Verbatra was built by a corporate lawyer to give Indian businesses access to enterprise-grade legal drafting without the friction of paying a lawyer for a routine first draft. Verbatra makes money by offering paid contract negotiation and legal-operations services to clients who want a lawyer to take the document further."}}]}</script>
@@ -615,6 +642,109 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
   </div>
   <p class="disclaimer">Two ways to review: walk through a guided checklist OR paste your contract text into the Smart Scanner. Get a personalised risk report with severity flags and suggested redlines. <strong>This is not legal advice.</strong> Every draft must be reviewed by a qualified lawyer admitted in the relevant jurisdiction before execution.</p>
 </header>
+
+<!-- Verbatra mega-nav -->
+<div class="vb-meganav" id="vbMeganav" role="navigation" aria-label="Site sections">
+  <div class="vb-meganav-inner">
+    <button class="vb-cat" data-target="vb-dd-tools" aria-expanded="false" aria-haspopup="true">Tools</button>
+    <button class="vb-cat" data-target="vb-dd-courses" aria-expanded="false" aria-haspopup="true">Courses</button>
+    <button class="vb-cat" data-target="vb-dd-blog" aria-expanded="false" aria-haspopup="true">Blog</button>
+    <button class="vb-cat" data-target="vb-dd-about" aria-expanded="false" aria-haspopup="true">About</button>
+  </div>
+  <div class="vb-dropdown" id="vb-dd-tools" role="menu">
+    <div class="vb-dropdown-inner">
+      <div class="vb-group">
+        <h4>Contracts</h4>
+        <a href="/nda.html">NDA &mdash; Non-Disclosure</a>
+        <a href="/msa.html">Master Service Agreement</a>
+        <a href="/dpa.html">Data Processing Agreement</a>
+        <a href="/consultancy.html">Consultancy Agreement</a>
+        <a href="/employment.html">Employment Contract</a>
+        <a href="/rent.html">Rent / Lease Agreement</a>
+        <a href="/saledeed.html">Sale Deed</a>
+        <a href="/poa.html">Power of Attorney</a>
+      </div>
+      <div class="vb-group">
+        <h4>Notices &amp; Pre-Litigation</h4>
+        <a href="/legal-warning.html">Legal Warning</a>
+        <a href="/legal-notice.html">Legal Notice</a>
+        <a href="/section-138-notice.html">Section 138 Cheque Notice</a>
+        <a href="/trademark-cease-desist.html">Trademark Cease &amp; Desist</a>
+      </div>
+      <div class="vb-group">
+        <h4>Contract Review</h4>
+        <a href="/redline.html">Contract Risk Review</a>
+      </div>
+    </div>
+  </div>
+  <div class="vb-dropdown" id="vb-dd-courses" role="menu">
+    <div class="vb-dropdown-inner">
+      <div class="vb-group">
+        <h4>Live &amp; Catalogue</h4>
+        <a href="/courses.html">All Courses (10)</a>
+        <a href="/course-contract-law-essentials.html">Indian Contract Law Essentials</a>
+        <a href="/course-verify.html">Verify a Certificate</a>
+      </div>
+      <div class="vb-group">
+        <h4>Course 1 &mdash; Modules</h4>
+        <a href="/course-contract-law-essentials-m1.html">M1 &middot; What is a Contract</a>
+        <a href="/course-contract-law-essentials-m2.html">M2 &middot; Offer &amp; Acceptance</a>
+        <a href="/course-contract-law-essentials-m3.html">M3 &middot; Consideration</a>
+        <a href="/course-contract-law-essentials-m4.html">M4 &middot; Capacity &amp; Consent</a>
+        <a href="/course-contract-law-essentials-m5.html">M5 &middot; Lawful Object</a>
+        <a href="/course-contract-law-essentials-m6.html">M6 &middot; Breach &amp; Remedies</a>
+      </div>
+      <div class="vb-group">
+        <h4>Course 1 &mdash; Quizzes</h4>
+        <a href="/course-contract-law-essentials-q1.html">Quiz 1 &middot; Foundations</a>
+        <a href="/course-contract-law-essentials-q2.html">Quiz 2 &middot; Mid-Course</a>
+        <a href="/course-contract-law-essentials-q3.html">Quiz 3 &middot; Final &rarr; Certificate</a>
+      </div>
+    </div>
+  </div>
+  <div class="vb-dropdown" id="vb-dd-blog" role="menu">
+    <div class="vb-dropdown-inner">
+      <div class="vb-group">
+        <h4>Blog Home</h4>
+        <a href="/blog.html">All Posts</a>
+      </div>
+      <div class="vb-group">
+        <h4>Practical Guides</h4>
+        <a href="/blog-section-138-notice-india.html">Section 138 Notice Guide</a>
+        <a href="/blog-saas-msa-india-clauses.html">SaaS MSA in India</a>
+        <a href="/blog-dpdp-dpa-checklist.html">DPDP Act: DPA Checklist</a>
+        <a href="/blog-nda-india-guide.html">NDA India Guide</a>
+      </div>
+      <div class="vb-group">
+        <h4>Founder Series</h4>
+        <a href="/blog-legal-checklist-for-startups.html">Startup Legal Checklist</a>
+        <a href="/blog-why-startups-skip-legal.html">Why Startups Skip Legal</a>
+        <a href="/blog-legal-operations-without-a-team.html">Legal Ops Without a Team</a>
+      </div>
+    </div>
+  </div>
+  <div class="vb-dropdown" id="vb-dd-about" role="menu">
+    <div class="vb-dropdown-inner">
+      <div class="vb-group">
+        <h4>The Project</h4>
+        <a href="/">Verbatra Home</a>
+        <a href="/founder.html">Founder &mdash; Arnav Bhardwaj</a>
+        <a href="/#contact">Contact Us</a>
+      </div>
+      <div class="vb-group">
+        <h4>Policies</h4>
+        <a href="/privacy.html">Privacy Policy</a>
+      </div>
+      <div class="vb-group">
+        <h4>Get Started</h4>
+        <a href="/blog.html">Browse the Blog</a>
+        <a href="/courses.html">Take a Course</a>
+        <a href="/#tools">Draft a Document</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="redline-shell">
   <h1 class="rl-page-h1">Free Contract Risk Review for Indian Businesses</h1>
   <p class="rl-page-lede">Get a personalised risk report on your <b>NDA</b>, <b>MSA</b>, <b>Consultancy</b> or <b>Employment</b> contract in two minutes. Walk through a lawyer-curated checklist, or upload the document for automatic scanning against 200+ risk patterns. Free, with the report drafted by a corporate lawyer.</p>
@@ -2122,7 +2252,9 @@ function downloadReportWord(){
   var styleTags = document.querySelectorAll('style');
   styleTags.forEach(function(s){ stylesheet += s.innerHTML; });
 
-  var doc = '<!DOCTYPE html><html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>Contract Risk Report</title><style>' + stylesheet + ' body{font-family:Georgia,serif;background:#f0ead8;color:#23211c} .report-modal,.report-bar,.report-close{display:none}</style></head><body>' + htmlContent + '</body></html>';
+  var doc = '<!DOCTYPE html><html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"><title>Contract Risk Report</title><style>' + stylesheet + ' body{font-family:Georgia,serif;background:#f0ead8;color:#23211c} .report-modal,.report-bar,.report-close{display:none}
+
+</style></head><body>' + htmlContent + '</body></html>';
 
   var blob = new Blob(['\ufeff', doc], { type: 'application/msword' });
   var url = URL.createObjectURL(blob);
@@ -2250,6 +2382,39 @@ wireReportModalButtons();
 renderForm();
 renderReport();
 
+</script>
+
+<script>
+/* Verbatra mega-nav controller */
+(function(){
+  var mn = document.getElementById('vbMeganav');
+  if(!mn) return;
+  var btns = mn.querySelectorAll('.vb-cat');
+  var dds = mn.querySelectorAll('.vb-dropdown');
+  function closeAll(){
+    dds.forEach(function(d){ d.classList.remove('open'); });
+    btns.forEach(function(b){ b.setAttribute('aria-expanded','false'); });
+  }
+  btns.forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      var tgt = btn.getAttribute('data-target');
+      var dd = document.getElementById(tgt);
+      var wasOpen = dd.classList.contains('open');
+      closeAll();
+      if(!wasOpen){
+        dd.classList.add('open');
+        btn.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+  document.addEventListener('click', function(e){
+    if(!mn.contains(e.target)) closeAll();
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeAll();
+  });
+})();
 </script>
 </body>
 </html>

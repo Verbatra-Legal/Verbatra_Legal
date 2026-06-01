@@ -123,6 +123,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 <meta name="twitter:title" content="Free DPA Generator , Data Processing Agreement (DPDP, GDPR, CCPA & 39 Regimes) | Verbatra">
 <meta name="twitter:description" content="Generate a Data Processing Agreement that adapts to GDPR, India's DPDP Act, CCPA, LGPD and 36 other data-protection regimes. Controller and processor obligations, three annexes, ready in Word or PDF.">
 <meta name="twitter:image" content="https://www.verbatra.com/og-image.png">
+<meta name="twitter:image:alt" content="Verbatra &mdash; Free legal document generator for Indian businesses">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Free DPA Generator , Data Processing Agreement (DPDP, GDPR, CCPA & 39 Regimes)", "description": "Generate a Data Processing Agreement that adapts to GDPR, India's DPDP Act, CCPA, LGPD and 36 other data-protection regimes. Controller and processor obligations, three annexes, ready in Word or PDF.", "url": "https://www.verbatra.com/dpa.html", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"}, "creator": {"@type": "Organization", "name": "Verbatra", "url": "https://www.verbatra.com"}}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="manifest" href="/manifest.json">
@@ -151,6 +152,31 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 .related-card{display:flex;align-items:center;gap:12px;background:#fffdf7;border:1px solid #e6dec9;border-radius:10px;padding:14px 18px;text-decoration:none;color:#1f3d30;transition:.15s;font-size:14px;font-weight:500;font-family:'Fraunces',serif;line-height:1.3;letter-spacing:-.005em}
 .related-card:hover{background:#f4efe4;border-color:#1f3d30;transform:translateY(-1px);box-shadow:0 4px 12px -4px rgba(31,61,48,.15)}
 .related-card svg{width:16px;height:16px;color:#a8843f;flex:none}
+
+/* === Verbatra mega-nav (sticky category strip) === */
+.vb-meganav{position:sticky;top:0;z-index:200;background:#fbf8f0;border-top:1px solid #d8cfbc;border-bottom:1px solid #d8cfbc;box-shadow:0 1px 0 rgba(0,0,0,.02),0 4px 14px -8px rgba(0,0,0,.08);font-family:'Hanken Grotesk',sans-serif}
+.vb-meganav-inner{display:flex;max-width:1280px;margin:0 auto;padding:0}
+.vb-cat{flex:1;padding:11px 6px;text-align:center;font-size:12.5px;font-weight:700;color:#4a4a42;background:transparent;border:none;cursor:pointer;letter-spacing:.08em;text-transform:uppercase;position:relative;font-family:inherit;transition:background .15s,color .15s;border-right:1px solid #e8e0cd}
+.vb-cat:last-child{border-right:none}
+.vb-cat:hover,.vb-cat[aria-expanded="true"]{color:#1f3d30;background:rgba(31,61,48,.06)}
+.vb-cat::after{content:"\25BE";margin-left:5px;font-size:9px;opacity:.55;transition:transform .2s}
+.vb-cat[aria-expanded="true"]::after{transform:rotate(180deg);opacity:1}
+.vb-dropdown{position:absolute;top:100%;left:0;right:0;background:#fbf8f0;border-bottom:1px solid #d8cfbc;box-shadow:0 14px 36px -10px rgba(26,26,23,.18);display:none;z-index:201;max-height:75vh;overflow-y:auto}
+.vb-dropdown.open{display:block;animation:vbFade .18s ease-out}
+@keyframes vbFade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.vb-dropdown-inner{max-width:1280px;margin:0 auto;padding:22px 7vw 26px;display:grid;gap:28px;grid-template-columns:repeat(3,1fr)}
+.vb-group h4{font-family:'Fraunces',serif;font-weight:500;font-size:11px;color:#7a2e26;letter-spacing:.18em;text-transform:uppercase;margin:0 0 10px;padding-bottom:7px;border-bottom:1px solid #d8cfbc;display:flex;align-items:center;gap:8px}
+.vb-group h4::before{content:"";width:14px;height:1px;background:#a8843f}
+.vb-group a{display:block;padding:7px 0;color:#1a1a17;text-decoration:none;font-size:13.5px;font-family:'Hanken Grotesk',sans-serif;font-weight:500;line-height:1.4;transition:color .12s,padding-left .12s}
+.vb-group a:hover{color:#1f3d30;padding-left:4px}
+@media (max-width:760px){
+  .vb-cat{font-size:10.5px;padding:10px 3px;letter-spacing:.06em}
+  .vb-cat::after{font-size:8px;margin-left:3px}
+  .vb-dropdown-inner{grid-template-columns:1fr;padding:18px 5vw 22px;gap:18px}
+  .vb-group h4{font-size:10.5px;margin-bottom:8px}
+  .vb-group a{font-size:14px;padding:8px 0}
+  .vb-dropdown{max-height:80vh}
+}
 </style>
 
 <script type="application/ld+json" data-vb="faq">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"When do I need a Data Processing Agreement under Indian law?","acceptedAnswer":{"@type":"Answer","text":"Under India's Digital Personal Data Protection Act, 2023 (DPDP Act), a Data Fiduciary (the party that determines the purpose and means of processing personal data) must enter into a written agreement with any Data Processor it engages. The agreement must address the processor's obligations including purpose limitation, security, breach notification, sub-processing, and return or deletion of data on termination. If you collect personal data from individuals in India and someone else processes that data on your instructions (cloud provider, payroll vendor, marketing tool, customer-support tool), you need a DPA with them."}},{"@type":"Question","name":"What's the difference between a Data Fiduciary and a Data Processor under the DPDP Act?","acceptedAnswer":{"@type":"Answer","text":"A Data Fiduciary is any person who alone or jointly with others determines the purpose and means of processing personal data — essentially, the party that decides why and how data is processed. A Data Processor is any person who processes personal data on behalf of a Data Fiduciary. For example, if you run a SaaS business, you are the Data Fiduciary for your customers' personal data. If you use AWS to host that data, AWS is your Data Processor. Both parties have distinct obligations under the DPDP Act and the DPA must reflect those obligations clearly."}},{"@type":"Question","name":"Does the DPDP Act require a 72-hour breach notification?","acceptedAnswer":{"@type":"Answer","text":"The DPDP Act requires the Data Fiduciary to notify the Data Protection Board of India and each affected Data Principal in the event of a personal data breach. The exact timing requirements will be specified in the rules issued under the Act (which are still being finalised at the time of writing). Most enterprise contracts in India currently require the Data Processor to notify the Data Fiduciary of a breach within 24 to 72 hours of discovery, so the Data Fiduciary has time to meet its own notification obligations. Verbatra's DPA defaults to a 48-hour processor-to-fiduciary notification."}},{"@type":"Question","name":"Are cross-border data transfers allowed under the DPDP Act?","acceptedAnswer":{"@type":"Answer","text":"The DPDP Act permits cross-border transfer of personal data except to countries that the Central Government has specifically restricted by notification. The Act takes a 'blocklist' approach rather than the 'allowlist' approach taken by the EU GDPR. As of writing, no countries have been formally restricted, meaning transfers are broadly permissible. However, sector-specific laws (banking, telecom, healthcare) may impose data-localisation requirements that override this general permission. Verbatra's DPA includes provisions for cross-border transfer that adapt to your stated location and sector."}},{"@type":"Question","name":"Do I need a separate DPA, or can I include data protection clauses in the main contract?","acceptedAnswer":{"@type":"Answer","text":"Both approaches work legally, but a separate DPA is the dominant industry practice and is generally cleaner. A separate DPA: (1) lets you reuse one DPA across multiple commercial contracts with the same vendor, (2) makes audits and compliance reviews easier because data terms are not buried in commercial terms, (3) signals to your customers and auditors that you take data protection seriously as a discrete matter. For high-volume customer onboarding and B2B SaaS, a separate DPA is almost universal."}},{"@type":"Question","name":"Is my data safe when I use Verbatra?","acceptedAnswer":{"@type":"Answer","text":"Yes. Verbatra runs entirely in your browser. The document you build is rendered locally on your device and is never uploaded to Verbatra's servers, stored anywhere, or transmitted to any third party. Verbatra cannot read what you draft. The only data we collect is the contact information you voluntarily provide on the lead-capture form before download."}},{"@type":"Question","name":"Do I still need a lawyer if I use Verbatra?","acceptedAnswer":{"@type":"Answer","text":"Verbatra produces a solid, India-specific first draft drafted by a corporate lawyer. For most standard, low-stakes contracts between commercial parties, the generated document is enough. For higher-stakes transactions, contracts that materially deviate from standard terms, contracts involving regulated industries, or anything you would be uncomfortable signing without independent review, you should have a qualified lawyer review the document before execution. Verbatra is not a substitute for advice on your specific facts."}},{"@type":"Question","name":"Is Verbatra actually free?","acceptedAnswer":{"@type":"Answer","text":"Yes, every generator on Verbatra is free to use, with no payment, subscription, or credit card required. Verbatra was built by a corporate lawyer to give Indian businesses access to enterprise-grade legal drafting without the friction of paying a lawyer for a routine first draft. Verbatra makes money by offering paid contract negotiation and legal-operations services to clients who want a lawyer to take the document further."}}]}</script>
@@ -163,6 +189,109 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
   </div>
   <p class="disclaimer">Build a Data Processing Agreement that adapts its terminology, supervisory authority, transfer mechanism and legal references to the chosen data-protection regime, with the three standard annexes. <strong>This is not legal advice.</strong> Every draft must be reviewed by a qualified lawyer admitted in the relevant jurisdiction before execution.</p>
 </header>
+
+<!-- Verbatra mega-nav -->
+<div class="vb-meganav" id="vbMeganav" role="navigation" aria-label="Site sections">
+  <div class="vb-meganav-inner">
+    <button class="vb-cat" data-target="vb-dd-tools" aria-expanded="false" aria-haspopup="true">Tools</button>
+    <button class="vb-cat" data-target="vb-dd-courses" aria-expanded="false" aria-haspopup="true">Courses</button>
+    <button class="vb-cat" data-target="vb-dd-blog" aria-expanded="false" aria-haspopup="true">Blog</button>
+    <button class="vb-cat" data-target="vb-dd-about" aria-expanded="false" aria-haspopup="true">About</button>
+  </div>
+  <div class="vb-dropdown" id="vb-dd-tools" role="menu">
+    <div class="vb-dropdown-inner">
+      <div class="vb-group">
+        <h4>Contracts</h4>
+        <a href="/nda.html">NDA &mdash; Non-Disclosure</a>
+        <a href="/msa.html">Master Service Agreement</a>
+        <a href="/dpa.html">Data Processing Agreement</a>
+        <a href="/consultancy.html">Consultancy Agreement</a>
+        <a href="/employment.html">Employment Contract</a>
+        <a href="/rent.html">Rent / Lease Agreement</a>
+        <a href="/saledeed.html">Sale Deed</a>
+        <a href="/poa.html">Power of Attorney</a>
+      </div>
+      <div class="vb-group">
+        <h4>Notices &amp; Pre-Litigation</h4>
+        <a href="/legal-warning.html">Legal Warning</a>
+        <a href="/legal-notice.html">Legal Notice</a>
+        <a href="/section-138-notice.html">Section 138 Cheque Notice</a>
+        <a href="/trademark-cease-desist.html">Trademark Cease &amp; Desist</a>
+      </div>
+      <div class="vb-group">
+        <h4>Contract Review</h4>
+        <a href="/redline.html">Contract Risk Review</a>
+      </div>
+    </div>
+  </div>
+  <div class="vb-dropdown" id="vb-dd-courses" role="menu">
+    <div class="vb-dropdown-inner">
+      <div class="vb-group">
+        <h4>Live &amp; Catalogue</h4>
+        <a href="/courses.html">All Courses (10)</a>
+        <a href="/course-contract-law-essentials.html">Indian Contract Law Essentials</a>
+        <a href="/course-verify.html">Verify a Certificate</a>
+      </div>
+      <div class="vb-group">
+        <h4>Course 1 &mdash; Modules</h4>
+        <a href="/course-contract-law-essentials-m1.html">M1 &middot; What is a Contract</a>
+        <a href="/course-contract-law-essentials-m2.html">M2 &middot; Offer &amp; Acceptance</a>
+        <a href="/course-contract-law-essentials-m3.html">M3 &middot; Consideration</a>
+        <a href="/course-contract-law-essentials-m4.html">M4 &middot; Capacity &amp; Consent</a>
+        <a href="/course-contract-law-essentials-m5.html">M5 &middot; Lawful Object</a>
+        <a href="/course-contract-law-essentials-m6.html">M6 &middot; Breach &amp; Remedies</a>
+      </div>
+      <div class="vb-group">
+        <h4>Course 1 &mdash; Quizzes</h4>
+        <a href="/course-contract-law-essentials-q1.html">Quiz 1 &middot; Foundations</a>
+        <a href="/course-contract-law-essentials-q2.html">Quiz 2 &middot; Mid-Course</a>
+        <a href="/course-contract-law-essentials-q3.html">Quiz 3 &middot; Final &rarr; Certificate</a>
+      </div>
+    </div>
+  </div>
+  <div class="vb-dropdown" id="vb-dd-blog" role="menu">
+    <div class="vb-dropdown-inner">
+      <div class="vb-group">
+        <h4>Blog Home</h4>
+        <a href="/blog.html">All Posts</a>
+      </div>
+      <div class="vb-group">
+        <h4>Practical Guides</h4>
+        <a href="/blog-section-138-notice-india.html">Section 138 Notice Guide</a>
+        <a href="/blog-saas-msa-india-clauses.html">SaaS MSA in India</a>
+        <a href="/blog-dpdp-dpa-checklist.html">DPDP Act: DPA Checklist</a>
+        <a href="/blog-nda-india-guide.html">NDA India Guide</a>
+      </div>
+      <div class="vb-group">
+        <h4>Founder Series</h4>
+        <a href="/blog-legal-checklist-for-startups.html">Startup Legal Checklist</a>
+        <a href="/blog-why-startups-skip-legal.html">Why Startups Skip Legal</a>
+        <a href="/blog-legal-operations-without-a-team.html">Legal Ops Without a Team</a>
+      </div>
+    </div>
+  </div>
+  <div class="vb-dropdown" id="vb-dd-about" role="menu">
+    <div class="vb-dropdown-inner">
+      <div class="vb-group">
+        <h4>The Project</h4>
+        <a href="/">Verbatra Home</a>
+        <a href="/founder.html">Founder &mdash; Arnav Bhardwaj</a>
+        <a href="/#contact">Contact Us</a>
+      </div>
+      <div class="vb-group">
+        <h4>Policies</h4>
+        <a href="/privacy.html">Privacy Policy</a>
+      </div>
+      <div class="vb-group">
+        <h4>Get Started</h4>
+        <a href="/blog.html">Browse the Blog</a>
+        <a href="/courses.html">Take a Course</a>
+        <a href="/#tools">Draft a Document</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="wrap">
   <section class="panel form-panel">
     <h2 class="sec">Data-protection regime</h2>
@@ -586,6 +715,39 @@ _wireProtect();
 updateHints();
 render();
 
+</script>
+
+<script>
+/* Verbatra mega-nav controller */
+(function(){
+  var mn = document.getElementById('vbMeganav');
+  if(!mn) return;
+  var btns = mn.querySelectorAll('.vb-cat');
+  var dds = mn.querySelectorAll('.vb-dropdown');
+  function closeAll(){
+    dds.forEach(function(d){ d.classList.remove('open'); });
+    btns.forEach(function(b){ b.setAttribute('aria-expanded','false'); });
+  }
+  btns.forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      var tgt = btn.getAttribute('data-target');
+      var dd = document.getElementById(tgt);
+      var wasOpen = dd.classList.contains('open');
+      closeAll();
+      if(!wasOpen){
+        dd.classList.add('open');
+        btn.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+  document.addEventListener('click', function(e){
+    if(!mn.contains(e.target)) closeAll();
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeAll();
+  });
+})();
 </script>
 </body>
 </html>
