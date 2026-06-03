@@ -7,9 +7,9 @@
 <meta name="description" content="Verify a Verbatra free certificate of course completion by certificate ID.">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <meta name="theme-color" content="#1f3d30">
-<link rel="canonical" href="https://verbatra.com/course-verify.html">
+<link rel="canonical" href="https://www.verbatra.com/course-verify.html">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://verbatra.com/course-verify.html">
+<meta property="og:url" content="https://www.verbatra.com/course-verify.html">
 <meta property="og:title" content="Certificate Verification | Verbatra">
 <meta property="og:description" content="Verify a Verbatra free certificate of course completion by certificate ID.">
 <meta property="og:image" content="https://www.verbatra.com/og-image.png">
@@ -263,7 +263,7 @@ body{font-family:'Hanken Grotesk',sans-serif;background:var(--cream);color:var(-
   .vbdd-panel::before{display:none}
 }
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Verbatra Certificate Verification","description":"Tool to verify a Verbatra free certificate of course completion by certificate ID.","url":"https://verbatra.com/course-verify.html","inLanguage":"en-IN","isPartOf":{"@type":"Organization","name":"Verbatra","url":"https://verbatra.com"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Verbatra Certificate Verification","description":"Tool to verify a Verbatra free certificate of course completion by certificate ID.","url":"https://www.verbatra.com/course-verify.html","inLanguage":"en-IN","isPartOf":{"@type":"Organization","name":"Verbatra","url":"https://www.verbatra.com"}}</script>
 </head>
 <body><meta name="robots" content="noindex, follow"><nav class="course-nav">
   <a href="/" class="logo">Verbatra<span>.</span></a>
@@ -297,6 +297,7 @@ body{font-family:'Hanken Grotesk',sans-serif;background:var(--cream);color:var(-
           <a href="/course-verify.html">Verify a Certificate</a>
           <span class="vbdd-h">Available Now</span>
           <a href="/course-contract-law-essentials.html">Indian Contract Law Essentials</a>
+          <a href="/course-nda-drafting.html">NDA Drafting Masterclass</a>
         </div>
       </div>
       <div class="vbdd" data-vbdd="vbdd-blog">
@@ -335,9 +336,14 @@ body{font-family:'Hanken Grotesk',sans-serif;background:var(--cream);color:var(-
   <span class="eyebrow">Verbatra Certificate</span>
   <h1>Verify a Verbatra certificate</h1>
   <p class="lede" style="margin-left:auto;margin-right:auto">Enter a certificate ID below to check whether it exists in this device's records. Verbatra certificates are self-issued and verifiable on the device that generated them.</p>
+  <div style="margin-top:20px;font-size:12.5px;color:#5a564c;font-weight:500;letter-spacing:.04em">
+    <span style="font-family:'Fraunces',serif;font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#7a2e26;display:block;margin-bottom:8px">Currently verifiable</span>
+    <span style="display:inline-block;margin:3px 6px;padding:5px 12px;background:rgba(31,61,48,.06);border:1px solid #d9d3c0;border-radius:30px;font-family:'Source Code Pro',monospace;font-size:11.5px;letter-spacing:.04em"><b style="color:#1f3d30">VBT-2026-CL-</b>&hellip; &middot; Indian Contract Law Essentials</span>
+    <span style="display:inline-block;margin:3px 6px;padding:5px 12px;background:rgba(31,61,48,.06);border:1px solid #d9d3c0;border-radius:30px;font-family:'Source Code Pro',monospace;font-size:11.5px;letter-spacing:.04em"><b style="color:#1f3d30">VBT-2026-ND-</b>&hellip; &middot; NDA Drafting Masterclass</span>
+  </div>
 </section>
 <section class="course-body" style="max-width:520px;text-align:center">
-  <input type="text" id="certIdInput" placeholder="VBT-2026-CL-XXXXXX" style="width:100%;padding:14px 18px;border:1.5px solid #d9d3c0;border-radius:10px;background:#fffdf7;font-family:'Source Code Pro',monospace;font-size:15px;text-align:center;letter-spacing:.04em;margin-bottom:14px">
+  <input type="text" id="certIdInput" placeholder="VBT-2026-XX-XXXXXX" style="width:100%;padding:14px 18px;border:1.5px solid #d9d3c0;border-radius:10px;background:#fffdf7;font-family:'Source Code Pro',monospace;font-size:15px;text-align:center;letter-spacing:.04em;margin-bottom:14px">
   <button onclick="verifyCert()" style="background:linear-gradient(180deg,#2d5240,#1f3d30);color:#f4efe4;border:none;border-radius:10px;padding:13px 32px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;cursor:pointer">Verify</button>
   <div id="verifyResult" style="margin-top:24px;padding:24px;border-radius:12px;text-align:center;display:none"></div>
   <div style="margin-top:34px;padding:20px;background:rgba(168,132,63,.06);border:1px solid rgba(168,132,63,.25);border-radius:10px;font-size:13px;color:#5a564c;line-height:1.6;text-align:left">
@@ -357,6 +363,11 @@ function verifyCert(){
     out.style.color = "#5a221c";
     return;
   }
+  // Map courseId → human-readable title
+  var COURSE_TITLES = {
+    "contract-law-essentials": "Indian Contract Law Essentials",
+    "nda-drafting": "NDA Drafting Masterclass"
+  };
   try {
     var state = JSON.parse(localStorage.getItem("verbatra_courses") || "{}");
     var found = null;
@@ -367,7 +378,8 @@ function verifyCert(){
     });
     if(found){
       var dt = found.completed_at ? new Date(found.completed_at).toLocaleDateString("en-IN", {day:"numeric",month:"long",year:"numeric"}) : "—";
-      out.innerHTML = "<div style=\"font-size:36px;margin-bottom:8px\">&#10003;</div><b style=\"font-family:'Fraunces',serif;font-weight:500;font-size:22px;color:#1f3d30;display:block;margin-bottom:10px\">Verified</b><div style=\"font-size:14px;color:#23211c;line-height:1.6\">Certificate <b>" + id + "</b> was issued to <b>" + found.name + "</b> on " + dt + ".</div>";
+      var courseTitle = COURSE_TITLES[found.courseId] || found.courseId;
+      out.innerHTML = "<div style=\"font-size:36px;margin-bottom:8px\">&#10003;</div><b style=\"font-family:'Fraunces',serif;font-weight:500;font-size:22px;color:#1f3d30;display:block;margin-bottom:10px\">Verified</b><div style=\"font-size:14px;color:#23211c;line-height:1.65\">Certificate <b>" + id + "</b> was issued to <b>" + found.name + "</b> on " + dt + " for the <b>" + courseTitle + "</b> course.</div>";
       out.style.background = "rgba(61,138,94,.08)";
       out.style.borderLeft = "3px solid #3d8a5e";
       out.style.color = "#1a4a2e";

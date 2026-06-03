@@ -50,17 +50,19 @@ function generateCertificatePDF(name, courseTitle, certId, onDone){
   }
   
   // ===== Page geometry & equal margins =====
-  const M = 14;                      // outer border margin (equal on all 4 sides)
+  const M = 0;                       // border at page edge — no outside white margin
   const cx = W / 2;                  // horizontal center = 148.5
   
   // Background cream
   doc.setFillColor.apply(doc, CREAM);
   doc.rect(0, 0, W, H, 'F');
   
-  // Double border with equal margins on all sides
+  // Double border. Outer line is INSET by half its width so it sits fully inside the page
+  // (otherwise half the stroke would fall outside the page and be clipped).
   doc.setDrawColor.apply(doc, GREEN);
   doc.setLineWidth(0.8);
-  doc.rect(M, M, W - 2*M, H - 2*M);            // outer
+  const outerInset = 0.4;
+  doc.rect(M + outerInset, M + outerInset, W - 2*M - 2*outerInset, H - 2*M - 2*outerInset);  // outer
   doc.setLineWidth(0.3);
   doc.rect(M + 2.5, M + 2.5, W - 2*M - 5, H - 2*M - 5);   // inner
   
@@ -71,12 +73,16 @@ function generateCertificatePDF(name, courseTitle, certId, onDone){
   // ---------- HEADER ----------
   doc.setFont('helvetica', 'bold');
   doc.setTextColor.apply(doc, GREEN);
-  vbCenterText('VERBATRA', cx, 27, 12, 0.5);
-  // gold dot after the (centered, spaced) wordmark
   doc.setFontSize(12);
+  // Compute total assembly width = wordmark + gap + dot, then center it on cx
   const wmRenderedW = doc.getTextWidth('VERBATRA') + ('VERBATRA'.length - 1) * 0.5;
+  const wmDotGap = 3.5;        // center-to-center distance from wordmark right edge to dot
+  const wmDotRadius = 1.0;
+  const wmAssemblyW = wmRenderedW + wmDotGap + wmDotRadius;
+  const wmShift = (wmDotGap + wmDotRadius) / 2;  // how far LEFT to shift wordmark so assembly midpoint = cx
+  vbCenterText('VERBATRA', cx - wmShift, 27, 12, 0.5);
   doc.setFillColor.apply(doc, GOLD);
-  doc.circle(cx + wmRenderedW/2 + 3.5, 26, 1.0, 'F');
+  doc.circle(cx - wmShift + wmRenderedW/2 + wmDotGap, 26, wmDotRadius, 'F');
   
   doc.setFont('helvetica', 'normal');
   doc.setTextColor.apply(doc, OXBLOOD);
@@ -124,54 +130,64 @@ function generateCertificatePDF(name, courseTitle, certId, onDone){
   doc.setTextColor.apply(doc, INK_SOFT);
   doc.text('on ' + dateStr, cx, titleY + 4, { align: 'center' });
   
-  // ========== BOTTOM ZONE — symmetric columns + centered footer ==========
-  // Two columns with centers equidistant from page center (LHS = RHS).
-  const D = 66;                  // column offset from center
-  const LX = cx - D;             // signature column center
-  const RX = cx + D;             // seal column center
+  // ========== BOTTOM ZONE — symmetric outer edges (LHS = RHS) ==========
+  // Note: columns have DIFFERENT widths (signature rule wider than seal),
+  // so we anchor on OUTER EDGES rather than column centers. The OUTER constant
+  // is the distance from page center cx to the outermost edge of each column.
+  const OUTER = 90;              // distance from cx to outer edge of each column
+  const ruleHalf = 32;           // half-width of signature rule (defined here for use below)
+  const sealR = 15;              // seal radius
+  const LX = cx - (OUTER - ruleHalf);  // signature column center: cx - 58
+  const RX = cx + (OUTER - sealR);      // seal column center:      cx + 75
   const colMid = 161;            // shared vertical midline for both columns
   
   // --- LEFT column: signature image + rule + name + title, vertically centered on colMid ---
-  const sigH = 16;
+  const sigH = 13;
   const sigW = sigH * 1.901;
   const ruleY = colMid + 2;                 // signature rule
-  doc.addImage(sigData, 'PNG', LX - sigW/2, ruleY - sigH - 1, sigW, sigH);
+  doc.addImage(sigData, 'PNG', LX - sigW/2, ruleY - sigH - 3, sigW, sigH);
   doc.setDrawColor.apply(doc, GREEN);
   doc.setLineWidth(0.3);
-  const ruleHalf = 32;
   doc.line(LX - ruleHalf, ruleY, LX + ruleHalf, ruleY);
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(8.5);
   doc.setTextColor.apply(doc, INK);
   doc.text('Arnav Bhardwaj', LX, ruleY + 5, { align: 'center' });
   doc.setFont('helvetica', 'normal');
-  doc.setFontSize(7);
   doc.setTextColor.apply(doc, INK_SOFT);
-  doc.text('Corporate Lawyer & Founder, Verbatra', LX, ruleY + 9, { align: 'center', charSpace: 0.2 });
+  vbCenterText('Corporate Lawyer & Founder, Verbatra', LX, ruleY + 9, 7, 0.2);
   
   // --- RIGHT column: navy seal, vertically centered on colMid ---
   const NAVY = [28, 42, 74];
-  const stampCx = RX, stampCy = colMid, R = 15;
+  const stampCx = RX, stampCy = colMid, R = sealR;
   doc.setDrawColor.apply(doc, NAVY);
+  // Three concentric circles — outer heavy, mid hairline, inner hairline
   doc.setLineWidth(R*0.05); doc.circle(stampCx, stampCy, R, 'S');
-  doc.setLineWidth(R*0.02); doc.circle(stampCx, stampCy, R*0.88, 'S');
-  doc.setLineWidth(R*0.02); doc.circle(stampCx, stampCy, R*0.44, 'S');
+  doc.setLineWidth(R*0.02); doc.circle(stampCx, stampCy, R*0.86, 'S');
+  doc.setLineWidth(R*0.02); doc.circle(stampCx, stampCy, R*0.42, 'S');
+  // Center monogram V — proportionate, not crowding the inner ring
   doc.setFont('times', 'normal');
-  doc.setFontSize(R*1.45);
+  doc.setFontSize(R*1.15);
   doc.setTextColor.apply(doc, NAVY);
   doc.text('V', stampCx, stampCy, { align:'center', baseline:'middle' });
+  // Gold dot — tightly after V, baseline-aligned (echoes wordmark "VERBATRA •")
+  const vW = doc.getTextWidth('V');
   doc.setFillColor.apply(doc, GOLD);
-  doc.circle(stampCx + R*0.26, stampCy - R*0.08, R*0.05, 'F');
-  const textRad = R*0.69, afs = R*0.38, dpc = 17;
+  doc.circle(stampCx + vW/2 + R*0.08, stampCy - R*0.05, R*0.045, 'F');
+  // Arc text — TIGHT spacing so VERBATRA spans only ~77deg at top, CERTIFIED ~88deg at bottom
+  const textRad = R*0.66, afs = R*0.34, dpc = 11;
   vbArc('VERBATRA', stampCx, stampCy, textRad, -90, dpc, afs, NAVY, false);
   vbArc('CERTIFIED', stampCx, stampCy, textRad, 90, dpc, afs, NAVY, true);
-  doc.setFillColor.apply(doc, NAVY);
-  doc.circle(stampCx - textRad, stampCy, R*0.022, 'F');
-  doc.circle(stampCx + textRad, stampCy, R*0.022, 'F');
-  doc.setFont('helvetica','normal'); doc.setFontSize(R*0.3);
-  doc.setTextColor.apply(doc, NAVY);
-  doc.text('*', stampCx - textRad*0.86, stampCy, { align:'center', baseline:'middle' });
-  doc.text('*', stampCx + textRad*0.86, stampCy, { align:'center', baseline:'middle' });
+  // Side ornaments — small navy diamonds at 9 and 3 o'clock, well clear of arc text termini
+  // (no more tiny asterisks or specks)
+  const ornR = R*0.04;
+  function navyDiamond(x, y, s){
+    doc.setFillColor.apply(doc, NAVY);
+    doc.triangle(x-s, y, x, y-s, x+s, y, 'F');
+    doc.triangle(x-s, y, x, y+s, x+s, y, 'F');
+  }
+  navyDiamond(stampCx - textRad, stampCy, ornR);
+  navyDiamond(stampCx + textRad, stampCy, ornR);
   
   // ---------- CENTERED FOOTER (cert ID + URL), inside the border ----------
   // Both centered on page center, stacked, with equal margin from the bottom border.
