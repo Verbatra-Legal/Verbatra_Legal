@@ -1044,12 +1044,14 @@ const PARTIES = {
     {id:'mutual',    name:'Both sides share (mutual NDA)',    short:'Mutual'}
   ],
   msa: [
-    {id:'customer', name:'Recipient of services (paying side)',    short:'Customer'},
-    {id:'provider', name:'Performer of services (delivering side)', short:'Provider'}
+    {id:'customer', name:'Recipient of services (paying side)',     short:'Customer'},
+    {id:'provider', name:'Performer of services (delivering side)', short:'Provider'},
+    {id:'mutual',   name:'Both provide services (cross-service)',   short:'Mutual'}
   ],
   consultancy: [
-    {id:'client',     name:'Engaging party (the client)',         short:'Client'},
-    {id:'consultant', name:'Engaged party (the consultant)',      short:'Consultant'}
+    {id:'client',     name:'Engaging party (the client)',           short:'Client'},
+    {id:'consultant', name:'Engaged party (the consultant)',        short:'Consultant'},
+    {id:'mutual',     name:'Both engage each other (cross-consulting)', short:'Mutual'}
   ],
   employment: [
     {id:'employer', name:'Employer (hiring side)',  short:'Employer'},
@@ -1065,152 +1067,187 @@ const PARTY_OVERRIDES = {
     // CHECKLIST items
     p2: {
       discloser: { severity: 'low', redline: 'A one-way NDA in your favour is appropriate. Confirm you are named as the Disclosing Party.' },
-      receiver: { severity: 'high', redline: 'A one-way NDA only protects them. If you will share anything (pitches, comparison data, references) push for mutual.' }
+      receiver: { severity: 'high', redline: 'A one-way NDA only protects them. If you will share anything (pitches, comparison data, references) push for mutual.' },
+      mutual:    { severity: 'low',      redline: 'Mutual NDA is the right structure when both sides share. Ensure Disclosing/Receiving definitions are symmetrical and not labelled toward one party.' }
     },
     c3: {
       discloser: { severity: 'high', redline: 'Resist marking requirements. Marking discipline is your burden as discloser and you will inevitably miss things.' },
-      receiver: { severity: 'low', redline: 'A marking requirement protects you — you only owe duties on information that was clearly designated.' }
+      receiver: { severity: 'low', redline: 'A marking requirement protects you — you only owe duties on information that was clearly designated.' },
+      mutual:    { severity: 'medium',   redline: 'Marking discipline cuts both ways in a mutual NDA. Push for "marked OR information a reasonable person would understand to be confidential" to reduce reliance on perfect marking by either side.' }
     },
     o1: {
       discloser: { severity: 'critical', redline: 'Add: "The Receiving Party shall use the Confidential Information solely for the Purpose and for no other use whatsoever." Without this, they can use your info to compete.' },
-      receiver: { severity: 'medium', redline: 'A use-limitation is standard; just make sure the Purpose is broad enough to cover what you actually need to do.' }
+      receiver: { severity: 'medium', redline: 'A use-limitation is standard; just make sure the Purpose is broad enough to cover what you actually need to do.' },
+      mutual:    { severity: 'critical', redline: 'Add: "Each Party shall use the Confidential Information solely for the Purpose." Symmetric use-limitation protects both sides equally.' }
     },
     o3: {
       discloser: { severity: 'critical', redline: 'Add return/destroy clause. Without it, the recipient can retain your data indefinitely after the engagement ends.' },
-      receiver: { severity: 'medium', redline: 'Return/destroy is standard. Carve out: (a) routine backups, (b) records required by professional/regulatory retention obligations.' }
+      receiver: { severity: 'medium', redline: 'Return/destroy is standard. Carve out: (a) routine backups, (b) records required by professional/regulatory retention obligations.' },
+      mutual:    { severity: 'high',     redline: 'Return/destroy applies symmetrically to both parties. Carve out (a) routine backups and (b) regulatory retention obligations for both sides. Both should certify completion.' }
     },
     t2: {
       discloser: { severity: 'critical', redline: 'Push for 3-5 year survival; indefinite for trade secrets and personal data. Information value lives beyond the relationship.' },
-      receiver: { severity: 'medium', redline: 'Cap survival at 2-3 years. Indefinite survival creates ongoing compliance burden on your organisation.' }
+      receiver: { severity: 'medium', redline: 'Cap survival at 2-3 years. Indefinite survival creates ongoing compliance burden on your organisation.' },
+      mutual:    { severity: 'high',     redline: 'Survival applies to both sides — pick a period acceptable as both burden and protection. 3-5 years is standard; indefinite only for clearly designated trade secrets.' }
     },
     r1: {
       discloser: { severity: 'critical', redline: 'Injunctive relief is your most important remedy. Add: "monetary damages are inadequate; either party may seek injunctive relief without proving actual damages or posting bond."' },
-      receiver: { severity: 'low', redline: 'Injunctive relief is generally available without an express clause. Including the clause is fine but not critical from your side.' }
+      receiver: { severity: 'low', redline: 'Injunctive relief is generally available without an express clause. Including the clause is fine but not critical from your side.' },
+      mutual:    { severity: 'high',     redline: 'Mutual injunctive relief is essential. Add: "Either Party may seek injunctive relief without proving actual damages or posting bond."' }
     },
     // SCANNER rules
     nda_one_way_check: {
       discloser: { severity: 'low', redline: 'A one-way NDA in which YOU are the Discloser is appropriate. Confirm you are named as Disclosing Party.' },
-      receiver: { severity: 'high', redline: 'If you will share anything in discussions (even casually) ask for mutual. One-way leaves you exposed.' }
+      receiver: { severity: 'high', redline: 'If you will share anything in discussions (even casually) ask for mutual. One-way leaves you exposed.' },
+      mutual:    { severity: 'critical', redline: 'You selected mutual but the contract reads as one-way. Either change your role selection, or push for the contract to be made truly mutual with symmetrical Disclosing/Receiving definitions.' }
     },
     nda_no_purpose: {
       discloser: { severity: 'critical', redline: 'Without a defined Purpose, the recipient is free to use your information for almost anything. Add a narrow Purpose clause naming the specific deal/discussion.' },
-      receiver: { severity: 'low', redline: 'A broad/missing Purpose actually gives you more flexibility, but a clear Purpose protects against scope creep accusations later.' }
+      receiver: { severity: 'low', redline: 'A broad/missing Purpose actually gives you more flexibility, but a clear Purpose protects against scope creep accusations later.' },
+      mutual:    { severity: 'critical', redline: 'A defined Purpose limits BOTH sides equally in a mutual NDA. Add a narrow Purpose clause naming the specific business discussion.' }
     },
     nda_no_return_destroy: {
       discloser: { severity: 'critical', redline: 'Add return/destroy obligation with certification — otherwise they keep your sensitive material indefinitely.' },
-      receiver: { severity: 'low', redline: 'You actually benefit from clean return/destroy obligations (less long-tail compliance). Just carve out routine backups.' }
+      receiver: { severity: 'low', redline: 'You actually benefit from clean return/destroy obligations (less long-tail compliance). Just carve out routine backups.' },
+      mutual:    { severity: 'high', redline: 'Add symmetric return/destroy obligations. Both sides certify in writing. Carve out routine backups and regulatory retention for both.' }
     },
     nda_no_survival: {
       discloser: { severity: 'high', redline: 'Add survival of 3-5 years post-termination; indefinite for trade secrets. Without it, protection ends when the NDA ends.' },
-      receiver: { severity: 'medium', redline: 'Survival is reasonable but argue for a 2-3 year cap (not indefinite, except possibly for trade secrets).' }
+      receiver: { severity: 'medium', redline: 'Survival is reasonable but argue for a 2-3 year cap (not indefinite, except possibly for trade secrets).' },
+      mutual:    { severity: 'high',     redline: 'Add survival applying to both sides — 3-5 years post-termination, indefinite only for clearly identified trade secrets.' }
     },
     nda_no_injunctive: {
       discloser: { severity: 'high', redline: 'For confidentiality breaches, injunctions are the meaningful remedy. Damages come too late. Add an injunctive-relief clause.' },
-      receiver: { severity: 'low', redline: 'Standard Indian law already allows injunctive relief. Express clause adds little from your side.' }
+      receiver: { severity: 'low', redline: 'Standard Indian law already allows injunctive relief. Express clause adds little from your side.' },
+      mutual:    { severity: 'medium',   redline: 'Add a mutual injunctive-relief clause — either party may seek it. Standard Indian law allows it but an express clause is helpful for both sides.' }
     },
     perpetuity_clause: {
       discloser: { severity: 'low', redline: 'Perpetual obligations on the recipient actually favour you. Just confirm Section 27 limits do not invalidate the clause.' },
-      receiver: { severity: 'high', redline: 'Perpetual confidentiality obligations on you are dangerous. Push for fixed term (3-5 years) with trade-secret carve-out for genuinely indefinite items only.' }
+      receiver: { severity: 'high', redline: 'Perpetual confidentiality obligations on you are dangerous. Push for fixed term (3-5 years) with trade-secret carve-out for genuinely indefinite items only.' },
+      mutual:    { severity: 'high', redline: 'Perpetual obligations on both sides create long-tail compliance burden. Fix term at 3-5 years with a narrow carve-out only for clearly identified trade secrets.' }
     }
   },
   msa: {
     // CHECKLIST items
     m1: {
       customer: { severity: 'medium', redline: 'Net 30-45 is standard for India. Negotiate flexibility on invoice approval windows.' },
-      provider: { severity: 'critical', redline: 'Pin payment terms tightly: "Invoices shall be paid within thirty (30) days of receipt." Without firm terms, cash flow collapses on every dispute.' }
+      provider: { severity: 'critical', redline: 'Pin payment terms tightly: "Invoices shall be paid within thirty (30) days of receipt." Without firm terms, cash flow collapses on every dispute.' },
+      mutual:    { severity: 'high',     redline: 'Payment terms cut both ways. Pin symmetric terms: "Each Party shall pay the other within thirty (30) days of receipt of invoice." Consider netting if fees flow both ways regularly.' }
     },
     m2: {
       customer: { severity: 'low', redline: 'Late fees of 1.5% per month are standard. You will rarely owe them if you pay timely.' },
-      provider: { severity: 'high', redline: 'Add late fees: "Overdue amounts shall bear interest at 1.5% per month." Without this, customers face no economic penalty for delayed payment.' }
+      provider: { severity: 'high', redline: 'Add late fees: "Overdue amounts shall bear interest at 1.5% per month." Without this, customers face no economic penalty for delayed payment.' },
+      mutual:    { severity: 'medium',   redline: 'Mutual late fees (1.5% per month) apply symmetrically — both sides protected from delayed payment by the other.' }
     },
     l1: {
       customer: { severity: 'medium', redline: 'A liability cap exists in your favour by limiting your indemnification exposure too. Push back if the cap is below total annual fees.' },
-      provider: { severity: 'critical', redline: 'Cap your liability tightly — typically at 12 months of fees. Without it, a single dispute can be company-ending.' }
+      provider: { severity: 'critical', redline: 'Cap your liability tightly — typically at 12 months of fees. Without it, a single dispute can be company-ending.' },
+      mutual:    { severity: 'high',     redline: 'A mutual deal needs a SYMMETRIC liability cap (e.g., 12 months of fees received by each party from the other) applying equally in both directions. Avoid one-sided exceptions.' }
     },
     l2: {
       customer: { severity: 'medium', redline: 'Standard exclusion. Push back if the exclusion is so broad it includes IP infringement and confidentiality breaches.' },
-      provider: { severity: 'critical', redline: 'This is your most important protection. Without consequential damages exclusion, a customer can claim lost profits many multiples of contract value.' }
+      provider: { severity: 'critical', redline: 'This is your most important protection. Without consequential damages exclusion, a customer can claim lost profits many multiples of contract value.' },
+      mutual:    { severity: 'high',     redline: 'Apply consequential-damages exclusion symmetrically — neither party can claim consequential damages from the other. Carve out IP infringement and confidentiality breaches mutually.' }
     },
     tm1: {
       customer: { severity: 'medium', redline: 'You generally want broader termination rights. Push for termination for convenience on 30-60 days notice.' },
-      provider: { severity: 'high', redline: 'One-sided termination (only customer can terminate for convenience) is dangerous — push for mutual termination rights with reasonable notice.' }
+      provider: { severity: 'high', redline: 'One-sided termination (only customer can terminate for convenience) is dangerous — push for mutual termination rights with reasonable notice.' },
+      mutual:    { severity: 'high',     redline: 'Mutual termination rights are essential. Both sides should terminate for convenience on equal notice — typically 60-90 days for mutual deals where both have ongoing delivery.' }
     },
     tm2: {
       customer: { severity: 'high', redline: 'You need transition assistance — push for it being included in fees or available at agreed rates.' },
-      provider: { severity: 'medium', redline: 'Cap transition assistance to 30-60 days and explicitly bill at standard rates. Open-ended free transition is a major hidden cost.' }
+      provider: { severity: 'medium', redline: 'Cap transition assistance to 30-60 days and explicitly bill at standard rates. Open-ended free transition is a major hidden cost.' },
+      mutual:    { severity: 'high',     redline: 'Each party provides reasonable transition assistance for its own service. Cap at 30-60 days each at agreed rates. Define handover obligations symmetrically.' }
     },
     w1: {
       customer: { severity: 'high', redline: 'Push for service warranties — at minimum "performed in a professional and workmanlike manner consistent with industry standards." Broader if mission-critical.' },
-      provider: { severity: 'medium', redline: 'Limit warranties to specific, defensible standards. Disclaim implied warranties and fitness-for-purpose. Avoid guaranteeing business outcomes.' }
+      provider: { severity: 'medium', redline: 'Limit warranties to specific, defensible standards. Disclaim implied warranties and fitness-for-purpose. Avoid guaranteeing business outcomes.' },
+      mutual:    { severity: 'high',     redline: 'Mutual warranties — each party warrants its own services "performed in a professional and workmanlike manner." Symmetric warranty disclaimers apply to both.' }
     },
     // SCANNER rules
     as_is_basis: {
       customer: { severity: 'high', redline: 'AS-IS disclaimer leaves you with no recourse if services do not work. Push for limited warranties (workmanlike, no IP infringement).' },
-      provider: { severity: 'low', redline: 'AS-IS protection is in your favour. Soften slightly to "as available" with limited warranties to maintain customer comfort.' }
+      provider: { severity: 'low', redline: 'AS-IS protection is in your favour. Soften slightly to "as available" with limited warranties to maintain customer comfort.' },
+      mutual:    { severity: 'high',     redline: 'AS-IS basis from both sides leaves both parties without recourse. Replace with mutual limited warranties — each party warrants its own service quality.' }
     },
     any_reason_termination: {
       customer: { severity: 'low', redline: 'If the right is YOURS, this is fine. Confirm you have the termination right and provider does not.' },
-      provider: { severity: 'critical', redline: 'If only the customer can terminate without cause, you are in a captive position. Demand mutual rights or significant transition payment.' }
+      provider: { severity: 'critical', redline: 'If only the customer can terminate without cause, you are in a captive position. Demand mutual rights or significant transition payment.' },
+      mutual:    { severity: 'medium',   redline: 'Mutual termination rights are appropriate. Confirm BOTH parties have equal termination rights with same notice period. Asymmetric rights create captive position for one side.' }
     },
     msa_no_liability_cap: {
       customer: { severity: 'medium', redline: 'Uncapped provider liability is favourable to you but unrealistic; providers will demand a cap. Negotiate cap at 2-3x annual fees minimum.' },
-      provider: { severity: 'critical', redline: 'Uncapped liability is dangerous. Cap at 12 months of fees. Carve out indemnification for IP and confidentiality if needed.' }
+      provider: { severity: 'critical', redline: 'Uncapped liability is dangerous. Cap at 12 months of fees. Carve out indemnification for IP and confidentiality if needed.' },
+      mutual:    { severity: 'critical', redline: 'Uncapped liability is dangerous for both sides in mutual deals. Add a symmetric cap (e.g., 12 months of fees flowing each direction) applying equally to both parties.' }
     },
     msa_low_cap_detected: {
       customer: { severity: 'high', redline: 'Low liability caps leave you exposed. Push for cap at least equal to annual fees, higher for mission-critical engagements.' },
-      provider: { severity: 'low', redline: 'A low cap is protective. Hold firm; offer carve-outs (IP, gross negligence) instead of raising the cap.' }
+      provider: { severity: 'low', redline: 'A low cap is protective. Hold firm; offer carve-outs (IP, gross negligence) instead of raising the cap.' },
+      mutual:    { severity: 'high',     redline: 'A low cap protects both delivery sides but also limits both recipient sides. Aim for cap = 12 months of average fees flowing between the parties, symmetric in both directions.' }
     },
     msa_no_consequential_excl: {
       customer: { severity: 'medium', redline: 'Excluding consequential damages limits YOUR recovery if services fail. Carve out IP and confidentiality from the exclusion.' },
-      provider: { severity: 'critical', redline: 'Must have this exclusion. Without it, a 5 lakh contract can produce a 5 crore lost-profit claim.' }
+      provider: { severity: 'critical', redline: 'Must have this exclusion. Without it, a 5 lakh contract can produce a 5 crore lost-profit claim.' },
+      mutual:    { severity: 'critical', redline: 'Add mutual consequential-damages exclusion — neither party claims consequential damages against the other. Both delivery sides need this protection.' }
     },
     msa_no_payment_terms: {
       customer: { severity: 'low', redline: 'Loose payment terms favour you cash-flow-wise. Provider will push back; offer Net 30 as compromise.' },
-      provider: { severity: 'high', redline: 'Pin payment terms (Net 30) with late fees. Loose terms cause endless invoice disputes.' }
+      provider: { severity: 'high', redline: 'Pin payment terms (Net 30) with late fees. Loose terms cause endless invoice disputes.' },
+      mutual:    { severity: 'high',     redline: 'Pin payment terms symmetrically. "Each Party shall pay the other within 30 days." Consider netting if fees flow both ways.' }
     },
     msa_no_warranties: {
       customer: { severity: 'high', redline: 'Demand at least "workmanlike manner" warranty. Without it, you have no basis to push back on poor quality.' },
-      provider: { severity: 'low', redline: 'Limiting warranties is in your favour. Add a narrow professional-services warranty as a goodwill gesture, disclaim everything else.' }
+      provider: { severity: 'low', redline: 'Limiting warranties is in your favour. Add a narrow professional-services warranty as a goodwill gesture, disclaim everything else.' },
+      mutual:    { severity: 'high',     redline: 'Add symmetric workmanlike-manner warranty. Each party warrants its own service. Equal warranty disclaimer for both.' }
     },
     msa_no_change_order: {
       customer: { severity: 'medium', redline: 'You generally want flexibility for changes. Push for a lightweight change procedure rather than no procedure.' },
-      provider: { severity: 'critical', redline: 'Demand a strict change-order procedure. Without it, you absorb scope creep at fixed price.' }
+      provider: { severity: 'critical', redline: 'Demand a strict change-order procedure. Without it, you absorb scope creep at fixed price.' },
+      mutual:    { severity: 'high', redline: 'Mutual change-order procedure — either party may request changes to services THEY deliver, with cost/timeline impact symmetrically negotiated. Avoid scope creep on either side.' }
     }
   },
   consultancy: {
     // CHECKLIST items
     e3: {
       client: { severity: 'low', redline: 'Revision rounds protect the consultant; you generally want flexibility. Negotiate 2-3 rounds with reasonable hourly billing for extras.' },
-      consultant: { severity: 'critical', redline: 'Cap revisions at 2-3 rounds with explicit billing for additional rounds. Open-ended revisions kill consultancy economics.' }
+      consultant: { severity: 'critical', redline: 'Cap revisions at 2-3 rounds with explicit billing for additional rounds. Open-ended revisions kill consultancy economics.' },
+      mutual:    { severity: 'high',     redline: 'Mutual deliverable revisions — cap at 2-3 rounds per deliverable per side. Hourly billing for additional rounds applies symmetrically.' }
     },
     ci1: {
       client: { severity: 'critical', redline: 'You MUST have explicit IP assignment. Under Indian Copyright Act, the consultant owns by default. Without assignment, you do not own what you paid for.' },
-      consultant: { severity: 'medium', redline: 'IP assignment is standard. Ensure assignment is conditional on full payment and that pre-existing IP is carved out.' }
+      consultant: { severity: 'medium', redline: 'IP assignment is standard. Ensure assignment is conditional on full payment and that pre-existing IP is carved out.' },
+      mutual:    { severity: 'critical', redline: 'In cross-consulting, each party should own deliverables IT commissioned. Add symmetric IP assignment: "Each Party assigns to the other IP in deliverables developed for that other Party." Background IP excluded for both.' }
     },
     ci2: {
       client: { severity: 'medium', redline: 'Provider retention of generic methodology is standard. Define "generic" narrowly to ensure your bespoke deliverables stay yours.' },
-      consultant: { severity: 'critical', redline: 'Carve out your pre-existing tools, methodologies, and frameworks. Without this you may inadvertently assign your entire toolkit.' }
+      consultant: { severity: 'critical', redline: 'Carve out your pre-existing tools, methodologies, and frameworks. Without this you may inadvertently assign your entire toolkit.' },
+      mutual:    { severity: 'high',     redline: 'Both sides have pre-existing methodologies. Add symmetric Background IP carve-out — each party retains its own tools, frameworks, and methods developed prior to or independent of the engagement.' }
     },
     ic2: {
       client: { severity: 'high', redline: 'You may want exclusivity for competitive reasons, but exclusivity creates employment-misclassification risk. Limit to specific named competitors only.' },
-      consultant: { severity: 'critical', redline: 'Reject blanket exclusivity. Limit to specific named direct competitors. Exclusivity = employment indicator + revenue loss.' }
+      consultant: { severity: 'critical', redline: 'Reject blanket exclusivity. Limit to specific named direct competitors. Exclusivity = employment indicator + revenue loss.' },
+      mutual:    { severity: 'high',     redline: 'Mutual exclusivity is rarely appropriate — both sides have other work. Avoid blanket exclusivity. If needed, limit to specific named direct competitors of each, with symmetric carve-outs.' }
     },
     // SCANNER rules
     cons_no_ip_assignment: {
       client: { severity: 'critical', redline: 'Add explicit IP assignment from consultant. Under Indian Copyright Act, you do NOT own deliverables by default.' },
-      consultant: { severity: 'low', redline: 'IP staying with you by default is favourable. But clients will demand assignment; negotiate payment-conditional assignment with Background-IP carve-out.' }
+      consultant: { severity: 'low', redline: 'IP staying with you by default is favourable. But clients will demand assignment; negotiate payment-conditional assignment with Background-IP carve-out.' },
+      mutual:    { severity: 'critical', redline: 'In cross-consulting, add symmetric IP assignment — each party assigns IP in deliverables to the commissioning party, with Background IP carve-out for both.' }
     },
     cons_no_indep_contractor: {
       client: { severity: 'high', redline: 'Statement of independent-contractor status protects you from PF/ESI/gratuity reclassification claims. Add it.' },
-      consultant: { severity: 'high', redline: 'Statement of independent-contractor status protects you from being treated as a deemed employee for tax purposes. Add it.' }
+      consultant: { severity: 'high', redline: 'Statement of independent-contractor status protects you from being treated as a deemed employee for tax purposes. Add it.' },
+      mutual:    { severity: 'high',     redline: 'Add a mutual independent-contractor statement — neither party is an employee of the other. Important for tax classification of both sides.' }
     },
     cons_exclusive_engagement: {
       client: { severity: 'medium', redline: 'Exclusivity helps you but creates employment-misclassification risk. Limit to specific competitors, not a blanket ban.' },
-      consultant: { severity: 'critical', redline: 'Push back hard. Exclusivity prevents other revenue and signals deemed employment. Narrow to named competitors only.' }
+      consultant: { severity: 'critical', redline: 'Push back hard. Exclusivity prevents other revenue and signals deemed employment. Narrow to named competitors only.' },
+      mutual:    { severity: 'high',     redline: 'Mutual exclusivity is unusual. If both sides give up other work, ensure consideration is balanced. Otherwise narrow to specific named competitors of each.' }
     },
     cons_no_revisions: {
       client: { severity: 'low', redline: 'Open revisions favour you (more rework included). Consultant will push back; offer fixed rounds with hourly billing for extras.' },
-      consultant: { severity: 'critical', redline: 'Cap revisions explicitly. Without a cap, "just one more change" multiplied by ten kills project economics.' }
+      consultant: { severity: 'critical', redline: 'Cap revisions explicitly. Without a cap, "just one more change" multiplied by ten kills project economics.' },
+      mutual:    { severity: 'high', redline: 'Cap mutual revision rounds explicitly. Without caps, both sides absorb open-ended rework.' }
     }
   },
   employment: {
@@ -1258,7 +1295,7 @@ const PARTY_OVERRIDES = {
 // Helper: returns the rule/item adapted for the selected party
 // If no party selected OR no override exists, returns the original
 function adaptForParty(item, contractType, party){
-  if(!party || party === 'mutual') return item;  // 'mutual' = use generic
+  if(!party) return item;
   var overrides = (PARTY_OVERRIDES[contractType] || {})[item.id];
   if(!overrides || !overrides[party]) return item;
   var ov = overrides[party];
