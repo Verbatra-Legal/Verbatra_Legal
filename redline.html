@@ -125,26 +125,31 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
   body.nav-locked{overflow:hidden}
 }
 
-/* === Party form (Step 2): name inputs + role dropdowns + side selector === */
-.party-form{display:flex;flex-direction:column;gap:12px;margin-bottom:12px}
-.pp-row{display:flex;gap:10px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:11px 13px}
-.pp-num{flex-shrink:0;width:26px;height:26px;border-radius:50%;background:var(--green);color:var(--cream);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;font-family:'Hanken Grotesk',sans-serif}
-.pp-input{flex:1 1 200px;min-width:0;padding:8px 11px;border:1px solid var(--line);border-radius:6px;font-size:14px;font-family:inherit;background:var(--paper);color:var(--ink);outline:none;transition:border-color .15s}
-.pp-input:focus{border-color:var(--green)}
-.pp-select{padding:8px 11px;border:1px solid var(--line);border-radius:6px;font-size:13.5px;font-family:inherit;background:var(--paper);color:var(--ink);cursor:pointer;min-width:240px;outline:none;transition:border-color .15s}
-.pp-select:focus{border-color:var(--green)}
-.pp-which{margin-top:6px;background:var(--cream);border:1px dashed var(--line);border-radius:10px;padding:14px 16px}
-.pp-which-q{margin:0 0 10px;font-weight:600;color:var(--ink);font-size:13.5px;font-family:'Hanken Grotesk',sans-serif}
+
+/* === Party form (Step 2) — uses existing tool input styles === */
+.party-card{background:rgba(251,248,240,.55);border:1px solid var(--line);border-radius:10px;padding:14px 16px 6px;margin-bottom:10px;position:relative}
+.party-card-label{font-family:'Fraunces',serif;font-size:11.5px;font-weight:600;color:var(--oxblood);letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;display:block}
+.party-card .field{margin-bottom:11px}
+.pp-which{margin-top:14px;background:var(--card);border:1.5px solid var(--green-2);border-radius:10px;padding:14px 16px}
+.pp-which-q{font-family:'Hanken Grotesk',sans-serif;font-weight:600;color:var(--ink);font-size:13.5px;margin-bottom:10px}
 .pp-which-btns{display:flex;gap:10px;flex-wrap:wrap}
-.pp-which-btn{flex:1 1 200px;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:var(--paper);cursor:pointer;font-size:13px;color:var(--ink);font-family:'Hanken Grotesk',sans-serif;transition:.15s;text-align:left}
-.pp-which-btn:hover{border-color:var(--green);background:rgba(31,61,48,.04);transform:translateY(-1px)}
-.pp-which-btn b{display:block;margin-top:3px;color:var(--green);font-size:15px;font-weight:600;word-break:break-word}
-@media (max-width:700px){
-  .pp-row{flex-direction:column;align-items:stretch}
-  .pp-num{align-self:flex-start;margin-bottom:4px}
-  .pp-select{min-width:0;width:100%}
+.pp-which-btn{flex:1 1 220px;padding:12px 14px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);cursor:pointer;font-size:12.5px;color:var(--ink-soft);font-family:'Hanken Grotesk',sans-serif;font-weight:500;transition:.15s;text-align:left;line-height:1.3}
+.pp-which-btn:hover{border-color:var(--green);background:rgba(31,61,48,.05);transform:translateY(-1px)}
+.pp-which-btn b{display:block;margin-top:3px;color:var(--green);font-size:15px;font-weight:600;word-break:break-word;font-family:'Fraunces',serif;letter-spacing:-.005em}
+@media (max-width:600px){
   .pp-which-btns{flex-direction:column}
 }
+
+
+.pp-confirmed{display:flex;align-items:flex-start;gap:10px;background:rgba(31,61,48,.08);border:1px solid var(--green);border-radius:8px;padding:10px 13px;margin-bottom:14px;font-size:13px;color:var(--ink);line-height:1.45}
+.pp-confirmed-tick{flex:none;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;background:var(--green);color:#f4efe4;font-size:12px;font-weight:700}
+.pp-confirmed-txt{flex:1}
+.pp-confirmed-txt b{color:var(--green);font-weight:600}
+.party-card.is-you{border-color:var(--green);background:rgba(31,61,48,.04)}
+.party-card.is-you .party-card-label{color:var(--green)}
+.pp-which-btn.pp-active{border-color:var(--green);background:rgba(31,61,48,.06)}
+.pp-which-btn.pp-active b{color:var(--green)}
+
 </style>
 <style>
 /* === FULL-WIDTH SINGLE-COLUMN LAYOUT (overrides default two-panel) === */
@@ -1358,49 +1363,78 @@ function renderPartyPicker(stepLabel){
   if(!S.type) return '';
   var roles = PARTIES[S.type] || [];
   if(!roles.length) return '';
-  // Defaults: first role for Party 1, second role (if any) for Party 2 — different by default
   var defaultRole1 = roles[0].id;
   var defaultRole2 = (roles.length > 1 ? roles[1].id : roles[0].id);
+
+  // Restore user's previous values if they already picked (so re-render preserves)
+  // Convention: when user clicks "I am Party 1", S.partyName becomes Party 1 in the form.
+  // When user clicks "I am Party 2", S.partyName is Party 2 — but we always show user's
+  // chosen party in slot 1 (it's "yours" and visually highlighted).
+  var hasPicked = !!(S.party && S.partyName);
+  var name1Val = hasPicked ? S.partyName       : '';
+  var name2Val = hasPicked ? S.otherPartyName  : '';
+  var role1Val = hasPicked ? S.party           : defaultRole1;
+  var role2Val = hasPicked ? S.otherPartyRole  : defaultRole2;
+
+  function buildRoleOptions(selectedId){
+    var opts = '';
+    roles.forEach(function(r){
+      var sel = (r.id === selectedId) ? ' selected' : '';
+      opts += '<option value="' + r.id + '"' + sel + '>' + escapeHtml(r.name) + '</option>';
+    });
+    return opts;
+  }
+  function attr(v){ return v ? ' value="' + escapeHtml(v) + '"' : ''; }
 
   var html = '<h2 class="sec">' + stepLabel + '</h2>';
   html += '<p class="hint" style="margin-bottom:14px;font-size:12.5px;line-height:1.5">Enter the two parties and pick the role each plays. Then choose which party is yours — risks will be framed from that side.</p>';
 
-  html += '<div class="party-form">';
+  // After picking, show a clear confirmation banner at the top
+  if(hasPicked){
+    html += '<div class="pp-confirmed">';
+    html += '  <span class="pp-confirmed-tick">✓</span>';
+    html += '  <span class="pp-confirmed-txt">Reviewing as <b>' + escapeHtml(S.partyName) + '</b>. You can change names or your side below and re-pick.</span>';
+    html += '</div>';
+  }
 
-  // Party 1 row
-  html += '<div class="pp-row">';
-  html += '  <div class="pp-num">1</div>';
-  html += '  <input type="text" class="pp-input" id="pp_name1" placeholder="Party 1 name (e.g., Acme Pvt. Ltd.)" oninput="updatePartyButtons()" autocomplete="off">';
-  html += '  <select class="pp-select" id="pp_role1">';
-  roles.forEach(function(r){
-    var sel = (r.id === defaultRole1) ? ' selected' : '';
-    html += '<option value="' + r.id + '"' + sel + '>' + escapeHtml(r.name) + '</option>';
-  });
-  html += '  </select>';
-  html += '</div>';
-
-  // Party 2 row
-  html += '<div class="pp-row">';
-  html += '  <div class="pp-num">2</div>';
-  html += '  <input type="text" class="pp-input" id="pp_name2" placeholder="Party 2 name (e.g., BetaSoft Solutions)" oninput="updatePartyButtons()" autocomplete="off">';
-  html += '  <select class="pp-select" id="pp_role2">';
-  roles.forEach(function(r){
-    var sel = (r.id === defaultRole2) ? ' selected' : '';
-    html += '<option value="' + r.id + '"' + sel + '>' + escapeHtml(r.name) + '</option>';
-  });
-  html += '  </select>';
-  html += '</div>';
-
-  // "Which side are you?" buttons (labels update live as user types)
-  html += '<div class="pp-which">';
-  html += '  <div class="pp-which-q">Which party are you?</div>';
-  html += '  <div class="pp-which-btns">';
-  html += '    <button type="button" class="pp-which-btn" onclick="pickPartySide(1)">I am <b id="pp_lbl1">Party 1</b></button>';
-  html += '    <button type="button" class="pp-which-btn" onclick="pickPartySide(2)">I am <b id="pp_lbl2">Party 2</b></button>';
+  // Party 1 card (your side after picking — slot 1 is YOU)
+  html += '<div class="party-card' + (hasPicked ? ' is-you' : '') + '">';
+  html += '  <span class="party-card-label">' + (hasPicked ? 'You' : 'Party 1') + '</span>';
+  html += '  <div class="field">';
+  html += '    <label for="pp_name1">Name</label>';
+  html += '    <input type="text" id="pp_name1" placeholder="e.g., Acme Pvt. Ltd." oninput="updatePartyButtons()" autocomplete="off"' + attr(name1Val) + '>';
+  html += '  </div>';
+  html += '  <div class="field">';
+  html += '    <label for="pp_role1">Role in this contract</label>';
+  html += '    <select id="pp_role1">' + buildRoleOptions(role1Val) + '</select>';
   html += '  </div>';
   html += '</div>';
 
+  // Party 2 card (counterparty)
+  html += '<div class="party-card">';
+  html += '  <span class="party-card-label">' + (hasPicked ? 'Counterparty' : 'Party 2') + '</span>';
+  html += '  <div class="field">';
+  html += '    <label for="pp_name2">Name</label>';
+  html += '    <input type="text" id="pp_name2" placeholder="e.g., BetaSoft Solutions" oninput="updatePartyButtons()" autocomplete="off"' + attr(name2Val) + '>';
+  html += '  </div>';
+  html += '  <div class="field">';
+  html += '    <label for="pp_role2">Role in this contract</label>';
+  html += '    <select id="pp_role2">' + buildRoleOptions(role2Val) + '</select>';
+  html += '  </div>';
   html += '</div>';
+
+  // Which-side selector
+  html += '<div class="pp-which">';
+  html += '  <div class="pp-which-q">' + (hasPicked ? 'Change your side:' : 'Which party are you?') + '</div>';
+  html += '  <div class="pp-which-btns">';
+  // After picking, button 1 is now "the side you ARE" — but we still let them swap
+  var lbl1 = hasPicked ? escapeHtml(name1Val || 'Party 1') : 'Party 1';
+  var lbl2 = hasPicked ? escapeHtml(name2Val || 'Party 2') : 'Party 2';
+  html += '    <button type="button" class="pp-which-btn pp-active" onclick="pickPartySide(1)">I am <b id="pp_lbl1">' + lbl1 + '</b></button>';
+  html += '    <button type="button" class="pp-which-btn"' + (hasPicked ? '' : '') + ' onclick="pickPartySide(2)">I am <b id="pp_lbl2">' + lbl2 + '</b></button>';
+  html += '  </div>';
+  html += '</div>';
+
   return html;
 }
 
