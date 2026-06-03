@@ -256,11 +256,29 @@ body{font-family:'Hanken Grotesk',sans-serif;background:var(--cream);color:var(-
 .vbdd-panel a{display:block;padding:6px 0;color:var(--ink,#1a1a17);text-decoration:none;font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;font-weight:500;line-height:1.35;transition:color .12s,padding-left .12s;letter-spacing:0;text-transform:none}
 .vbdd-panel a:hover{color:var(--green,#1f3d30);padding-left:4px}
 .vbdd-panel a::after{display:none}
+
+
+/* === Mobile hamburger nav (added 2026-06-04) === */
+.nav-toggle{display:none;background:none;border:0;cursor:pointer;padding:4px 8px;color:var(--ink,#1a1a17);position:relative;z-index:401}
+.nav-toggle svg{display:block;width:26px;height:26px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round}
+.nav-overlay{display:none;position:fixed;inset:0;background:rgba(26,26,23,.45);opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s;z-index:399}
 @media (max-width:860px){
-  .nav-links{flex-wrap:wrap;gap:14px !important;row-gap:10px}
-  .vbdd-panel{position:fixed;left:5vw;right:5vw;top:auto;transform:none;min-width:0;width:90vw;max-height:64vh;overflow-y:auto}
-  .vbdd-panel.open{transform:none}
-  .vbdd-panel::before{display:none}
+  .nav-toggle{display:flex;align-items:center;justify-content:center}
+  .nav-links{position:fixed !important;top:0 !important;right:0 !important;left:auto !important;width:min(340px,88vw) !important;height:100vh !important;height:100dvh !important;background:var(--cream,#f4efe4) !important;box-shadow:-20px 0 50px -10px rgba(26,26,23,.28) !important;display:flex !important;flex-wrap:nowrap !important;flex-direction:column !important;align-items:stretch !important;justify-content:flex-start !important;padding:78px 26px 40px !important;gap:0 !important;transform:translateX(100%);transition:transform .26s cubic-bezier(.4,0,.2,1);overflow-y:auto !important;overscroll-behavior:contain;z-index:400 !important;-webkit-overflow-scrolling:touch}
+  .nav-links.open{transform:translateX(0) !important}
+  .vbdd{display:block !important;border-bottom:1px solid var(--line,#d8cfbc);padding:14px 0;width:100%}
+  .vbdd:last-child{border-bottom:none}
+  .vbdd-trigger{font-size:14px !important;color:var(--oxblood,#7a2e26) !important;font-weight:600 !important;letter-spacing:.08em !important;text-transform:uppercase !important;cursor:default !important;padding:4px 0 8px !important;pointer-events:none !important;width:auto !important;background:none !important;display:block !important}
+  .vbdd-trigger::after{display:none !important}
+  .vbdd-panel{position:static !important;display:block !important;transform:none !important;opacity:1 !important;visibility:visible !important;pointer-events:auto !important;background:transparent !important;border:none !important;box-shadow:none !important;padding:0 !important;min-width:0 !important;width:auto !important;max-height:none !important;overflow:visible !important;margin:0 !important;left:auto !important;right:auto !important;top:auto !important}
+  .vbdd-panel::before{display:none !important}
+  .vbdd-h{font-size:9.5px !important;color:var(--ink-soft,#5a5a52) !important;margin:10px 0 2px !important;border-bottom:none !important;padding:0 !important;letter-spacing:.14em !important;font-weight:600 !important;opacity:.8 !important}
+  .vbdd-h:first-child{margin-top:4px !important}
+  .vbdd-panel a{padding:9px 0 !important;font-size:15px !important;color:var(--ink,#1a1a17) !important;background:transparent !important;display:block !important}
+  .vbdd-panel a:hover{padding-left:4px !important;color:var(--green,#1f3d30) !important}
+  .nav-overlay{display:block}
+  .nav-overlay.open{opacity:1;visibility:visible}
+  body.nav-locked{overflow:hidden}
 }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Quiz","name":"Quiz 3 \u2014 Indian Contract Law Essentials","description":"Quiz for the free Verbatra course on Indian Contract Law Essentials. 5 questions, 70% to pass.","url":"https://www.verbatra.com/course-contract-law-essentials-q3.html","inLanguage":"en-IN","isPartOf":{"@type":"Course","name":"Indian Contract Law Essentials","url":"https://www.verbatra.com/course-contract-law-essentials.html"},"isAccessibleForFree":true,"educationalLevel":"Beginner","learningResourceType":"Assessment","numberOfQuestions":5,"provider":{"@type":"Organization","name":"Verbatra","url":"https://www.verbatra.com"}}</script>
@@ -270,7 +288,8 @@ body{font-family:'Hanken Grotesk',sans-serif;background:var(--cream);color:var(-
 <script src="/verbatra-certificate.js"></script>
 <nav class="course-nav">
   <a href="/" class="logo">Verbatra<span>.</span></a>
-  <div class="nav-links">
+  <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="vb-nav-links"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+  <div class="nav-links" id="vb-nav-links">
       <div class="vbdd" data-vbdd="vbdd-tools">
         <button type="button" class="vbdd-trigger" aria-expanded="false" aria-haspopup="true">Tools</button>
         <div class="vbdd-panel" id="vbdd-tools">
@@ -332,6 +351,7 @@ body{font-family:'Hanken Grotesk',sans-serif;background:var(--cream);color:var(-
       </div>
     </div>
 </nav>
+<div class="nav-overlay" aria-hidden="true"></div>
 
 </div>
 
@@ -692,6 +712,33 @@ window.VBQuiz = {
     if(!inside) closeAll(null);
   });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeAll(null); });
+})();
+</script>
+<script>
+/* Verbatra hamburger nav controller */
+(function(){
+  var toggle = document.querySelector('.nav-toggle');
+  var navLinks = document.querySelector('.nav-links');
+  var overlay = document.querySelector('.nav-overlay');
+  if(!toggle || !navLinks || !overlay) return;
+  function setOpen(open){
+    navLinks.classList.toggle('open', open);
+    overlay.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    document.body.classList.toggle('nav-locked', open);
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    var svg = toggle.querySelector('svg');
+    if(svg){ svg.innerHTML = open ? '<path d="M6 6l12 12M6 18L18 6"/>' : '<path d="M3 6h18M3 12h18M3 18h18"/>'; }
+  }
+  toggle.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); setOpen(!navLinks.classList.contains('open')); });
+  overlay.addEventListener('click', function(){ setOpen(false); });
+  navLinks.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setOpen(false); }); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && navLinks.classList.contains('open')) setOpen(false); });
+  // Close drawer when resizing to desktop
+  var mq = window.matchMedia('(min-width:861px)');
+  function onResize(){ if(mq.matches) setOpen(false); }
+  if(mq.addEventListener) mq.addEventListener('change', onResize);
+  else mq.addListener(onResize);
 })();
 </script>
 </body>

@@ -101,6 +101,29 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 .doc{ -webkit-touch-callout:none; }
 @media print{header.form-panel.preview-tools.modal{display:none!important}body{background:#fff}.wrap{display:block}.preview-panel{background:#fff;padding:0}.doc{box-shadow:none;border:none;max-width:100%;padding:0;font-size:11.5pt}.doc.doc *{user-select:auto!important}}
 
+
+/* === Mobile hamburger nav (added 2026-06-04) === */
+.nav-toggle{display:none;background:none;border:0;cursor:pointer;padding:4px 8px;color:var(--ink,#1a1a17);position:relative;z-index:401}
+.nav-toggle svg{display:block;width:26px;height:26px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round}
+.nav-overlay{display:none;position:fixed;inset:0;background:rgba(26,26,23,.45);opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s;z-index:399}
+@media (max-width:860px){
+  .nav-toggle{display:flex;align-items:center;justify-content:center}
+  .nav-links{position:fixed !important;top:0 !important;right:0 !important;left:auto !important;width:min(340px,88vw) !important;height:100vh !important;height:100dvh !important;background:var(--cream,#f4efe4) !important;box-shadow:-20px 0 50px -10px rgba(26,26,23,.28) !important;display:flex !important;flex-wrap:nowrap !important;flex-direction:column !important;align-items:stretch !important;justify-content:flex-start !important;padding:78px 26px 40px !important;gap:0 !important;transform:translateX(100%);transition:transform .26s cubic-bezier(.4,0,.2,1);overflow-y:auto !important;overscroll-behavior:contain;z-index:400 !important;-webkit-overflow-scrolling:touch}
+  .nav-links.open{transform:translateX(0) !important}
+  .vbdd{display:block !important;border-bottom:1px solid var(--line,#d8cfbc);padding:14px 0;width:100%}
+  .vbdd:last-child{border-bottom:none}
+  .vbdd-trigger{font-size:14px !important;color:var(--oxblood,#7a2e26) !important;font-weight:600 !important;letter-spacing:.08em !important;text-transform:uppercase !important;cursor:default !important;padding:4px 0 8px !important;pointer-events:none !important;width:auto !important;background:none !important;display:block !important}
+  .vbdd-trigger::after{display:none !important}
+  .vbdd-panel{position:static !important;display:block !important;transform:none !important;opacity:1 !important;visibility:visible !important;pointer-events:auto !important;background:transparent !important;border:none !important;box-shadow:none !important;padding:0 !important;min-width:0 !important;width:auto !important;max-height:none !important;overflow:visible !important;margin:0 !important;left:auto !important;right:auto !important;top:auto !important}
+  .vbdd-panel::before{display:none !important}
+  .vbdd-h{font-size:9.5px !important;color:var(--ink-soft,#5a5a52) !important;margin:10px 0 2px !important;border-bottom:none !important;padding:0 !important;letter-spacing:.14em !important;font-weight:600 !important;opacity:.8 !important}
+  .vbdd-h:first-child{margin-top:4px !important}
+  .vbdd-panel a{padding:9px 0 !important;font-size:15px !important;color:var(--ink,#1a1a17) !important;background:transparent !important;display:block !important}
+  .vbdd-panel a:hover{padding-left:4px !important;color:var(--green,#1f3d30) !important}
+  .nav-overlay{display:block}
+  .nav-overlay.open{opacity:1;visibility:visible}
+  body.nav-locked{overflow:hidden}
+}
 </style>
 <style>
 /* === FULL-WIDTH SINGLE-COLUMN LAYOUT (overrides default two-panel) === */
@@ -315,6 +338,17 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 .contract-pick.on{border-color:var(--green);background:rgba(31,61,48,.06)}
 .contract-pick .cp-icon{font-family:'Fraunces',serif;color:var(--green);font-size:14px;letter-spacing:.05em;margin-bottom:6px}
 .contract-pick .cp-name{font-family:'Fraunces',serif;font-size:17px;color:var(--ink);font-weight:500;line-height:1.25}
+
+/* Party picker — which side are you on */
+.party-picker{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:24px}
+.party-pick{display:flex;align-items:center;gap:14px;border:1.5px solid var(--line);background:var(--card);border-radius:10px;padding:14px 16px;cursor:pointer;transition:.15s;text-align:left;font-family:inherit}
+.party-pick:hover{border-color:var(--green-2);transform:translateY(-1px)}
+.party-pick.on{border-color:var(--green);background:rgba(31,61,48,.06)}
+.party-pick .pp-icon{flex:none;width:34px;height:34px;border-radius:50%;background:rgba(168,132,63,.15);color:#7a2e26;font-family:'Fraunces',serif;font-weight:600;font-size:15px;display:flex;align-items:center;justify-content:center;letter-spacing:0}
+.party-pick.on .pp-icon{background:var(--green);color:#f4efe4}
+.party-pick .pp-body{flex:1;min-width:0}
+.party-pick .pp-name{font-family:'Fraunces',serif;font-size:15px;color:var(--ink);font-weight:500;line-height:1.2;letter-spacing:-.005em;margin-bottom:3px}
+.party-pick .pp-desc{font-size:11.5px;color:var(--ink-soft);line-height:1.4}
 
 /* Checklist styling (Mode 1) */
 .cl-cat{border-top:1px solid var(--line);margin-top:24px;padding-top:20px}
@@ -583,7 +617,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
   if(attempts < 50){ setTimeout(function(){ setupPdfWorker(attempts+1); }, 100); }
 })(0);
 </script>
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.verbatra.com/#organization","name":"Verbatra","url":"https://www.verbatra.com","logo":{"@type":"ImageObject","url":"https://www.verbatra.com/og-image.png"},"founder":{"@type":"Person","name":"Arnav Bhardwaj","jobTitle":"Corporate Lawyer & Founder","url":"https://www.verbatra.com/founder.html","sameAs":"https://www.linkedin.com/in/bhardwajarnav/"},"contactPoint":{"@type":"ContactPoint","telephone":"+91-9368730710","contactType":"Customer Service","email":"verbatra.legal@gmail.com","areaServed":"IN"},"sameAs":["https://www.linkedin.com/company/verbatra/"]},{"@type":"WebApplication","name":"Verbatra Contract Risk Review","url":"https://www.verbatra.com/redline.html","description":"Free contract review tool. Two modes: guided checklist or upload-and-scan against 200+ risk patterns for NDA, MSA, Consultancy and Employment contracts. Get a risk report with suggested redlines.","applicationCategory":"BusinessApplication","operatingSystem":"Web Browser","browserRequirements":"Requires modern browser with JavaScript enabled","offers":{"@type":"Offer","price":"0","priceCurrency":"INR","availability":"https://schema.org/InStock"},"provider":{"@id":"https://www.verbatra.com/#organization"},"isAccessibleForFree":true,"inLanguage":"en-IN"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://verbatra.com/"},{"@type":"ListItem","position":2,"name":"Contract Risk Review","item":"https://verbatra.com/redline.html"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.verbatra.com/#organization","name":"Verbatra","url":"https://www.verbatra.com","logo":{"@type":"ImageObject","url":"https://www.verbatra.com/og-image.png"},"founder":{"@type":"Person","name":"Arnav Bhardwaj","jobTitle":"Corporate Lawyer & Founder","url":"https://www.verbatra.com/founder.html","sameAs":"https://www.linkedin.com/in/bhardwajarnav/"},"contactPoint":{"@type":"ContactPoint","telephone":"+91-9368730710","contactType":"Customer Service","email":"verbatra.legal@gmail.com","areaServed":"IN"},"sameAs":["https://www.linkedin.com/company/verbatra/"]},{"@type":"WebApplication","name":"Verbatra Contract Risk Review","url":"https://www.verbatra.com/redline.html","description":"Free contract review tool. Two modes: guided checklist or upload-and-scan against 200+ risk patterns for NDA, MSA, Consultancy and Employment contracts. Get a risk report with suggested redlines.","applicationCategory":"BusinessApplication","operatingSystem":"Web Browser","browserRequirements":"Requires modern browser with JavaScript enabled","offers":{"@type":"Offer","price":"0","priceCurrency":"INR","availability":"https://schema.org/InStock"},"provider":{"@id":"https://www.verbatra.com/#organization"},"isAccessibleForFree":true,"inLanguage":"en-IN"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.verbatra.com/"},{"@type":"ListItem","position":2,"name":"Contract Risk Review","item":"https://www.verbatra.com/redline.html"}]}]}</script>
 <style data-vb="faq-css">
 /* === FAQ + Related Tools sections === */
 .content-section{max-width:780px;margin:36px auto 24px;padding:0 22px}
@@ -632,12 +666,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 .vbdd-panel a{display:block;padding:6px 0;color:var(--ink,#1a1a17);text-decoration:none;font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;font-weight:500;line-height:1.35;transition:color .12s,padding-left .12s;letter-spacing:0;text-transform:none}
 .vbdd-panel a:hover{color:var(--green,#1f3d30);padding-left:4px}
 .vbdd-panel a::after{display:none}
-@media (max-width:860px){
-  .nav-links{flex-wrap:wrap;gap:14px !important;row-gap:10px}
-  .vbdd-panel{position:fixed;left:5vw;right:5vw;top:auto;transform:none;min-width:0;width:90vw;max-height:64vh;overflow-y:auto}
-  .vbdd-panel.open{transform:none}
-  .vbdd-panel::before{display:none}
-}
+
 </style>
 
 <script type="application/ld+json" data-vb="faq">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How does the Contract Risk Review work?","acceptedAnswer":{"@type":"Answer","text":"Verbatra's Contract Risk Review operates in two modes. (1) Guided Checklist: you walk through a curated set of questions, organised by category (Liability, IP, Termination, Confidentiality, etc.), and answer how your contract treats each issue. The tool flags risks based on your answers, with severity ratings and suggested redline language. (2) Smart Scanner: you upload the contract (Word, PDF, or text) and the tool extracts the text and scans it against 200+ pattern-matching rules developed for NDA, MSA, Consultancy, and Employment contracts. Both modes produce a comprehensive risk report with severity-graded findings."}},{"@type":"Question","name":"Is this a substitute for a lawyer reviewing my contract?","acceptedAnswer":{"@type":"Answer","text":"No. The Contract Risk Review is a first-pass diagnostic that surfaces common risk patterns and suggests negotiation language. It is genuinely useful for: (1) deciding whether to push back on a contract before involving a lawyer, (2) preparing for a negotiation with informed positions, (3) catching obvious issues you might miss yourself. It is not a substitute for: (1) a substantive review of the contract against your specific commercial situation, (2) advice on complex regulatory or sector-specific issues, (3) negotiation strategy for high-value or relationship-defining deals. For those, engage a qualified lawyer."}},{"@type":"Question","name":"Can it catch every risk in my contract?","acceptedAnswer":{"@type":"Answer","text":"No, and the report says this directly. The scanner detects patterns it knows about — about 200 across the four supported contract types. It will not catch: (1) novel risks specific to your industry or commercial situation, (2) risks created by silence in the contract where a clause should have been included but is missing, (3) drafting ambiguities that depend on context, (4) risks arising from how the contract interacts with other contracts in your portfolio. The Checklist mode catches more 'silent' issues than the Scanner mode because it asks you about specific topics."}},{"@type":"Question","name":"Does Verbatra store or read my contract?","acceptedAnswer":{"@type":"Answer","text":"No. The contract you upload is processed entirely in your browser. The file is read locally by the document-extraction libraries (mammoth.js for Word, pdf.js for PDF), the extracted text is scanned in-browser by the rules engine, and the report is generated and displayed in-browser. Nothing is transmitted to Verbatra's servers. Verbatra cannot see what you upload. If you close the browser tab, the contract content is discarded; if you refresh, you re-upload. This is by deliberate design — confidentiality of your contract is non-negotiable."}},{"@type":"Question","name":"What does the risk score mean?","acceptedAnswer":{"@type":"Answer","text":"The risk score is a 0-100 weighted measure: each critical risk contributes 3 points, each high risk 2 points, each medium risk 1 point. The total is normalised against the maximum possible for the contract type. A score of 0-29 indicates Low Risk (a broadly reasonable contract with minor items worth raising). 30-59 is Moderate Risk (several items merit negotiation). 60+ is High Risk (multiple critical issues; engage qualified counsel before signing). The score is not a measure of contract enforceability; it is a measure of how unbalanced the contract is against the reviewing party."}},{"@type":"Question","name":"What contract types does it support?","acceptedAnswer":{"@type":"Answer","text":"Currently four: (1) NDA (Non-Disclosure Agreement, mutual or one-way), (2) MSA (Master Service Agreement, framework for services with SOWs), (3) Consultancy Agreement (independent contractor engagements), (4) Employment Agreement (employer-employee contracts). For each type, the tool includes a category-organised checklist and a pattern-matching scanner. Additional contract types (Rent, Sale Deed, Distribution, Reseller, etc.) are planned. If you want a specific contract type prioritised, write to verbatra.legal@gmail.com."}},{"@type":"Question","name":"Is my data safe when I use Verbatra?","acceptedAnswer":{"@type":"Answer","text":"Yes. Verbatra runs entirely in your browser. The document you build is rendered locally on your device and is never uploaded to Verbatra's servers, stored anywhere, or transmitted to any third party. Verbatra cannot read what you draft. The only data we collect is the contact information you voluntarily provide on the lead-capture form before download."}},{"@type":"Question","name":"Is Verbatra actually free?","acceptedAnswer":{"@type":"Answer","text":"Yes, every generator on Verbatra is free to use, with no payment, subscription, or credit card required. Verbatra was built by a corporate lawyer to give Indian businesses access to enterprise-grade legal drafting without the friction of paying a lawyer for a routine first draft. Verbatra makes money by offering paid contract negotiation and legal-operations services to clients who want a lawyer to take the document further."}}]}</script>
@@ -645,7 +674,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 <body>
 <nav class="vb-toolnav" role="navigation" aria-label="Site navigation">
   <a href="/" class="vb-tn-logo">Verbatra<span>.</span></a>
-  <div class="nav-links">
+  <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="vb-nav-links"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+  <div class="nav-links" id="vb-nav-links">
       <div class="vbdd" data-vbdd="vbdd-tools">
         <button type="button" class="vbdd-trigger" aria-expanded="false" aria-haspopup="true">Tools</button>
         <div class="vbdd-panel" id="vbdd-tools">
@@ -707,6 +737,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
       </div>
   </div>
 </nav>
+<div class="nav-overlay" aria-hidden="true"></div>
 <header>
   <a href="/" class="back-home">Back to Verbatra</a>
   <div class="brand">
@@ -944,7 +975,34 @@ function _exportWord(){
   const html = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>"
     +"<head><meta charset='utf-8'><title>"+document.title+"</title>"
     +"<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml><![endif]-->"
-    +"<style>"+styles+"</style></head><body>"+$("doc").innerHTML+"</body></html>";
+    +"<style>"+styles+"</style></head><body>"+$("doc").innerHTML+"<script>
+/* Verbatra hamburger nav controller */
+(function(){
+  var toggle = document.querySelector('.nav-toggle');
+  var navLinks = document.querySelector('.nav-links');
+  var overlay = document.querySelector('.nav-overlay');
+  if(!toggle || !navLinks || !overlay) return;
+  function setOpen(open){
+    navLinks.classList.toggle('open', open);
+    overlay.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    document.body.classList.toggle('nav-locked', open);
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    var svg = toggle.querySelector('svg');
+    if(svg){ svg.innerHTML = open ? '<path d="M6 6l12 12M6 18L18 6"/>' : '<path d="M3 6h18M3 12h18M3 18h18"/>'; }
+  }
+  toggle.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); setOpen(!navLinks.classList.contains('open')); });
+  overlay.addEventListener('click', function(){ setOpen(false); });
+  navLinks.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setOpen(false); }); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && navLinks.classList.contains('open')) setOpen(false); });
+  // Close drawer when resizing to desktop
+  var mq = window.matchMedia('(min-width:861px)');
+  function onResize(){ if(mq.matches) setOpen(false); }
+  if(mq.addEventListener) mq.addEventListener('change', onResize);
+  else mq.addListener(onResize);
+})();
+</script>
+</body></html>";
   const blob = new Blob(["\ufeff"+html], {type:"application/msword"});
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
@@ -977,9 +1035,283 @@ function _wireProtect(){
 }
 
 
+
+
+// ============================================================
+// PARTY PERSPECTIVES — which side are we analysing from?
+// Each contract has two-three party options. Picking a party
+// re-frames findings: severity, why, and redlines adapt to
+// what the user actually cares about.
+// ============================================================
+const PARTIES = {
+  nda: [
+    {id:'discloser', name:'Disclosing Party', desc:'You will share confidential information', icon:'D'},
+    {id:'receiver', name:'Receiving Party', desc:'You will receive confidential information', icon:'R'},
+    {id:'mutual', name:'Both Sides (Mutual)', desc:'Both parties share — bilateral NDA', icon:'M'}
+  ],
+  msa: [
+    {id:'customer', name:'Customer / Client', desc:'You are paying for the services', icon:'C'},
+    {id:'provider', name:'Service Provider / Vendor', desc:'You are delivering the services', icon:'P'}
+  ],
+  consultancy: [
+    {id:'client', name:'Client', desc:'You are engaging the consultant', icon:'C'},
+    {id:'consultant', name:'Consultant', desc:'You are the consultant being engaged', icon:'F'}
+  ],
+  employment: [
+    {id:'employer', name:'Employer', desc:'You are the hiring company', icon:'E'},
+    {id:'employee', name:'Employee', desc:'You are the person being hired', icon:'P'}
+  ]
+};
+
+// PARTY_OVERRIDES — for rules/items where party perspective changes the analysis
+// Keyed by {contractType}.{ruleOrItemId}.{partyId}
+// Each override may include: severity, redline, why, hideForParty (true to suppress)
+const PARTY_OVERRIDES = {
+  nda: {
+    // CHECKLIST items
+    p2: {
+      discloser: { severity: 'low', redline: 'A one-way NDA in your favour is appropriate. Confirm you are named as the Disclosing Party.' },
+      receiver: { severity: 'high', redline: 'A one-way NDA only protects them. If you will share anything (pitches, comparison data, references) push for mutual.' }
+    },
+    c3: {
+      discloser: { severity: 'high', redline: 'Resist marking requirements. Marking discipline is your burden as discloser and you will inevitably miss things.' },
+      receiver: { severity: 'low', redline: 'A marking requirement protects you — you only owe duties on information that was clearly designated.' }
+    },
+    o1: {
+      discloser: { severity: 'critical', redline: 'Add: "The Receiving Party shall use the Confidential Information solely for the Purpose and for no other use whatsoever." Without this, they can use your info to compete.' },
+      receiver: { severity: 'medium', redline: 'A use-limitation is standard; just make sure the Purpose is broad enough to cover what you actually need to do.' }
+    },
+    o3: {
+      discloser: { severity: 'critical', redline: 'Add return/destroy clause. Without it, the recipient can retain your data indefinitely after the engagement ends.' },
+      receiver: { severity: 'medium', redline: 'Return/destroy is standard. Carve out: (a) routine backups, (b) records required by professional/regulatory retention obligations.' }
+    },
+    t2: {
+      discloser: { severity: 'critical', redline: 'Push for 3-5 year survival; indefinite for trade secrets and personal data. Information value lives beyond the relationship.' },
+      receiver: { severity: 'medium', redline: 'Cap survival at 2-3 years. Indefinite survival creates ongoing compliance burden on your organisation.' }
+    },
+    r1: {
+      discloser: { severity: 'critical', redline: 'Injunctive relief is your most important remedy. Add: "monetary damages are inadequate; either party may seek injunctive relief without proving actual damages or posting bond."' },
+      receiver: { severity: 'low', redline: 'Injunctive relief is generally available without an express clause. Including the clause is fine but not critical from your side.' }
+    },
+    // SCANNER rules
+    nda_one_way_check: {
+      discloser: { severity: 'low', redline: 'A one-way NDA in which YOU are the Discloser is appropriate. Confirm you are named as Disclosing Party.' },
+      receiver: { severity: 'high', redline: 'If you will share anything in discussions (even casually) ask for mutual. One-way leaves you exposed.' }
+    },
+    nda_no_purpose: {
+      discloser: { severity: 'critical', redline: 'Without a defined Purpose, the recipient is free to use your information for almost anything. Add a narrow Purpose clause naming the specific deal/discussion.' },
+      receiver: { severity: 'low', redline: 'A broad/missing Purpose actually gives you more flexibility, but a clear Purpose protects against scope creep accusations later.' }
+    },
+    nda_no_return_destroy: {
+      discloser: { severity: 'critical', redline: 'Add return/destroy obligation with certification — otherwise they keep your sensitive material indefinitely.' },
+      receiver: { severity: 'low', redline: 'You actually benefit from clean return/destroy obligations (less long-tail compliance). Just carve out routine backups.' }
+    },
+    nda_no_survival: {
+      discloser: { severity: 'high', redline: 'Add survival of 3-5 years post-termination; indefinite for trade secrets. Without it, protection ends when the NDA ends.' },
+      receiver: { severity: 'medium', redline: 'Survival is reasonable but argue for a 2-3 year cap (not indefinite, except possibly for trade secrets).' }
+    },
+    nda_no_injunctive: {
+      discloser: { severity: 'high', redline: 'For confidentiality breaches, injunctions are the meaningful remedy. Damages come too late. Add an injunctive-relief clause.' },
+      receiver: { severity: 'low', redline: 'Standard Indian law already allows injunctive relief. Express clause adds little from your side.' }
+    },
+    perpetuity_clause: {
+      discloser: { severity: 'low', redline: 'Perpetual obligations on the recipient actually favour you. Just confirm Section 27 limits do not invalidate the clause.' },
+      receiver: { severity: 'high', redline: 'Perpetual confidentiality obligations on you are dangerous. Push for fixed term (3-5 years) with trade-secret carve-out for genuinely indefinite items only.' }
+    }
+  },
+  msa: {
+    // CHECKLIST items
+    m1: {
+      customer: { severity: 'medium', redline: 'Net 30-45 is standard for India. Negotiate flexibility on invoice approval windows.' },
+      provider: { severity: 'critical', redline: 'Pin payment terms tightly: "Invoices shall be paid within thirty (30) days of receipt." Without firm terms, cash flow collapses on every dispute.' }
+    },
+    m2: {
+      customer: { severity: 'low', redline: 'Late fees of 1.5% per month are standard. You will rarely owe them if you pay timely.' },
+      provider: { severity: 'high', redline: 'Add late fees: "Overdue amounts shall bear interest at 1.5% per month." Without this, customers face no economic penalty for delayed payment.' }
+    },
+    l1: {
+      customer: { severity: 'medium', redline: 'A liability cap exists in your favour by limiting your indemnification exposure too. Push back if the cap is below total annual fees.' },
+      provider: { severity: 'critical', redline: 'Cap your liability tightly — typically at 12 months of fees. Without it, a single dispute can be company-ending.' }
+    },
+    l2: {
+      customer: { severity: 'medium', redline: 'Standard exclusion. Push back if the exclusion is so broad it includes IP infringement and confidentiality breaches.' },
+      provider: { severity: 'critical', redline: 'This is your most important protection. Without consequential damages exclusion, a customer can claim lost profits many multiples of contract value.' }
+    },
+    tm1: {
+      customer: { severity: 'medium', redline: 'You generally want broader termination rights. Push for termination for convenience on 30-60 days notice.' },
+      provider: { severity: 'high', redline: 'One-sided termination (only customer can terminate for convenience) is dangerous — push for mutual termination rights with reasonable notice.' }
+    },
+    tm2: {
+      customer: { severity: 'high', redline: 'You need transition assistance — push for it being included in fees or available at agreed rates.' },
+      provider: { severity: 'medium', redline: 'Cap transition assistance to 30-60 days and explicitly bill at standard rates. Open-ended free transition is a major hidden cost.' }
+    },
+    w1: {
+      customer: { severity: 'high', redline: 'Push for service warranties — at minimum "performed in a professional and workmanlike manner consistent with industry standards." Broader if mission-critical.' },
+      provider: { severity: 'medium', redline: 'Limit warranties to specific, defensible standards. Disclaim implied warranties and fitness-for-purpose. Avoid guaranteeing business outcomes.' }
+    },
+    // SCANNER rules
+    as_is_basis: {
+      customer: { severity: 'high', redline: 'AS-IS disclaimer leaves you with no recourse if services do not work. Push for limited warranties (workmanlike, no IP infringement).' },
+      provider: { severity: 'low', redline: 'AS-IS protection is in your favour. Soften slightly to "as available" with limited warranties to maintain customer comfort.' }
+    },
+    any_reason_termination: {
+      customer: { severity: 'low', redline: 'If the right is YOURS, this is fine. Confirm you have the termination right and provider does not.' },
+      provider: { severity: 'critical', redline: 'If only the customer can terminate without cause, you are in a captive position. Demand mutual rights or significant transition payment.' }
+    },
+    msa_no_liability_cap: {
+      customer: { severity: 'medium', redline: 'Uncapped provider liability is favourable to you but unrealistic; providers will demand a cap. Negotiate cap at 2-3x annual fees minimum.' },
+      provider: { severity: 'critical', redline: 'Uncapped liability is dangerous. Cap at 12 months of fees. Carve out indemnification for IP and confidentiality if needed.' }
+    },
+    msa_low_cap_detected: {
+      customer: { severity: 'high', redline: 'Low liability caps leave you exposed. Push for cap at least equal to annual fees, higher for mission-critical engagements.' },
+      provider: { severity: 'low', redline: 'A low cap is protective. Hold firm; offer carve-outs (IP, gross negligence) instead of raising the cap.' }
+    },
+    msa_no_consequential_excl: {
+      customer: { severity: 'medium', redline: 'Excluding consequential damages limits YOUR recovery if services fail. Carve out IP and confidentiality from the exclusion.' },
+      provider: { severity: 'critical', redline: 'Must have this exclusion. Without it, a 5 lakh contract can produce a 5 crore lost-profit claim.' }
+    },
+    msa_no_payment_terms: {
+      customer: { severity: 'low', redline: 'Loose payment terms favour you cash-flow-wise. Provider will push back; offer Net 30 as compromise.' },
+      provider: { severity: 'high', redline: 'Pin payment terms (Net 30) with late fees. Loose terms cause endless invoice disputes.' }
+    },
+    msa_no_warranties: {
+      customer: { severity: 'high', redline: 'Demand at least "workmanlike manner" warranty. Without it, you have no basis to push back on poor quality.' },
+      provider: { severity: 'low', redline: 'Limiting warranties is in your favour. Add a narrow professional-services warranty as a goodwill gesture, disclaim everything else.' }
+    },
+    msa_no_change_order: {
+      customer: { severity: 'medium', redline: 'You generally want flexibility for changes. Push for a lightweight change procedure rather than no procedure.' },
+      provider: { severity: 'critical', redline: 'Demand a strict change-order procedure. Without it, you absorb scope creep at fixed price.' }
+    }
+  },
+  consultancy: {
+    // CHECKLIST items
+    e3: {
+      client: { severity: 'low', redline: 'Revision rounds protect the consultant; you generally want flexibility. Negotiate 2-3 rounds with reasonable hourly billing for extras.' },
+      consultant: { severity: 'critical', redline: 'Cap revisions at 2-3 rounds with explicit billing for additional rounds. Open-ended revisions kill consultancy economics.' }
+    },
+    ci1: {
+      client: { severity: 'critical', redline: 'You MUST have explicit IP assignment. Under Indian Copyright Act, the consultant owns by default. Without assignment, you do not own what you paid for.' },
+      consultant: { severity: 'medium', redline: 'IP assignment is standard. Ensure assignment is conditional on full payment and that pre-existing IP is carved out.' }
+    },
+    ci2: {
+      client: { severity: 'medium', redline: 'Provider retention of generic methodology is standard. Define "generic" narrowly to ensure your bespoke deliverables stay yours.' },
+      consultant: { severity: 'critical', redline: 'Carve out your pre-existing tools, methodologies, and frameworks. Without this you may inadvertently assign your entire toolkit.' }
+    },
+    ic2: {
+      client: { severity: 'high', redline: 'You may want exclusivity for competitive reasons, but exclusivity creates employment-misclassification risk. Limit to specific named competitors only.' },
+      consultant: { severity: 'critical', redline: 'Reject blanket exclusivity. Limit to specific named direct competitors. Exclusivity = employment indicator + revenue loss.' }
+    },
+    // SCANNER rules
+    cons_no_ip_assignment: {
+      client: { severity: 'critical', redline: 'Add explicit IP assignment from consultant. Under Indian Copyright Act, you do NOT own deliverables by default.' },
+      consultant: { severity: 'low', redline: 'IP staying with you by default is favourable. But clients will demand assignment; negotiate payment-conditional assignment with Background-IP carve-out.' }
+    },
+    cons_no_indep_contractor: {
+      client: { severity: 'high', redline: 'Statement of independent-contractor status protects you from PF/ESI/gratuity reclassification claims. Add it.' },
+      consultant: { severity: 'high', redline: 'Statement of independent-contractor status protects you from being treated as a deemed employee for tax purposes. Add it.' }
+    },
+    cons_exclusive_engagement: {
+      client: { severity: 'medium', redline: 'Exclusivity helps you but creates employment-misclassification risk. Limit to specific competitors, not a blanket ban.' },
+      consultant: { severity: 'critical', redline: 'Push back hard. Exclusivity prevents other revenue and signals deemed employment. Narrow to named competitors only.' }
+    },
+    cons_no_revisions: {
+      client: { severity: 'low', redline: 'Open revisions favour you (more rework included). Consultant will push back; offer fixed rounds with hourly billing for extras.' },
+      consultant: { severity: 'critical', redline: 'Cap revisions explicitly. Without a cap, "just one more change" multiplied by ten kills project economics.' }
+    }
+  },
+  employment: {
+    // CHECKLIST items
+    comp2: {
+      employer: { severity: 'medium', redline: 'Keep variable pay discretionary unless committing to a specific KPI structure. Clear documentation prevents disputes.' },
+      employee: { severity: 'high', redline: 'Push for specific KPI/payout structure. "Discretionary bonus" can be reduced to zero at company\u2019s will.' }
+    },
+    rc1: {
+      employer: { severity: 'high', redline: 'Post-employment non-compete is unenforceable in India under Section 27. Replace with garden leave + non-solicitation + confidentiality.' },
+      employee: { severity: 'medium', redline: 'Non-compete is largely unenforceable in India even if signed. But narrow it where you can to avoid being dragged into litigation.' }
+    },
+    te1: {
+      employer: { severity: 'medium', redline: 'Mutual notice is standard. Asymmetric notice in your favour will likely not hold up if challenged.' },
+      employee: { severity: 'critical', redline: 'Demand mutual notice or significant severance. Asymmetric notice (you owe 90 days but they can fire with 1) is one-sided and unenforceable in most cases.' }
+    },
+    st3: {
+      employer: { severity: 'critical', redline: 'PoSH policy and Internal Committee are mandatory by law for 10+ employees. Non-compliance = penalties up to INR 50,000 + registration risk.' },
+      employee: { severity: 'high', redline: 'Confirm Company has a PoSH policy and Internal Committee. If absent, this is a regulatory red flag for you to be aware of.' }
+    },
+    // SCANNER rules
+    emp_post_term_noncompete: {
+      employer: { severity: 'high', redline: 'Likely unenforceable under Section 27. Replace with garden leave + non-solicitation + confidentiality.' },
+      employee: { severity: 'medium', redline: 'Generally unenforceable, but signed in a contract still creates litigation risk. Negotiate to narrow or remove.' }
+    },
+    emp_no_posh: {
+      employer: { severity: 'critical', redline: 'MANDATORY for 10+ employees. Add PoSH reference urgently — non-compliance carries statutory penalties.' },
+      employee: { severity: 'high', redline: 'Absence of PoSH reference is a compliance concern. Raise with HR to confirm policy and Internal Committee exist.' }
+    },
+    emp_no_pf_esi: {
+      employer: { severity: 'high', redline: 'Add PF/ESI clause as per applicable thresholds. Statutory compliance regardless of contract.' },
+      employee: { severity: 'high', redline: 'Confirm PF/ESI enrolment. These are your statutory benefits; explicit mention in the contract is your record.' }
+    },
+    emp_no_ip_assignment: {
+      employer: { severity: 'critical', redline: 'Add IP assignment clause urgently. Under Copyright Act, the employee owns by default unless expressly assigned.' },
+      employee: { severity: 'low', redline: 'Default IP retention favours you. Employer will demand assignment; ensure pre-existing personal projects are carved out.' }
+    },
+    emp_asymmetric_notice: {
+      employer: { severity: 'medium', redline: 'Asymmetric notice in your favour is risky. Consider mutual notice or you may face litigation challenges.' },
+      employee: { severity: 'critical', redline: 'Demand mutual notice. Asymmetric notice against you is unenforceable in most cases but creates dispute risk.' }
+    }
+  }
+};
+
+// Helper: returns the rule/item adapted for the selected party
+// If no party selected OR no override exists, returns the original
+function adaptForParty(item, contractType, party){
+  if(!party || party === 'mutual') return item;  // 'mutual' = use generic
+  var overrides = (PARTY_OVERRIDES[contractType] || {})[item.id];
+  if(!overrides || !overrides[party]) return item;
+  var ov = overrides[party];
+  // Merge: override values take precedence over the item's defaults
+  return Object.assign({}, item, ov);
+}
+
+// Returns the human-readable name of the currently selected party
+function partyDisplayName(){
+  if(!S.party || !S.type) return null;
+  var parties = PARTIES[S.type] || [];
+  var p = parties.find(function(x){ return x.id === S.party; });
+  return p ? p.name : null;
+}
+
+function pickParty(p){
+  S.party = p;
+  renderForm();
+  renderReport();
+}
+
+function renderPartyPicker(stepLabel){
+  if(!S.type) return '';
+  var parties = PARTIES[S.type] || [];
+  if(!parties.length) return '';
+  var html = '<h2 class="sec">' + stepLabel + '</h2>';
+  html += '<p class="hint" style="margin-bottom:14px;font-size:12.5px;line-height:1.5">Risks differ depending on which side you are on. Pick your perspective so the analysis is framed for your interests.</p>';
+  html += '<div class="party-picker">';
+  parties.forEach(function(p){
+    var on = (S.party === p.id) ? ' on' : '';
+    html += '<button class="party-pick' + on + '" type="button" onclick="pickParty(\'' + p.id + '\')">';
+    html += '<div class="pp-icon">' + p.icon + '</div>';
+    html += '<div class="pp-body">';
+    html += '<div class="pp-name">' + p.name + '</div>';
+    html += '<div class="pp-desc">' + p.desc + '</div>';
+    html += '</div>';
+    html += '</button>';
+  });
+  html += '</div>';
+  return html;
+}
+
+
 const S = {
   mode: 'checklist',   // 'checklist' or 'scanner'
   type: null,          // selected contract type
+  party: null,         // which party's perspective ('discloser', 'receiver', 'customer', 'provider', etc.)
   answers: {},         // checklist answers
   scanText: '',        // scanner input text
   scanFlags: [],       // scanner output flags
@@ -995,6 +1327,7 @@ function setMode(m){
 
 function pickType(t){
   S.type = t;
+  S.party = null;  // reset party when type changes
   if(S.mode === 'checklist'){
     S.answers = {};
   } else {
@@ -1042,9 +1375,11 @@ function renderChecklistMode(){
   var html = renderModeTabs();
   html += renderTypePicker('Step 1, Pick the contract type');
   if(!S.type) return html;
+  html += renderPartyPicker('Step 2, Pick your side');
+  if(!S.party) return html;
 
   var c = CL[S.type];
-  html += '<h2 class="sec">Step 2, Walk through the checklist</h2>';
+  html += '<h2 class="sec">Step 3, Walk through the checklist</h2>';
   html += '<p class="hint" style="margin-bottom:14px;font-size:12.5px;line-height:1.5">' + c.intro + '</p>';
 
   // Progress
@@ -1085,8 +1420,10 @@ function renderScannerMode(){
   var html = renderModeTabs();
   html += renderTypePicker('Step 1, Pick the contract type');
   if(!S.type) return html;
+  html += renderPartyPicker('Step 2, Pick your side');
+  if(!S.party) return html;
 
-  html += '<h2 class="sec">Step 2, Upload your contract</h2>';
+  html += '<h2 class="sec">Step 3, Upload your contract</h2>';
   html += '<p class="hint" style="margin-bottom:14px;font-size:12.5px;line-height:1.5">Drop your contract file below or click to browse. Supports Word (.docx), PDF, and plain text (.txt). The scanner checks it against known risk patterns and produces a risk report on the right.</p>';
 
   // Upload zone, or extracted-text confirmation
@@ -1496,12 +1833,15 @@ function getFlagsFromChecklist(){
     cat.items.forEach(function(it){
       var a = S.answers[it.id];
       if(a === 'flag' || a === 'miss' || a === 'dk'){
+        // Apply party perspective override if available
+        var adapted = adaptForParty(it, S.type, S.party);
         flags.push({
-          title: it.q,
-          why: it.why,
-          redline: it.redline,
+          id: it.id,
+          title: adapted.q || it.q,
+          why: adapted.why || it.why,
+          redline: adapted.redline || it.redline,
           category: cat.title,
-          severity: a === 'miss' ? 'critical' : (a === 'dk' ? 'medium' : it.severity),
+          severity: a === 'miss' ? 'critical' : (a === 'dk' ? 'medium' : (adapted.severity || it.severity)),
           evidence: null
         });
       }
@@ -1512,12 +1852,14 @@ function getFlagsFromChecklist(){
 
 function getFlagsFromScanner(){
   return (S.scanFlags || []).map(function(f){
+    var adapted = adaptForParty(f, S.type, S.party);
     return {
-      title: f.title,
-      why: f.why,
-      redline: f.redline,
+      id: f.id,
+      title: adapted.title || f.title,
+      why: adapted.why || f.why,
+      redline: adapted.redline || f.redline,
       category: f.category,
-      severity: f.severity,
+      severity: adapted.severity || f.severity,
       evidence: f.evidence,
       finding: f.finding
     };
@@ -1619,6 +1961,10 @@ function renderRichReport(){
   html += '  <div class="rd-eyebrow">Contract Risk Review</div>';
   html += '  <div class="rd-title">' + escapeHtml(c.name) + '</div>';
   html += '  <div class="rd-subtitle">' + modeLabel + '</div>';
+  var partyName = partyDisplayName();
+  if(partyName){
+    html += '  <div class="rd-subtitle" style="margin-top:6px;color:#7a2e26;font-weight:600;letter-spacing:.04em">Reviewed from: ' + escapeHtml(partyName) + ' perspective</div>';
+  }
   html += '  <div class="rd-gauge">';
   html += '    <div class="rd-gauge-ring">';
   html += '      <svg viewBox="0 0 160 160">';
@@ -1652,7 +1998,8 @@ function renderRichReport(){
     if(med > 0) headlineCounts.push('<b>' + med + ' medium</b>');
     var countsStr = headlineCounts.length === 1 ? headlineCounts[0] : (headlineCounts.slice(0, -1).join(', ') + ' and ' + headlineCounts.slice(-1));
     var catCount = Object.keys(groupByCategory(flags)).length;
-    html += '  <p class="lede">This analysis identified <b>' + flags.length + ' risk' + (flags.length === 1 ? '' : 's') + '</b> in the ' + c.name + ' reviewed, of which ' + countsStr + ' severity. The risks span ' + catCount + ' distinct ' + (catCount === 1 ? 'category' : 'categories') + ' of contract risk, ranging from commercial allocation of liability to operational and procedural protections that affect how the relationship works in practice.</p>';
+    var partyPrefix = partyDisplayName() ? 'from the ' + escapeHtml(partyDisplayName()) + ' perspective, ' : '';
+    html += '  <p class="lede">' + (partyPrefix ? partyPrefix.charAt(0).toUpperCase() + partyPrefix.slice(1) + 'this' : 'This') + ' analysis identified <b>' + flags.length + ' risk' + (flags.length === 1 ? '' : 's') + '</b> in the ' + c.name + ' reviewed, of which ' + countsStr + ' severity. The risks span ' + catCount + ' distinct ' + (catCount === 1 ? 'category' : 'categories') + ' of contract risk, ranging from commercial allocation of liability to operational and procedural protections that affect how the relationship works in practice.</p>';
     var verdict = '';
     if(crit > 0){
       verdict = 'The presence of ' + crit + ' critical risk' + (crit === 1 ? '' : 's') + ' means the contract in its current form creates exposure that is unlikely to be acceptable to a counterparty acting in its own interest. The critical items should be addressed before signing, either through negotiation of the underlying clauses or by escalating to qualified legal counsel for a full review.';

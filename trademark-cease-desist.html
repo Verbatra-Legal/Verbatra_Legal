@@ -101,6 +101,29 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 .doc{ -webkit-touch-callout:none; }
 @media print{header.form-panel.preview-tools.modal{display:none!important}body{background:#fff}.wrap{display:block}.preview-panel{background:#fff;padding:0}.doc{box-shadow:none;border:none;max-width:100%;padding:0;font-size:11.5pt}.doc.doc *{user-select:auto!important}}
 
+
+/* === Mobile hamburger nav (added 2026-06-04) === */
+.nav-toggle{display:none;background:none;border:0;cursor:pointer;padding:4px 8px;color:var(--ink,#1a1a17);position:relative;z-index:401}
+.nav-toggle svg{display:block;width:26px;height:26px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round}
+.nav-overlay{display:none;position:fixed;inset:0;background:rgba(26,26,23,.45);opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s;z-index:399}
+@media (max-width:860px){
+  .nav-toggle{display:flex;align-items:center;justify-content:center}
+  .nav-links{position:fixed !important;top:0 !important;right:0 !important;left:auto !important;width:min(340px,88vw) !important;height:100vh !important;height:100dvh !important;background:var(--cream,#f4efe4) !important;box-shadow:-20px 0 50px -10px rgba(26,26,23,.28) !important;display:flex !important;flex-wrap:nowrap !important;flex-direction:column !important;align-items:stretch !important;justify-content:flex-start !important;padding:78px 26px 40px !important;gap:0 !important;transform:translateX(100%);transition:transform .26s cubic-bezier(.4,0,.2,1);overflow-y:auto !important;overscroll-behavior:contain;z-index:400 !important;-webkit-overflow-scrolling:touch}
+  .nav-links.open{transform:translateX(0) !important}
+  .vbdd{display:block !important;border-bottom:1px solid var(--line,#d8cfbc);padding:14px 0;width:100%}
+  .vbdd:last-child{border-bottom:none}
+  .vbdd-trigger{font-size:14px !important;color:var(--oxblood,#7a2e26) !important;font-weight:600 !important;letter-spacing:.08em !important;text-transform:uppercase !important;cursor:default !important;padding:4px 0 8px !important;pointer-events:none !important;width:auto !important;background:none !important;display:block !important}
+  .vbdd-trigger::after{display:none !important}
+  .vbdd-panel{position:static !important;display:block !important;transform:none !important;opacity:1 !important;visibility:visible !important;pointer-events:auto !important;background:transparent !important;border:none !important;box-shadow:none !important;padding:0 !important;min-width:0 !important;width:auto !important;max-height:none !important;overflow:visible !important;margin:0 !important;left:auto !important;right:auto !important;top:auto !important}
+  .vbdd-panel::before{display:none !important}
+  .vbdd-h{font-size:9.5px !important;color:var(--ink-soft,#5a5a52) !important;margin:10px 0 2px !important;border-bottom:none !important;padding:0 !important;letter-spacing:.14em !important;font-weight:600 !important;opacity:.8 !important}
+  .vbdd-h:first-child{margin-top:4px !important}
+  .vbdd-panel a{padding:9px 0 !important;font-size:15px !important;color:var(--ink,#1a1a17) !important;background:transparent !important;display:block !important}
+  .vbdd-panel a:hover{padding-left:4px !important;color:var(--green,#1f3d30) !important}
+  .nav-overlay{display:block}
+  .nav-overlay.open{opacity:1;visibility:visible}
+  body.nav-locked{overflow:hidden}
+}
 </style>
 
 <meta name="description" content="Free trademark cease and desist letter generator for India. Pre-litigation IP enforcement, drafted by a corporate lawyer.">
@@ -131,7 +154,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
 <meta name="theme-color" content="#1f3d30">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.verbatra.com/#organization","name":"Verbatra","url":"https://www.verbatra.com","logo":{"@type":"ImageObject","url":"https://www.verbatra.com/og-image.png"},"founder":{"@type":"Person","name":"Arnav Bhardwaj","jobTitle":"Corporate Lawyer & Founder","url":"https://www.verbatra.com/founder.html","sameAs":"https://www.linkedin.com/in/bhardwajarnav/"},"contactPoint":{"@type":"ContactPoint","telephone":"+91-9368730710","contactType":"Customer Service","email":"verbatra.legal@gmail.com","areaServed":"IN"},"sameAs":["https://www.linkedin.com/company/verbatra/"]},{"@type":"WebApplication","name":"Verbatra Trademark Cease & Desist Generator","url":"https://www.verbatra.com/trademark-cease-desist.html","description":"Free trademark cease and desist letter generator for India. Pre-litigation IP enforcement, drafted by a corporate lawyer.","applicationCategory":"LegalService","operatingSystem":"Web Browser","browserRequirements":"Requires modern browser with JavaScript enabled","offers":{"@type":"Offer","price":"0","priceCurrency":"INR","availability":"https://schema.org/InStock"},"provider":{"@id":"https://www.verbatra.com/#organization"},"isAccessibleForFree":true,"inLanguage":"en-IN"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://verbatra.com/"},{"@type":"ListItem","position":2,"name":"Trademark Cease & Desist","item":"https://verbatra.com/trademark-cease-desist.html"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.verbatra.com/#organization","name":"Verbatra","url":"https://www.verbatra.com","logo":{"@type":"ImageObject","url":"https://www.verbatra.com/og-image.png"},"founder":{"@type":"Person","name":"Arnav Bhardwaj","jobTitle":"Corporate Lawyer & Founder","url":"https://www.verbatra.com/founder.html","sameAs":"https://www.linkedin.com/in/bhardwajarnav/"},"contactPoint":{"@type":"ContactPoint","telephone":"+91-9368730710","contactType":"Customer Service","email":"verbatra.legal@gmail.com","areaServed":"IN"},"sameAs":["https://www.linkedin.com/company/verbatra/"]},{"@type":"WebApplication","name":"Verbatra Trademark Cease & Desist Generator","url":"https://www.verbatra.com/trademark-cease-desist.html","description":"Free trademark cease and desist letter generator for India. Pre-litigation IP enforcement, drafted by a corporate lawyer.","applicationCategory":"LegalService","operatingSystem":"Web Browser","browserRequirements":"Requires modern browser with JavaScript enabled","offers":{"@type":"Offer","price":"0","priceCurrency":"INR","availability":"https://schema.org/InStock"},"provider":{"@id":"https://www.verbatra.com/#organization"},"isAccessibleForFree":true,"inLanguage":"en-IN"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.verbatra.com/"},{"@type":"ListItem","position":2,"name":"Trademark Cease & Desist","item":"https://www.verbatra.com/trademark-cease-desist.html"}]}]}</script>
 <style data-vb="faq-css">
 /* === FAQ + Related Tools sections === */
 .content-section{max-width:780px;margin:36px auto 24px;padding:0 22px}
@@ -180,12 +203,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 .vbdd-panel a{display:block;padding:6px 0;color:var(--ink,#1a1a17);text-decoration:none;font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;font-weight:500;line-height:1.35;transition:color .12s,padding-left .12s;letter-spacing:0;text-transform:none}
 .vbdd-panel a:hover{color:var(--green,#1f3d30);padding-left:4px}
 .vbdd-panel a::after{display:none}
-@media (max-width:860px){
-  .nav-links{flex-wrap:wrap;gap:14px !important;row-gap:10px}
-  .vbdd-panel{position:fixed;left:5vw;right:5vw;top:auto;transform:none;min-width:0;width:90vw;max-height:64vh;overflow-y:auto}
-  .vbdd-panel.open{transform:none}
-  .vbdd-panel::before{display:none}
-}
+
 </style>
 
 <script type="application/ld+json" data-vb="faq">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"When should I send a trademark cease and desist letter?","acceptedAnswer":{"@type":"Answer","text":"Send a cease and desist when a third party is using your trademark, a confusingly similar mark, your brand name, your logo, or your trade dress in a way that creates likelihood of consumer confusion or that dilutes the distinctiveness of your mark. Typical triggers: unauthorised use of your brand on competing products, a competitor adopting a confusingly similar name or logo, an e-commerce listing using your brand for counterfeit goods, a domain name using your brand, or unauthorised use of your trademark in advertising or social media. Sending the cease and desist creates a record of your prompt enforcement, which is relevant in any subsequent infringement suit."}},{"@type":"Question","name":"Can I send a cease and desist if my trademark isn't registered?","acceptedAnswer":{"@type":"Answer","text":"Yes, but the legal position is weaker. A registered trademark in India gives you statutory rights under the Trade Marks Act, 1999, including the right to sue for infringement under Section 29. An unregistered trademark is protected under the common-law doctrine of passing off, which requires you to prove (1) goodwill in your mark, (2) misrepresentation by the defendant, and (3) likelihood of damage. Passing off claims are harder to establish than infringement claims, and the cease and desist letter for an unregistered mark should be framed as a passing-off notice rather than a Section 29 infringement notice."}},{"@type":"Question","name":"What should a trademark cease and desist letter include?","acceptedAnswer":{"@type":"Answer","text":"(1) Clear identification of your trademark, including registration number, class, date of registration, and a copy of the registration certificate. (2) Specific identification of the infringing use (product, packaging, website URL, social media handle, advertisement). (3) Assertion of your rights under the Trade Marks Act and/or common law passing off. (4) Demand that the recipient cease use within a specified time, typically 7 to 15 days. (5) Demand for delivery up of infringing material, an undertaking not to repeat the infringement, and reimbursement of legal costs. (6) Reservation of all other legal remedies including suit for infringement, damages, account of profits, and injunctive relief. Verbatra's trademark cease and desist generator includes all these elements."}},{"@type":"Question","name":"What happens if the recipient ignores my cease and desist letter?","acceptedAnswer":{"@type":"Answer","text":"Your next step is to file a suit for trademark infringement (for registered marks) or passing off (for unregistered marks) in the appropriate court. The cease and desist letter is then evidence that you gave the recipient an opportunity to resolve the matter without litigation. Courts often consider a defendant's response (or non-response) to a cease and desist when deciding on interim injunctions and costs. Many trademark disputes are resolved at the cease-and-desist stage; only a small fraction escalate to litigation."}},{"@type":"Question","name":"Should the cease and desist be sent by an advocate?","acceptedAnswer":{"@type":"Answer","text":"Industry practice favours an advocate or IP attorney. A cease and desist on the letterhead of an established IP law firm carries more weight, signals that you are prepared to litigate, and is more likely to be taken seriously by the infringer. Verbatra's generator produces a substantively correct letter that you can send yourself, but for high-value trademark enforcement (against well-resourced competitors or repeat infringers), engaging an IP attorney to send and follow up on the notice is recommended."}},{"@type":"Question","name":"Is my data safe when I use Verbatra?","acceptedAnswer":{"@type":"Answer","text":"Yes. Verbatra runs entirely in your browser. The document you build is rendered locally on your device and is never uploaded to Verbatra's servers, stored anywhere, or transmitted to any third party. Verbatra cannot read what you draft. The only data we collect is the contact information you voluntarily provide on the lead-capture form before download."}},{"@type":"Question","name":"Do I still need a lawyer if I use Verbatra?","acceptedAnswer":{"@type":"Answer","text":"Verbatra produces a solid, India-specific first draft drafted by a corporate lawyer. For most standard, low-stakes contracts between commercial parties, the generated document is enough. For higher-stakes transactions, contracts that materially deviate from standard terms, contracts involving regulated industries, or anything you would be uncomfortable signing without independent review, you should have a qualified lawyer review the document before execution. Verbatra is not a substitute for advice on your specific facts."}},{"@type":"Question","name":"Is Verbatra actually free?","acceptedAnswer":{"@type":"Answer","text":"Yes, every generator on Verbatra is free to use, with no payment, subscription, or credit card required. Verbatra was built by a corporate lawyer to give Indian businesses access to enterprise-grade legal drafting without the friction of paying a lawyer for a routine first draft. Verbatra makes money by offering paid contract negotiation and legal-operations services to clients who want a lawyer to take the document further."}}]}</script>
@@ -193,7 +211,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 <body>
 <nav class="vb-toolnav" role="navigation" aria-label="Site navigation">
   <a href="/" class="vb-tn-logo">Verbatra<span>.</span></a>
-  <div class="nav-links">
+  <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="vb-nav-links"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+  <div class="nav-links" id="vb-nav-links">
       <div class="vbdd" data-vbdd="vbdd-tools">
         <button type="button" class="vbdd-trigger" aria-expanded="false" aria-haspopup="true">Tools</button>
         <div class="vbdd-panel" id="vbdd-tools">
@@ -255,6 +274,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
       </div>
   </div>
 </nav>
+<div class="nav-overlay" aria-hidden="true"></div>
 <header>
   <a href="/" class="back-home">Back to Verbatra</a>
   <div class="brand">
@@ -503,7 +523,34 @@ function _exportWord(){
   const html = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>"
     +"<head><meta charset='utf-8'><title>"+document.title+"</title>"
     +"<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml><![endif]-->"
-    +"<style>"+styles+"</style></head><body>"+$("doc").innerHTML+"</body></html>";
+    +"<style>"+styles+"</style></head><body>"+$("doc").innerHTML+"<script>
+/* Verbatra hamburger nav controller */
+(function(){
+  var toggle = document.querySelector('.nav-toggle');
+  var navLinks = document.querySelector('.nav-links');
+  var overlay = document.querySelector('.nav-overlay');
+  if(!toggle || !navLinks || !overlay) return;
+  function setOpen(open){
+    navLinks.classList.toggle('open', open);
+    overlay.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    document.body.classList.toggle('nav-locked', open);
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    var svg = toggle.querySelector('svg');
+    if(svg){ svg.innerHTML = open ? '<path d="M6 6l12 12M6 18L18 6"/>' : '<path d="M3 6h18M3 12h18M3 18h18"/>'; }
+  }
+  toggle.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); setOpen(!navLinks.classList.contains('open')); });
+  overlay.addEventListener('click', function(){ setOpen(false); });
+  navLinks.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setOpen(false); }); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && navLinks.classList.contains('open')) setOpen(false); });
+  // Close drawer when resizing to desktop
+  var mq = window.matchMedia('(min-width:861px)');
+  function onResize(){ if(mq.matches) setOpen(false); }
+  if(mq.addEventListener) mq.addEventListener('change', onResize);
+  else mq.addListener(onResize);
+})();
+</script>
+</body></html>";
   const blob = new Blob(["\ufeff"+html], {type:"application/msword"});
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);

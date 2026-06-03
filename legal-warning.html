@@ -101,6 +101,29 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 .doc{ -webkit-touch-callout:none; }
 @media print{header.form-panel.preview-tools.modal{display:none!important}body{background:#fff}.wrap{display:block}.preview-panel{background:#fff;padding:0}.doc{box-shadow:none;border:none;max-width:100%;padding:0;font-size:11.5pt}.doc.doc *{user-select:auto!important}}
 
+
+/* === Mobile hamburger nav (added 2026-06-04) === */
+.nav-toggle{display:none;background:none;border:0;cursor:pointer;padding:4px 8px;color:var(--ink,#1a1a17);position:relative;z-index:401}
+.nav-toggle svg{display:block;width:26px;height:26px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round}
+.nav-overlay{display:none;position:fixed;inset:0;background:rgba(26,26,23,.45);opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s;z-index:399}
+@media (max-width:860px){
+  .nav-toggle{display:flex;align-items:center;justify-content:center}
+  .nav-links{position:fixed !important;top:0 !important;right:0 !important;left:auto !important;width:min(340px,88vw) !important;height:100vh !important;height:100dvh !important;background:var(--cream,#f4efe4) !important;box-shadow:-20px 0 50px -10px rgba(26,26,23,.28) !important;display:flex !important;flex-wrap:nowrap !important;flex-direction:column !important;align-items:stretch !important;justify-content:flex-start !important;padding:78px 26px 40px !important;gap:0 !important;transform:translateX(100%);transition:transform .26s cubic-bezier(.4,0,.2,1);overflow-y:auto !important;overscroll-behavior:contain;z-index:400 !important;-webkit-overflow-scrolling:touch}
+  .nav-links.open{transform:translateX(0) !important}
+  .vbdd{display:block !important;border-bottom:1px solid var(--line,#d8cfbc);padding:14px 0;width:100%}
+  .vbdd:last-child{border-bottom:none}
+  .vbdd-trigger{font-size:14px !important;color:var(--oxblood,#7a2e26) !important;font-weight:600 !important;letter-spacing:.08em !important;text-transform:uppercase !important;cursor:default !important;padding:4px 0 8px !important;pointer-events:none !important;width:auto !important;background:none !important;display:block !important}
+  .vbdd-trigger::after{display:none !important}
+  .vbdd-panel{position:static !important;display:block !important;transform:none !important;opacity:1 !important;visibility:visible !important;pointer-events:auto !important;background:transparent !important;border:none !important;box-shadow:none !important;padding:0 !important;min-width:0 !important;width:auto !important;max-height:none !important;overflow:visible !important;margin:0 !important;left:auto !important;right:auto !important;top:auto !important}
+  .vbdd-panel::before{display:none !important}
+  .vbdd-h{font-size:9.5px !important;color:var(--ink-soft,#5a5a52) !important;margin:10px 0 2px !important;border-bottom:none !important;padding:0 !important;letter-spacing:.14em !important;font-weight:600 !important;opacity:.8 !important}
+  .vbdd-h:first-child{margin-top:4px !important}
+  .vbdd-panel a{padding:9px 0 !important;font-size:15px !important;color:var(--ink,#1a1a17) !important;background:transparent !important;display:block !important}
+  .vbdd-panel a:hover{padding-left:4px !important;color:var(--green,#1f3d30) !important}
+  .nav-overlay{display:block}
+  .nav-overlay.open{opacity:1;visibility:visible}
+  body.nav-locked{overflow:hidden}
+}
 </style>
 <style>
 .lawyer-cta{background:rgba(122,46,38,.06);border:1px solid rgba(122,46,38,.18);border-left:3px solid var(--oxblood);border-radius:10px;padding:18px 22px 16px;margin-bottom:18px}
@@ -137,7 +160,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
 <meta name="theme-color" content="#1f3d30">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.verbatra.com/#organization","name":"Verbatra","url":"https://www.verbatra.com","logo":{"@type":"ImageObject","url":"https://www.verbatra.com/og-image.png"},"founder":{"@type":"Person","name":"Arnav Bhardwaj","jobTitle":"Corporate Lawyer & Founder","url":"https://www.verbatra.com/founder.html","sameAs":"https://www.linkedin.com/in/bhardwajarnav/"},"contactPoint":{"@type":"ContactPoint","telephone":"+91-9368730710","contactType":"Customer Service","email":"verbatra.legal@gmail.com","areaServed":"IN"},"sameAs":["https://www.linkedin.com/company/verbatra/"]},{"@type":"WebApplication","name":"Verbatra Legal Warning Generator","url":"https://www.verbatra.com/legal-warning.html","description":"Free legal warning notice generator for India. First-step cease and desist before formal legal notice. Drafted by a corporate lawyer.","applicationCategory":"LegalService","operatingSystem":"Web Browser","browserRequirements":"Requires modern browser with JavaScript enabled","offers":{"@type":"Offer","price":"0","priceCurrency":"INR","availability":"https://schema.org/InStock"},"provider":{"@id":"https://www.verbatra.com/#organization"},"isAccessibleForFree":true,"inLanguage":"en-IN"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://verbatra.com/"},{"@type":"ListItem","position":2,"name":"Legal Warning Generator","item":"https://verbatra.com/legal-warning.html"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.verbatra.com/#organization","name":"Verbatra","url":"https://www.verbatra.com","logo":{"@type":"ImageObject","url":"https://www.verbatra.com/og-image.png"},"founder":{"@type":"Person","name":"Arnav Bhardwaj","jobTitle":"Corporate Lawyer & Founder","url":"https://www.verbatra.com/founder.html","sameAs":"https://www.linkedin.com/in/bhardwajarnav/"},"contactPoint":{"@type":"ContactPoint","telephone":"+91-9368730710","contactType":"Customer Service","email":"verbatra.legal@gmail.com","areaServed":"IN"},"sameAs":["https://www.linkedin.com/company/verbatra/"]},{"@type":"WebApplication","name":"Verbatra Legal Warning Generator","url":"https://www.verbatra.com/legal-warning.html","description":"Free legal warning notice generator for India. First-step cease and desist before formal legal notice. Drafted by a corporate lawyer.","applicationCategory":"LegalService","operatingSystem":"Web Browser","browserRequirements":"Requires modern browser with JavaScript enabled","offers":{"@type":"Offer","price":"0","priceCurrency":"INR","availability":"https://schema.org/InStock"},"provider":{"@id":"https://www.verbatra.com/#organization"},"isAccessibleForFree":true,"inLanguage":"en-IN"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.verbatra.com/"},{"@type":"ListItem","position":2,"name":"Legal Warning Generator","item":"https://www.verbatra.com/legal-warning.html"}]}]}</script>
 <style data-vb="faq-css">
 /* === FAQ + Related Tools sections === */
 .content-section{max-width:780px;margin:36px auto 24px;padding:0 22px}
@@ -186,12 +209,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 .vbdd-panel a{display:block;padding:6px 0;color:var(--ink,#1a1a17);text-decoration:none;font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;font-weight:500;line-height:1.35;transition:color .12s,padding-left .12s;letter-spacing:0;text-transform:none}
 .vbdd-panel a:hover{color:var(--green,#1f3d30);padding-left:4px}
 .vbdd-panel a::after{display:none}
-@media (max-width:860px){
-  .nav-links{flex-wrap:wrap;gap:14px !important;row-gap:10px}
-  .vbdd-panel{position:fixed;left:5vw;right:5vw;top:auto;transform:none;min-width:0;width:90vw;max-height:64vh;overflow-y:auto}
-  .vbdd-panel.open{transform:none}
-  .vbdd-panel::before{display:none}
-}
+
 </style>
 
 <script type="application/ld+json" data-vb="faq">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What's the difference between a Legal Warning and a Legal Notice?","acceptedAnswer":{"@type":"Answer","text":"A Legal Warning is an informal, first-step pre-litigation communication. It puts the recipient on notice that their conduct is unacceptable, demands that they stop or remedy it, and warns of legal consequences if they do not. It is usually shorter, less formal, and sent without involving a lawyer. A Legal Notice is a more formal pre-litigation document, often drafted and sent by an advocate on their letterhead, asserting specific legal claims and demanding specific remedies within a specified time, after which litigation will commence. Many disputes are resolved at the Legal Warning stage before escalation."}},{"@type":"Question","name":"Is a Legal Warning legally required before filing a case?","acceptedAnswer":{"@type":"Answer","text":"Generally no. For most civil and criminal matters in India, you can initiate proceedings directly without first sending any pre-litigation notice. However, there are statutory exceptions where notice is required: Section 80 of the Civil Procedure Code requires a 60-day notice before suing the Government of India or a state government. Section 138 of the Negotiable Instruments Act requires a 30-day demand notice for cheque dishonour. Consumer protection complaints often benefit from a pre-litigation demand. For all other matters, a Legal Warning is strategic rather than statutory."}},{"@type":"Question","name":"How should a Legal Warning be sent?","acceptedAnswer":{"@type":"Answer","text":"By a method that creates clear evidence of delivery. Recommended: (1) Registered post with acknowledgement due, sent to the recipient's last known address. This is the gold standard for proof of dispatch and delivery in Indian courts. (2) Email with read-receipt, as a secondary record. (3) Courier service that provides a delivery receipt. Avoid sending only by WhatsApp or SMS for serious matters, as proof of receipt is harder to establish. The Legal Warning should also state on its face the manner in which it has been sent."}},{"@type":"Question","name":"What if the recipient ignores my Legal Warning?","acceptedAnswer":{"@type":"Answer","text":"A Legal Warning is just a precursor to formal action. If the recipient ignores it within the period stated in the warning (typically 7 to 30 days), your next steps depend on the nature of the dispute: (1) for a contractual breach, send a formal Legal Notice through a lawyer and then file a civil suit; (2) for a criminal matter, file a complaint with the police or directly with a magistrate; (3) for cheque dishonour, send a Section 138 demand notice; (4) for an IP infringement, send a cease-and-desist and then file a suit for injunction. The Legal Warning serves as evidence that you gave the recipient an opportunity to resolve the matter amicably before escalation."}},{"@type":"Question","name":"Can I send a Legal Warning myself, without a lawyer?","acceptedAnswer":{"@type":"Answer","text":"Yes. A Legal Warning is not a court document and does not require a lawyer's involvement. You can draft and send one yourself, on your own letterhead. The recipient and any court that later sees the warning will assess the content based on its substance, not on who drafted it. That said, for high-stakes disputes, having a lawyer draft and send the warning on their letterhead carries more weight because it signals to the recipient that you are serious about pursuing the matter."}},{"@type":"Question","name":"Is my data safe when I use Verbatra?","acceptedAnswer":{"@type":"Answer","text":"Yes. Verbatra runs entirely in your browser. The document you build is rendered locally on your device and is never uploaded to Verbatra's servers, stored anywhere, or transmitted to any third party. Verbatra cannot read what you draft. The only data we collect is the contact information you voluntarily provide on the lead-capture form before download."}},{"@type":"Question","name":"Do I still need a lawyer if I use Verbatra?","acceptedAnswer":{"@type":"Answer","text":"Verbatra produces a solid, India-specific first draft drafted by a corporate lawyer. For most standard, low-stakes contracts between commercial parties, the generated document is enough. For higher-stakes transactions, contracts that materially deviate from standard terms, contracts involving regulated industries, or anything you would be uncomfortable signing without independent review, you should have a qualified lawyer review the document before execution. Verbatra is not a substitute for advice on your specific facts."}},{"@type":"Question","name":"Is Verbatra actually free?","acceptedAnswer":{"@type":"Answer","text":"Yes, every generator on Verbatra is free to use, with no payment, subscription, or credit card required. Verbatra was built by a corporate lawyer to give Indian businesses access to enterprise-grade legal drafting without the friction of paying a lawyer for a routine first draft. Verbatra makes money by offering paid contract negotiation and legal-operations services to clients who want a lawyer to take the document further."}}]}</script>
@@ -199,7 +217,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 <body>
 <nav class="vb-toolnav" role="navigation" aria-label="Site navigation">
   <a href="/" class="vb-tn-logo">Verbatra<span>.</span></a>
-  <div class="nav-links">
+  <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="vb-nav-links"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+  <div class="nav-links" id="vb-nav-links">
       <div class="vbdd" data-vbdd="vbdd-tools">
         <button type="button" class="vbdd-trigger" aria-expanded="false" aria-haspopup="true">Tools</button>
         <div class="vbdd-panel" id="vbdd-tools">
@@ -261,6 +280,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
       </div>
   </div>
 </nav>
+<div class="nav-overlay" aria-hidden="true"></div>
 <header>
   <a href="/" class="back-home">Back to Verbatra</a>
   <div class="brand">
@@ -523,7 +543,34 @@ function _exportWord(){
   const html = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>"
     +"<head><meta charset='utf-8'><title>"+document.title+"</title>"
     +"<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml><![endif]-->"
-    +"<style>"+styles+"</style></head><body>"+$("doc").innerHTML+"</body></html>";
+    +"<style>"+styles+"</style></head><body>"+$("doc").innerHTML+"<script>
+/* Verbatra hamburger nav controller */
+(function(){
+  var toggle = document.querySelector('.nav-toggle');
+  var navLinks = document.querySelector('.nav-links');
+  var overlay = document.querySelector('.nav-overlay');
+  if(!toggle || !navLinks || !overlay) return;
+  function setOpen(open){
+    navLinks.classList.toggle('open', open);
+    overlay.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    document.body.classList.toggle('nav-locked', open);
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    var svg = toggle.querySelector('svg');
+    if(svg){ svg.innerHTML = open ? '<path d="M6 6l12 12M6 18L18 6"/>' : '<path d="M3 6h18M3 12h18M3 18h18"/>'; }
+  }
+  toggle.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); setOpen(!navLinks.classList.contains('open')); });
+  overlay.addEventListener('click', function(){ setOpen(false); });
+  navLinks.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setOpen(false); }); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && navLinks.classList.contains('open')) setOpen(false); });
+  // Close drawer when resizing to desktop
+  var mq = window.matchMedia('(min-width:861px)');
+  function onResize(){ if(mq.matches) setOpen(false); }
+  if(mq.addEventListener) mq.addEventListener('change', onResize);
+  else mq.addListener(onResize);
+})();
+</script>
+</body></html>";
   const blob = new Blob(["\ufeff"+html], {type:"application/msword"});
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
