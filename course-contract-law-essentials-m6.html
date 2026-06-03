@@ -598,10 +598,12 @@ body{font-family:'Hanken Grotesk',sans-serif;background:var(--cream);color:var(-
   navLinks.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setOpen(false); }); });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && navLinks.classList.contains('open')) setOpen(false); });
   // Close drawer when resizing to desktop
-  var mq = window.matchMedia('(min-width:861px)');
-  function onResize(){ if(mq.matches) setOpen(false); }
-  if(mq.addEventListener) mq.addEventListener('change', onResize);
-  else mq.addListener(onResize);
+  if(typeof window.matchMedia === 'function'){
+    var mq = window.matchMedia('(min-width:861px)');
+    function onResize(){ if(mq.matches) setOpen(false); }
+    if(mq.addEventListener) mq.addEventListener('change', onResize);
+    else if(mq.addListener) mq.addListener(onResize);
+  }
 })();
 </script>
 </body>

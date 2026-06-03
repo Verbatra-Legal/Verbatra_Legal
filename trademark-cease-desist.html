@@ -523,34 +523,7 @@ function _exportWord(){
   const html = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>"
     +"<head><meta charset='utf-8'><title>"+document.title+"</title>"
     +"<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml><![endif]-->"
-    +"<style>"+styles+"</style></head><body>"+$("doc").innerHTML+"<script>
-/* Verbatra hamburger nav controller */
-(function(){
-  var toggle = document.querySelector('.nav-toggle');
-  var navLinks = document.querySelector('.nav-links');
-  var overlay = document.querySelector('.nav-overlay');
-  if(!toggle || !navLinks || !overlay) return;
-  function setOpen(open){
-    navLinks.classList.toggle('open', open);
-    overlay.classList.toggle('open', open);
-    toggle.setAttribute('aria-expanded', String(open));
-    document.body.classList.toggle('nav-locked', open);
-    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-    var svg = toggle.querySelector('svg');
-    if(svg){ svg.innerHTML = open ? '<path d="M6 6l12 12M6 18L18 6"/>' : '<path d="M3 6h18M3 12h18M3 18h18"/>'; }
-  }
-  toggle.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); setOpen(!navLinks.classList.contains('open')); });
-  overlay.addEventListener('click', function(){ setOpen(false); });
-  navLinks.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setOpen(false); }); });
-  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && navLinks.classList.contains('open')) setOpen(false); });
-  // Close drawer when resizing to desktop
-  var mq = window.matchMedia('(min-width:861px)');
-  function onResize(){ if(mq.matches) setOpen(false); }
-  if(mq.addEventListener) mq.addEventListener('change', onResize);
-  else mq.addListener(onResize);
-})();
-</script>
-</body></html>";
+    +"<style>"+styles+"</style></head><body>"+$("doc").innerHTML+"</body></html>";
   const blob = new Blob(["\ufeff"+html], {type:"application/msword"});
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
@@ -693,6 +666,35 @@ render();
     if(!inside) closeAll(null);
   });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeAll(null); });
+})();
+</script>
+<script>
+/* Verbatra hamburger nav controller */
+(function(){
+  var toggle = document.querySelector('.nav-toggle');
+  var navLinks = document.querySelector('.nav-links');
+  var overlay = document.querySelector('.nav-overlay');
+  if(!toggle || !navLinks || !overlay) return;
+  function setOpen(open){
+    navLinks.classList.toggle('open', open);
+    overlay.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    document.body.classList.toggle('nav-locked', open);
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    var svg = toggle.querySelector('svg');
+    if(svg){ svg.innerHTML = open ? '<path d="M6 6l12 12M6 18L18 6"/>' : '<path d="M3 6h18M3 12h18M3 18h18"/>'; }
+  }
+  toggle.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); setOpen(!navLinks.classList.contains('open')); });
+  overlay.addEventListener('click', function(){ setOpen(false); });
+  navLinks.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ setOpen(false); }); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && navLinks.classList.contains('open')) setOpen(false); });
+  // Close drawer when resizing to desktop
+  if(typeof window.matchMedia === 'function'){
+    var mq = window.matchMedia('(min-width:861px)');
+    function onResize(){ if(mq.matches) setOpen(false); }
+    if(mq.addEventListener) mq.addEventListener('change', onResize);
+    else if(mq.addListener) mq.addListener(onResize);
+  }
 })();
 </script>
 </body>
