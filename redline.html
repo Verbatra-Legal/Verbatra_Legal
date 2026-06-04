@@ -1297,6 +1297,153 @@ const PARTY_OVERRIDES = {
   }
 };
 
+/* ============================================================
+   EXTRA party overrides — added so reports differ meaningfully
+   by side. Covers the side-dependent generic + type-specific
+   rules that previously had no override (and so produced
+   identical flags for every party). Genuinely party-neutral
+   rules (governing law, dispute forum, force majeure, auto-
+   renewal, amendments-in-writing) are intentionally left
+   neutral — they affect both sides equally.
+   ============================================================ */
+(function(){
+  var EXTRA = {
+    nda: {
+      indemnify_any_breach: {
+        discloser: { severity:'medium', redline:'Broad recipient indemnity for misuse of your information favours you as discloser. Keep it, but expect pushback — narrow to breach of confidentiality and IP infringement.' },
+        receiver:  { severity:'critical', redline:'As the receiving party, "any breach" indemnity exposes you to outsized liability. Narrow to (a) your breach of confidentiality and (b) IP infringement you cause. Reject open-ended indemnity.' },
+        mutual:    { severity:'high', redline:'Make indemnity symmetric — each party indemnifies only for its own breach of confidentiality and IP infringement. Reject "any and all" language on both sides.' }
+      },
+      sole_discretion_overuse: {
+        discloser: { severity:'medium', redline:'Check the discretion sits with you (what is confidential, how it is handled). If it sits with the recipient, push back to objective standards.' },
+        receiver:  { severity:'high', redline:'If the disclosing party has sole discretion over what counts as confidential and your obligations, your duties become open-ended. Require objective standards or mutual agreement.' },
+        mutual:    { severity:'medium', redline:'Replace one-sided "sole discretion" with "reasonable, good-faith" standards applying equally to both parties.' }
+      },
+      assignment_unrestricted: {
+        discloser: { severity:'high', redline:'You do NOT want your information following an assignment to a competitor. Require your prior written consent before the recipient assigns.' },
+        receiver:  { severity:'low', redline:'Assignment restriction is low-risk for you. Accept mutual consent; carve out internal group reorganisations.' },
+        mutual:    { severity:'medium', redline:'Mutual assignment restriction — neither party assigns without the other consent, carve-out for successors by merger/acquisition.' }
+      },
+      any_reason_termination: {
+        discloser: { severity:'low', redline:'For an NDA, either side ending the discussion is usually fine. Confirm confidentiality obligations SURVIVE termination regardless.' },
+        receiver:  { severity:'low', redline:'Termination of the NDA is low-risk for you, but check the survival period — your obligations may continue for years after.' },
+        mutual:    { severity:'low', redline:'Either party may end the discussion; ensure confidentiality obligations survive termination on both sides for the agreed period.' }
+      },
+      as_is_basis: {
+        discloser: { severity:'low', redline:'Disclaiming accuracy of your shared information ("provided as is") protects you as discloser. Keep it — you should not warrant the information beyond good faith.' },
+        receiver:  { severity:'medium', redline:'If information is provided "as is", you cannot rely on its accuracy. For material decisions, seek a limited accuracy representation or independent verification rights.' },
+        mutual:    { severity:'low', redline:'A mutual "as is" disclaimer on shared information is standard and protects both sides — neither warrants accuracy beyond good faith.' }
+      }
+    },
+    msa: {
+      indemnify_any_breach: {
+        customer: { severity:'high', redline:'You want the PROVIDER to indemnify you (IP infringement, data breach). Reject reciprocal "any breach" indemnity flowing FROM you — keep your own indemnity narrow.' },
+        provider: { severity:'critical', redline:'Broad "any breach" indemnity is your single largest hidden liability. Tie it to the liability cap and narrow to IP infringement and confidentiality breaches you cause.' },
+        mutual:   { severity:'high', redline:'Mutual services — make indemnity symmetric and capped. Each party indemnifies only for IP infringement, confidentiality breach, and gross negligence on its own side.' }
+      },
+      sole_discretion_overuse: {
+        customer: { severity:'low', redline:'If acceptance/scope sign-off discretion is yours, it favours you. Confirm the provider does not hold unilateral discretion over fees or SLAs.' },
+        provider: { severity:'high', redline:'If the customer has sole discretion over acceptance, sign-off, or fee deductions, you can be denied payment arbitrarily. Require objective acceptance criteria and deemed-acceptance after a set period.' },
+        mutual:   { severity:'medium', redline:'Replace one-sided discretion with objective, good-faith standards applying to both parties equally.' }
+      },
+      perpetuity_clause: {
+        customer: { severity:'medium', redline:'Perpetual provider obligations (support, licences) can favour you — confirm they are not paired with perpetual payment obligations on your side.' },
+        provider: { severity:'high', redline:'Perpetual obligations on you (support, indemnity, licences) are uncosted and dangerous. Tie every obligation to the contract term plus a defined tail.' },
+        mutual:   { severity:'high', redline:'Avoid perpetual obligations on either side. Tie all duties to the term plus a defined, costed tail period.' }
+      },
+      assignment_unrestricted: {
+        customer: { severity:'medium', redline:'You do not want your provider replaced by an unknown assignee. Require your consent before the provider assigns, with a carve-out for genuine M&A.' },
+        provider: { severity:'medium', redline:'You may want freedom to assign to a successor on a sale of your business. Negotiate a carve-out allowing assignment to a successor by merger/acquisition without consent.' },
+        mutual:   { severity:'medium', redline:'Mutual assignment restriction with an M&A carve-out for both parties.' }
+      },
+      msa_no_ip_clause: {
+        customer: { severity:'critical', redline:'You are paying for deliverables — without an IP clause you may NOT own them (Indian Copyright Act vests rights in the creator). Demand assignment of Foreground IP on payment in full.' },
+        provider: { severity:'high', redline:'Protect your Background IP and reusable methodology. Assign only the specific Foreground deliverables, on full payment, and retain a licence to general know-how.' },
+        mutual:   { severity:'high', redline:'Each party owns IP in what it creates; each assigns the specific deliverables commissioned by the other on payment; both retain Background IP. Spell this out.' }
+      },
+      msa_no_termination: {
+        customer: { severity:'high', redline:'You want a flexible exit — push for termination for convenience on 30-60 days notice plus termination for the provider material breach.' },
+        provider: { severity:'medium', redline:'Avoid being locked in or dropped without notice. Require mutual termination rights, a notice period, and payment for work done up to termination.' },
+        mutual:   { severity:'high', redline:'Add mutual termination — for convenience on equal notice (60-90 days) and for material breach uncured after 30 days, with payment for work performed.' }
+      },
+      msa_no_tax_clarity: {
+        customer: { severity:'medium', redline:'Ensure fees are stated exclusive of GST so you are not surprised, and confirm your right to withhold TDS as required by law.' },
+        provider: { severity:'high', redline:'State fees are exclusive of GST or you will absorb 18%. Clarify that TDS is the customer responsibility and creditable to you.' },
+        mutual:   { severity:'medium', redline:'State that all fees are exclusive of GST, each party bears its own income tax, and TDS is handled per statute — symmetric where fees flow both ways.' }
+      }
+    },
+    consultancy: {
+      indemnify_any_breach: {
+        client:     { severity:'high', redline:'You want the consultant to indemnify for IP infringement in deliverables. Reject broad indemnity flowing from you; keep your own indemnity narrow.' },
+        consultant: { severity:'critical', redline:'"Any breach" indemnity can wipe out your fee many times over. Cap it at fees received and narrow to IP infringement and confidentiality.' },
+        mutual:     { severity:'high', redline:'Symmetric, capped indemnity — each side indemnifies only for IP infringement and confidentiality breaches it causes.' }
+      },
+      sole_discretion_overuse: {
+        client:     { severity:'low', redline:'If acceptance/sign-off discretion is yours, it favours you. Exercise it reasonably to avoid disputes.' },
+        consultant: { severity:'high', redline:'If the client has sole discretion over acceptance or payment, you can be denied your fee arbitrarily. Require objective acceptance criteria and deemed-acceptance after a set period.' },
+        mutual:     { severity:'medium', redline:'Replace one-sided discretion with objective acceptance criteria and good-faith standards on both sides.' }
+      },
+      perpetuity_clause: {
+        client:     { severity:'medium', redline:'Perpetual consultant obligations (support, deliverable licence) can favour you; confirm no perpetual payment obligation attaches to you.' },
+        consultant: { severity:'high', redline:'Perpetual obligations on you (support, non-compete, indemnity) are uncosted and dangerous. Tie them to the engagement term plus a short tail.' },
+        mutual:     { severity:'high', redline:'Avoid perpetual obligations on either side; tie duties to the engagement term plus a defined tail.' }
+      },
+      assignment_unrestricted: {
+        client:     { severity:'medium', redline:'You engaged THIS consultant — restrict their ability to subcontract or assign without your consent.' },
+        consultant: { severity:'low', redline:'Assignment restriction is low-risk for you. Accept mutual consent; preserve your right to use vetted subcontractors on notice.' },
+        mutual:     { severity:'medium', redline:'Mutual assignment restriction with consent; allow vetted subcontracting on notice.' }
+      },
+      any_reason_termination: {
+        client:     { severity:'medium', redline:'A convenience-termination right in your favour is useful, but a one-sided right invites disputes. Pair it with payment for work performed to termination.' },
+        consultant: { severity:'high', redline:'If only the client can terminate at will, you have no security. Require notice, a kill-fee or payment for work done, and ideally mutual convenience rights.' },
+        mutual:     { severity:'medium', redline:'Mutual convenience termination on equal notice, with payment for work performed up to the termination date.' }
+      },
+      as_is_basis: {
+        client:     { severity:'high', redline:'An "as is" disclaimer leaves you with no quality recourse on deliverables you paid for. Push for at least a workmanlike-manner warranty.' },
+        consultant: { severity:'low', redline:'An "as is"/limited-warranty stance protects you. Offer a narrow workmanlike-manner warranty as goodwill and disclaim implied warranties.' },
+        mutual:     { severity:'medium', redline:'A limited, symmetric warranty (workmanlike manner) with disclaimer of implied warranties is the balanced position for both sides.' }
+      }
+    },
+    employment: {
+      indemnify_any_breach: {
+        employer: { severity:'medium', redline:'Keep employee indemnity narrow and lawful — broad indemnity against an employee is often unenforceable and poor optics. Limit to wilful misconduct and IP/confidentiality.' },
+        employee: { severity:'high', redline:'Reject broad personal indemnity — you should not personally underwrite company losses. Limit strictly to wilful misconduct or fraud.' }
+      },
+      sole_discretion_overuse: {
+        employer: { severity:'low', redline:'Discretion over policies and assignments is standard; exercise it reasonably and consistently to avoid disputes.' },
+        employee: { severity:'high', redline:'Excessive employer "sole discretion" over pay, role, transfer, or termination leaves you exposed. Seek objective criteria for variable pay and role changes.' }
+      },
+      perpetuity_clause: {
+        employer: { severity:'low', redline:'Perpetual confidentiality on genuine trade secrets is reasonable; perpetual restraints on the employee ability to work are void under Section 27. Keep only the enforceable parts.' },
+        employee: { severity:'high', redline:'Perpetual restraints on your future work are void under Section 27 of the Contract Act. Only confidentiality of genuine trade secrets can survive indefinitely.' }
+      },
+      assignment_unrestricted: {
+        employer: { severity:'low', redline:'Employers typically reserve the right to assign the contract to group entities on restructuring. Confirm this is preserved.' },
+        employee: { severity:'medium', redline:'You agreed to work for THIS employer. Ensure any assignment to another entity preserves your seniority, benefits, and terms.' }
+      },
+      any_reason_termination: {
+        employer: { severity:'low', redline:'Termination-for-convenience with proper notice/pay-in-lieu is generally fine; ensure it complies with applicable standing orders and shops & establishments rules.' },
+        employee: { severity:'high', redline:'If only the employer can terminate at will while you owe long notice, the contract is one-sided. Seek symmetric notice or pay-in-lieu and protection from arbitrary termination.' }
+      },
+      as_is_basis: {
+        employer: { severity:'low', redline:'"As is" language is unusual in employment; if present, ensure it does not disclaim statutory entitlements, which cannot be waived.' },
+        employee: { severity:'medium', redline:'Watch for "as is" language that tries to disclaim benefits or representations. Statutory entitlements (PF, ESI, gratuity, PoSH) cannot be waived regardless.' }
+      },
+      emp_no_gratuity: {
+        employer: { severity:'medium', redline:'Gratuity is mandatory after 5 years; you cannot contract out. Reference the Payment of Gratuity Act to avoid disputes on exit.' },
+        employee: { severity:'medium', redline:'Gratuity vests after 5 years of continuous service by law. It cannot be waived even if the contract is silent — confirm it is referenced.' }
+      }
+    }
+  };
+  if(typeof PARTY_OVERRIDES === 'undefined') return;
+  Object.keys(EXTRA).forEach(function(ct){
+    PARTY_OVERRIDES[ct] = PARTY_OVERRIDES[ct] || {};
+    Object.keys(EXTRA[ct]).forEach(function(rid){
+      if(!PARTY_OVERRIDES[ct][rid]) PARTY_OVERRIDES[ct][rid] = EXTRA[ct][rid];
+    });
+  });
+})();
+
 // Helper: returns the rule/item adapted for the selected party
 // If no party selected OR no override exists, returns the original
 function adaptForParty(item, contractType, party){
@@ -2271,6 +2418,9 @@ function renderRichReport(){
   if(S.mode === 'scanner'){
     html += '<h4>How the analysis was performed</h4>';
     html += '<p>This report was generated by Verbatra\'s automated Smart Scanner. The scanner reads the uploaded contract text and checks it against <b>' + ((RULES[S.type] && RULES[S.type].length) || 0) + ' known risk patterns</b> specific to ' + c.name + ' contracts. Patterns include missing standard clauses, low liability caps, overly broad indemnification, asymmetric termination rights, and other commonly negotiated terms.</p>';
+    if(partyDisplayName()){
+      html += '<p>Where you selected a side, each risk has been re-weighted and re-worded for that party\'s interest — the same clause can be a critical risk for one side and a protection for the other. A handful of risks (governing law, dispute forum, force majeure, amendment formalities) affect both parties equally and so are shown with the same severity regardless of side.</p>';
+    }
     html += '<h4>What the scanner can and cannot do</h4>';
     html += '<p>The scanner is a first-pass tool. It is accurate for detecting standard patterns but may miss novel or subtly-phrased risks, and may produce false positives for unusual contract structures. It is not a substitute for legal advice, and is not full AI contract analysis.</p>';
   } else {
