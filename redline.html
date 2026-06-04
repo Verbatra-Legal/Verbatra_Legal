@@ -1387,7 +1387,7 @@ function renderPartyPicker(stepLabel){
   function attr(v){ return v ? ' value="' + escapeHtml(v) + '"' : ''; }
 
   var html = '<h2 class="sec">' + stepLabel + '</h2>';
-  html += '<p class="hint" style="margin-bottom:14px;font-size:12.5px;line-height:1.5">Enter the two parties and pick the role each plays. Then choose which party is yours — risks will be framed from that side.</p>';
+  html += '<p class="hint" style="margin-bottom:14px;font-size:12.5px;line-height:1.5">Optional but recommended. Enter the two parties and pick the role each plays, then choose which party is yours — risks will be framed from that side. Skip this to see a neutral analysis.</p>';
 
   // After picking, show a clear confirmation banner at the top
   if(hasPicked){
@@ -1512,8 +1512,7 @@ function renderChecklistMode(){
   var html = renderModeTabs();
   html += renderTypePicker('Step 1, Pick the contract type');
   if(!S.type) return html;
-  html += renderPartyPicker('Step 2, Pick your side');
-  if(!S.party) return html;
+  html += renderPartyPicker('Step 2, Pick your side (optional)');
 
   var c = CL[S.type];
   html += '<h2 class="sec">Step 3, Walk through the checklist</h2>';
@@ -1557,10 +1556,8 @@ function renderScannerMode(){
   var html = renderModeTabs();
   html += renderTypePicker('Step 1, Pick the contract type');
   if(!S.type) return html;
-  html += renderPartyPicker('Step 2, Pick your side');
-  if(!S.party) return html;
 
-  html += '<h2 class="sec">Step 3, Upload your contract</h2>';
+  html += '<h2 class="sec">Step 2, Upload your contract</h2>';
   html += '<p class="hint" style="margin-bottom:14px;font-size:12.5px;line-height:1.5">Drop your contract file below or click to browse. Supports Word (.docx), PDF, and plain text (.txt). The scanner checks it against known risk patterns and produces a risk report on the right.</p>';
 
   // Upload zone, or extracted-text confirmation
@@ -1596,6 +1593,9 @@ function renderScannerMode(){
     html += '<br><br>Try uploading the original Word .docx if you have it (Word files extract more reliably than PDFs), or convert the PDF to text first.';
     html += '</div>';
   }
+
+  // Step 3 (OPTIONAL): party perspective — reframes the risk flags. Never blocks upload.
+  html += renderPartyPicker('Step 3, Pick your side (optional)');
 
   // Privacy panel
   html += '<div class="privacy-panel">';
