@@ -433,23 +433,6 @@
   .nav-overlay.open{opacity:1;visibility:visible}
   body.nav-locked{overflow:hidden}
 }
-
-/* === Mobile drawer stacking fix (patched) ===
-   nav has backdrop-filter -> stacking context + containing block for fixed kids.
-   So: kill backdrop-filter on mobile (fixed drawer becomes viewport-relative),
-   lift nav's stacking context ABOVE the overlay, and re-scope the drawer/toggle
-   z-indexes to live inside nav's own context. */
-@media (max-width:860px){
-  nav{
-    -webkit-backdrop-filter:none !important;
-    backdrop-filter:none !important;
-    background:rgba(244,239,228,.97) !important;
-    z-index:400 !important;
-  }
-  .nav-overlay{z-index:380 !important}
-  .nav-links{z-index:1 !important}   /* inside nav's context, above nav's own bg */
-  .nav-toggle{z-index:2 !important}  /* above the drawer, so the X stays tappable */
-}
 </style>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="manifest" href="/manifest.json">
@@ -457,6 +440,22 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
 <meta name="theme-color" content="#1f3d30">
+<style id="verbatra-mobile-nav-fix">
+/* Mobile drawer stacking fix. The nav containers use backdrop-filter, which
+   creates a stacking context + a containing block for fixed children — that
+   trapped the drawer under .nav-overlay (dark, unclickable) and mispositioned it. */
+@media (max-width:860px){
+  nav:not(.foot-links), .course-nav, .vb-toolnav{
+    -webkit-backdrop-filter:none !important;
+    backdrop-filter:none !important;
+    background:rgba(244,239,228,.97) !important;
+    z-index:400 !important;
+  }
+  .nav-overlay{z-index:380 !important}
+  .nav-links{z-index:1 !important}   /* inside nav's context, above its own bg */
+  .nav-toggle{z-index:2 !important}  /* above the drawer, X stays tappable */
+}
+</style>
 </head>
 <body>
 <a href="#main-content" class="skip-link" style="position:absolute;top:-40px;left:0;padding:8px 14px;background:var(--green);color:var(--paper);font-size:13px;font-weight:600;border-radius:0 0 8px 0;z-index:9999;transition:top .15s" onfocus="this.style.top='0'" onblur="this.style.top='-40px'">Skip to main content</a>

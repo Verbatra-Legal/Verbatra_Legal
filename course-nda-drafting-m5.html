@@ -106,6 +106,22 @@ body{font-family:'Hanken Grotesk',sans-serif;background:var(--cream);color:var(-
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"LearningResource","name":"Module 5: Remedies and Enforcement in India","description":"Injunctions vs damages in NDA enforcement, temporary injunctions under Order XXXIX CPC, perpetual injunctions under the Specific Relief Act, liquidated damages, governing law, and arbitration carve-outs.","url":"https://www.verbatra.com/course-nda-drafting-m5.html","isPartOf":{"@type":"Course","name":"NDA Drafting Masterclass","url":"https://www.verbatra.com/course-nda-drafting.html"},"provider":{"@type":"Organization","name":"Verbatra","url":"https://www.verbatra.com"},"educationalLevel":"Intermediate","inLanguage":"en","isAccessibleForFree":true}
 </script>
+<style id="verbatra-mobile-nav-fix">
+/* Mobile drawer stacking fix. The nav containers use backdrop-filter, which
+   creates a stacking context + a containing block for fixed children — that
+   trapped the drawer under .nav-overlay (dark, unclickable) and mispositioned it. */
+@media (max-width:860px){
+  nav:not(.foot-links), .course-nav, .vb-toolnav{
+    -webkit-backdrop-filter:none !important;
+    backdrop-filter:none !important;
+    background:rgba(244,239,228,.97) !important;
+    z-index:400 !important;
+  }
+  .nav-overlay{z-index:380 !important}
+  .nav-links{z-index:1 !important}   /* inside nav's context, above its own bg */
+  .nav-toggle{z-index:2 !important}  /* above the drawer, X stays tappable */
+}
+</style>
 </head>
 <body>
 <nav class="course-nav">

@@ -281,6 +281,22 @@ body{font-family:'Hanken Grotesk',sans-serif;background:var(--cream);color:var(-
   body.nav-locked{overflow:hidden}
 }
 </style>
+<style id="verbatra-mobile-nav-fix">
+/* Mobile drawer stacking fix. The nav containers use backdrop-filter, which
+   creates a stacking context + a containing block for fixed children — that
+   trapped the drawer under .nav-overlay (dark, unclickable) and mispositioned it. */
+@media (max-width:860px){
+  nav:not(.foot-links), .course-nav, .vb-toolnav{
+    -webkit-backdrop-filter:none !important;
+    backdrop-filter:none !important;
+    background:rgba(244,239,228,.97) !important;
+    z-index:400 !important;
+  }
+  .nav-overlay{z-index:380 !important}
+  .nav-links{z-index:1 !important}   /* inside nav's context, above its own bg */
+  .nav-toggle{z-index:2 !important}  /* above the drawer, X stays tappable */
+}
+</style>
 </head>
 <body><script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Indian Contract Law Essentials","description":"A free six-module course on Indian contract law. Covers offer and acceptance, consideration, capacity, free consent, void and voidable contracts, performance and remedies. Includes three quizzes and a certificate.","provider":{"@type":"Organization","name":"Verbatra","url":"https://www.verbatra.com","sameAs":["https://www.linkedin.com/company/verbatra/"]},"url":"https://www.verbatra.com/course-contract-law-essentials.html","inLanguage":"en-IN","isAccessibleForFree":true,"courseMode":"online","educationalLevel":"Beginner","timeRequired":"PT3H","teaches":["What a Contract Is, and Why It Matters","Offer and Acceptance","Consideration","Capacity and Free Consent","Lawful Object and Public Policy","Performance, Breach, and Remedies"],"hasCourseInstance":{"@type":"CourseInstance","courseMode":"online","name":"Indian Contract Law Essentials","courseWorkload":"PT3H"},"offers":{"@type":"Offer","price":"0","priceCurrency":"INR","availability":"https://schema.org/InStock"},"breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.verbatra.com/"},{"@type":"ListItem","position":2,"name":"Courses","item":"https://www.verbatra.com/courses.html"},{"@type":"ListItem","position":3,"name":"Indian Contract Law Essentials","item":"https://www.verbatra.com/course-contract-law-essentials.html"}]}}</script><nav class="course-nav">
   <a href="/" class="logo">Verbatra<span>.</span></a>

@@ -121,6 +121,22 @@ nav{display:flex;justify-content:space-between;align-items:center}
 <meta name="twitter:image:alt" content="Verbatra &mdash; Free legal document generator for Indian businesses">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.verbatra.com/#organization","name":"Verbatra","url":"https://www.verbatra.com","logo":{"@type":"ImageObject","url":"https://www.verbatra.com/og-image.png"},"founder":{"@type":"Person","name":"Arnav Bhardwaj","jobTitle":"Corporate Lawyer & Founder","url":"https://www.verbatra.com/founder.html","sameAs":"https://www.linkedin.com/in/bhardwajarnav/"},"contactPoint":{"@type":"ContactPoint","telephone":"+91-9368730710","contactType":"Customer Service","email":"verbatra.legal@gmail.com","areaServed":"IN"},"sameAs":["https://www.linkedin.com/company/verbatra/"]},{"@type":"Person","@id":"https://www.verbatra.com/founder.html#person","name":"Arnav Bhardwaj","url":"https://www.verbatra.com/founder.html","jobTitle":"Corporate Lawyer & Founder of Verbatra","description":"Corporate lawyer with LL.M, MBA and PhD, building Verbatra to give Indian businesses access to enterprise-grade legal infrastructure.","image":"https://www.verbatra.com/arnav.jpg","worksFor":{"@id":"https://www.verbatra.com/#organization"},"sameAs":["https://www.linkedin.com/in/bhardwajarnav/"],"knowsAbout":["Indian Contract Law","Corporate Law","Data Protection (DPDP Act)","Intellectual Property Law","Commercial Litigation"]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.verbatra.com/"},{"@type":"ListItem","position":2,"name":"Founder","item":"https://www.verbatra.com/founder.html"}]}]}</script>
+<style id="verbatra-mobile-nav-fix">
+/* Mobile drawer stacking fix. The nav containers use backdrop-filter, which
+   creates a stacking context + a containing block for fixed children — that
+   trapped the drawer under .nav-overlay (dark, unclickable) and mispositioned it. */
+@media (max-width:860px){
+  nav:not(.foot-links), .course-nav, .vb-toolnav{
+    -webkit-backdrop-filter:none !important;
+    backdrop-filter:none !important;
+    background:rgba(244,239,228,.97) !important;
+    z-index:400 !important;
+  }
+  .nav-overlay{z-index:380 !important}
+  .nav-links{z-index:1 !important}   /* inside nav's context, above its own bg */
+  .nav-toggle{z-index:2 !important}  /* above the drawer, X stays tappable */
+}
+</style>
 </head>
 <body>
 <nav>
