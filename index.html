@@ -433,6 +433,23 @@
   .nav-overlay.open{opacity:1;visibility:visible}
   body.nav-locked{overflow:hidden}
 }
+
+/* === Mobile drawer stacking fix (patched) ===
+   nav has backdrop-filter -> stacking context + containing block for fixed kids.
+   So: kill backdrop-filter on mobile (fixed drawer becomes viewport-relative),
+   lift nav's stacking context ABOVE the overlay, and re-scope the drawer/toggle
+   z-indexes to live inside nav's own context. */
+@media (max-width:860px){
+  nav{
+    -webkit-backdrop-filter:none !important;
+    backdrop-filter:none !important;
+    background:rgba(244,239,228,.97) !important;
+    z-index:400 !important;
+  }
+  .nav-overlay{z-index:380 !important}
+  .nav-links{z-index:1 !important}   /* inside nav's context, above nav's own bg */
+  .nav-toggle{z-index:2 !important}  /* above the drawer, so the X stays tappable */
+}
 </style>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="manifest" href="/manifest.json">
@@ -445,14 +462,7 @@
 <a href="#main-content" class="skip-link" style="position:absolute;top:-40px;left:0;padding:8px 14px;background:var(--green);color:var(--paper);font-size:13px;font-weight:600;border-radius:0 0 8px 0;z-index:9999;transition:top .15s" onfocus="this.style.top='0'" onblur="this.style.top='-40px'">Skip to main content</a>
 <div class="launch-banner" role="banner" aria-label="Launch offer announcement">
   <span class="pill">Launch offer</span>
-  <span>Complimentary access ends in</span>
-  <span class="countdown" id="cd">
-    <span><b id="cdD">--</b><small>d</small></span>
-    <span><b id="cdH">--</b><small>h</small></span>
-    <span><b id="cdM">--</b><small>m</small></span>
-    <span><b id="cdS">--</b><small>s</small></span>
-  </span>
-  <span>&mdash; Verbatra moves to a subscription thereafter.</span>
+  <span>Complimentary access &mdash; <b>Verbatra moves to a subscription soon.</b></span>
 </div>
 <nav role="navigation" aria-label="Main navigation">
   <a href="#top" class="logo" aria-label="Verbatra home">Verbatra<span class="dot">.</span></a>
@@ -778,18 +788,6 @@
 </footer>
 <script>
 document.getElementById("yr").textContent=new Date().getFullYear();
-var VERBATRA_LAUNCH_END=new Date("2026-06-27T23:59:59").getTime();
-function vbTick(){
-  var now=Date.now();var s=Math.max(0,Math.floor((VERBATRA_LAUNCH_END-now)/1000));
-  var d=Math.floor(s/86400);s-=d*86400;var h=Math.floor(s/3600);s-=h*3600;var m=Math.floor(s/60);s-=m*60;
-  function pad(n){return String(n).padStart(2,"0");}
-  var e;
-  if(e=document.getElementById("cdD"))e.textContent=pad(d);
-  if(e=document.getElementById("cdH"))e.textContent=pad(h);
-  if(e=document.getElementById("cdM"))e.textContent=pad(m);
-  if(e=document.getElementById("cdS"))e.textContent=pad(s);
-}
-vbTick();setInterval(vbTick,1000);
 </script>
 
 <script>
