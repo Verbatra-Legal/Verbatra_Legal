@@ -30,20 +30,20 @@
 <style>
 
 :root{
-  --green:#1f3d30;
-  --green-2:#2d5240;
-  --green-soft:#3a5d4a;
-  --oxblood:#7a2e26;
-  --cream:#f4efe4;
-  --cream-2:#ebe4d5;
-  --gold:#a8843f;
-  --gold-soft:#c4a064;
-  --ink:#23211c;
-  --ink-soft:#5a564c;
-  --line:#d9d3c0;
-  --paper:#fffdf7;
-  --paper-2:#f4efe4;
-  --card:#fffdf7;
+ --green:#1f3d30;
+ --green-2:#2d5240;
+ --green-soft:#3a5d4a;
+ --oxblood:#7a2e26;
+ --cream:#f4efe4;
+ --cream-2:#ebe4d5;
+ --gold:#a8843f;
+ --gold-soft:#c4a064;
+ --ink:#23211c;
+ --ink-soft:#5a564c;
+ --line:#d9d3c0;
+ --paper:#fffdf7;
+ --paper-2:#f4efe4;
+ --card:#fffdf7;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -226,105 +226,105 @@ body{font-family:'Hanken Grotesk',sans-serif;background:var(--cream);color:var(-
 .cert-id-display b{color:var(--green);font-weight:600}
 
 @media (max-width:680px){
-  .course-head{padding:36px 6vw 22px}
-  .course-body{padding:0 6vw 50px}
-  .courses-hero{padding:42px 6vw 36px}
-  .courses-grid{padding:32px 6vw;grid-template-columns:1fr}
-  .quiz-head{padding:26px 6vw 22px}
-  .quiz-head h1{font-size:28px}
-  .quiz-body{padding:24px 6vw 50px}
-  .quiz-card{padding:22px 22px}
-  .module-reading{padding:24px 6vw 50px;font-size:17px}
-  .module-reading h2{font-size:24px}
+ .course-head{padding:36px 6vw 22px}
+ .course-body{padding:0 6vw 50px}
+ .courses-hero{padding:42px 6vw 36px}
+ .courses-grid{padding:32px 6vw;grid-template-columns:1fr}
+ .quiz-head{padding:26px 6vw 22px}
+ .quiz-head h1{font-size:28px}
+ .quiz-body{padding:24px 6vw 50px}
+ .quiz-card{padding:22px 22px}
+ .module-reading{padding:24px 6vw 50px;font-size:17px}
+ .module-reading h2{font-size:24px}
 }
 
 </style>
 </head>
 <body><meta name="robots" content="noindex, follow"><nav class="course-nav">
-  <a href="/" class="logo">Verbatra<span>.</span></a>
-  <div class="nav-links">
-    <a href="/courses/">All Courses</a>
-    <a href="/blog.html">Blog</a>
-    <a href="/redline.html">Risk Review</a>
-    <a href="/" class="nav-cta">Free Documents</a>
-  </div>
+ <a href="/" class="logo">Verbatra<span>.</span></a>
+ <div class="nav-links">
+ <a href="/courses/">All Courses</a>
+ <a href="/blog.html">Blog</a>
+ <a href="/redline.html">Risk Review</a>
+ <a href="/" class="nav-cta">Legal Documents</a>
+ </div>
 </nav>
 <section class="course-head" style="text-align:center;max-width:680px">
-  <span class="eyebrow">Verbatra Certificate</span>
-  <h1>Verify a Verbatra certificate</h1>
-  <p class="lede" style="margin-left:auto;margin-right:auto">Enter a certificate ID below to check whether it exists in this device's records. Verbatra certificates are self-issued and verifiable on the device that generated them.</p>
+ <span class="eyebrow">Verbatra Certificate</span>
+ <h1>Verify a Verbatra certificate</h1>
+ <p class="lede" style="margin-left:auto;margin-right:auto">Enter a certificate ID below to check whether it exists in this device's records. Verbatra certificates are self-issued and verifiable on the device that generated them.</p>
 </section>
 <section class="course-body" style="max-width:520px;text-align:center">
-  <input type="text" id="certIdInput" placeholder="VBT-2026-CL-XXXXXX" style="width:100%;padding:14px 18px;border:1.5px solid #d9d3c0;border-radius:10px;background:#fffdf7;font-family:'Source Code Pro',monospace;font-size:15px;text-align:center;letter-spacing:.04em;margin-bottom:14px">
-  <button onclick="verifyCert()" style="background:linear-gradient(180deg,#2d5240,#1f3d30);color:#f4efe4;border:none;border-radius:10px;padding:13px 32px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;cursor:pointer">Verify</button>
-  <div id="verifyResult" style="margin-top:24px;padding:24px;border-radius:12px;text-align:center;display:none"></div>
-  <div style="margin-top:34px;padding:20px;background:rgba(168,132,63,.06);border:1px solid rgba(168,132,63,.25);border-radius:10px;font-size:13px;color:#5a564c;line-height:1.6;text-align:left">
-    <b style="font-family:'Fraunces',serif;font-weight:600;color:#23211c;display:block;margin-bottom:6px">About Verbatra certificates</b>
-    Verbatra certificates are free and self-issued. The verification system reads from the browser's local storage on the device that generated the certificate, so it works for the recipient. For third-party verification, the recipient can show their downloaded PDF certificate which includes a unique ID. Verbatra does not currently maintain a server-side certificate registry; the device-local design is by intention to keep the courses fully private and free.
-  </div>
+ <input type="text" id="certIdInput" placeholder="VBT-2026-CL-XXXXXX" style="width:100%;padding:14px 18px;border:1.5px solid #d9d3c0;border-radius:10px;background:#fffdf7;font-family:'Source Code Pro',monospace;font-size:15px;text-align:center;letter-spacing:.04em;margin-bottom:14px">
+ <button onclick="verifyCert()" style="background:linear-gradient(180deg,#2d5240,#1f3d30);color:#f4efe4;border:none;border-radius:10px;padding:13px 32px;font-family:'Hanken Grotesk',sans-serif;font-size:15px;font-weight:600;cursor:pointer">Verify</button>
+ <div id="verifyResult" style="margin-top:24px;padding:24px;border-radius:12px;text-align:center;display:none"></div>
+ <div style="margin-top:34px;padding:20px;background:rgba(168,132,63,.06);border:1px solid rgba(168,132,63,.25);border-radius:10px;font-size:13px;color:#5a564c;line-height:1.6;text-align:left">
+ <b style="font-family:'Fraunces',serif;font-weight:600;color:#23211c;display:block;margin-bottom:6px">About Verbatra certificates</b>
+ Verbatra certificates are self-issued. The verification system reads from the browser's local storage on the device that generated the certificate, so it works for the recipient. For third-party verification, the recipient can show their downloaded PDF certificate which includes a unique ID. Verbatra does not currently maintain a server-side certificate registry; the device-local design is by intention to keep the courses fully private.
+ </div>
 </section>
 <script>
 function verifyCert(){
-  var id = document.getElementById("certIdInput").value.trim();
-  var out = document.getElementById("verifyResult");
-  out.style.display = "block";
-  if(!id){
-    out.innerHTML = "<b>Please enter a certificate ID.</b>";
-    out.style.background = "rgba(122,46,38,.08)";
-    out.style.borderLeft = "3px solid #7a2e26";
-    out.style.color = "#5a221c";
-    return;
-  }
-  try {
-    var state = JSON.parse(localStorage.getItem("verbatra_courses") || "{}");
-    var found = null;
-    Object.keys(state).forEach(function(courseId){
-      if(state[courseId].certificate_id === id){
-        found = { courseId: courseId, name: state[courseId].name_on_certificate, completed_at: state[courseId].completed_at };
-      }
-    });
-    if(found){
-      var dt = found.completed_at ? new Date(found.completed_at).toLocaleDateString("en-IN", {day:"numeric",month:"long",year:"numeric"}) : "—";
-      out.innerHTML = "<div style=\"font-size:36px;margin-bottom:8px\">&#10003;</div><b style=\"font-family:'Fraunces',serif;font-weight:500;font-size:22px;color:#1f3d30;display:block;margin-bottom:10px\">Verified</b><div style=\"font-size:14px;color:#23211c;line-height:1.6\">Certificate <b>" + id + "</b> was issued to <b>" + found.name + "</b> on " + dt + ".</div>";
-      out.style.background = "rgba(61,138,94,.08)";
-      out.style.borderLeft = "3px solid #3d8a5e";
-      out.style.color = "#1a4a2e";
-    } else {
-      out.innerHTML = "<div style=\"font-size:36px;margin-bottom:8px\">?</div><b style=\"font-family:'Fraunces',serif;font-weight:500;font-size:20px;color:#23211c;display:block;margin-bottom:10px\">Not found on this device</b><div style=\"font-size:13.5px;color:#5a564c;line-height:1.6\">The certificate ID was not found in this device's records. The certificate may have been issued on a different device or browser. Ask the holder to verify using the device or browser where they completed the course.</div>";
-      out.style.background = "rgba(168,132,63,.07)";
-      out.style.borderLeft = "3px solid #a8843f";
-      out.style.color = "#5a564c";
-    }
-  } catch(e){
-    out.innerHTML = "<b>Verification error: " + e.message + "</b>";
-    out.style.background = "rgba(122,46,38,.08)";
-    out.style.borderLeft = "3px solid #7a2e26";
-  }
+ var id = document.getElementById("certIdInput").value.trim();
+ var out = document.getElementById("verifyResult");
+ out.style.display = "block";
+ if(!id){
+ out.innerHTML = "<b>Please enter a certificate ID.</b>";
+ out.style.background = "rgba(122,46,38,.08)";
+ out.style.borderLeft = "3px solid #7a2e26";
+ out.style.color = "#5a221c";
+ return;
+ }
+ try {
+ var state = JSON.parse(localStorage.getItem("verbatra_courses") || "{}");
+ var found = null;
+ Object.keys(state).forEach(function(courseId){
+ if(state[courseId].certificate_id === id){
+ found = { courseId: courseId, name: state[courseId].name_on_certificate, completed_at: state[courseId].completed_at };
+ }
+ });
+ if(found){
+ var dt = found.completed_at ? new Date(found.completed_at).toLocaleDateString("en-IN", {day:"numeric",month:"long",year:"numeric"}) : "—";
+ out.innerHTML = "<div style=\"font-size:36px;margin-bottom:8px\">&#10003;</div><b style=\"font-family:'Fraunces',serif;font-weight:500;font-size:22px;color:#1f3d30;display:block;margin-bottom:10px\">Verified</b><div style=\"font-size:14px;color:#23211c;line-height:1.6\">Certificate <b>" + id + "</b> was issued to <b>" + found.name + "</b> on " + dt + ".</div>";
+ out.style.background = "rgba(61,138,94,.08)";
+ out.style.borderLeft = "3px solid #3d8a5e";
+ out.style.color = "#1a4a2e";
+ } else {
+ out.innerHTML = "<div style=\"font-size:36px;margin-bottom:8px\">?</div><b style=\"font-family:'Fraunces',serif;font-weight:500;font-size:20px;color:#23211c;display:block;margin-bottom:10px\">Not found on this device</b><div style=\"font-size:13.5px;color:#5a564c;line-height:1.6\">The certificate ID was not found in this device's records. The certificate may have been issued on a different device or browser. Ask the holder to verify using the device or browser where they completed the course.</div>";
+ out.style.background = "rgba(168,132,63,.07)";
+ out.style.borderLeft = "3px solid #a8843f";
+ out.style.color = "#5a564c";
+ }
+ } catch(e){
+ out.innerHTML = "<b>Verification error: " + e.message + "</b>";
+ out.style.background = "rgba(122,46,38,.08)";
+ out.style.borderLeft = "3px solid #7a2e26";
+ }
 }
 // Pre-fill from URL if ?id= present
 (function(){
-  var params = new URLSearchParams(window.location.search);
-  var id = params.get("id");
-  if(id){
-    document.getElementById("certIdInput").value = id;
-    verifyCert();
-  }
+ var params = new URLSearchParams(window.location.search);
+ var id = params.get("id");
+ if(id){
+ document.getElementById("certIdInput").value = id;
+ verifyCert();
+ }
 })();
 </script>
 <footer class="course-footer">
-  <div>
-    <a href="/">Home</a> ·
-    <a href="/courses/">All Courses</a> ·
-    <a href="/blog.html">Blog</a> ·
-    <a href="/founder.html">Founder</a> ·
-    <a href="/privacy.html">Privacy</a>
-  </div>
-  <p class="fdisclaim">
-    Verbatra is a free legal-documents and education platform built by a corporate lawyer.
-    Course content is for educational purposes only and is not legal advice. Reading a Verbatra course does not create a lawyer-client relationship.
-    For advice on your specific situation, consult a qualified lawyer admitted in the relevant jurisdiction.
-  </p>
-  <p style="margin-top:14px">&copy; 2026 Verbatra. All rights reserved.</p>
+ <div>
+ <a href="/">Home</a> ·
+ <a href="/courses/">All Courses</a> ·
+ <a href="/blog.html">Blog</a> ·
+ <a href="/founder.html">Founder</a> ·
+ <a href="/privacy.html">Privacy</a>
+ </div>
+ <p class="fdisclaim">
+ Verbatra is a legal-documents and education platform built by a corporate lawyer.
+ Course content is for educational purposes only and is not legal advice. Reading a Verbatra course does not create a lawyer-client relationship.
+ For advice on your specific situation, consult a qualified lawyer admitted in the relevant jurisdiction.
+ </p>
+ <p style="margin-top:14px">&copy; 2026 Verbatra. All rights reserved.</p>
 </footer>
 </body>
 </html>
