@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Log In | Verbatra</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://www.verbatra.com/login.html">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#1f3d30">
+<style>
+:root{--ink:#1a1a17;--ink-soft:#4a4a42;--paper:#f4efe4;--card:#fbf8f0;--green:#1f3d30;--green-2:#2c5443;--oxblood:#7a2e26;--line:#d8cfbc;--gold:#a8843f}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:'Hanken Grotesk',sans-serif;background:var(--paper);color:var(--ink);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;
+  background-image:radial-gradient(circle at 12% 8%,rgba(31,61,48,.06),transparent 40%),radial-gradient(circle at 88% 92%,rgba(122,46,38,.05),transparent 42%);}
+.card{width:100%;max-width:420px;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 24px 60px -24px rgba(26,26,23,.35);padding:36px 34px 30px}
+.mark{font-family:'Fraunces',serif;font-weight:600;font-size:26px;color:var(--green);text-align:center;margin-bottom:4px}
+.mark span{color:var(--oxblood)}
+.sub{text-align:center;font-size:13px;color:var(--ink-soft);margin-bottom:26px;line-height:1.5}
+.field{margin-bottom:14px}
+label{display:block;font-size:11.5px;font-weight:600;color:var(--ink-soft);margin-bottom:5px;letter-spacing:.02em}
+input{width:100%;font-family:inherit;font-size:14px;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:7px;padding:10px 12px}
+input:focus{outline:none;border-color:var(--green-2);box-shadow:0 0 0 3px rgba(31,61,48,.1)}
+input.otp-input{letter-spacing:8px;font-size:20px;text-align:center;font-weight:600;font-family:'Hanken Grotesk',sans-serif}
+.btn{width:100%;font-family:inherit;font-size:14px;font-weight:600;border:1px solid var(--green);background:var(--green);color:#f4efe4;border-radius:8px;padding:11px 16px;cursor:pointer;transition:.15s;margin-top:4px}
+.btn:hover{background:var(--green-2)}
+.btn:disabled{opacity:.6;cursor:not-allowed}
+.link{display:block;text-align:center;font-size:12.5px;color:var(--green);text-decoration:none;margin-top:14px;font-weight:600;background:none;border:none;cursor:pointer;width:100%}
+.link:hover{color:var(--oxblood)}
+.msg{font-size:12.5px;padding:9px 12px;border-radius:7px;margin-bottom:14px;display:none;line-height:1.5}
+.msg.err{display:block;background:rgba(122,46,38,.08);border:1px solid rgba(122,46,38,.2);color:var(--oxblood)}
+.msg.ok{display:block;background:rgba(31,61,48,.08);border:1px solid rgba(31,61,48,.2);color:var(--green)}
+.pane{display:none}
+.pane.on{display:block}
+.back{display:inline-flex;gap:6px;font-size:12.5px;font-weight:600;color:var(--ink-soft);text-decoration:none;margin-bottom:18px}
+.back:hover{color:var(--green)}
+.email-chip{font-size:12.5px;color:var(--ink-soft);text-align:center;margin-bottom:16px;background:#fff;border:1px solid var(--line);border-radius:20px;padding:6px 14px;display:inline-block}
+.center{text-align:center}
+</style>
+</head>
+<body>
+<div class="card">
+  <a class="back" href="/">&larr; Back to Verbatra</a>
+  <div class="mark">Verb<span>atra</span></div>
+  <div class="sub">5 free documents every month.<br>No password — we'll email you a one-time code.</div>
+
+  <div id="msgBox" class="msg"></div>
+
+  <div id="paneEmail" class="pane on">
+    <form id="emailForm">
+      <div class="field"><label>Email</label><input type="email" id="emailInput" required autocomplete="email" placeholder="you@company.com"></div>
+      <button class="btn" type="submit" id="sendBtn">Send me a code</button>
+    </form>
+  </div>
+
+  <div id="paneCode" class="pane">
+    <div class="center email-chip" id="emailChip"></div>
+    <form id="codeForm">
+      <div class="field"><label>6-digit code</label><input type="text" id="codeInput" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="6" required placeholder="000000" autocomplete="one-time-code"></div>
+      <button class="btn" type="submit" id="verifyBtn">Verify &amp; Log In</button>
+    </form>
+    <button class="link" id="resendBtn">Resend code</button>
+    <button class="link" id="changeEmailBtn">Use a different email</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/verbatra-auth.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const sb = window.VBAuth.supabase;
+let currentEmail = "";
+
+function showMsg(text, type){
+  const box = $("msgBox");
+  box.textContent = text;
+  box.className = "msg " + (type === "err" ? "err" : "ok");
+}
+function clearMsg(){ $("msgBox").className = "msg"; $("msgBox").textContent = ""; }
+
+function showPane(name){
+  ["Email","Code"].forEach(p=>{ $("pane"+p).classList.toggle("on", p===name); });
+  clearMsg();
+}
+
+function redirectAfterAuth(){
+  const params = new URLSearchParams(window.location.search);
+  const redirect = params.get("redirect");
+  window.location.href = redirect ? decodeURIComponent(redirect) : "/account.html";
+}
+
+async function sendCode(email){
+  const { error } = await sb.auth.signInWithOtp({
+    email,
+    options: { shouldCreateUser: true }
+  });
+  return error;
+}
+
+$("emailForm").addEventListener("submit", async e=>{
+  e.preventDefault();
+  const email = $("emailInput").value.trim();
+  $("sendBtn").disabled = true; clearMsg();
+  const error = await sendCode(email);
+  $("sendBtn").disabled = false;
+  if (error) { showMsg(error.message, "err"); return; }
+  currentEmail = email;
+  $("emailChip").textContent = email;
+  showPane("Code");
+  showMsg("Code sent — check your inbox (and spam folder).", "ok");
+});
+
+$("codeForm").addEventListener("submit", async e=>{
+  e.preventDefault();
+  const token = $("codeInput").value.trim();
+  $("verifyBtn").disabled = true; clearMsg();
+  const { error } = await sb.auth.verifyOtp({ email: currentEmail, token, type: "email" });
+  $("verifyBtn").disabled = false;
+  if (error) { showMsg("That code didn't work — check it and try again, or resend.", "err"); return; }
+  redirectAfterAuth();
+});
+
+$("resendBtn").addEventListener("click", async ()=>{
+  clearMsg();
+  const error = await sendCode(currentEmail);
+  if (error) { showMsg(error.message, "err"); return; }
+  showMsg("New code sent.", "ok");
+});
+
+$("changeEmailBtn").addEventListener("click", ()=>{
+  $("codeInput").value = "";
+  showPane("Email");
+});
+
+/* If already logged in, skip straight through */
+(async ()=>{
+  const session = await window.VBAuth.getSession();
+  if (session) redirectAfterAuth();
+})();
+</script>
+</body>
+</html>

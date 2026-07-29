@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Free Contract Playbook Creator — Negotiation Positions | Verbatra</title>
+<title>Free Contract Review Playbook Generator — Internal Checklist | Verbatra</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&display=swap" rel="stylesheet">
@@ -52,6 +52,8 @@ input:focus,select:focus{outline:none;border-color:var(--green-2);box-shadow:0 0
 .doc{background:#fffdf7;border:1px solid var(--line);border-radius:4px;box-shadow:0 18px 40px -24px rgba(26,26,23,.4),0 2px 0 var(--line-soft);padding:50px 52px;font-family:'Source Serif 4',Georgia,serif;color:#23211c;font-size:13.5px;line-height:1.62;max-width:760px}
 .doc h1{font-family:'Source Serif 4',serif;font-weight:600;font-size:18px;text-align:center;letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px}
 .doc .sub{text-align:center;font-size:12px;color:#6a655a;margin-bottom:22px;font-style:italic}
+.doc h2.docsec{font-family:'Source Serif 4',serif;font-size:15px;text-align:center;letter-spacing:.03em;text-transform:uppercase;margin:26px 0 14px;border-top:2px solid #cbc3b0;padding-top:16px}
+.doc h2.docsec:first-of-type{border-top:none;margin-top:0;padding-top:0}
 .doc h3{font-weight:600;font-size:13px;margin:19px 0 7px;text-transform:uppercase;letter-spacing:.03em;color:#1f3d30}
 .doc p{margin-bottom:8px;text-align:justify}
 .doc .lede{margin-bottom:16px}
@@ -59,11 +61,17 @@ input:focus,select:focus{outline:none;border-color:var(--green-2);box-shadow:0 0
 .doc .tier b.pref{color:#1f3d30}
 .doc .tier b.fall{color:#a8843f}
 .doc .tier b.walk{color:#7a2e26}
-.doc .tip{font-style:italic;color:#6a655a;font-size:12px;margin-bottom:18px;padding-left:2px;border-left:2px solid #d8cfbc;padding-left:10px}
+.doc .tip{font-style:italic;color:#6a655a;font-size:12px;margin-bottom:18px;border-left:2px solid #d8cfbc;padding-left:10px}
+.doc .wf-step{margin-bottom:9px;padding-left:22px;position:relative}
+.doc .wf-step .num{position:absolute;left:0;top:0;font-weight:700;color:#a8843f;font-family:'Source Serif 4',serif}
+.doc .matrix{width:100%;border-collapse:collapse;margin:6px 0 14px;font-size:12.5px}
+.doc .matrix th,.doc .matrix td{border:1px solid #d8cfbc;padding:7px 9px;text-align:left;vertical-align:top}
+.doc .matrix th{background:#f4efe4;font-weight:600;color:#1f3d30}
 .doc .flagbox{margin-top:24px;border-top:2px solid #cbc3b0;padding-top:16px}
 .doc .flagbox h2{font-family:'Source Serif 4',serif;font-size:15px;text-align:center;letter-spacing:.03em;text-transform:uppercase;margin-bottom:12px}
 .doc .flagbox li{margin-bottom:7px}
 .doc .stamp-note{font-size:11.5px;font-style:italic;color:#6a655a;border-top:1px dashed #cbc3b0;margin-top:18px;padding-top:10px}
+.doc .doccontrol{margin-top:20px;font-size:11px;color:#8a8578;border-top:1px solid #e4ddcc;padding-top:10px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
 .doc-header{display:flex;justify-content:flex-end;align-items:center;padding:0 0 12px 0;margin:0 0 22px 0;border-bottom:1.5px solid #cbc3b0;min-height:40px}
 .doc-header img{height:46px;max-width:170px;width:auto;object-fit:contain;display:block}
 @media print{.doc-header{border-bottom:1pt solid #999;margin-bottom:16pt;padding-bottom:8pt}.doc-header img{height:46pt}}
@@ -121,14 +129,14 @@ input:focus,select:focus{outline:none;border-color:var(--green-2);box-shadow:0 0
   body.nav-locked{overflow:hidden}
 }
 </style>
-<meta name="description" content="Free Contract Playbook Creator — build a clause-by-clause negotiation playbook (preferred position, fallback, walk-away red line) for NDAs, MSAs, consultancy, employment and DPA contracts across 45 jurisdictions and 19 industries.">
-<meta name="keywords" content="contract playbook, negotiation playbook, fallback positions, redline playbook, NDA negotiation, MSA negotiation, contract negotiation strategy, legal playbook generator India">
+<meta name="description" content="Free Contract Review Playbook generator — the internal checklist your team follows to review contracts: what to check clause by clause, the internal standard, when to escalate, and who signs off. 45 jurisdictions, 19 industries.">
+<meta name="keywords" content="contract review checklist, in-house contract review, contract review playbook, legal ops checklist, contract approval matrix, escalation matrix legal, contract review process India">
 <meta name="author" content="Arnav Bhardwaj, Verbatra">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 <link rel="canonical" href="https://www.verbatra.com/playbook.html">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Free Contract Playbook Creator — Negotiation Positions | Verbatra">
-<meta property="og:description" content="Build a clause-by-clause negotiation playbook — preferred position, fallback and walk-away red line — for the contracts you negotiate most. 45 jurisdictions, 19 industries.">
+<meta property="og:title" content="Free Contract Review Playbook Generator | Verbatra">
+<meta property="og:description" content="Build the internal checklist your team follows to review contracts — what to check, the standard, when to escalate, who signs off. 45 jurisdictions, 19 industries.">
 <meta property="og:url" content="https://www.verbatra.com/playbook.html">
 <meta property="og:image" content="https://www.verbatra.com/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -136,10 +144,10 @@ input:focus,select:focus{outline:none;border-color:var(--green-2);box-shadow:0 0
 <meta property="og:site_name" content="Verbatra">
 <meta property="og:locale" content="en_IN">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Free Contract Playbook Creator — Negotiation Positions | Verbatra">
-<meta name="twitter:description" content="Build a clause-by-clause negotiation playbook — preferred position, fallback and walk-away red line — across 45 jurisdictions and 19 industries.">
+<meta name="twitter:title" content="Free Contract Review Playbook Generator | Verbatra">
+<meta name="twitter:description" content="Build the internal checklist your team follows to review contracts — what to check, the standard, when to escalate, who signs off.">
 <meta name="twitter:image" content="https://www.verbatra.com/og-image.png">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Free Contract Playbook Creator (5 Contract Types, 45 Jurisdictions, 19 Industries)", "description": "Build a clause-by-clause negotiation playbook — preferred position, acceptable fallback and walk-away red line — for NDA, MSA, Consultancy, Employment and DPA contracts.", "url": "https://www.verbatra.com/playbook.html", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"}, "creator": {"@type": "Organization", "name": "Verbatra", "url": "https://www.verbatra.com"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Free Contract Review Playbook Generator (5 Contract Types, 45 Jurisdictions, 19 Industries)", "description": "Build the internal review playbook a business follows to review contracts — clause-by-clause checklist, internal standard, escalation triggers, sign-off owner, and an approval matrix.", "url": "https://www.verbatra.com/playbook.html", "applicationCategory": "BusinessApplication", "operatingSystem": "Any (web-based)", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "INR"}, "creator": {"@type": "Organization", "name": "Verbatra", "url": "https://www.verbatra.com"}}</script>
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
@@ -191,6 +199,8 @@ input:focus,select:focus{outline:none;border-color:var(--green-2);box-shadow:0 0
 .nav-cta{font-size:13px;font-weight:700;color:#f4efe4;background:var(--green,#1f3d30);padding:9px 18px;border-radius:8px;text-decoration:none;letter-spacing:.02em;transition:.15s}
 .nav-cta:hover{background:var(--green-2,#2c5443)}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/verbatra-auth.js"></script>
 </head>
 <body>
 <nav class="vb-toolnav">
@@ -200,16 +210,16 @@ input:focus,select:focus{outline:none;border-color:var(--green-2);box-shadow:0 0
     <div class="vbdd" data-vbdd="vbdd-tools">
       <button type="button" class="vbdd-trigger" aria-expanded="false" aria-haspopup="true">Tools</button>
       <div class="vbdd-panel" id="vbdd-tools">
-        <span class="vbdd-h">Commercial</span>
+        <span class="vbdd-h">Review</span>
+        <a href="/redline.html">Contract Risk Review</a>
+        <a href="/playbook.html">Contract Review Playbook</a>
+        <span class="vbdd-h">Contracts</span>
         <a href="/nda.html">NDA Generator</a>
         <a href="/msa.html">MSA Generator</a>
         <a href="/consultancy.html">Consultancy Agreement</a>
         <a href="/employment.html">Employment Agreement</a>
         <span class="vbdd-h">Data &amp; Privacy</span>
         <a href="/dpa.html">DPA Generator</a>
-        <span class="vbdd-h">Review &amp; Negotiate</span>
-        <a href="/redline.html">Contract Risk Review</a>
-        <a href="/playbook.html">Contract Playbook Creator</a>
       </div>
     </div>
     <div class="vbdd" data-vbdd="vbdd-courses">
@@ -245,9 +255,9 @@ input:focus,select:focus{outline:none;border-color:var(--green-2);box-shadow:0 0
   <a class="back-home" href="/">Back to Verbatra</a>
   <div class="brand">
     <div class="mark">Verb<span>atra</span></div>
-    <div class="tag">Contract Playbook Creator</div>
+    <div class="tag">Contract Review Playbook</div>
   </div>
-  <p class="disclaimer"><strong>What this is:</strong> a clause-by-clause negotiation playbook — your preferred position, an acceptable fallback, and the walk-away red line — for the contract type, side and jurisdiction you choose. It is a negotiation aid, not a substitute for a lawyer reviewing your specific draft.</p>
+  <p class="disclaimer"><strong>What this is:</strong> an internal review playbook for your own team — the checklist you follow every time a contract of this type comes up for review: what to check clause by clause, the internal standard, when it must be escalated, and who signs off. This is for in-house/business use, not a script for negotiating with a counterparty.</p>
 </header>
 
 <div class="wrap">
@@ -255,30 +265,33 @@ input:focus,select:focus{outline:none;border-color:var(--green-2);box-shadow:0 0
     <h2 class="sec">Contract type</h2>
     <div class="field"><select id="ctype"></select></div>
 
-    <h2 class="sec">Your side</h2>
+    <h2 class="sec">Which draft is this?</h2>
     <div class="field">
-      <div class="seg" id="stanceSeg"></div>
-      <div class="hint" id="stanceHint"></div>
+      <div class="seg" id="dirSeg">
+        <button type="button" data-v="ext" class="on">External draft (they sent it)</button>
+        <button type="button" data-v="own">Our own draft (before we send it)</button>
+      </div>
+      <div class="hint" id="dirHint"></div>
     </div>
 
     <h2 class="sec">Jurisdiction &amp; sector</h2>
     <div class="field"><label>Governing jurisdiction</label><select id="jur"></select><div class="hint" id="jurHint"></div></div>
     <div class="field"><label>Industry</label><select id="ind"></select><div class="modlist" id="modList"></div></div>
 
-    <h2 class="sec">Negotiating posture</h2>
+    <h2 class="sec">Review rigor</h2>
     <div class="field">
-      <div class="seg" id="riskSeg">
-        <button type="button" data-v="conservative">Conservative</button>
-        <button type="button" data-v="balanced" class="on">Balanced</button>
-        <button type="button" data-v="aggressive">Aggressive</button>
+      <div class="seg" id="rigorSeg">
+        <button type="button" data-v="light">Light-Touch</button>
+        <button type="button" data-v="standard" class="on">Standard</button>
+        <button type="button" data-v="strict">Strict</button>
       </div>
-      <div class="hint">Conservative plays it safe and concedes early; Aggressive holds the toughest defensible line the longest.</div>
+      <div class="hint">Light-Touch fast-tracks routine, standard-term contracts; Strict sends more to Legal and tolerates less deviation before escalating.</div>
     </div>
 
     <h2 class="sec">Header details (optional)</h2>
     <div class="row">
-      <div class="field"><label>Your organisation</label><input type="text" id="orgYou" placeholder="e.g. Acme Technologies Pvt. Ltd."></div>
-      <div class="field"><label>Counterparty</label><input type="text" id="orgThem" placeholder="e.g. Globex Solutions LLC"></div>
+      <div class="field"><label>Company / team name</label><input type="text" id="orgYou" placeholder="e.g. Acme Technologies Pvt. Ltd. — Legal Ops"></div>
+      <div class="field"><label>Prepared by</label><input type="text" id="preparedBy" placeholder="e.g. In-house Legal"></div>
     </div>
     <div class="field"><label>Prepared on</label><input type="date" id="prepDate"></div>
   </section>
@@ -295,7 +308,7 @@ input:focus,select:focus{outline:none;border-color:var(--green-2);box-shadow:0 0
 <section class="content-section" aria-labelledby="related-heading">
   <div class="cs-eyebrow">Related tools</div>
   <h2 class="cs-h2" id="related-heading">Other Verbatra tools you might need</h2>
-  <p class="cs-lede">Build the playbook before you negotiate, then run the counterparty's draft through Risk Review to see where it actually deviates from your fallback positions.</p>
+  <p class="cs-lede">Build the internal review playbook first, then run individual incoming drafts through Risk Review to check them against exactly this checklist.</p>
   <div class="related-list">
     <a class="related-card" href="/redline.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg><span>Contract Risk Review</span></a>
     <a class="related-card" href="/nda.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"/><path d="M10 14L21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg><span>Non-Disclosure Agreement</span></a>
@@ -305,32 +318,32 @@ input:focus,select:focus{outline:none;border-color:var(--green-2);box-shadow:0 0
 </section>
 <section class="content-section" aria-labelledby="faq-heading">
   <div class="cs-eyebrow">Frequently asked questions</div>
-  <h2 class="cs-h2" id="faq-heading">Contract Playbook — your questions, answered</h2>
+  <h2 class="cs-h2" id="faq-heading">Contract Review Playbook — your questions, answered</h2>
   <p class="cs-lede">If your question is not here, write to <a href="mailto:verbatra.legal@gmail.com" style="color:#1f3d30;font-weight:600">verbatra.legal@gmail.com</a> and we will add it.</p>
   <div class="faq-list">
     <details>
-      <summary>What is a contract playbook?</summary>
-      <div class="faq-answer">A playbook is an internal negotiation reference, not a contract itself. For each key clause, it sets out the position you open with, the fallback you can live with, and the red line you will not cross — so whoever is negotiating (even someone without a legal background) can respond to redlines quickly and consistently, instead of deciding each point from scratch under time pressure.</div>
+      <summary>What is a contract review playbook?</summary>
+      <div class="faq-answer">It's an internal document, not a contract — a standard operating procedure your team follows every time a contract of a given type comes in for review. It sets out, clause by clause, what to check, what's an acceptable internal standard, when a deviation must be escalated, and who is responsible for signing off. The goal is that any reasonably capable person on your team can review a routine contract consistently, without re-deciding the same questions from scratch each time.</div>
     </details>
     <details>
       <summary>How is this different from the Contract Risk Review tool?</summary>
-      <div class="faq-answer">Risk Review scans a draft you already have and flags where it deviates from market-standard terms. The Playbook Creator works before that: it builds your negotiating position in advance, for the contract type and side you will be on, so you know what to ask for and what to concede before the other side's draft even arrives.</div>
+      <div class="faq-answer">Risk Review looks at one specific contract you paste in and flags where it deviates from market-standard terms. This tool builds the standing internal process and checklist your team uses across every contract of that type — the reference document that defines what "standard" even means for your organisation, so Risk Review (or a human reviewer) has something concrete to check against.</div>
     </details>
     <details>
-      <summary>Why does my "side" change the playbook?</summary>
-      <div class="faq-answer">Almost every clause in a commercial contract benefits one party more than the other — a liability cap that protects a service provider is the same clause a client wants to loosen. The playbook is built from your side of the table, so a provider and a client negotiating the same MSA get materially different preferred positions, fallbacks and red lines.</div>
+      <summary>Why does it matter whether it's an external or our own draft?</summary>
+      <div class="faq-answer">Reviewing a contract someone else sent you is about catching deviations and risk they may have built in. Reviewing your own draft before it goes out is about confirming it matches your approved template and hasn't drifted through ad hoc edits. The checklist emphasis shifts accordingly, even though the underlying clauses are the same.</div>
     </details>
     <details>
-      <summary>What do Conservative, Balanced and Aggressive mean?</summary>
-      <div class="faq-answer">They shift where your opening ask and fallback sit on the realistic range for that clause. Conservative opens closer to the fallback and concedes faster — useful when the relationship matters more than the specific term. Aggressive holds the toughest defensible position the longest — useful when you have leverage or the clause is high-stakes. Balanced reflects typical market practice.</div>
+      <summary>What do Light-Touch, Standard and Strict review rigor mean?</summary>
+      <div class="faq-answer">They set how much gets escalated to Legal versus handled by the business team directly. Light-Touch fast-tracks routine, low-value, standard-term contracts and reserves Legal time for real deviations. Strict routes more contracts through Legal and tolerates smaller deviations before triggering escalation. Standard reflects typical mid-sized business practice.</div>
     </details>
     <details>
       <summary>Does the playbook change by jurisdiction and industry?</summary>
-      <div class="faq-answer">Yes. The governing law, dispute-resolution forum and data-protection regime referenced in the playbook adapt to your chosen jurisdiction (45 supported), and a sector-considerations section is added based on your industry (19 supported) — the same industry logic used in Verbatra's MSA generator.</div>
+      <div class="faq-answer">Yes. The governing law, dispute-resolution forum and data-protection regime referenced in the checklist adapt to your chosen jurisdiction (45 supported), and a sector-specific checklist addition is included based on your industry (19 supported) — the same industry logic used in Verbatra's MSA generator.</div>
     </details>
     <details>
-      <summary>Do I still need a lawyer to negotiate using this?</summary>
-      <div class="faq-answer">For routine, lower-stakes contracts, this playbook is usually enough to negotiate confidently on your own. For high-value deals, regulated sectors, or any clause where the walk-away line is actually being tested by the other side, get a lawyer involved before you concede on it.</div>
+      <summary>Do we still need a lawyer if we use this playbook?</summary>
+      <div class="faq-answer">This playbook is designed to let your team handle routine, standard-term contracts confidently on their own. The escalation triggers built into it are exactly the point where you should stop and bring in a lawyer — either your in-house counsel or an external one — rather than a substitute for that judgement.</div>
     </details>
     <details>
       <summary>Is Verbatra actually free?</summary>
@@ -400,287 +413,296 @@ input:focus,select:focus{outline:none;border-color:var(--green-2);box-shadow:0 0
 <script>
 /* ============ Jurisdiction & industry data (shared with MSA generator) ============ */
 const JUR = {"india": {"label": "India", "law": "the laws of India", "courts": "the competent courts at New Delhi, India", "arb": "arbitration under the Arbitration and Conciliation Act, 1996, before a sole arbitrator, seated at New Delhi", "dp": "the Digital Personal Data Protection Act, 2023", "hint": "DPDP Act 2023 · A&C Act 1996"}, "usa_de": {"label": "United States , Delaware", "law": "the laws of the State of Delaware, United States", "courts": "the state and federal courts of Delaware", "arb": "AAA Commercial Arbitration Rules, seated in New York, NY", "dp": "applicable U.S. federal and state privacy laws (CCPA/CPRA where applicable)", "hint": "Delaware · CCPA/CPRA · AAA"}, "usa_ny": {"label": "United States , New York", "law": "the laws of the State of New York", "courts": "the state and federal courts of New York County", "arb": "AAA Commercial Arbitration Rules, seated in New York, NY", "dp": "the New York SHIELD Act", "hint": "New York · SHIELD Act · AAA"}, "usa_ca": {"label": "United States , California", "law": "the laws of the State of California", "courts": "the state and federal courts of San Francisco County", "arb": "JAMS Comprehensive Arbitration Rules, seated in San Francisco", "dp": "the CCPA/CPRA", "hint": "California · CCPA/CPRA · JAMS"}, "uk": {"label": "United Kingdom", "law": "the laws of England and Wales", "courts": "the courts of England and Wales", "arb": "LCIA Rules, seated in London", "dp": "the UK GDPR and Data Protection Act 2018", "hint": "UK · UK GDPR · LCIA"}, "ireland": {"label": "Ireland", "law": "the laws of Ireland", "courts": "the courts of Ireland", "arb": "Arbitration Act 2010 (Ireland), seated in Dublin", "dp": "the EU GDPR and Data Protection Act 2018", "hint": "Ireland · GDPR"}, "germany": {"label": "Germany (EU)", "law": "the laws of Germany", "courts": "the courts of Frankfurt am Main", "arb": "DIS Rules, seated in Frankfurt am Main", "dp": "the EU GDPR and BDSG", "hint": "Germany · GDPR + BDSG"}, "france": {"label": "France (EU)", "law": "the laws of France", "courts": "the courts of Paris", "arb": "ICC Rules, seated in Paris", "dp": "the EU GDPR", "hint": "France · GDPR · ICC"}, "netherlands": {"label": "Netherlands (EU)", "law": "the laws of the Netherlands", "courts": "the courts of Amsterdam", "arb": "NAI Rules, seated in Amsterdam", "dp": "the EU GDPR and UAVG", "hint": "Netherlands · GDPR"}, "spain": {"label": "Spain (EU)", "law": "the laws of Spain", "courts": "the courts of Madrid", "arb": "CIAM Rules, seated in Madrid", "dp": "the EU GDPR and LOPDGDD", "hint": "Spain · GDPR"}, "italy": {"label": "Italy (EU)", "law": "the laws of Italy", "courts": "the courts of Milan", "arb": "Milan Chamber of Arbitration (CAM)", "dp": "the EU GDPR", "hint": "Italy · GDPR"}, "sweden": {"label": "Sweden (EU)", "law": "the laws of Sweden", "courts": "the courts of Stockholm", "arb": "SCC Arbitration Institute, seated in Stockholm", "dp": "the EU GDPR", "hint": "Sweden · GDPR"}, "poland": {"label": "Poland (EU)", "law": "the laws of Poland", "courts": "the courts of Warsaw", "arb": "Court of Arbitration at the Polish Chamber of Commerce", "dp": "the EU GDPR", "hint": "Poland · GDPR"}, "portugal": {"label": "Portugal (EU)", "law": "the laws of Portugal", "courts": "the courts of Lisbon", "arb": "Arbitration Centre of the Portuguese Chamber of Commerce", "dp": "the EU GDPR", "hint": "Portugal · GDPR"}, "switzerland": {"label": "Switzerland", "law": "the laws of Switzerland", "courts": "the courts of Zurich", "arb": "Swiss Rules of International Arbitration, seated in Zurich", "dp": "the Swiss FADP", "hint": "Switzerland · FADP"}, "singapore": {"label": "Singapore", "law": "the laws of Singapore", "courts": "the courts of Singapore", "arb": "SIAC Rules, seated in Singapore", "dp": "the PDPA 2012", "hint": "Singapore · PDPA · SIAC"}, "hongkong": {"label": "Hong Kong SAR", "law": "the laws of Hong Kong SAR", "courts": "the courts of Hong Kong", "arb": "HKIAC Rules", "dp": "the PDPO", "hint": "Hong Kong · PDPO · HKIAC"}, "japan": {"label": "Japan", "law": "the laws of Japan", "courts": "the Tokyo District Court", "arb": "JCAA Rules, seated in Tokyo", "dp": "the APPI", "hint": "Japan · APPI · JCAA"}, "korea": {"label": "South Korea", "law": "the laws of the Republic of Korea", "courts": "the Seoul Central District Court", "arb": "KCAB Rules, seated in Seoul", "dp": "PIPA", "hint": "Korea · PIPA · KCAB"}, "china": {"label": "China (Mainland)", "law": "the laws of the People's Republic of China", "courts": "the courts of Shanghai", "arb": "CIETAC Rules, seated in Shanghai", "dp": "PIPL and the Data Security Law", "hint": "China · PIPL + DSL"}, "taiwan": {"label": "Taiwan", "law": "the laws of Taiwan", "courts": "the Taiwan Taipei District Court", "arb": "CAA Rules, seated in Taipei", "dp": "the Taiwan PDPA", "hint": "Taiwan · PDPA"}, "malaysia": {"label": "Malaysia", "law": "the laws of Malaysia", "courts": "the courts of Kuala Lumpur", "arb": "AIAC Rules, seated in Kuala Lumpur", "dp": "the Malaysia PDPA 2010", "hint": "Malaysia · PDPA 2010"}, "indonesia": {"label": "Indonesia", "law": "the laws of Indonesia", "courts": "the District Court of Central Jakarta", "arb": "BANI Rules, seated in Jakarta", "dp": "the UU PDP", "hint": "Indonesia · UU PDP"}, "thailand": {"label": "Thailand", "law": "the laws of Thailand", "courts": "the courts of Bangkok", "arb": "TAI Rules, seated in Bangkok", "dp": "the PDPA B.E. 2562", "hint": "Thailand · PDPA 2019"}, "vietnam": {"label": "Vietnam", "law": "the laws of Vietnam", "courts": "the People's Court of Ho Chi Minh City", "arb": "VIAC Rules, seated in Hanoi", "dp": "the Personal Data Protection Decree", "hint": "Vietnam · PDPD"}, "philippines": {"label": "Philippines", "law": "the laws of the Philippines", "courts": "the courts of Makati City", "arb": "PDRCI Rules, seated in Manila", "dp": "the Data Privacy Act of 2012", "hint": "Philippines · DPA 2012"}, "australia": {"label": "Australia (NSW)", "law": "the laws of New South Wales", "courts": "the courts of New South Wales", "arb": "ACICA Rules, seated in Sydney", "dp": "the Privacy Act 1988", "hint": "Australia · Privacy Act"}, "newzealand": {"label": "New Zealand", "law": "the laws of New Zealand", "courts": "the courts of New Zealand", "arb": "Arbitration Act 1996 (NZ), seated in Auckland", "dp": "the Privacy Act 2020", "hint": "New Zealand · Privacy Act 2020"}, "canada": {"label": "Canada (Ontario)", "law": "the laws of Ontario, Canada", "courts": "the courts of Ontario", "arb": "ADRIC Rules, seated in Toronto", "dp": "PIPEDA", "hint": "Ontario · PIPEDA"}, "canada_qc": {"label": "Canada (Quebec)", "law": "the laws of Quebec, Canada", "courts": "the courts of the District of Montreal", "arb": "CCAC Rules, seated in Montreal", "dp": "Quebec Law 25", "hint": "Quebec · Law 25"}, "mexico": {"label": "Mexico", "law": "the laws of Mexico", "courts": "the federal courts of Mexico City", "arb": "CANACO Rules, seated in Mexico City", "dp": "the LFPDPPP", "hint": "Mexico · LFPDPPP"}, "brazil": {"label": "Brazil", "law": "the laws of Brazil", "courts": "the courts of São Paulo", "arb": "CAM-CCBC, seated in São Paulo", "dp": "the LGPD", "hint": "Brazil · LGPD"}, "argentina": {"label": "Argentina", "law": "the laws of Argentina", "courts": "the National Commercial Courts of Buenos Aires", "arb": "CEMARC, seated in Buenos Aires", "dp": "Law No. 25,326", "hint": "Argentina · PDPA"}, "chile": {"label": "Chile", "law": "the laws of Chile", "courts": "the courts of Santiago", "arb": "CAM Santiago", "dp": "Law No. 19,628", "hint": "Chile · Law 19,628"}, "colombia": {"label": "Colombia", "law": "the laws of Colombia", "courts": "the courts of Bogotá", "arb": "Bogotá Chamber of Commerce Arbitration Centre", "dp": "Statutory Law 1581 of 2012", "hint": "Colombia · Law 1581/2012"}, "southafrica": {"label": "South Africa", "law": "the laws of South Africa", "courts": "the High Court of South Africa, Johannesburg", "arb": "AFSA Rules, seated in Johannesburg", "dp": "POPIA", "hint": "South Africa · POPIA"}, "nigeria": {"label": "Nigeria", "law": "the laws of Nigeria", "courts": "the courts of Lagos", "arb": "Lagos Court of Arbitration", "dp": "the NDPA 2023", "hint": "Nigeria · NDPA 2023"}, "kenya": {"label": "Kenya", "law": "the laws of Kenya", "courts": "the High Court of Kenya at Nairobi", "arb": "NCIA Rules, seated in Nairobi", "dp": "the Data Protection Act 2019", "hint": "Kenya · DPA 2019"}, "egypt": {"label": "Egypt", "law": "the laws of Egypt", "courts": "the courts of Cairo", "arb": "CRCICA, seated in Cairo", "dp": "the PDPL 2020", "hint": "Egypt · PDPL 2020"}, "turkey": {"label": "Türkiye", "law": "the laws of Türkiye", "courts": "the Istanbul Courts", "arb": "ISTAC Rules, seated in Istanbul", "dp": "the KVKK", "hint": "Türkiye · KVKK"}, "uae": {"label": "United Arab Emirates", "law": "the laws of the UAE as applied in Dubai", "courts": "the courts of Dubai", "arb": "DIAC Rules, seated in Dubai", "dp": "Federal Decree-Law No. 45 of 2021", "hint": "UAE · PDPL 2021"}, "saudi": {"label": "Saudi Arabia", "law": "the laws of Saudi Arabia", "courts": "the courts of Riyadh", "arb": "SCCA Rules, seated in Riyadh", "dp": "the PDPL", "hint": "Saudi Arabia · PDPL"}, "qatar": {"label": "Qatar", "law": "the laws of Qatar", "courts": "the Qatar International Court", "arb": "QICCA, seated in Doha", "dp": "Law No. 13 of 2016", "hint": "Qatar · PDPPL 2016"}, "israel": {"label": "Israel", "law": "the laws of Israel", "courts": "the courts of Tel Aviv", "arb": "Israeli Institute of Commercial Arbitration", "dp": "the Protection of Privacy Law, 5741-1981", "hint": "Israel · PPL 1981"}, "hybrid": {"label": "Cross-border (neutral / ICC)", "law": "the laws of England and Wales (neutral)", "courts": "the courts of England and Wales", "arb": "ICC Rules, seated in London", "dp": "all data-protection laws applicable to the parties", "hint": "Neutral · ICC"}};
-const IND = {"it": {"label": "Information Technology & Software", "mod": [{"t": "Source Code Escrow", "b": "Insist on source-code escrow or deposit for business-critical bespoke software, released on defined trigger events (insolvency, abandonment)."}, {"t": "Information Security Standard", "b": "Ask for a named security standard (ISO/IEC 27001 or equivalent) and a 48-hour breach-notification deadline, not \"prompt\" or \"reasonable\" notice."}]}, "saas": {"label": "SaaS & Cloud Services", "mod": [{"t": "Uptime & Service Credits", "b": "Fix a numeric uptime SLA (99.5% or higher) with automatic service credits, not discretionary goodwill credits."}, {"t": "Subprocessor Change Control", "b": "Require advance notice and a right to object before any new subprocessor or hosting region change, not just a published list."}]}, "consulting": {"label": "Professional Services & Consulting", "mod": [{"t": "Key Personnel Lock-In", "b": "Name Key Personnel in the contract and require consent before replacement, with no fee increase for a replacement of equivalent seniority."}]}, "marketing": {"label": "Marketing, Advertising & Creative", "mod": [{"t": "Third-Party Clearances", "b": "Push all responsibility and warranty for licensed stock, music and talent clearances onto the creative provider, not the client."}]}, "construction": {"label": "Construction & Engineering", "mod": [{"t": "Defects Liability Period", "b": "Fix a minimum 12-month defects-liability period post-completion, with remedy costs borne by the contractor, not billed as a change order."}]}, "manufacturing": {"label": "Manufacturing & Supply", "mod": [{"t": "Inspection & Rejection Window", "b": "Set a clear inspection window and rejection right for non-conforming goods before risk and title fully pass to the buyer."}]}, "healthcare": {"label": "Healthcare & Life Sciences", "mod": [{"t": "Regulatory Licence Warranty", "b": "Require an ongoing warranty (not a one-time representation) that all healthcare and clinical licences remain current throughout the term."}]}, "finance": {"label": "Financial Services & Fintech", "mod": [{"t": "Regulator Audit Rights", "b": "Preserve the client's regulator's right to audit the vendor directly — a common point vendors try to water down to \"on reasonable notice only\"."}]}, "logistics": {"label": "Logistics & Transportation", "mod": [{"t": "Goods-in-Transit Insurance", "b": "Require proof of adequate goods-in-transit insurance as a condition precedent, not just a contractual promise to maintain it."}]}, "telecom": {"label": "Telecommunications", "mod": [{"t": "Network Availability Notice", "b": "Require advance written notice (not \"reasonable efforts\") before any planned works likely to affect availability."}]}, "media": {"label": "Media & Entertainment", "mod": [{"t": "Moral Rights Waiver", "b": "Where enforceable locally, secure an express moral-rights waiver from contributors rather than relying on an implied licence."}]}, "education": {"label": "Education & EdTech", "mod": [{"t": "Student Data Segregation", "b": "Require student and minor data to be logically segregated from other customer data, with stricter retention and deletion timelines."}]}, "realestate": {"label": "Real Estate & Facilities", "mod": [{"t": "Site Access Liability", "b": "Cap the vendor's site-access rights to agreed hours and require it to make good any damage at its own cost, not the landlord's."}]}, "energy": {"label": "Energy & Utilities", "mod": [{"t": "HSE Incident Reporting", "b": "Set a fixed incident-reporting deadline (e.g. 24 hours) for HSE events, rather than \"promptly\"."}]}, "retail": {"label": "Retail & E-commerce", "mod": [{"t": "Returns & Consumer Law", "b": "Make clear that consumer-protection law compliance sits with whichever party controls the customer-facing sale."}]}, "hospitality": {"label": "Hospitality & Travel", "mod": [{"t": "Force Majeure Definition", "b": "Negotiate a wide force-majeure definition covering travel restrictions and public-health orders, given post-2020 practice."}]}, "legal": {"label": "Legal & Compliance Services", "mod": [{"t": "Privilege Preservation", "b": "Ensure engagement terms expressly preserve legal privilege over work product and communications."}]}, "hr": {"label": "Staffing & HR Services", "mod": [{"t": "Worker Misclassification Risk", "b": "Push indemnity for worker misclassification and statutory-benefit claims onto the staffing provider, not the end client."}]}, "generic": {"label": "General / Other", "mod": []}};
+const IND = {"it": {"label": "Information Technology & Software", "mod": [{"t": "Source Code Escrow", "b": "Check whether business-critical bespoke software has a source-code escrow or deposit arrangement, released on defined trigger events (insolvency, abandonment)."}, {"t": "Information Security Standard", "b": "Check that a named security standard (ISO/IEC 27001 or equivalent) and a specific breach-notification deadline (not \u201cprompt\u201d/\u201creasonable\u201d) are both present."}]}, "saas": {"label": "SaaS & Cloud Services", "mod": [{"t": "Uptime & Service Credits", "b": "Check for a numeric uptime SLA (99.5% or higher) with automatic, not discretionary, service credits."}, {"t": "Subprocessor Change Control", "b": "Check for advance notice and an objection right before any new subprocessor or hosting-region change."}]}, "consulting": {"label": "Professional Services & Consulting", "mod": [{"t": "Key Personnel Lock-In", "b": "Check whether Key Personnel are named and whether replacement requires consent, with no fee increase for an equivalent-seniority replacement."}]}, "marketing": {"label": "Marketing, Advertising & Creative", "mod": [{"t": "Third-Party Clearances", "b": "Check who bears responsibility and warranty for licensed stock, music and talent clearances."}]}, "construction": {"label": "Construction & Engineering", "mod": [{"t": "Defects Liability Period", "b": "Check for a minimum 12-month defects-liability period post-completion and who bears remedy costs."}]}, "manufacturing": {"label": "Manufacturing & Supply", "mod": [{"t": "Inspection & Rejection Window", "b": "Check the inspection window and rejection right for non-conforming goods before risk/title passes."}]}, "healthcare": {"label": "Healthcare & Life Sciences", "mod": [{"t": "Regulatory Licence Warranty", "b": "Check whether licence compliance is an ongoing warranty (not a one-time representation) throughout the term."}]}, "finance": {"label": "Financial Services & Fintech", "mod": [{"t": "Regulator Audit Rights", "b": "Check that the regulator's direct audit right over the vendor is preserved, not watered down to \u201con reasonable notice only\u201d."}]}, "logistics": {"label": "Logistics & Transportation", "mod": [{"t": "Goods-in-Transit Insurance", "b": "Check for proof of adequate goods-in-transit insurance, not just a contractual promise to maintain it."}]}, "telecom": {"label": "Telecommunications", "mod": [{"t": "Network Availability Notice", "b": "Check for a specific advance-notice requirement (not \u201creasonable efforts\u201d) before planned works affecting availability."}]}, "media": {"label": "Media & Entertainment", "mod": [{"t": "Moral Rights Waiver", "b": "Check whether contributors have given an express moral-rights waiver where enforceable locally, rather than relying on an implied licence."}]}, "education": {"label": "Education & EdTech", "mod": [{"t": "Student Data Segregation", "b": "Check that student/minor data is logically segregated from other customer data with stricter retention and deletion timelines."}]}, "realestate": {"label": "Real Estate & Facilities", "mod": [{"t": "Site Access Liability", "b": "Check that vendor site-access is limited to agreed hours and damage is made good at the vendor's cost."}]}, "energy": {"label": "Energy & Utilities", "mod": [{"t": "HSE Incident Reporting", "b": "Check for a fixed incident-reporting deadline (e.g. 24 hours) for HSE events, not \u201cpromptly\u201d."}]}, "retail": {"label": "Retail & E-commerce", "mod": [{"t": "Returns & Consumer Law", "b": "Check which party is responsible for consumer-protection compliance on the customer-facing sale."}]}, "hospitality": {"label": "Hospitality & Travel", "mod": [{"t": "Force Majeure Definition", "b": "Check that force majeure covers travel restrictions and public-health orders, given post-2020 practice."}]}, "legal": {"label": "Legal & Compliance Services", "mod": [{"t": "Privilege Preservation", "b": "Check that engagement terms expressly preserve legal privilege over work product and communications."}]}, "hr": {"label": "Staffing & HR Services", "mod": [{"t": "Worker Misclassification Risk", "b": "Check that misclassification and statutory-benefit claim indemnity sits with the staffing provider, not the end client."}]}, "generic": {"label": "General / Other", "mod": []}};
 
-/* ============ Contract type & clause playbook engine ============ */
-function R(risk,c,b,a){ return risk==="conservative"?c:(risk==="aggressive"?a:b); }
+/* ============ Contract type & review-checklist data ============ */
+function R(rig,light,standard,strict){ return rig==="light"?light:(rig==="strict"?strict:standard); }
 
 const CTYPE = {
-  nda: { label:"Non-Disclosure Agreement (NDA)", aLabel:"Sharing more (Discloser-heavy)", bLabel:"Receiving more (Recipient-heavy)",
+  nda: { label:"Non-Disclosure Agreement (NDA)",
     clauses:[
       { name:"Definition of Confidential Information",
-        a:(risk)=>({preferred:"Broad definition capturing all information disclosed in any form, with no marking or written-confirmation requirement.",
-          fallback:"Broad definition, but oral disclosures must be confirmed in writing within "+R(risk,45,21,10)+" days of disclosure to stay protected.",
-          walkaway:"A definition limited only to information marked \u201cConfidential\u201d in writing \u2014 this excludes almost everything shared in meetings, calls and demos.",
-          tip:"As the party sharing more, the marking requirement is the single biggest way real disclosures fall outside NDA protection \u2014 fight this first."}),
-        b:(risk)=>({preferred:"Definition limited to information marked confidential, or if oral, confirmed in writing within "+R(risk,10,15,30)+" days.",
-          fallback:"A broad definition is acceptable if paired with standard exclusions: public domain, independently developed, already known, and lawfully received from a third party.",
-          walkaway:"A definition with zero exclusions \u2014 you could become liable for handling information that was already public or that you developed yourself.",
-          tip:"Your real protection comes from the exclusions list, not the definition \u2014 secure those before conceding on scope."}) },
+        ext:(rig)=>({check:"Confirm the definition covers information shared orally as well as in writing, and check whether a marking or written-confirmation requirement is attached.",
+          standard:"A broad definition is acceptable if oral disclosures must be confirmed in writing within "+R(rig,30,21,10)+" days, and standard exclusions are present (public domain, independently developed, already known, lawfully received from a third party).",
+          flag:"Escalate to Legal if the definition has no standard exclusions at all, or if it's limited only to information marked \u201cConfidential\u201d in writing with no allowance for verbal disclosures in meetings and calls.",
+          owner:"Reviewed by the business owner of the discussion; Legal signs off only if flagged."}),
+        own:(rig)=>({check:"Confirm our draft's definition matches our approved template and hasn't been narrowed or widened for this specific counterparty without approval.",
+          standard:"Standard template definition, broad, with the usual exclusions and a "+R(rig,30,21,10)+"-day written-confirmation window for oral disclosures.",
+          flag:"Escalate if the business team has requested a materially different definition than the approved template before this goes out.",
+          owner:"Legal (template custodian) signs off on any deviation."}) },
       { name:"Purpose & Permitted Use",
-        a:(risk)=>({preferred:"Narrow, specifically defined purpose (e.g. \u201cevaluating the Proposed Transaction\u201d), with any other use requiring prior written consent.",
-          fallback:"A moderately defined purpose (e.g. \u201cevaluating a potential commercial relationship\u201d) provided use outside it is an explicit breach.",
-          walkaway:"An open-ended purpose such as \u201cany business dealings between the parties\u201d \u2014 this lets your information be used for things you never agreed to.",
-          tip:"A narrow purpose clause is often more protective than the confidentiality clause itself."}),
-        b:(risk)=>({preferred:"A purpose broad enough to cover the realistic range of the relationship, so routine internal use doesn't inadvertently breach the NDA.",
-          fallback:"A moderately defined purpose, provided it is broad enough to include due diligence, internal evaluation and communication with your own advisers.",
-          walkaway:"A purpose so narrow that ordinary internal discussion among your own team or advisers could be argued to breach it.",
-          tip:"Make sure the purpose expressly permits disclosure to your own employees, counsel and auditors on a need-to-know basis."}) },
+        ext:(rig)=>({check:"Check that the stated purpose is specific to this actual discussion, and look for open-ended catch-all language (\u201cany business dealings between the parties\u201d).",
+          standard:"A narrow, specifically defined purpose tied to the real discussion (e.g. \u201cevaluating a potential partnership\u201d) is the standard we require.",
+          flag:"Escalate if the purpose is undefined or broad enough to permit use unrelated to why information is being shared.",
+          owner:"Business owner of the deal; Legal for cross-border or sensitive-data discussions."}),
+        own:(rig)=>({check:"Confirm the purpose clause reflects this specific engagement rather than reused boilerplate that's too broad or too narrow.",
+          standard:"Purpose worded to cover the realistic scope of the relationship (due diligence, internal evaluation, discussion with our advisers).",
+          flag:"Escalate any request to widen the purpose beyond the approved template wording.",
+          owner:"Legal (template custodian)."}) },
       { name:"Term of Confidentiality Obligations",
-        a:(risk)=>({preferred:"Obligations survive "+R(risk,3,5,7)+" years after disclosure (or indefinitely for trade secrets).",
-          fallback:"Obligations survive "+R(risk,2,3,5)+" years from termination of the agreement.",
-          walkaway:"A term under "+R(risk,2,2,3)+" years, or one that lapses on termination rather than surviving it \u2014 your most sensitive information needs protection long after the relationship ends.",
-          tip:"Always carve out trade secrets from any fixed survival period \u2014 they should stay protected for as long as they remain secret."}),
-        b:(risk)=>({preferred:"Obligations survive "+R(risk,1,2,3)+" years from disclosure, with a distinct (shorter) period for anything that isn't a genuine trade secret.",
-          fallback:"Obligations survive "+R(risk,2,3,5)+" years, provided trade secrets are separately and explicitly carved out from the fixed term.",
-          walkaway:"An indefinite confidentiality obligation applied to all information, including routine business information that shouldn't need permanent protection.",
-          tip:"An indefinite term for ordinary business information (not trade secrets) is disproportionate and hard to comply with in practice \u2014 push back on it explicitly."}) },
+        ext:(rig)=>({check:"Check how long confidentiality survives after disclosure or termination, and whether trade secrets are carved out from any fixed term.",
+          standard:R(rig,2,3,5)+"-"+R(rig,3,5,7)+" years survival for general confidential information is our accepted range; indefinite survival for trade secrets specifically is fine.",
+          flag:"Escalate if the term is indefinite for all information (not just trade secrets), or shorter than our internal minimum of "+R(rig,1,2,3)+" years.",
+          owner:"Legal."}),
+        own:(rig)=>({check:"Confirm the survival period in our draft matches the approved template and hasn't been shortened as an ad hoc concession.",
+          standard:"Match the approved template term exactly.",
+          flag:"Escalate any request to shorten our standard survival period before the document is sent.",
+          owner:"Legal."}) },
       { name:"Return or Destruction of Information",
-        a:(risk)=>({preferred:"Return or certify destruction of all Confidential Information within "+R(risk,7,14,30)+" days of request or termination, including copies held by advisers.",
-          fallback:"Destruction within "+R(risk,14,30,45)+" days, with a certificate of destruction on request.",
-          walkaway:"No return/destruction obligation at all, or one that only applies \u201cwhere reasonably practicable\u201d with no timeline.",
-          tip:"Ask for a signed certificate of destruction, not just a promise \u2014 it gives you something to point to if a dispute arises later."}),
-        b:(risk)=>({preferred:"A right to retain one archival copy for legal/compliance purposes, and to retain information stored in standard automated backups until their normal deletion cycle.",
-          fallback:"Return or destroy within "+R(risk,45,30,14)+" days, with a carved-out right to retain backups until routine deletion and one compliance copy.",
-          walkaway:"An obligation to destroy information immediately with no allowance for standard backup systems \u2014 this is often technically impossible to certify truthfully.",
-          tip:"Never sign a destruction certificate you can't actually fulfil \u2014 negotiate the backup carve-out up front instead of breaching it later."}) },
+        ext:(rig)=>({check:"Check the deadline given for returning or destroying information, and whether it realistically allows for standard backup-retention cycles.",
+          standard:R(rig,14,21,30)+" days to return/destroy is acceptable, with a carve-out for one archival/compliance copy and routine backup retention.",
+          flag:"Escalate if we're asked to certify destruction with no backup carve-out at all \u2014 IT may not be able to honestly comply with that certificate.",
+          owner:"IT/Data team confirms feasibility; Legal signs off on wording."}),
+        own:(rig)=>({check:"Confirm our return/destruction clause is realistic for a counterparty to comply with and matches our template.",
+          standard:"Standard template language with a reasonable timeline for the counterparty.",
+          flag:"Escalate if the business team wants an unusually short or absolute destruction deadline that could create compliance risk if this is a mutual NDA.",
+          owner:"Legal."}) },
       { name:"Remedies & Injunctive Relief",
-        a:(risk)=>({preferred:"Express acknowledgment that damages are an inadequate remedy and that you're entitled to injunctive relief without needing to post a bond.",
-          fallback:"A right to seek injunctive relief in addition to (not instead of) damages, silent on the bond point.",
-          walkaway:"A clause that limits your remedy to damages only, or that requires arbitration even for urgent injunctive relief \u2014 by the time arbitration convenes, the damage is done.",
-          tip:"Carve out interim injunctive relief from any arbitration clause \u2014 courts can act in days; arbitral tribunals often cannot."}),
-        b:(risk)=>({preferred:"Any injunctive relief remains subject to the standard legal tests (irreparable harm, balance of convenience) rather than a pre-conceded entitlement.",
-          fallback:"Accept the discloser's right to seek injunctive relief, provided it doesn't waive your right to contest the underlying breach.",
-          walkaway:"A clause requiring you to consent in advance to any injunction sought, regardless of the facts.",
-          tip:"You can concede this clause in most NDAs \u2014 it rarely changes practical outcomes and fighting it can cost more goodwill than it's worth."}) } ] },
+        ext:(rig)=>({check:"Check whether we're being asked to pre-concede to injunctive relief without the counterparty needing to meet the normal legal tests, and whether any automatic penalty amounts are attached.",
+          standard:"A right for either party to seek injunctive relief in addition to damages is standard and low-risk to accept.",
+          flag:"Escalate only if the clause also imposes automatic liability or fixed penalty amounts, not merely injunctive relief.",
+          owner:"Legal — routine sign-off, rarely needs business input."}),
+        own:(rig)=>({check:"Confirm our draft includes the standard acknowledgment that damages are inadequate and that injunctive relief can be sought without posting a bond.",
+          standard:"Standard protective language matching our template is present.",
+          flag:"Escalate if this protection is missing from a draft about to go out under our name.",
+          owner:"Legal."}) },
+      { name:"Non-Solicitation / Non-Circumvention (if bundled in)",
+        ext:(rig)=>({check:"Check whether a non-solicitation or non-circumvention clause has been bundled into the NDA beyond confidentiality \u2014 this is easy to miss.",
+          standard:"If present, limited to the engagement term plus "+R(rig,6,9,12)+" months, and only covering the specific individuals or introduced contacts involved.",
+          flag:"Escalate if a non-solicit clause has no time limit or applies company-wide rather than to the specific deal team.",
+          owner:"Legal, with HR if it could affect hiring."}),
+        own:(rig)=>({check:"Confirm whether our template includes a non-solicit clause and whether it's appropriate for this specific relationship.",
+          standard:"Match the approved template; don't add restrictive covenants ad hoc.",
+          flag:"Escalate any one-off addition of restrictive language outside the approved template.",
+          owner:"Legal."}) } ] },
 
-  msa: { label:"Master Service Agreement (MSA)", aLabel:"Service Provider", bLabel:"Client",
+  msa: { label:"Master Service Agreement (MSA)",
     clauses:[
-      { name:"Limitation of Liability Cap",
-        a:(risk)=>({preferred:"Aggregate liability capped at fees paid in the trailing "+R(risk,3,6,12)+" months, mutual, with carve-outs limited to IP infringement, confidentiality breach and gross negligence/wilful misconduct.",
-          fallback:"Cap at 12 months' trailing fees, mutual, with the same standard carve-outs.",
-          walkaway:"An uncapped liability clause, an asymmetric cap (higher for you than the client), or carve-outs that include ordinary consequential loss.",
-          tip:"Keep the cap symmetric \u2014 a cap that only limits your liability but leaves the client's payment obligations open-ended is a common trap to catch."}),
-        b:(risk)=>({preferred:"Cap at "+R(risk,24,12,6)+" months' fees, with an uncapped (or separately capped, higher) carve-out for data breach, IP infringement, confidentiality and gross negligence.",
-          fallback:"12 months' trailing fees, mutual, provided carve-outs expressly cover data breach and the provider's IP-infringement indemnity.",
-          walkaway:"A cap below 3 months' fees, or one that omits a carve-out for the provider's own IP-infringement indemnity \u2014 that defeats the point of taking the indemnity at all.",
-          tip:"The carve-out list matters more than the headline number \u2014 a low cap with strong carve-outs often protects you better than a high cap with none."}) },
+      { name:"Liability Cap",
+        ext:(rig)=>({check:"Identify the cap amount, what it's measured against (fees paid, fixed sum), whether it's mutual, and what carve-outs apply.",
+          standard:"A cap at "+R(rig,3,6,12)+"-12 months' trailing fees, mutual, with carve-outs limited to IP infringement, confidentiality breach and gross negligence/wilful misconduct is our accepted range.",
+          flag:"Escalate if the cap is uncapped, asymmetric (higher for us than the other party), or below "+R(rig,3,3,6)+" months' fees, or if carve-outs sweep in ordinary consequential loss.",
+          owner:"Legal, with Finance input above our standard contract-value threshold."}),
+        own:(rig)=>({check:"Confirm our own draft's cap matches the approved template for this contract value tier and hasn't been altered.",
+          standard:"Match the approved template cap and carve-out list exactly for this value tier.",
+          flag:"Escalate any request from the sales/account team to alter the cap before the draft is sent.",
+          owner:"Legal (template custodian)."}) },
       { name:"Intellectual Property in Deliverables",
-        a:(risk)=>({preferred:"You retain all IP in pre-existing tools, frameworks and methodologies; only bespoke deliverables are assigned, and only on full payment.",
-          fallback:"Bespoke deliverables assigned on payment, with an express, irrevocable licence back for your own general-purpose components embedded in them.",
-          walkaway:"An assignment of all IP \u201cused in the performance of the Services,\u201d which could sweep in your pre-existing tools and libraries.",
-          tip:"Always list your background IP by name in a schedule \u2014 vague \u201cpre-existing IP\u201d language gets contested later when it's convenient for the other side."}),
-        b:(risk)=>({preferred:"All deliverables (including anything bespoke) assigned to you outright on payment, with a perpetual licence to any embedded provider background IP.",
-          fallback:"Deliverables assigned on payment with a broad, irrevocable, royalty-free licence to any background IP required to use them for their intended purpose.",
-          walkaway:"A licence-only model with no assignment at all, or one terminable by the provider \u2014 leaves you unable to use what you paid to build if the relationship ends.",
-          tip:"Confirm the licence to background IP survives termination \u2014 an assignment of the wrapper is worthless if the engine inside it can be revoked."}) },
+        ext:(rig)=>({check:"Check exactly what's assigned versus licensed, and whether the assignment could sweep in the vendor's own background tools.",
+          standard:"Bespoke deliverables assigned to us on payment, with the vendor retaining pre-existing tools/frameworks under an express licence for our use.",
+          flag:"Escalate if ownership of anything we've paid to have built is unclear, licence-only rather than assigned, or terminable by the vendor.",
+          owner:"Legal, with the technical/product owner confirming what's actually bespoke."}),
+        own:(rig)=>({check:"Confirm our IP clause matches our template's position and any background-IP schedule is attached and accurate.",
+          standard:"Match the approved template; background IP listed by name in a schedule.",
+          flag:"Escalate if the business team wants to assign more than our template allows, or if the background-IP schedule is missing.",
+          owner:"Legal."}) },
       { name:"Termination for Convenience",
-        a:(risk)=>({preferred:R(risk,90,60,30)+" days' written notice, with payment for all work performed and committed costs up to the effective termination date.",
-          fallback:R(risk,60,45,30)+" days' notice with payment for work performed to date.",
-          walkaway:"A right for the client to terminate for convenience on short or no notice with no compensation for committed costs or work in progress.",
-          tip:"Push for compensation for non-cancellable committed costs (subcontractors, licences bought for this engagement), not just work already invoiced."}),
-        b:(risk)=>({preferred:R(risk,15,30,45)+" days' notice, mutual, so you aren't locked in if the engagement stops delivering value.",
-          fallback:"30-45 days' notice, mutual, with a pro-rated refund of any prepaid, unused fees.",
-          walkaway:"No termination-for-convenience right at all, or one available only to the provider \u2014 leaves you stuck in a non-performing contract.",
-          tip:"If the provider resists a mutual right, ask for a shorter notice period in exchange \u2014 the asymmetry is usually the real issue, not the existence of the right."}) },
+        ext:(rig)=>({check:"Check the notice period, whether it's mutual, and what's payable on termination (work performed, committed costs).",
+          standard:R(rig,60,45,30)+"-90 days' notice, mutual, with payment for work performed and non-cancellable committed costs, is our accepted range.",
+          flag:"Escalate if termination for convenience is available to the vendor only, on short/no notice, or with no compensation for committed costs.",
+          owner:"Legal, with the business owner confirming operational impact of the notice period."}),
+        own:(rig)=>({check:"Confirm our own termination clause matches the template and the notice period is realistic for our delivery team to plan around.",
+          standard:"Match the approved template notice period.",
+          flag:"Escalate any request to shorten our standard notice period for a specific customer.",
+          owner:"Legal + Operations."}) },
       { name:"Indemnification Scope",
-        a:(risk)=>({preferred:"Indemnity limited to third-party IP-infringement claims arising from your own deliverables, subject to your control of the defence and the client's prompt notice and cooperation.",
-          fallback:"Add a carve-out where infringement results from the client's specifications or modifications the client made without your consent.",
-          walkaway:"An indemnity for \u201cany and all claims\u201d arising from the engagement, uncapped and without your control of the defence.",
-          tip:"Always require control of the defence and settlement in exchange for giving an indemnity \u2014 otherwise you're funding a defence you can't run."}),
-        b:(risk)=>({preferred:"Broad indemnity covering third-party IP infringement, data breach caused by the provider, and the provider's breach of confidentiality, uncapped or capped separately from general liability.",
-          fallback:"IP-infringement and confidentiality-breach indemnity, capped at a multiple of fees higher than the general liability cap.",
-          walkaway:"No IP-infringement indemnity at all, or one subsumed entirely within the low general liability cap.",
-          tip:"An indemnity that's capped at the same low number as general liability isn't really an indemnity \u2014 check the numbers actually differ."}) },
+        ext:(rig)=>({check:"Check what's actually indemnified (IP infringement, data breach, confidentiality), whether we control the defence, and whether it's capped.",
+          standard:"IP-infringement and confidentiality-breach indemnity, with us controlling the defence and settlement, capped separately from (and higher than) general liability.",
+          flag:"Escalate if the indemnity is folded into the same low general-liability cap, or if we don't get control of the defence for something we're indemnified against.",
+          owner:"Legal."}),
+        own:(rig)=>({check:"Confirm the indemnity we're offering matches the template and the cap/carve-out structure is consistent with our risk appetite for this deal size.",
+          standard:"Match the approved template indemnity scope and cap.",
+          flag:"Escalate any request to broaden our indemnity beyond the template (e.g. uncapped, or covering more than IP/confidentiality).",
+          owner:"Legal, with Finance for material deal sizes."}) },
       { name:"Payment Terms & Late Payment",
-        a:(risk)=>({preferred:"Payment within "+R(risk,15,30,45)+" days of invoice, with a right to suspend services and charge interest on amounts overdue by more than 14 days.",
-          fallback:"30 days from invoice, with a right to suspend after a written reminder and 14-day cure period.",
-          walkaway:"Payment terms exceeding 60 days, or no suspension right at all for non-payment.",
-          tip:"A clear suspension right is often more useful than an interest clause \u2014 few clients actually pay contractual interest, but suspension gets bills paid fast."}),
-        b:(risk)=>({preferred:"Payment within "+R(risk,60,45,30)+" days of invoice, with a right to dispute line items in good faith without being in default on the undisputed balance.",
-          fallback:"45 days from invoice, with an express good-faith dispute carve-out.",
-          walkaway:"Payment due on receipt with an automatic suspension right and no dispute mechanism \u2014 leaves you unable to challenge a wrong invoice without breaching.",
-          tip:"Always negotiate a good-faith dispute carve-out \u2014 it protects you from being called in default over a single contested line item."}) },
+        ext:(rig)=>({check:"Check the payment window, whether there's a good-faith dispute carve-out, and what happens if we (as vendor) aren't paid on time.",
+          standard:"30-"+R(rig,45,45,60)+" days from invoice, with a right to suspend after a written reminder and cure period, and an express good-faith dispute carve-out.",
+          flag:"Escalate if payment terms exceed 60 days, if there's a \u201cpay-when-paid\u201d clause tying our payment to the client's own customer paying them, or if there's no dispute carve-out at all.",
+          owner:"Finance, with Legal for pay-when-paid or unusually long terms."}),
+        own:(rig)=>({check:"Confirm our payment terms match the template for this customer tier and haven't been discounted informally.",
+          standard:"Match the approved template payment window and suspension right.",
+          flag:"Escalate any request to extend payment terms beyond the template for this customer.",
+          owner:"Finance + Legal."}) },
       { name:"Data Protection & Security Obligations",
-        a:(risk)=>({preferred:"Obligations limited to acting on the client's documented instructions, with liability for data-protection breaches capped within the general liability cap.",
-          fallback:"Standard processor obligations (security measures, sub-processor flow-down, breach notice within 72 hours) with liability capped, but at a higher multiple than general liability.",
-          walkaway:"Uncapped liability for any data-protection breach, regardless of fault, layered on top of the general liability cap.",
-          tip:"Negotiate breach-notification timing carefully \u2014 72 hours is standard; anything faster is often operationally unrealistic and better handled as a target, not a hard deadline."}),
-        b:(risk)=>({preferred:"Breach notification within "+R(risk,72,48,24)+" hours, an uncapped or separately (higher) capped liability for data-protection breaches, and audit rights over the provider's security controls.",
-          fallback:"48-72 hour breach notice, liability for data breaches capped at a multiple higher than the general cap, annual security questionnaire rights.",
-          walkaway:"No specific breach-notification deadline (just \u201cpromptly\u201d), and data-protection liability folded into the same low general cap as everything else.",
-          tip:"A vague \u201cpromptly\u201d standard for breach notice is unenforceable in practice \u2014 always insist on a specific number of hours."}) } ] },
+        ext:(rig)=>({check:"Check the breach-notification deadline (should be a specific number of hours, not \u201cpromptly\u201d), the named security standard, and whether liability for data breaches is capped separately.",
+          standard:"Breach notification within "+R(rig,24,48,72)+"-72 hours, a named security standard (ISO 27001 or equivalent), and data-breach liability capped at a level higher than general liability.",
+          flag:"Escalate if there's no numeric breach-notification deadline, or if data-protection liability is folded into the same low general cap as routine disputes.",
+          owner:"Legal + IT Security / DPO."}),
+        own:(rig)=>({check:"Confirm our data-protection clause matches our template's committed breach-notification timeline and security standard.",
+          standard:"Match the approved template exactly \u2014 don't commit to faster breach notification than our incident-response process can actually deliver.",
+          flag:"Escalate any request from a customer for a notification deadline faster than our template default.",
+          owner:"Legal + IT Security."}) } ] },
 
-  consultancy: { label:"Consultancy / Freelancer Agreement", aLabel:"Consultant / Freelancer", bLabel:"Engaging Company",
+  consultancy: { label:"Consultancy / Freelancer Agreement",
     clauses:[
       { name:"Intellectual Property Assignment",
-        a:(risk)=>({preferred:"Only deliverables specifically commissioned and paid for are assigned; your pre-existing tools, templates and methodologies remain yours, licensed for use in the deliverables.",
-          fallback:"Assignment of commissioned deliverables on payment, with an express carve-out and retained ownership of your background materials.",
-          walkaway:"A blanket assignment of \u201call work product created during the engagement,\u201d which could capture your own tools, side projects and pre-existing IP.",
-          tip:"List your background IP in a schedule at signing \u2014 don't rely on a generic carve-out clause to protect specific tools you actually care about."}),
-        b:(risk)=>({preferred:"All work product created in connection with the engagement assigned to you outright, including any improvements to your existing materials made during the engagement.",
-          fallback:"Deliverables assigned on payment, with a broad licence (not just \u201cuse for intended purpose\u201d) to any consultant background IP embedded in them.",
-          walkaway:"A licence-only arrangement with no assignment, or one where the consultant can reuse your confidential specifications for other clients.",
-          tip:"Distinguish clearly between the consultant's background IP (fine to licence) and anything built specifically for you (should be assigned)."}) },
+        ext:(rig)=>({check:"Check exactly what's assigned to us versus what the consultant retains, and whether the assignment could accidentally capture their pre-existing tools.",
+          standard:"Deliverables specifically commissioned and paid for are assigned to us; the consultant's own background tools/templates are licensed for use in the deliverables, not owned by us.",
+          flag:"Escalate if a blanket assignment of \u201call work product created during the engagement\u201d appears with no background-IP carve-out \u2014 it can create disputes later over ownership of the consultant's own tools.",
+          owner:"Legal, with the engaging manager confirming what was actually commissioned."}),
+        own:(rig)=>({check:"If we are the consultant/freelancer sending our own terms, confirm our draft protects our background IP and only assigns the specifically commissioned deliverables.",
+          standard:"Match our standard template: commissioned deliverables assigned on payment; background IP listed and retained.",
+          flag:"Escalate any client request to assign more than our template allows before the engagement is signed.",
+          owner:"Whoever owns our standard consultancy template."}) },
       { name:"Payment & Invoicing Terms",
-        a:(risk)=>({preferred:"Payment within "+R(risk,7,15,30)+" days of invoice, milestone or time-based, with a right to pause work if payment is more than 14 days late.",
-          fallback:"30 days from invoice, with a pause right after written notice and a short cure period.",
-          walkaway:"Payment terms exceeding 60 days, or payment contingent on the client's own downstream customer paying them (a \u201cpay-when-paid\u201d clause).",
-          tip:"Reject pay-when-paid clauses outright \u2014 they shift the client's credit risk from their customer onto you, someone with no relationship to that customer at all."}),
-        b:(risk)=>({preferred:"Payment within "+R(risk,45,30,15)+" days of invoice, tied to accepted milestones with a defined review period before payment is due.",
-          fallback:"30 days from invoice, with a short review-and-accept window before the payment clock starts.",
-          walkaway:"Payment due immediately on submission with no review or acceptance period at all.",
-          tip:"Always tie payment to acceptance, not just submission \u2014 it gives you leverage to get deliverables actually fixed before money moves."}) },
+        ext:(rig)=>({check:"Check the payment window, whether it's tied to milestone acceptance, and whether there's a pause right if payment is late.",
+          standard:R(rig,30,30,45)+" days from invoice (or on milestone acceptance) with a pause-work right after a reasonable cure period is our accepted standard.",
+          flag:"Escalate if payment terms exceed 60 days, or if there's a \u201cpay-when-paid\u201d clause making our payment contingent on the client's own customer paying them.",
+          owner:"Finance/Procurement, with Legal for pay-when-paid clauses."}),
+        own:(rig)=>({check:"Confirm our invoicing terms match our template and haven't been extended informally for this client.",
+          standard:"Match the approved template payment window.",
+          flag:"Escalate any request to extend our standard payment terms.",
+          owner:"Whoever owns the template / Finance."}) },
       { name:"Termination Notice",
-        a:(risk)=>({preferred:R(risk,30,21,14)+" days' notice, mutual, with payment for work performed and committed costs to date.",
-          fallback:"14-21 days' notice, mutual, with payment for work performed.",
-          walkaway:"A right for the client to terminate immediately without notice or payment for work in progress.",
-          tip:"For project-based (not retainer) work, tie termination payment to percentage-of-completion, not just hours logged \u2014 it's easier to justify later."}),
-        b:(risk)=>({preferred:R(risk,7,14,21)+" days' notice, mutual, so you aren't locked into an underperforming engagement.",
-          fallback:"14 days' notice, mutual.",
-          walkaway:"No termination right for the client at all, or one requiring cause with a lengthy cure period even for a non-performing consultant.",
-          tip:"Insist on a for-cause termination right with immediate effect for serious breaches (confidentiality, IP misuse), separate from the notice-based convenience right."}) },
-      { name:"Exclusivity & Non-Compete During Engagement",
-        a:(risk)=>({preferred:"No exclusivity obligation; you remain free to take on other clients, including in the same broad sector, so long as no confidential information is misused.",
-          fallback:"A narrow non-compete limited to named direct competitors, for the term of the engagement only.",
-          walkaway:"A broad non-compete covering the entire industry or all of the client's competitors, extending beyond the term of the engagement.",
-          tip:"If a non-compete is unavoidable, negotiate compensation for the restricted period \u2014 an unpaid non-compete after an engagement ends is your leverage to hold out on."}),
-        b:(risk)=>({preferred:"An exclusivity commitment for the engagement term covering your direct competitors, plus a short (3-6 month) tail after termination for the most sensitive engagements.",
-          fallback:"Exclusivity limited to named direct competitors during the engagement term only, no post-termination tail.",
-          walkaway:"No exclusivity or non-compete protection at all for a consultant with deep access to your competitive strategy or client lists.",
-          tip:"Reserve the strongest non-compete asks for consultants with real strategic access \u2014 pushing hard on a low-access engagement damages the relationship for no real protection."}) },
+        ext:(rig)=>({check:"Check the notice period, whether it's mutual, and what's payable for work already performed.",
+          standard:R(rig,14,21,30)+" days' notice, mutual, with payment for work performed and committed costs, is our accepted range.",
+          flag:"Escalate if the consultant can walk away with no notice, or if we can only terminate for cause with a lengthy process even for underperformance.",
+          owner:"Legal, with the engaging manager confirming operational risk of a short engagement gap."}),
+        own:(rig)=>({check:"Confirm the termination clause in our own outgoing terms matches our template.",
+          standard:"Match the approved template notice period.",
+          flag:"Escalate any client request for a longer lock-in than our template allows.",
+          owner:"Legal."}) },
+      { name:"Exclusivity & Non-Compete",
+        ext:(rig)=>({check:"Check whether the consultant is asked for exclusivity or a non-compete, how broad it is, and whether it extends past the engagement.",
+          standard:"A narrow non-compete limited to named direct competitors, for the engagement term only, is standard; anything broader needs a business justification.",
+          flag:"Escalate if the non-compete covers the entire industry or extends materially beyond the engagement term with no compensation for the restricted period.",
+          owner:"Legal, with HR/Procurement input on whether the restriction is proportionate."}),
+        own:(rig)=>({check:"If we're the consultant, confirm any exclusivity clause we're accepting is reasonable and time-bound.",
+          standard:"Match our template's default position \u2014 typically no exclusivity beyond named direct competitors during the engagement.",
+          flag:"Escalate before accepting any exclusivity broader than our template default.",
+          owner:"Whoever owns our template / the individual consultant's own review."}) },
       { name:"Liability Cap",
-        a:(risk)=>({preferred:"Liability capped at fees paid in the trailing "+R(risk,3,6,12)+" months, with no liability for indirect or consequential loss.",
-          fallback:"Cap at 12 months' fees or total fees paid under the engagement, whichever is agreed.",
-          walkaway:"Uncapped personal liability, especially where you are engaging as an individual rather than through an entity.",
-          tip:"If you're contracting as an individual (not through a company), an uncapped liability clause is a genuine personal-asset risk \u2014 hold this line firmly."}),
-        b:(risk)=>({preferred:"Cap at "+R(risk,12,6,3)+" months' fees, or uncapped for breach of confidentiality and IP infringement.",
-          fallback:"Cap at total fees paid, with carve-outs for confidentiality breach and gross negligence.",
-          walkaway:"A cap so low it provides no real deterrent against a consultant who mishandles confidential client information.",
-          tip:"For consultants with data or IP access, keep the confidentiality carve-out uncapped even if the general cap is modest."}) },
+        ext:(rig)=>({check:"Check the cap amount and whether the consultant is contracting as an individual (personal-asset risk) or through an entity.",
+          standard:"A cap at "+R(rig,3,6,12)+"-12 months' fees, with no liability for indirect/consequential loss, is our accepted range.",
+          flag:"Escalate if liability is uncapped, especially where the consultant is an individual rather than a company \u2014 this is a real personal-asset exposure point worth flagging even if the consultant doesn't raise it.",
+          owner:"Legal, with Finance/Risk for material engagement values."}),
+        own:(rig)=>({check:"If we're the consultant, confirm the cap we're accepting matches what our template requests and isn't uncapped.",
+          standard:"Match our template's requested cap.",
+          flag:"Escalate before accepting an uncapped liability clause, particularly if contracting personally rather than through a company.",
+          owner:"The individual consultant, or whoever owns the template."}) },
       { name:"Confidentiality Survival",
-        a:(risk)=>({preferred:"Confidentiality obligations survive "+R(risk,2,3,5)+" years post-termination, with a right to reference the engagement (without confidential detail) for your own portfolio.",
-          fallback:"Survival for 3-5 years, silent on portfolio rights (negotiate separately if needed).",
-          walkaway:"A perpetual confidentiality obligation covering even the fact that the engagement took place.",
-          tip:"Explicitly reserve the right to list the client as a reference (by name, without confidential specifics) \u2014 this is commonly overlooked and matters for your own business development."}),
-        b:(risk)=>({preferred:"Confidentiality obligations survive indefinitely for trade secrets, "+R(risk,3,5,7)+" years for other confidential information.",
-          fallback:"Survival of 3-5 years for general confidential information, indefinite for trade secrets specifically.",
-          walkaway:"Confidentiality obligations that lapse immediately on termination, or a consultant reference right that permits disclosure of confidential deal terms.",
-          tip:"If you agree to a portfolio-reference right, cap it to naming the relationship only \u2014 never confidential commercial terms or data."}) } ] },
+        ext:(rig)=>({check:"Check how long confidentiality survives after the engagement ends and whether client lists/pricing are expressly named as confidential.",
+          standard:R(rig,2,3,5)+"-5 years survival for general confidential information, indefinite for trade secrets, is our accepted range.",
+          flag:"Escalate if there's no survival at all after termination, or if the definition is narrow enough to exclude client lists and pricing methodology.",
+          owner:"Legal."}),
+        own:(rig)=>({check:"If we're the consultant, confirm the survival period we're agreeing to includes a carve-out for our general skills, knowledge and experience.",
+          standard:"Match our template; ensure the general-skills carve-out is present.",
+          flag:"Escalate before signing anything with no carve-out for general professional skill and know-how \u2014 read literally it can function like an unlimited restriction on future work.",
+          owner:"The individual consultant, or whoever owns the template."}) } ] },
 
-  employment: { label:"Employment Agreement", aLabel:"Employer", bLabel:"Employee",
+  employment: { label:"Employment Agreement",
     clauses:[
       { name:"Probation Period & Termination During Probation",
-        a:(risk)=>({preferred:R(risk,3,6,6)+" months' probation, terminable on "+R(risk,7,15,15)+" days' notice without cause during that period.",
-          fallback:"3-6 months' probation, terminable on 15-30 days' notice.",
-          walkaway:"No probation period at all for a new hire, or a probation period requiring full cause and process to terminate \u2014 defeats its purpose.",
-          tip:"Keep probation notice short but not zero \u2014 a completely notice-free termination right invites disputes even when legally permissible."}),
-        b:(risk)=>({preferred:R(risk,6,3,1)+" months' probation maximum, with confirmation automatic unless you're notified otherwise in writing before it ends.",
-          fallback:"3-6 months' probation with a written confirmation or extension decision required before expiry.",
-          walkaway:"An indefinite or repeatedly extendable probation period with no automatic confirmation mechanism.",
-          tip:"Get the automatic-confirmation language in writing \u2014 without it, some employers treat probation as open-ended by default, which affects your notice and severance rights."}) },
+        ext:(rig)=>({check:"Check the probation length and the notice period required to terminate during probation.",
+          standard:R(rig,3,6,6)+"-6 months' probation, terminable on "+R(rig,7,15,15)+"-30 days' notice, is our accepted range.",
+          flag:"Escalate if the offer has no probation period for a new hire, or if probation termination effectively requires the same full process as a for-cause dismissal.",
+          owner:"HR, with Legal for any deviation from the standard template."}),
+        own:(rig)=>({check:"Confirm the probation clause in the offer/contract matches our standard HR template for this role level.",
+          standard:"Match the approved HR template exactly.",
+          flag:"Escalate any hiring-manager request to waive or shorten standard probation.",
+          owner:"HR (template custodian)."}) },
       { name:"Notice Period Post-Confirmation",
-        a:(risk)=>({preferred:R(risk,60,45,30)+" days' notice or payment in lieu, at your election, mutual.",
-          fallback:"30-45 days' notice, mutual, or payment in lieu at your election.",
-          walkaway:"Asymmetric notice (long for the employee, short or none for the employer) \u2014 courts in many jurisdictions view this unfavourably and it damages morale regardless.",
-          tip:"Keep payment-in-lieu as your election, not the employee's \u2014 it preserves flexibility to require a working notice period when you need continuity."}),
-        b:(risk)=>({preferred:R(risk,30,45,60)+" days' notice, mutual, or payment in lieu at your election if the employer wants to end things sooner.",
-          fallback:"30 days' notice, mutual.",
-          walkaway:"A notice period that's short or absent for the employer but long for you \u2014 this asymmetry should be a hard line in negotiation.",
-          tip:"If seniority or industry norms justify a longer notice period from you, ask for a matching or garden-leave-paid period in return."}) },
+        ext:(rig)=>({check:"Check whether notice is mutual and whether payment in lieu is available at the employer's election.",
+          standard:R(rig,30,45,60)+"-60 days' notice, mutual, with payment in lieu at our election, is our accepted range.",
+          flag:"Escalate if notice is asymmetric in the employee's favour (long for us, short for them), which is unusual and should have a documented business reason.",
+          owner:"HR, with Legal for senior or unusual roles."}),
+        own:(rig)=>({check:"Confirm the notice period in the offer matches our template for this role level and seniority.",
+          standard:"Match the approved template.",
+          flag:"Escalate any request for a materially longer or shorter notice period than standard for the role.",
+          owner:"HR."}) },
       { name:"Non-Compete & Restrictive Covenants",
-        a:(risk)=>({preferred:"Non-solicitation of clients and employees for "+R(risk,6,12,18)+" months post-termination; a non-compete only where enforceable locally and only for genuinely competing roles.",
-          fallback:"12-month non-solicitation, narrowly scoped non-compete limited to direct competitors and the employee's specific function.",
-          walkaway:"A broad, industry-wide non-compete with no geographic or functional limit \u2014 in many jurisdictions (including India) this is unenforceable and invites legal challenge instead of protection.",
-          tip:"Check enforceability in your jurisdiction before relying on a non-compete \u2014 in India, for example, post-employment non-competes are generally void under Section 27 of the Contract Act; use strong confidentiality and non-solicitation instead."}),
-        b:(risk)=>({preferred:"No post-employment non-compete; a narrow, time-limited non-solicitation clause only (6 months, named clients/employees only).",
-          fallback:"A non-compete limited to direct competitors, a defined geography, and 6-12 months, ideally with compensation for the restricted period.",
-          walkaway:"An unlimited-geography, unlimited-duration non-compete covering any role in the industry, uncompensated.",
-          tip:"If you're asked to sign a broad non-compete, check whether it's actually enforceable where you'll be working \u2014 many broad covenants are unenforceable as written but still chill your job search unless you push back."}) },
+        ext:(rig)=>({check:"Check what restrictive covenants are proposed and confirm enforceability in our jurisdiction before relying on them.",
+          standard:"Non-solicitation of clients/employees for "+R(rig,6,12,18)+"-18 months is generally usable; a non-compete only where actually enforceable locally and narrowly scoped to genuinely competing roles.",
+          flag:"Escalate before relying on any broad, unlimited-geography non-compete \u2014 in India, for example, post-employment non-competes are generally void under Section 27 of the Contract Act, so an HR template built around one creates false comfort.",
+          owner:"Legal must confirm local enforceability before HR relies on any restrictive covenant."}),
+        own:(rig)=>({check:"Confirm our standard employment template's restrictive covenants are still enforceable in the jurisdictions we're currently hiring into.",
+          standard:"Match the approved, jurisdiction-checked template.",
+          flag:"Escalate to Legal before using a restrictive-covenant clause in any jurisdiction not already confirmed.",
+          owner:"Legal (template custodian) — review at least annually or when hiring into a new jurisdiction."}) },
       { name:"IP / Work Product Assignment",
-        a:(risk)=>({preferred:"All work product created during employment, using company resources or relating to company business, is assigned to you automatically, including outside working hours.",
-          fallback:"Assignment limited to work product created using company resources or relating to company business, whether during or outside working hours.",
-          walkaway:"No IP assignment clause at all, or one so narrow it excludes work done using company time or resources.",
-          tip:"Pair the assignment clause with a clear moonlighting/outside-work policy \u2014 it prevents disputes over what counts as \u201crelated to company business.\u201d"}),
-        b:(risk)=>({preferred:"Assignment limited to work product created using company resources, during working hours, or directly related to your job function \u2014 personal projects unrelated to your role are excluded.",
-          fallback:"A carve-out schedule listing your pre-existing personal projects and tools, excluded from the assignment.",
-          walkaway:"A clause assigning \u201call intellectual property created during the term of employment,\u201d with no carve-out for unrelated personal projects done on your own time and equipment.",
-          tip:"If you have any side projects, list them explicitly in a schedule at signing \u2014 silence here gets read against you later, not for you."}) },
+        ext:(rig)=>({check:"Check that work product created using company resources, during working hours, or relating to company business is assigned to us.",
+          standard:"Assignment covering work product created using company resources or relating to company business, whether during or outside working hours, is our standard.",
+          flag:"Escalate if the assignment clause is missing entirely or narrow enough to exclude work done using company time/resources.",
+          owner:"HR + Legal."}),
+        own:(rig)=>({check:"Confirm the IP assignment clause matches our template and any employee side-project carve-outs are properly documented at signing.",
+          standard:"Match the approved template.",
+          flag:"Escalate if a new hire discloses personal projects that need an explicit carve-out schedule.",
+          owner:"Legal."}) },
       { name:"Termination for Cause — Definition",
-        a:(risk)=>({preferred:"A defined list of cause events (fraud, gross misconduct, material breach after notice, repeated policy violation) enabling immediate termination without notice or severance.",
-          fallback:"A defined cause list with a short cure period for curable breaches, immediate termination for serious misconduct only.",
-          walkaway:"An open-ended \u201cany reason the company deems sufficient\u201d cause definition \u2014 this converts a for-cause termination into a disguised at-will dismissal without severance.",
-          tip:"A precise cause definition protects the employer too \u2014 vague standards are exactly what gets successfully challenged in wrongful-termination claims."}),
-        b:(risk)=>({preferred:"A narrow, exhaustively defined cause list, with a written warning and cure period required for anything short of gross misconduct or fraud.",
-          fallback:"A defined cause list with at least one written warning required before termination for performance-related issues.",
-          walkaway:"A cause definition broad enough to cover ordinary performance issues or minor policy breaches without any warning or cure opportunity.",
-          tip:"Ask specifically whether \u201cpoor performance\u201d falls under cause (no severance) or the standard notice-based termination (with severance) \u2014 this is often deliberately left ambiguous."}) },
+        ext:(rig)=>({check:"Check whether \u201ccause\u201d is defined precisely (fraud, gross misconduct, material breach after notice) or left open-ended.",
+          standard:"A defined cause list, with a written warning and cure period required for anything short of gross misconduct or fraud, is our standard.",
+          flag:"Escalate if the cause definition is broad enough to cover ordinary performance issues without any warning or cure step \u2014 this creates wrongful-termination exposure.",
+          owner:"HR + Legal, especially before any actual for-cause termination is executed."}),
+        own:(rig)=>({check:"Confirm the cause definition in our template is precise enough to withstand challenge, not just broad enough to be convenient.",
+          standard:"Match the approved, legally-reviewed template definition.",
+          flag:"Escalate any manager request to terminate \u201cfor cause\u201d against a case that doesn't clearly meet the defined criteria \u2014 treat it as a notice-based termination instead.",
+          owner:"Legal."}) },
       { name:"Confidentiality Survival Post-Employment",
-        a:(risk)=>({preferred:"Confidentiality obligations survive indefinitely for trade secrets, "+R(risk,2,3,5)+" years for other confidential information.",
-          fallback:"3-5 year survival for general confidential information, indefinite for trade secrets.",
-          walkaway:"No survival of confidentiality obligations after employment ends, or a definition so narrow it excludes client lists and pricing.",
-          tip:"Make sure client lists, pricing methodology and roadmaps are expressly named as confidential \u2014 generic language gets contested in exit disputes."}),
-        b:(risk)=>({preferred:"Confidentiality survives for a defined, reasonable period (2-3 years) for genuinely sensitive information, with an express carve-out for your general skills, knowledge and experience.",
-          fallback:"3-5 year survival, with the general-skills-and-experience carve-out included.",
-          walkaway:"A clause with no carve-out for general professional skill and know-how \u2014 read literally, it could be argued to restrict your ability to work in your field at all.",
-          tip:"The general-skills carve-out is standard and important \u2014 without it, a broadly drafted confidentiality clause starts to function like an unlimited non-compete."}) } ] },
+        ext:(rig)=>({check:"Check the survival period after employment ends and whether client lists, pricing and roadmaps are expressly named as confidential.",
+          standard:R(rig,2,3,5)+"-5 year survival for general confidential information, indefinite for trade secrets, is our accepted range.",
+          flag:"Escalate if confidentiality lapses immediately on termination, or if the definition is narrow enough to exclude client lists and pricing.",
+          owner:"HR + Legal."}),
+        own:(rig)=>({check:"Confirm our template includes the general-skills-and-experience carve-out alongside the confidentiality obligation.",
+          standard:"Match the approved template, including the general-skills carve-out.",
+          flag:"Escalate before removing the general-skills carve-out for any specific hire \u2014 without it, the clause can start functioning like an unlimited restriction on future employment.",
+          owner:"Legal."}) } ] },
 
-  dpa: { label:"Data Processing Agreement (DPA)", aLabel:"Processor / Vendor", bLabel:"Controller / Customer",
+  dpa: { label:"Data Processing Agreement (DPA)",
     clauses:[
       { name:"Processing Scope & Instructions",
-        a:(risk)=>({preferred:"Processing strictly limited to the documented instructions in the DPA and the underlying agreement; any request outside that scope treated as a chargeable change.",
-          fallback:"Processing per documented instructions, with a right to flag (not necessarily charge for) any instruction you believe is unlawful.",
-          walkaway:"An open-ended obligation to follow \u201cany instructions from the Controller,\u201d including verbal or informal ones with no documentation trail.",
-          tip:"Insist instructions be documented (email is fine) \u2014 undocumented verbal instructions are a liability trap if something later goes wrong."}),
-        b:(risk)=>({preferred:"Processing strictly limited to documented instructions, with an express obligation on the processor to notify you if an instruction appears to breach applicable data-protection law.",
-          fallback:"Standard documented-instructions clause without the proactive notification obligation.",
-          walkaway:"A clause allowing the processor to determine the purposes and means of processing on its own \u2014 that makes it a joint controller, not a processor, with different liability consequences for you.",
-          tip:"If the vendor's clause hints they decide processing purposes independently, get clarity \u2014 the joint-controller vs processor distinction changes who's liable for what."}) },
+        ext:(rig)=>({check:"Check that the processor's obligations are limited to documented instructions, and look for language suggesting they determine processing purposes independently.",
+          standard:"Processing strictly limited to documented instructions, with the processor obliged to flag any instruction that appears to breach applicable data-protection law.",
+          flag:"Escalate if the clause allows the processor to determine the purposes and means of processing on its own \u2014 that makes them a joint controller, not a processor, with different liability consequences for us.",
+          owner:"DPO/Legal."}),
+        own:(rig)=>({check:"If we are the processor, confirm our own DPA template correctly limits our processing to the controller's documented instructions.",
+          standard:"Match the approved template scope-of-processing clause.",
+          flag:"Escalate if a customer's specific instructions fall outside what our standard processing activities actually support.",
+          owner:"DPO/Legal + the relevant product/engineering owner."}) },
       { name:"Sub-Processor Approval",
-        a:(risk)=>({preferred:"A general, standing authorisation to engage sub-processors, with only a published list requirement and no case-by-case consent.",
-          fallback:"General authorisation with advance notice of new sub-processors and a right for the controller to object on reasonable grounds within a set window.",
-          walkaway:"A requirement for specific written consent before engaging any sub-processor \u2014 operationally unworkable at scale for most SaaS vendors.",
-          tip:"If specific consent is demanded, negotiate a deemed-consent mechanism (no objection within X days = approved) to keep things workable."}),
-        b:(risk)=>({preferred:"Specific prior written consent required before any new sub-processor is engaged, with full flow-down of the same data-protection obligations.",
-          fallback:"Advance notice (30 days) plus a genuine right to object, with the option to terminate if the objection isn't resolved.",
-          walkaway:"A clause allowing sub-processors with no notice at all, or without contractually requiring them to meet the same obligations as the primary processor.",
-          tip:"Whatever the approval mechanism, make sure the flow-down obligation is explicit \u2014 an approved sub-processor with weaker obligations than the primary processor is still your risk."}) },
+        ext:(rig)=>({check:"Check the approval mechanism for new sub-processors (specific consent vs published list vs notice-and-object), and whether the same obligations flow down to them.",
+          standard:"Advance notice of new sub-processors with a genuine objection right within a reasonable window, plus full flow-down of the same data-protection obligations, is our accepted standard.",
+          flag:"Escalate if sub-processors can be engaged with no notice at all, or without contractually requiring them to meet the same obligations as the primary processor.",
+          owner:"DPO/Legal."}),
+        own:(rig)=>({check:"Confirm our own sub-processor list and flow-down obligations are current and match what our DPA template represents to customers.",
+          standard:"Match the approved template and keep the published sub-processor list current.",
+          flag:"Escalate before onboarding a new sub-processor without updating customer-facing disclosures where our contracts require notice.",
+          owner:"DPO, with Legal for contractual notice obligations."}) },
       { name:"Security & Breach Notification Timeline",
-        a:(risk)=>({preferred:"Notification within "+R(risk,72,48,24)+" hours of becoming aware of a confirmed breach, with security measures described at a general standard (\u201cappropriate technical and organisational measures\u201d).",
-          fallback:"72-hour notification with a defined, named security standard (e.g. ISO 27001) rather than a fully open-ended one.",
-          walkaway:"An open-ended \u201cwithout undue delay\u201d standard with no numeric deadline, or an obligation to notify before you've even confirmed a breach occurred.",
-          tip:"Distinguish \u201csuspected\u201d from \u201cconfirmed\u201d breaches in the clause \u2014 notifying on mere suspicion floods the controller with false alarms and erodes trust in real ones."}),
-        b:(risk)=>({preferred:"Notification within "+R(risk,24,48,72)+" hours of the processor becoming aware, including suspected as well as confirmed incidents, with a named security standard.",
-          fallback:"48-72 hour notification of confirmed breaches, named security standard, annual audit or certification evidence.",
-          walkaway:"No numeric breach-notification deadline at all \u2014 you often have your own regulatory deadline (e.g. 72 hours under GDPR) that starts running before you even hear about the incident.",
-          tip:"Your own regulatory notification clock is usually running from when the processor should have told you, not when they did \u2014 a slow or vague processor clause directly increases your compliance risk."}) },
+        ext:(rig)=>({check:"Check for a specific numeric breach-notification deadline (not \u201cwithout undue delay\u201d) and a named security standard.",
+          standard:"Notification within "+R(rig,24,48,72)+"-72 hours of the processor becoming aware, with a named security standard, is our accepted standard.",
+          flag:"Escalate if there's no numeric deadline at all \u2014 our own regulatory notification clock (e.g. 72 hours under GDPR-equivalent law) starts running before we even hear about an incident from a slow processor clause.",
+          owner:"DPO/Legal + IT Security."}),
+        own:(rig)=>({check:"Confirm our committed breach-notification timeline in the DPA is one our incident-response process can actually meet.",
+          standard:"Match the approved template timeline \u2014 don't commit to a faster deadline than IT Security has confirmed is operationally realistic.",
+          flag:"Escalate any sales request to promise a faster notification window than our template default without IT Security sign-off.",
+          owner:"IT Security + Legal."}) },
       { name:"Audit Rights",
-        a:(risk)=>({preferred:"Audit satisfied by an annual third-party certification (SOC 2 / ISO 27001) or completed security questionnaire, with an on-site audit only for serious, evidenced concerns and at the controller's cost.",
-          fallback:"Certification-based audits as standard, with a right to a paid on-site audit no more than once a year on reasonable notice.",
-          walkaway:"An unlimited, no-notice, on-site audit right at the processor's cost \u2014 unworkable for most multi-tenant infrastructure and effectively unbounded exposure.",
-          tip:"Push hard for certification-based audits as the default \u2014 they're the market standard for any processor serving more than a handful of clients."}),
-        b:(risk)=>({preferred:"A right to audit (directly or via a mandated third party) on reasonable notice, at least annually, plus for-cause audits following any security incident.",
-          fallback:"Certification-based audits accepted as sufficient for routine assurance, with a reserved right to a for-cause audit after any incident.",
-          walkaway:"No audit right at all, or one requiring the processor's consent before every audit, which they can simply refuse.",
-          tip:"Always keep a for-cause audit right regardless of what routine assurance mechanism you accept \u2014 certifications don't help you investigate an actual incident."}) },
+        ext:(rig)=>({check:"Check whether audits are satisfied by certification (SOC 2/ISO 27001) or require a full on-site audit, and at whose cost.",
+          standard:"Certification-based audits as the default, with a reserved right to a for-cause audit after any incident, is our accepted standard.",
+          flag:"Escalate if there's no audit right at all, or if the processor can simply refuse an audit even after a confirmed incident.",
+          owner:"DPO/Legal, with Procurement for cost allocation."}),
+        own:(rig)=>({check:"If we are the processor, confirm our audit clause matches what we can realistically support operationally (frequency, notice, scope).",
+          standard:"Match the approved template — typically certification-based with limited for-cause on-site rights.",
+          flag:"Escalate any customer request for unlimited or no-notice on-site audits before agreeing.",
+          owner:"Legal + IT Security."}) },
       { name:"International Data Transfer Mechanism",
-        a:(risk)=>({preferred:"Standard Contractual Clauses (or the equivalent local mechanism) incorporated by reference, with the processor responsible for keeping the mechanism updated as law changes.",
-          fallback:"SCCs incorporated with a joint obligation to cooperate on updates as regulatory guidance evolves.",
-          walkaway:"A DPA silent on the transfer mechanism entirely, or one that names a specific mechanism that has since been invalidated (a live risk given how quickly this area changes).",
-          tip:"Confirm which specific transfer mechanism module applies to your relationship (controller-to-processor vs processor-to-sub-processor) \u2014 generic references to \u201cSCCs\u201d without specifying the module create ambiguity."}),
-        b:(risk)=>({preferred:"The current, valid transfer mechanism for your jurisdiction expressly incorporated, with an obligation on the processor to notify you immediately if it's invalidated or superseded.",
-          fallback:"Transfer mechanism incorporated with a general cooperation obligation to update it as needed.",
-          walkaway:"No transfer mechanism referenced at all where data will leave your jurisdiction \u2014 this is a compliance gap you carry, not the vendor.",
-          tip:"This is one of the fastest-moving areas in data-protection law \u2014 don't treat a signed DPA as \u201cdone\u201d; revisit the transfer mechanism annually."}) },
+        ext:(rig)=>({check:"Confirm which specific transfer mechanism applies (SCCs or local equivalent) and that it's current, not a mechanism that's since been invalidated.",
+          standard:"The current, valid transfer mechanism for the relevant jurisdictions, expressly incorporated, with an obligation on the processor to notify us if it's invalidated or superseded.",
+          flag:"Escalate if the DPA is silent on the transfer mechanism entirely where data will leave our jurisdiction, or references a mechanism no longer valid \u2014 this area changes quickly.",
+          owner:"DPO/Legal — revisit at least annually regardless of rigor level."}),
+        own:(rig)=>({check:"Confirm our own DPA template references the current valid transfer mechanism for the jurisdictions we operate in.",
+          standard:"Match the approved, currently-valid template mechanism.",
+          flag:"Escalate immediately if regulatory guidance changes and the template hasn't yet been updated.",
+          owner:"DPO/Legal."}) },
       { name:"Liability Under the DPA",
-        a:(risk)=>({preferred:"DPA liability folded into and capped by the same limitation-of-liability clause as the main agreement, not a separate uncapped exposure.",
-          fallback:"A separate but capped DPA liability, at a defined multiple of fees higher than the general commercial cap.",
-          walkaway:"Uncapped liability for any data-protection breach or regulatory fine passed through from the controller, regardless of the processor's degree of fault.",
-          tip:"Ask specifically whether regulatory fines imposed on the controller can be passed through to you under this clause \u2014 that exposure is usually far larger than ordinary commercial damages."}),
-        b:(risk)=>({preferred:"DPA liability, including regulatory fines attributable to the processor's fault, carved out from the general cap or capped at a materially higher level.",
-          fallback:"A separate, higher cap specifically for data-protection breaches, distinct from the general commercial liability cap.",
-          walkaway:"Data-protection liability folded into the same low general cap as routine commercial disputes \u2014 given the scale of potential regulatory fines, this leaves you badly under-protected.",
-          tip:"Compare the DPA liability cap to the maximum regulatory fine exposure in your jurisdiction \u2014 if the cap is far below that number, it isn't providing real protection."}) } ] }
+        ext:(rig)=>({check:"Check whether data-protection liability (including regulatory fines) is capped separately from, or folded into, the general commercial liability cap.",
+          standard:"A separate, higher cap for data-protection liability than the general commercial cap, given the scale of potential regulatory fines.",
+          flag:"Escalate if data-protection liability is folded into the same low general cap as routine commercial disputes \u2014 compare the cap to realistic regulatory fine exposure in the relevant jurisdiction.",
+          owner:"Legal + Finance/Risk."}),
+        own:(rig)=>({check:"Confirm the liability position we're offering in our own DPA matches our template and our actual insurance coverage.",
+          standard:"Match the approved template cap structure.",
+          flag:"Escalate before offering an uncapped or unusually high data-protection liability commitment not covered by our insurance.",
+          owner:"Legal + Finance/Risk."}) } ] }
 };
 
 /* ============ Shared engine ============ */
@@ -696,58 +718,106 @@ function fmtDate(iso){
 }
 function v(id){const el=$(id);return el?el.value.trim():"";}
 
-const S = { ctype:"nda", stance:"a", jur:"india", ind:"generic", risk:"balanced" };
+const S = { ctype:"nda", dir:"ext", jur:"india", ind:"generic", rigor:"standard" };
 
-function updateStanceSeg(){
-  const t = CTYPE[S.ctype];
-  const seg = $("stanceSeg");
-  seg.innerHTML = '<button type="button" data-v="a" class="'+(S.stance==="a"?"on":"")+'">'+t.aLabel+'</button><button type="button" data-v="b" class="'+(S.stance==="b"?"on":"")+'">'+t.bLabel+'</button>';
-  seg.querySelectorAll("button").forEach(b=>{
-    b.addEventListener("click", ()=>{ S.stance=b.dataset.v; updateStanceSeg(); updateHints(); render(); });
-  });
-}
 function updateHints(){
   const j = JUR[S.jur], ind = IND[S.ind];
   $("jurHint").textContent = j.hint;
-  $("modList").textContent = (ind.mod && ind.mod.length) ? "Sector considerations added: "+ind.mod.map(m=>m.t).join("; ")+"." : "No extra sector considerations for this industry.";
-  $("stanceHint").textContent = "Playbook built from the perspective of: "+CTYPE[S.ctype][S.stance==="a"?"aLabel":"bLabel"]+".";
+  $("modList").textContent = (ind.mod && ind.mod.length) ? "Sector checklist additions: "+ind.mod.map(m=>m.t).join("; ")+"." : "No extra sector considerations for this industry.";
+  $("dirHint").textContent = S.dir==="ext"
+    ? "Reviewing a draft the other side sent us — checklist focuses on catching deviations and risk they may have built in."
+    : "Reviewing our own draft before we send it — checklist focuses on confirming it matches our approved template.";
+}
+
+function workflowSteps(rig){
+  const triage = rig==="light"
+    ? "Routine, low-value, standard-term contracts are fast-tracked straight to sign-off; only flagged or above-threshold contracts go through the full checklist below."
+    : rig==="strict"
+    ? "Every contract of this type goes through the full checklist below, regardless of value — no fast-track lane."
+    : "Contracts are triaged by value and complexity; routine standard-term contracts get a lighter pass, anything unusual or above the internal value threshold gets the full checklist.";
+  return [
+    "Intake & Logging — log the contract (counterparty, value, type, date received) in the contract register before review begins.",
+    "Initial Triage — " + triage,
+    "Clause-by-Clause Checklist Review — work through the checklist below for this contract type, noting any deviation from the internal standard.",
+    "Flag & Escalate — any item that trips an \u201cEscalate if\u201d trigger goes to the named sign-off owner before proceeding, regardless of who's reviewing.",
+    "Internal Approval & Sign-off — obtain sign-off per the Escalation & Approval Matrix below before the contract is executed.",
+    "Execution & Filing — execute, file the signed copy in the contract register, and log key dates (renewal, notice deadlines, expiry) in the compliance calendar."
+  ];
+}
+
+function approvalMatrix(rig){
+  const legalAlways = "Any item flagged \u201cEscalate if\u201d above";
+  if(rig==="strict"){
+    return [
+      ["Any contract of this type", "Legal/Compliance review required before sign-off, in addition to the business owner"],
+      [legalAlways, "Legal Head or senior counsel sign-off, no exceptions"],
+      ["Cross-border data transfer or new jurisdiction", "Additional DPO/compliance review before sign-off"]
+    ];
+  }
+  if(rig==="light"){
+    return [
+      ["Routine, standard-term, low-value", "Department head / requesting manager sign-off only — no Legal review required"],
+      [legalAlways, "Routed to Legal regardless of value or tier"],
+      ["Significant value or strategic relationship", "Legal Head sign-off required"]
+    ];
+  }
+  return [
+    ["Routine, standard-term, low-value", "Department head / requesting manager sign-off"],
+    ["Non-standard terms or mid-value", "Legal/Compliance review + department head sign-off"],
+    [legalAlways, "Mandatory Legal review regardless of value"],
+    ["Significant value, strategic relationship, or regulated data", "Legal Head or senior counsel sign-off required"],
+    ["Cross-border data transfer or new jurisdiction", "Additional DPO/compliance review"]
+  ];
 }
 
 function doc(){
   const t = CTYPE[S.ctype], j = JUR[S.jur], ind = IND[S.ind];
-  const stanceLabel = t[S.stance==="a"?"aLabel":"bLabel"];
-  const you = v("orgYou") || "[Your organisation]";
-  const them = v("orgThem") || "[Counterparty]";
+  const dirLabel = S.dir==="ext" ? "External draft (they sent it)" : "Our own draft (before we send it)";
+  const org = v("orgYou") || "[Company / team name]";
+  const preparedBy = v("preparedBy") || "In-house Legal";
   const dateStr = fmtDate(v("prepDate"));
+  const rigorLabel = S.rigor.charAt(0).toUpperCase()+S.rigor.slice(1)+(S.rigor==="light"?"-Touch":"");
 
-  let html = '<h1>Contract Negotiation Playbook</h1>';
-  html += '<div class="sub">'+t.label+' &nbsp;&middot;&nbsp; Position: '+stanceLabel+' &nbsp;&middot;&nbsp; '+j.label+' &nbsp;&middot;&nbsp; '+ind.label+'</div>';
-  html += '<p class="lede">Prepared for <b>'+you+'</b> negotiating with <b>'+them+'</b> on '+dateStr+'. This playbook sets out, clause by clause, the position to open with, the fallback that is acceptable, and the red line beyond which the deal should not be signed without escalation. Negotiating posture: <b>'+S.risk.charAt(0).toUpperCase()+S.risk.slice(1)+'</b>.</p>';
+  let html = '<h1>Contract Review Playbook</h1>';
+  html += '<div class="sub">'+t.label+' &nbsp;&middot;&nbsp; '+dirLabel+' &nbsp;&middot;&nbsp; '+j.label+' &nbsp;&middot;&nbsp; '+ind.label+'</div>';
+  html += '<p class="lede">Internal review playbook for <b>'+org+'</b>, prepared by '+preparedBy+' on '+dateStr+'. This is the standard your team follows every time a '+t.label.split(" (")[0]+' comes up for review — what to check, the internal standard, when to escalate, and who signs off. Review rigor: <b>'+rigorLabel+'</b>.</p>';
 
-  const flags = [];
-  t.clauses.forEach((c,i)=>{
-    const d = c[S.stance](S.risk);
-    html += '<h3>'+(i+1)+'. '+c.name+'</h3>';
-    html += '<p class="tier"><b class="pref">Preferred position \u2014 </b>'+d.preferred+'</p>';
-    html += '<p class="tier"><b class="fall">Acceptable fallback \u2014 </b>'+d.fallback+'</p>';
-    html += '<p class="tier"><b class="walk">Walk-away red line \u2014 </b>'+d.walkaway+'</p>';
-    html += '<p class="tip">Negotiation tip: '+d.tip+'</p>';
-    flags.push(c.name+": "+d.walkaway);
+  html += '<h2 class="docsec">Review Workflow</h2>';
+  workflowSteps(S.rigor).forEach((step,i)=>{
+    html += '<p class="wf-step"><span class="num">'+(i+1)+'.</span> '+step+'</p>';
   });
 
-  html += '<h3>'+(t.clauses.length+1)+'. Governing Law &amp; Dispute Resolution (background)</h3>';
-  html += '<p class="tier">This playbook assumes the agreement is governed by <b>'+j.law+'</b>, with disputes referred to <b>'+j.courts+'</b> or, where an arbitration clause is used, <b>'+j.arb+'</b>. Data-protection obligations should reference <b>'+j.dp+'</b>.</p>';
-  html += '<p class="tip">Negotiation tip: governing law and forum are usually conceded to whichever party has more negotiating leverage or the larger presence in that jurisdiction \u2014 spend your negotiating capital on commercial clauses first.</p>';
+  html += '<h2 class="docsec">Clause-by-Clause Review Checklist</h2>';
+  const flags = [];
+  t.clauses.forEach((c,i)=>{
+    const d = c[S.dir](S.rigor);
+    html += '<h3>'+(i+1)+'. '+c.name+'</h3>';
+    html += '<p class="tier"><b class="pref">What to check \u2014 </b>'+d.check+'</p>';
+    html += '<p class="tier"><b class="fall">Internal standard \u2014 </b>'+d.standard+'</p>';
+    html += '<p class="tier"><b class="walk">Escalate if \u2014 </b>'+d.flag+'</p>';
+    html += '<p class="tip">Sign-off: '+d.owner+'</p>';
+    flags.push(c.name+": "+d.flag);
+  });
+
+  html += '<h2 class="docsec">Escalation &amp; Approval Matrix</h2>';
+  html += '<table class="matrix"><tr><th>Situation</th><th>Required sign-off</th></tr>';
+  approvalMatrix(S.rigor).forEach(row=>{ html += '<tr><td>'+row[0]+'</td><td>'+row[1]+'</td></tr>'; });
+  html += '</table>';
+
+  html += '<h2 class="docsec">Jurisdiction &amp; Sector Reference</h2>';
+  html += '<p class="tier">Reviews under this playbook assume the contract is (or should be) governed by <b>'+j.law+'</b>, with disputes referred to <b>'+j.courts+'</b> or, where an arbitration clause is used, <b>'+j.arb+'</b>. Any data-protection clause should reference <b>'+j.dp+'</b> \u2014 flag any contract that references an outdated or incorrect regime.</p>';
 
   if(ind.mod && ind.mod.length){
-    html += '<h3>'+(t.clauses.length+2)+'. Sector-Specific Considerations \u2014 '+ind.label+'</h3>';
-    ind.mod.forEach(m=>{ html += '<p class="tier"><b style="color:#1f3d30">'+m.t+' \u2014 </b>'+m.b+'</p>'; });
+    html += '<p class="tier" style="margin-top:10px"><b style="color:#1f3d30">Sector-specific checklist additions \u2014 '+ind.label+'</b></p>';
+    ind.mod.forEach(m=>{ html += '<p class="tier"><b style="color:#a8843f">'+m.t+' \u2014 </b>'+m.b+'</p>'; });
   }
 
-  html += '<div class="flagbox"><h2>Red Flags Checklist</h2><ul style="padding-left:20px">';
+  html += '<div class="flagbox"><h2>Escalation Triggers Checklist</h2><ul style="padding-left:20px">';
   flags.forEach(f=>{ html += '<li>'+f+'</li>'; });
   html += '</ul></div>';
-  html += '<p class="stamp-note">This playbook is a negotiation aid prepared for internal use and does not constitute legal advice on any specific draft. Have a qualified lawyer review the final executed document, particularly wherever a walk-away line above is actually being tested by the other side.</p>';
+
+  html += '<p class="stamp-note">This playbook is an internal process document and does not constitute legal advice on any specific contract. Update it as your standard terms, risk appetite or applicable law change, and have Legal review the checklist itself at least annually.</p>';
+  html += '<div class="doccontrol"><span>Prepared by: '+preparedBy+'</span><span>Date: '+dateStr+'</span><span>For internal use only</span></div>';
   return html;
 }
 
@@ -777,6 +847,10 @@ function _wireModal(){
     if(LEAD_ENDPOINT && LEAD_ENDPOINT.indexOf("http")===0){ try{ await fetch(LEAD_ENDPOINT, {method:"POST", mode:"no-cors", body:fd}); }catch(err){} }
     const which = _pendingExport;
     _closeLead();
+    if(window.VBAuth){
+      const ok = await window.VBAuth.requireCreditAndProceed();
+      if(!ok) return;
+    }
     if(which==="word") _exportWord();
     else if(which==="pdf") window.print();
   });
@@ -791,8 +865,12 @@ function _exportWord(){
     +"h2{font-size:13pt;text-align:center;text-transform:uppercase;margin:18pt 0 8pt}"
     +"h3{font-size:11.5pt;text-transform:uppercase;letter-spacing:.5px;margin:14pt 0 5pt;color:#1f3d30}"
     +"p{text-align:justify;margin:0 0 6pt}.tip{font-style:italic;color:#555;margin-bottom:12pt}"
+    +".wf-step{margin:0 0 8pt}"
+    +"table{border-collapse:collapse;width:100%;margin:8pt 0}"
+    +"td,th{border:1pt solid #999;padding:5pt 7pt;font-size:10pt;text-align:left}"
     +".flagbox{margin-top:16pt;border-top:1pt solid #999;padding-top:10pt}"
-    +".stamp-note{font-style:italic;font-size:9.5pt;color:#555;border-top:1pt dashed #999;margin-top:12pt;padding-top:8pt}";
+    +".stamp-note{font-style:italic;font-size:9.5pt;color:#555;border-top:1pt dashed #999;margin-top:12pt;padding-top:8pt}"
+    +".doccontrol{font-size:9pt;color:#777;margin-top:10pt}";
   const html = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>"
     +"<head><meta charset='utf-8'><title>"+document.title+"</title>"
     +"<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom></w:WordDocument></xml><![endif]-->"
@@ -800,7 +878,7 @@ function _exportWord(){
   const blob = new Blob(["\ufeff"+html], {type:"application/msword"});
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
-  a.download = "Playbook_"+S.ctype.toUpperCase()+"_"+S.jur+".doc";
+  a.download = "ReviewPlaybook_"+S.ctype.toUpperCase()+"_"+S.jur+".doc";
   a.click();
   URL.revokeObjectURL(a.href);
 }
@@ -816,20 +894,25 @@ Object.keys(JUR).forEach(k=>{ const o=document.createElement("option"); o.value=
 Object.keys(IND).forEach(k=>{ const o=document.createElement("option"); o.value=k; o.textContent=IND[k].label; indSel.appendChild(o); });
 ctypeSel.value="nda"; jurSel.value="india"; indSel.value="generic";
 
-ctypeSel.addEventListener("change", e=>{ S.ctype=e.target.value; S.stance="a"; updateStanceSeg(); updateHints(); render(); });
+ctypeSel.addEventListener("change", e=>{ S.ctype=e.target.value; updateHints(); render(); });
 jurSel.addEventListener("change", e=>{ S.jur=e.target.value; updateHints(); render(); });
 indSel.addEventListener("change", e=>{ S.ind=e.target.value; updateHints(); render(); });
-document.querySelectorAll("#riskSeg button").forEach(b=>{
+document.querySelectorAll("#dirSeg button").forEach(b=>{
   b.addEventListener("click", ()=>{
-    document.querySelectorAll("#riskSeg button").forEach(x=>x.classList.remove("on"));
-    b.classList.add("on"); S.risk=b.dataset.v; render();
+    document.querySelectorAll("#dirSeg button").forEach(x=>x.classList.remove("on"));
+    b.classList.add("on"); S.dir=b.dataset.v; updateHints(); render();
   });
 });
-["orgYou","orgThem","prepDate"].forEach(id=>$(id).addEventListener("input", render));
+document.querySelectorAll("#rigorSeg button").forEach(b=>{
+  b.addEventListener("click", ()=>{
+    document.querySelectorAll("#rigorSeg button").forEach(x=>x.classList.remove("on"));
+    b.classList.add("on"); S.rigor=b.dataset.v; render();
+  });
+});
+["orgYou","preparedBy","prepDate"].forEach(id=>$(id).addEventListener("input", render));
 
 /* init */
 $("prepDate").value = new Date().toISOString().slice(0,10);
-updateStanceSeg();
 _wireModal();
 _wireExport();
 updateHints();
