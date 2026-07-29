@@ -25,7 +25,7 @@ body{font-family:'Hanken Grotesk',sans-serif;background:var(--paper);color:var(-
 label{display:block;font-size:11.5px;font-weight:600;color:var(--ink-soft);margin-bottom:5px;letter-spacing:.02em}
 input{width:100%;font-family:inherit;font-size:14px;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:7px;padding:10px 12px}
 input:focus{outline:none;border-color:var(--green-2);box-shadow:0 0 0 3px rgba(31,61,48,.1)}
-input.otp-input{letter-spacing:8px;font-size:20px;text-align:center;font-weight:600;font-family:'Hanken Grotesk',sans-serif}
+input.otp-input{letter-spacing:4px;font-size:18px;text-align:center;font-weight:600;font-family:'Hanken Grotesk',sans-serif}
 .btn{width:100%;font-family:inherit;font-size:14px;font-weight:600;border:1px solid var(--green);background:var(--green);color:#f4efe4;border-radius:8px;padding:11px 16px;cursor:pointer;transition:.15s;margin-top:4px}
 .btn:hover{background:var(--green-2)}
 .btn:disabled{opacity:.6;cursor:not-allowed}
@@ -60,7 +60,7 @@ input.otp-input{letter-spacing:8px;font-size:20px;text-align:center;font-weight:
   <div id="paneCode" class="pane">
     <div class="center email-chip" id="emailChip"></div>
     <form id="codeForm">
-      <div class="field"><label>6-digit code</label><input type="text" id="codeInput" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="6" required placeholder="000000" autocomplete="one-time-code"></div>
+      <div class="field"><label>Verification code</label><input type="text" id="codeInput" class="otp-input" inputmode="numeric" pattern="[0-9]*" maxlength="10" minlength="6" required placeholder="Enter code from email" autocomplete="one-time-code"></div>
       <button class="btn" type="submit" id="verifyBtn">Verify &amp; Log In</button>
     </form>
     <button class="link" id="resendBtn">Resend code</button>
