@@ -457,6 +457,8 @@
   .nav-toggle{z-index:2 !important}  /* above the drawer, X stays tappable */
 }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/verbatra-auth.js"></script>
 </head>
 <body>
 <a href="#main-content" class="skip-link" style="position:absolute;top:-40px;left:0;padding:8px 14px;background:var(--green);color:var(--paper);font-size:13px;font-weight:600;border-radius:0 0 8px 0;z-index:9999;transition:top .15s" onfocus="this.style.top='0'" onblur="this.style.top='-40px'">Skip to main content</a>
@@ -537,6 +539,7 @@
         </div>
       </div>
     </div>
+    <a class="nav-cta-solid" id="navAccountLink" href="/login.html">Log In</a>
 </nav>
 <div class="nav-overlay" aria-hidden="true"></div>
 
@@ -874,6 +877,9 @@ document.getElementById("yr").textContent=new Date().getFullYear();
     else if(mq.addListener) mq.addListener(onResize);
   }
 })();
+</script>
+<script>
+if(window.VBAuth){ window.VBAuth.paintNavAccountLink(); }
 </script>
 </body>
 </html>

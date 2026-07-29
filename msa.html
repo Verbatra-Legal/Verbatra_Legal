@@ -202,12 +202,18 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
 .vbdd-panel a{display:block;padding:6px 0;color:var(--ink,#1a1a17);text-decoration:none;font-family:'Hanken Grotesk',sans-serif;font-size:13.5px;font-weight:500;line-height:1.35;transition:color .12s,padding-left .12s;letter-spacing:0;text-transform:none}
 .vbdd-panel a:hover{color:var(--green,#1f3d30);padding-left:4px}
 .vbdd-panel a::after{display:none}
+.nav-account{font-size:13px;font-weight:700;color:#f4efe4;background:var(--green,#1f3d30);padding:9px 18px;border-radius:8px;text-decoration:none;letter-spacing:.02em;transition:.15s;margin-left:6px}
+.nav-account:hover{background:var(--green-2,#2c5443)}
 
 </style>
 
 <script type="application/ld+json" data-vb="faq">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What's the difference between an MSA and a Statement of Work (SOW)?","acceptedAnswer":{"@type":"Answer","text":"A Master Service Agreement (MSA) is a framework contract that sets the legal terms governing the overall commercial relationship between the parties: liability, indemnity, intellectual property, confidentiality, termination, payment terms, and dispute resolution. A Statement of Work (SOW) is a project-specific document executed under the MSA that sets the scope, deliverables, timelines and fees for one specific engagement. The MSA is signed once. Multiple SOWs can be issued under it over time, each governed by the master terms."}},{"@type":"Question","name":"What's a reasonable liability cap in an Indian MSA?","acceptedAnswer":{"@type":"Answer","text":"There is no statutory cap. Industry practice in India for commercial MSAs is to cap the service provider's aggregate liability at one to three times the fees paid under the SOW that gave rise to the claim, or at the fees paid in the trailing twelve months. Customer-side counsel typically push for higher caps and exclusions for IP indemnity and confidentiality breaches. Service-provider-side counsel typically push for lower caps and exclude consequential and indirect damages. A cap below the value of the SOW or below Rs. 1 lakh is generally considered unreasonable and Verbatra's risk-review tool flags this."}},{"@type":"Question","name":"Who owns the IP created during the engagement?","acceptedAnswer":{"@type":"Answer","text":"This is one of the most negotiated clauses in any MSA. Common approaches: (1) Customer-owned: all work product belongs to the customer on payment, with the provider retaining a licence to use pre-existing IP and generally-applicable techniques. This is standard for bespoke development engagements. (2) Provider-owned with licence: the provider retains ownership of work product and grants the customer a licence to use it. This is standard for software-as-a-service and reusable platform engagements. (3) Joint or hybrid: bespoke deliverables transferred to the customer, with the provider retaining ownership of underlying tools and frameworks. Verbatra's MSA generator lets you pick the approach that matches the commercial reality."}},{"@type":"Question","name":"Is termination for convenience standard in an Indian MSA?","acceptedAnswer":{"@type":"Answer","text":"Termination for convenience (either party can terminate without cause on notice) is enforceable in India and is increasingly standard in commercial MSAs, particularly in IT services and consulting. Typical notice periods range from 30 to 90 days. If your MSA has only termination for cause, you are locked in until the term ends or until the other party defaults, which can leave you stuck in a relationship that is not working. Verbatra's MSA defaults to a 60-day termination-for-convenience right for both parties."}},{"@type":"Question","name":"Is GST charged on services rendered under an MSA?","acceptedAnswer":{"@type":"Answer","text":"Yes. Services rendered in India under an MSA attract GST at the applicable rate (currently 18% for most professional and IT services). The service provider is responsible for charging, collecting and depositing GST. The fees stated in your SOW should be specified as either GST-inclusive or GST-exclusive to avoid disputes. For cross-border services (export of services), GST treatment depends on whether the supply qualifies as an export under the IGST Act, which has specific conditions."}},{"@type":"Question","name":"Do I still need a lawyer if I use Verbatra?","acceptedAnswer":{"@type":"Answer","text":"Verbatra produces a solid, India-specific first draft drafted by a corporate lawyer. For most standard, low-stakes contracts between commercial parties, the generated document is enough. For higher-stakes transactions, contracts that materially deviate from standard terms, contracts involving regulated industries, or anything you would be uncomfortable signing without independent review, you should have a qualified lawyer review the document before execution. Verbatra is not a substitute for advice on your specific facts."}},{"@type":"Question","name":"Is my data safe when I use Verbatra?","acceptedAnswer":{"@type":"Answer","text":"Yes. Verbatra runs entirely in your browser. The document you build is rendered locally on your device and is never uploaded to Verbatra's servers, stored anywhere, or transmitted to any third party. Verbatra cannot read what you draft. The only data we collect is the contact information you voluntarily provide on the lead-capture form before download."}},{"@type":"Question","name":"Is Verbatra actually free?","acceptedAnswer":{"@type":"Answer","text":"Yes, every generator on Verbatra is free to use, with no payment, subscription, or credit card required. Verbatra was built by a corporate lawyer to give Indian businesses access to enterprise-grade legal drafting without the friction of paying a lawyer for a routine first draft. Verbatra makes money by offering paid contract negotiation and legal-operations services to clients who want a lawyer to take the document further."}}]}</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="/verbatra-auth.js"></script>
+<script>
+/* Require login before this tool can be used at all */
+(function(){ if(window.VBAuth){ window.VBAuth.requireLoginGate(); } })();
+</script>
 </head>
 <body>
 <nav class="vb-toolnav" role="navigation" aria-label="Site navigation">
@@ -282,6 +288,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--green-2)
           <a href="/privacy.html">Privacy Policy</a>
         </div>
       </div>
+      <a class="nav-account" id="navAccountLink" href="/login.html">Log In</a>
   </div>
 </nav>
 <div class="nav-overlay" aria-hidden="true"></div>
@@ -765,6 +772,7 @@ function curMoney(amt){ return curCode()+" "+Number(amt||0).toLocaleString("en-U
 
 updateHints();
 render();
+if(window.VBAuth){ window.VBAuth.paintNavAccountLink(); }
 
 </script>
 

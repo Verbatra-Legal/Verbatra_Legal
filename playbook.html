@@ -198,9 +198,15 @@ input:focus,select:focus{outline:none;border-color:var(--green-2);box-shadow:0 0
 .vbdd-panel a:hover{background:rgba(31,61,48,.07);color:var(--green,#1f3d30)}
 .nav-cta{font-size:13px;font-weight:700;color:#f4efe4;background:var(--green,#1f3d30);padding:9px 18px;border-radius:8px;text-decoration:none;letter-spacing:.02em;transition:.15s}
 .nav-cta:hover{background:var(--green-2,#2c5443)}
+.nav-account{font-size:13px;font-weight:700;color:#f4efe4;background:var(--oxblood,#7a2e26);padding:9px 18px;border-radius:8px;text-decoration:none;letter-spacing:.02em;transition:.15s;margin-left:6px}
+.nav-account:hover{background:#5f2018}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="/verbatra-auth.js"></script>
+<script>
+/* Require login before this tool can be used at all */
+(function(){ if(window.VBAuth){ window.VBAuth.requireLoginGate(); } })();
+</script>
 </head>
 <body>
 <nav class="vb-toolnav">
@@ -247,6 +253,7 @@ input:focus,select:focus{outline:none;border-color:var(--green-2);box-shadow:0 0
       </div>
     </div>
     <a class="nav-cta" href="/#tools">Free Tools</a>
+    <a class="nav-account" id="navAccountLink" href="/login.html">Log In</a>
   </div>
 </nav>
 <div class="nav-overlay" aria-hidden="true"></div>
@@ -917,6 +924,7 @@ _wireModal();
 _wireExport();
 updateHints();
 render();
+if(window.VBAuth){ window.VBAuth.paintNavAccountLink(); }
 </script>
 <script>
 /* Verbatra nav dropdown controller */

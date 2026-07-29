@@ -88,6 +88,43 @@
     return true;
   }
 
+  /**
+   * Call this immediately on page load for tool pages that should require
+   * login before the user can even see/use the tool (not just at export).
+   * - Not logged in -> redirects to login immediately, returns false
+   * - Logged in     -> returns true, page continues loading normally
+   *
+   * Usage — put this at the very top of a tool page's script, right after
+   * the two <script src> tags for Supabase + verbatra-auth.js:
+   *   VBAuth.requireLoginGate();
+   */
+  async function requireLoginGate() {
+    const session = await getSession();
+    if (!session) { goToLogin(); return false; }
+    return true;
+  }
+
+  /**
+   * Call this on any page with a nav bar to swap a placeholder "Log In"
+   * link into "My Account" once a session is detected. Expects an element
+   * with id="navAccountLink" whose default state is a Log In link.
+   *
+   * Usage — put this near the bottom of the page, after the nav markup:
+   *   VBAuth.paintNavAccountLink();
+   */
+  async function paintNavAccountLink() {
+    const link = document.getElementById("navAccountLink");
+    if (!link) return;
+    const session = await getSession();
+    if (session) {
+      link.textContent = "My Account";
+      link.href = "/account.html";
+    } else {
+      link.textContent = "Log In";
+      link.href = "/login.html?redirect=" + currentPageUrl();
+    }
+  }
+
   window.VBAuth = {
     supabase: sb,
     getSession,
@@ -95,6 +132,8 @@
     signOut,
     getUsageStatus,
     requireCreditAndProceed,
+    requireLoginGate,
+    paintNavAccountLink,
     goToLogin,
     goToUpgrade,
   };
