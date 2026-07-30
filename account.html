@@ -45,6 +45,8 @@ h1{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(24px,3.4vw,32px)
 .plan .price small{font-size:12px;color:var(--ink-soft);font-family:'Hanken Grotesk',sans-serif;font-weight:500}
 .plan .save{font-size:11.5px;color:var(--oxblood);font-weight:700}
 .plan .desc{font-size:12px;color:var(--ink-soft);line-height:1.5;flex:1}
+.plan .first-price{font-size:11.5px;color:var(--green);background:rgba(31,61,48,.07);border-radius:6px;padding:5px 8px;margin-top:2px}
+.plan .first-price b{color:var(--oxblood)}
 .plan button{font-family:inherit;font-size:13px;font-weight:600;border:1px solid var(--green);background:var(--green);color:#f4efe4;border-radius:8px;padding:10px 12px;cursor:pointer;transition:.15s}
 .plan button:hover{background:var(--green-2)}
 .plan button:disabled{opacity:.6;cursor:not-allowed}
@@ -75,10 +77,16 @@ h1{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(24px,3.4vw,32px)
   <div class="plans-h">Upgrade for unlimited documents</div>
   <p class="plans-sub">Free accounts get 5 documents a month across every Verbatra tool. Subscribe on any cycle below for unlimited generation, review and playbook creation &mdash; cancel anytime from this page.</p>
 
+  <div class="field" style="max-width:280px;margin-bottom:18px">
+    <label>Coupon code (optional)</label>
+    <input type="text" id="couponInput" placeholder="e.g. FIRSTBUY" style="text-transform:uppercase">
+  </div>
+
   <div class="plans" id="plansGrid">
     <div class="plan" data-plan="monthly">
       <h3>Monthly</h3>
       <div class="price">&#8377;999<small>/month</small></div>
+      <div class="first-price">First month: <b>&#8377;699</b> with code FIRSTBUY</div>
       <div class="desc">Billed every month. Cancel anytime.</div>
       <button data-plan="monthly">Subscribe</button>
     </div>
@@ -86,6 +94,7 @@ h1{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(24px,3.4vw,32px)
       <h3>Quarterly</h3>
       <div class="price">&#8377;2,499<small>/3 months</small></div>
       <div class="save">Save ~17%</div>
+      <div class="first-price">First cycle: <b>&#8377;1,749</b> with code FIRSTBUY</div>
       <div class="desc">Billed every 3 months.</div>
       <button data-plan="quarterly">Subscribe</button>
     </div>
@@ -94,6 +103,7 @@ h1{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(24px,3.4vw,32px)
       <h3>6-Month</h3>
       <div class="price">&#8377;4,499<small>/6 months</small></div>
       <div class="save">Save ~25%</div>
+      <div class="first-price">First cycle: <b>&#8377;3,149</b> with code FIRSTBUY</div>
       <div class="desc">Billed every 6 months.</div>
       <button data-plan="half_yearly">Subscribe</button>
     </div>
@@ -101,12 +111,13 @@ h1{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(24px,3.4vw,32px)
       <h3>Annual</h3>
       <div class="price">&#8377;7,999<small>/year</small></div>
       <div class="save">Save ~33%</div>
+      <div class="first-price">First cycle: <b>&#8377;5,599</b> with code FIRSTBUY</div>
       <div class="desc">Billed once a year.</div>
       <button data-plan="annual">Subscribe</button>
     </div>
   </div>
 
-  <p class="fine">Prices shown are illustrative &mdash; update them in this page and in your Razorpay plan configuration before going live. Payments are processed securely by Razorpay; Verbatra never stores your card details. Subscriptions auto-renew each cycle until cancelled.</p>
+  <p class="fine">Payments are processed securely by Razorpay; Verbatra never stores your card details. Subscriptions auto-renew each cycle until cancelled. FIRSTBUY discount applies once, to your first-ever subscription payment only.</p>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
@@ -116,7 +127,7 @@ h1{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(24px,3.4vw,32px)
 const $ = id => document.getElementById(id);
 
 // ---- FILL IN: your deployed edge function URL ----
-const CREATE_SUB_ENDPOINT = "https://YOUR-PROJECT-REF.supabase.co/functions/v1/create-razorpay-subscription";
+const CREATE_SUB_ENDPOINT = "https://cgjlfxyhyesxrqvcvlyh.supabase.co/functions/v1/create-razorpay-subscription";
 // ---------------------------------------------------
 
 $("signOutBtn").addEventListener("click", ()=>window.VBAuth.signOut());
@@ -159,10 +170,11 @@ async function subscribe(plan){
   btns.forEach(b=>b.disabled = true);
 
   try {
+    const coupon = ($("couponInput") && $("couponInput").value || "").trim();
     const res = await fetch(CREATE_SUB_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json", "Authorization": "Bearer " + session.access_token },
-      body: JSON.stringify({ plan })
+      body: JSON.stringify({ plan, coupon })
     });
     const data = await res.json();
     if (!res.ok) { alert("Could not start checkout: " + (data.error || "unknown error")); btns.forEach(b=>b.disabled=false); return; }
