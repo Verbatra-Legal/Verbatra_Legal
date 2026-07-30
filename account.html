@@ -176,8 +176,25 @@ async function subscribe(plan){
       headers: { "Content-Type": "application/json", "Authorization": "Bearer " + session.access_token },
       body: JSON.stringify({ plan, coupon })
     });
-    const data = await res.json();
-    if (!res.ok) { alert("Could not start checkout: " + (data.error || "unknown error")); btns.forEach(b=>b.disabled=false); return; }
+
+    const rawText = await res.text();
+    let data = null;
+    try { data = JSON.parse(rawText); } catch (parseErr) { /* response wasn't JSON at all */ }
+
+    if (!res.ok) {
+      const detail = (data && (data.error || data.message)) ? (data.error || data.message) : ("HTTP " + res.status + " — " + (rawText || "empty response"));
+      console.error("Verbatra checkout error. Status:", res.status, "Body:", rawText);
+      alert("Could not start checkout: " + detail + "\n\nFull details have been logged to the browser console (F12 → Console) for debugging.");
+      btns.forEach(b=>b.disabled=false);
+      return;
+    }
+
+    if (!data || !data.subscription_id || !data.key_id) {
+      console.error("Verbatra checkout error: response missing subscription_id/key_id. Body:", rawText);
+      alert("Checkout could not start — the server response was incomplete. Details logged to the browser console (F12 → Console).");
+      btns.forEach(b=>b.disabled=false);
+      return;
+    }
 
     const rzp = new Razorpay({
       key: data.key_id,
@@ -190,7 +207,8 @@ async function subscribe(plan){
     });
     rzp.open();
   } catch (e) {
-    alert("Something went wrong starting checkout. Please try again.");
+    console.error("Verbatra checkout exception:", e);
+    alert("Something went wrong starting checkout: " + e.message + "\n\nDetails logged to the browser console (F12 → Console).");
     btns.forEach(b=>b.disabled = false);
   }
 }
