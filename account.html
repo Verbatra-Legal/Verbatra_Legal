@@ -127,7 +127,8 @@ h1{font-family:'Fraunces',serif;font-weight:500;font-size:clamp(24px,3.4vw,32px)
 const $ = id => document.getElementById(id);
 
 // ---- FILL IN: your deployed edge function URL ----
-const CREATE_SUB_ENDPOINT = "https://cgjlfxyhyesxrqvcvlyh.supabase.co/functions/v1/create-razorpay-subscription";
+// (No manual endpoint URL needed — supabase.functions.invoke() below
+// resolves the correct URL and headers automatically.)
 // ---------------------------------------------------
 
 $("signOutBtn").addEventListener("click", ()=>window.VBAuth.signOut());
@@ -171,26 +172,35 @@ async function subscribe(plan){
 
   try {
     const coupon = ($("couponInput") && $("couponInput").value || "").trim();
-    const res = await fetch(CREATE_SUB_ENDPOINT, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "Authorization": "Bearer " + session.access_token },
-      body: JSON.stringify({ plan, coupon })
+    const sb = window.VBAuth.supabase;
+
+    // Using supabase.functions.invoke() instead of a raw fetch() — the SDK
+    // automatically attaches the required 'apikey' header (needed by
+    // Supabase's gateway with the new publishable/secret key system) as
+    // well as the user's Authorization bearer token. A plain fetch() was
+    // missing the apikey header, which the gateway rejected before our
+    // function code ever ran.
+    const { data, error } = await sb.functions.invoke("create-razorpay-subscription", {
+      body: { plan, coupon }
     });
 
-    const rawText = await res.text();
-    let data = null;
-    try { data = JSON.parse(rawText); } catch (parseErr) { /* response wasn't JSON at all */ }
-
-    if (!res.ok) {
-      const detail = (data && (data.error || data.message)) ? (data.error || data.message) : ("HTTP " + res.status + " — " + (rawText || "empty response"));
-      console.error("Verbatra checkout error. Status:", res.status, "Body:", rawText);
+    if (error) {
+      let detail = error.message || "unknown error";
+      // FunctionsHttpError exposes the raw response on error.context when available
+      if (error.context && typeof error.context.json === "function") {
+        try {
+          const body = await error.context.json();
+          detail = body.error || body.message || detail;
+        } catch (_) { /* body wasn't JSON, keep the generic message */ }
+      }
+      console.error("Verbatra checkout error:", error);
       alert("Could not start checkout: " + detail + "\n\nFull details have been logged to the browser console (F12 → Console) for debugging.");
       btns.forEach(b=>b.disabled=false);
       return;
     }
 
     if (!data || !data.subscription_id || !data.key_id) {
-      console.error("Verbatra checkout error: response missing subscription_id/key_id. Body:", rawText);
+      console.error("Verbatra checkout error: response missing subscription_id/key_id.", data);
       alert("Checkout could not start — the server response was incomplete. Details logged to the browser console (F12 → Console).");
       btns.forEach(b=>b.disabled=false);
       return;
