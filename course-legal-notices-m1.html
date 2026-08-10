@@ -154,6 +154,19 @@ body{font-family:'Hanken Grotesk',sans-serif;background:var(--cream);color:var(-
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"LearningResource","name":"Module 1: The Strategic Role of Pre-Litigation Notices","description":"Module 1 of the Verbatra Legal Notices and Pre-Litigation Strategy.","url":"https://www.verbatra.com/course-legal-notices-m1.html","isPartOf":{"@type":"Course","name":"Legal Notices and Pre-Litigation Strategy","url":"https://www.verbatra.com/course-legal-notices.html"},"provider":{"@type":"Organization","name":"Verbatra","url":"https://www.verbatra.com"},"educationalLevel":"Intermediate","inLanguage":"en","isAccessibleForFree":true}
 </script>
+<style id="verbatra-mobile-nav-fix">
+@media (max-width:860px){
+  nav:not(.foot-links), .course-nav, .vb-toolnav{
+    -webkit-backdrop-filter:none !important;
+    backdrop-filter:none !important;
+    background:rgba(244,239,228,.97) !important;
+    z-index:400 !important;
+  }
+  .nav-overlay{z-index:380 !important}
+  .nav-links{z-index:1 !important}
+  .nav-toggle{z-index:2 !important}
+}
+</style>
 </head>
 <body>
 <nav class="course-nav">
@@ -163,6 +176,9 @@ body{font-family:'Hanken Grotesk',sans-serif;background:var(--cream);color:var(-
     <div class="vbdd" data-vbdd="vbdd-tools">
       <button type="button" class="vbdd-trigger" aria-expanded="false" aria-haspopup="true">Tools</button>
       <div class="vbdd-panel" id="vbdd-tools">
+        <span class="vbdd-h">Review</span>
+        <a href="/redline.html">Contract Risk Review</a>
+        <a href="/playbook.html">Contract Review Playbook</a>
         <span class="vbdd-h">Contracts</span>
         <a href="/nda.html">NDA &mdash; Non-Disclosure</a>
         <a href="/msa.html">Master Service Agreement</a>
@@ -177,8 +193,6 @@ body{font-family:'Hanken Grotesk',sans-serif;background:var(--cream);color:var(-
         <a href="/legal-notice.html">Legal Notice</a>
         <a href="/section-138-notice.html">Section 138 Cheque Notice</a>
         <a href="/trademark-cease-desist.html">Trademark Cease &amp; Desist</a>
-        <span class="vbdd-h">Review</span>
-        <a href="/redline.html">Contract Risk Review</a>
       </div>
     </div>
     <div class="vbdd" data-vbdd="vbdd-courses">
