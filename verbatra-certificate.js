@@ -152,10 +152,10 @@ function generateCertificatePDF(name, courseTitle, certId, onDone){
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(8.5);
   doc.setTextColor.apply(doc, INK);
-  doc.text('Arnav Bhardwaj', LX, ruleY + 5, { align: 'center' });
+  doc.text('Verbatra Team', LX, ruleY + 5, { align: 'center' });
   doc.setFont('helvetica', 'normal');
   doc.setTextColor.apply(doc, INK_SOFT);
-  vbCenterText('Corporate Lawyer & Founder, Verbatra', LX, ruleY + 9, 7, 0.2);
+  vbCenterText('Authorised Signatory, Verbatra', LX, ruleY + 9, 7, 0.2);
   
   // --- RIGHT column: navy seal, vertically centered on colMid ---
   const NAVY = [28, 42, 74];
